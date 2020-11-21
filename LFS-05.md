@@ -8,7 +8,7 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-03.md)
-[NEXT](LFS-05.md)
+[NEXT](index.md)
 
 <br>
 <img src="pictures/LFS-A36.jpg" width="960">
@@ -304,6 +304,6 @@ rms46@pamulang1:~$
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-03.md)
-[NEXT](LFS-05.md)
+[NEXT](index.md)
 <br>
 

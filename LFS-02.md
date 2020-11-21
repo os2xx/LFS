@@ -26,7 +26,7 @@
 
 * You should adjust these following according to your own belief and faith.
 
-  * GPT (GUID Partition Table) for /dev/sda (16 GB) and /dev/sdb (32 GB)
+  * MBR Partition Table for /dev/sda (16 GB) and /dev/sdb (32 GB)
 
   * Hostname: osp
 
