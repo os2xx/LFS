@@ -8,7 +8,7 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-01.md)
-[NEXT](index.md)
+[NEXT](LFS-03.md)
 
 * See also <https://osp4diss.vlsm.org/InstallDebianNetinst.html>
 
@@ -104,6 +104,6 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-01.md)
-[NEXT](index.md)
+[NEXT](LFS-03.md)
 <br>
 

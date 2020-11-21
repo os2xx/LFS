@@ -22,6 +22,8 @@ If you never have installed a VirtualBox Guest before:
 
 * [Install Debian NetInst](LFS-02.md)
 
+* [LFS 01](LFS-03.md)
+
 <br>
 <hr>
 <br>
