@@ -98,6 +98,25 @@ root@osp:/bin# ls -al sh
 lrwxrwxrwx 1 root root 4 Nov 21 15:29 sh -> bash
 ```
 
+```
+DEBS="
+apt-file
+bison
+build-essential
+gawk
+texinfo
+"
+
+apt-get install $DEBS -y
+
+
+```
+
+```
+```
+
+
+
 
 <br>
 #### ENDOFPAGE
