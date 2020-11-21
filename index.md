@@ -3,8 +3,8 @@
 
 [HOME](index.md)
 [ABOUT](README.md)
-[WEB](https://osp4diss.vlsm.org/)
-[GITHUB](https://github.com/OSP4DISS/osp4diss/)
+[WEB](https://lfs.vlsm.org/)
+[GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
 
@@ -17,8 +17,8 @@
 #### ENDOFPAGE
 [HOME](index.md)
 [ABOUT](README.md)
-[WEB](https://osp4diss.vlsm.org/)
-[GITHUB](https://github.com/OSP4DISS/osp4diss/)
+[WEB](https://lfs.vlsm.org/)
+[GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
 <br>
