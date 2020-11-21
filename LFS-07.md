@@ -7,8 +7,8 @@
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-05.md)
-[NEXT](LFS-07.md)
+[PREV](LFS-06.md)
+[NEXT](index.md)
 
 <br>
 <img src="pictures/LFS-A38.jpg" width="960">
@@ -196,7 +196,7 @@ rms46@pamulang1:~$
 
 * Back to "pamulang1" host
 
-* Create LFS-04.OVA (backup)
+* Create LFS-05.OVA (backup)
 
 <br>
 #### ENDOFPAGE
@@ -206,7 +206,7 @@ rms46@pamulang1:~$
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-05.md)
-[NEXT](LFS-07.md)
+[PREV](LFS-06.md)
+[NEXT](index.md)
 <br>
 

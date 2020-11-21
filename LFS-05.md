@@ -21,15 +21,8 @@ ssh -p 6024 cbkadal@localhost
 ```
 rms46@pamulang1:~$ ssh -p 6024 cbkadal@localhost
 cbkadal@localhost's password: 
-Linux osp 4.19.0-12-amd64 #1 SMP Debian 4.19.152-1 (2020-10-18) x86_64
 
-The programs included with the Debian GNU/Linux system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.
-Last login: Sat Nov 21 21:32:06 2020 from 10.0.2.2
+===== TL;DR =====
 
 cbkadal@osp:~$ 
 
