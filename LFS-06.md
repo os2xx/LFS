@@ -7,8 +7,8 @@
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-04.md)
-[NEXT](LFS-06.md)
+[PREV](LFS-05.md)
+[NEXT](index.md)
 
 <br>
 <img src="pictures/LFS-A37.jpg" width="960">
@@ -205,7 +205,7 @@ rms46@pamulang1:~$
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-04.md)
-[NEXT](LFS-06.md)
+[PREV](LFS-05.md)
+[NEXT](index.md)
 <br>
 

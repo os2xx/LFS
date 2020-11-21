@@ -277,6 +277,7 @@ shutdown -h now
 root@osp:~# shutdown -h now
 Connection to localhost closed by remote host.
 Connection to localhost closed.
+
 rms46@pamulang1:~$
 
 ```
