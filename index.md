@@ -8,9 +8,19 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 
+# Virtual Box Guest
+
+If you never have installed a VirtualBox Guest before:
+
+* Visit: <https://osp4diss.vlsm.org/>
+
+* Or watch <https://www.youtube.com/playlist?list=PLwaskZn3rUGs-wP-9Nx-nVYQUBkM4Fkoz>
+
 # Linux From Scratch (LFS)
 
-* [VirtualBox Guest: LFS-ORIG.ova](LFS-01.md)
+* [Set a Blank VirtualBox Guest of LFS](LFS-01.md) (LFS-ORIG.ova)
+
+* [Install Debian NetInst](LFS-02.md)
 
 <br>
 <hr>

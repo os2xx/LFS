@@ -8,7 +8,7 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](index.md)
-[NEXT](index.md)
+[NEXT](LFS-02.md)
 
 # Virtual Box Guest
 
@@ -16,6 +16,8 @@
 * Create LFS-ORIG.ova
 
   * Base Memory Maximum, eg. 8096 MB
+
+  * **Boot Order [Optical, Harddisk]**
 
   * Processors (Core) Maximum, eg. 6
 
@@ -67,6 +69,8 @@
 * Settings:System:Motherboard
 
   * Base Memory (Maximum) eg. 8096 MB
+
+  * **Boot Order [Optical, Harddisk]**
 
 <img src="pictures/LFS-A05.jpg" width="960">
 <br>
@@ -141,6 +145,6 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](index.md)
-[NEXT](index.md)
+[NEXT](LFS-02.md)
 <br>
 
