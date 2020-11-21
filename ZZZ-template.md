@@ -3,8 +3,8 @@
 
 [HOME](index.md)
 [ABOUT](README.md)
-[WEB](https://osp4diss.vlsm.org/)
-[GITHUB](https://github.com/UI-FASILKOM-OS/osp4diss/)
+[WEB](https://lfs.vlsm.org/)
+[GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](index.md)
@@ -22,8 +22,8 @@ ssh -p 6022 osp@localhost
 #### ENDOFPAGE
 [HOME](index.md)
 [ABOUT](README.md)
-[WEB](https://osp4diss.vlsm.org/)
-[GITHUB](https://github.com/UI-FASILKOM-OS/osp4diss/)
+[WEB](https://lfs.vlsm.org/)
+[GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](index.md)
