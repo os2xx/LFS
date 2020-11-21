@@ -24,6 +24,8 @@ If you never have installed a VirtualBox Guest before:
 
 * [LFS 01](LFS-03.md)
 
+* [LFS 02](LFS-04.md)
+
 <br>
 <hr>
 <br>
