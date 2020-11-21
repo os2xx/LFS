@@ -41,31 +41,63 @@ su -
 ```
 
 ```
-apt-get update;apt-get dist-upgrade -y;apt-get autoremove --purge;apt-get autoclean -y;apt-get clean -y;
+cbkadal@osp:~$ su -
+Password: 
+root@osp:~# 
 ```
 
 ```
-cbkadal@osp:~$ su -
-Password: 
-root@osp:~# apt-get update;apt-get dist-upgrade -y;apt-get autoremove --purge;apt-get autoclean -y;apt-get clean -y;
-Hit:1 http://deb.debian.org/debian buster InRelease
-Hit:2 http://security.debian.org/debian-security buster/updates InRelease
+apt-get update
+apt-get dist-upgrade -y
+apt-get autoremove --purge -y
+apt-get autoclean -y
+apt-get clean -y
+cd /bin
+ls -al sh
+rm sh
+ln -s bash sh
+ls -al sh
+```
+
+```
+root@osp:~# apt-get update
+Hit:1 http://security.debian.org/debian-security buster/updates InRelease
+Hit:2 http://deb.debian.org/debian buster InRelease
 Hit:3 http://deb.debian.org/debian buster-updates InRelease
 Reading package lists... Done
+
+root@osp:~# apt-get dist-upgrade -y
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
 Calculating upgrade... Done
 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+root@osp:~# apt-get autoremove --purge -y
+
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+root@osp:~# apt-get autoclean -y
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
-root@osp:~#
+root@osp:~# apt-get clean -y
+
+root@osp:~# cd /bin
+
+root@osp:/bin# ls -al sh
+lrwxrwxrwx 1 root root 4 Nov 21 15:28 sh -> dash
+
+root@osp:/bin# rm sh
+
+root@osp:/bin# ln -s bash sh
+
+root@osp:/bin# ls -al sh
+lrwxrwxrwx 1 root root 4 Nov 21 15:29 sh -> bash
 ```
+
 
 <br>
 #### ENDOFPAGE
