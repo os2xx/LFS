@@ -526,18 +526,105 @@ lfs:/mnt/lfs/sources$
 ## Libstdc++ from GCC-10.2.0, Pass 1
 
 ```
+tar xf gcc-10.2.0.tar.xz
+cd gcc-10.2.0
+mkdir -v build
+cd       build
+../libstdc++-v3/configure           \
+    --host=$LFS_TGT                 \
+    --build=$(../config.guess)      \
+    --prefix=/usr                   \
+    --disable-multilib              \
+    --disable-nls                   \
+    --disable-libstdcxx-pch         \
+    --with-gxx-include-dir=/tools/$LFS_TGT/include/c++/10.2.0
 
-===== TL;DR =====
 ```
 
+```
+lfs:/mnt/lfs/sources$ tar xf gcc-10.2.0.tar.xz
+
+lfs:/mnt/lfs/sources$ cd gcc-10.2.0
+
+lfs:/mnt/lfs/sources/gcc-10.2.0$ mkdir -v build
+mkdir: created directory 'build'
+
+lfs:/mnt/lfs/sources/gcc-10.2.0$ cd       build
+
+lfs:/mnt/lfs/sources/gcc-10.2.0/build$ ../libstdc++-v3/configure           \
+>     --host=$LFS_TGT                 \
+>     --build=$(../config.guess)      \
+>     --prefix=/usr                   \
 
 ===== TL;DR =====
+
+    -e 's/\([ABCDEFGHIJKLMNOPQRSTUVWXYZ_]*USE_WEAK\)/_GLIBCXX_\1/g' \
+    -e 's,^#include "\(.*\)",#include <bits/\1>,g' \
+    < /mnt/lfs/sources/gcc-10.2.0/libstdc++-v3/../libgcc/gthr-single.h > x86_64-lfs-linux-gnu/bits/gthr-default.h 
+
+```
+
+```
+time make
+
+```
+
+```
+lfs:/mnt/lfs/sources/gcc-10.2.0/build$ time make
+make "AR_FLAGS=" "CC_FOR_BUILD=" "CC_FOR_TARGET=" "CFLAGS=-g -O2"
+"CXXFLAGS=" "CFLAGS_FOR_BUILD=" "CFLAGS_FOR_TARGET="
+"INSTALL=/usr/bin/install -c" "INSTALL_DATA=/usr/bin/install -c -m 644"
+
 ===== TL;DR =====
+
+make[2]: Leaving directory '/mnt/lfs/sources/gcc-10.2.0/build'
+make[1]: Leaving directory '/mnt/lfs/sources/gcc-10.2.0/build'
+
+real    0m11.079s
+user    0m41.301s
+sys     0m4.571s
+
+```
+
+```
+make DESTDIR=$LFS install
+cd ../..
+rm -rf gcc-10.2.0
+
+```
+
+```
+lfs:/mnt/lfs/sources/gcc-10.2.0/build$ make DESTDIR=$LFS install
+Making install in include
+make[1]: Entering directory '/mnt/lfs/sources/gcc-10.2.0/build/include'
+make[2]: Entering directory '/mnt/lfs/sources/gcc-10.2.0/build/include'
+
 ===== TL;DR =====
+
+make[2]: Nothing to be done for 'install-data-am'.
+make[2]: Leaving directory '/mnt/lfs/sources/gcc-10.2.0/build'
+make[1]: Leaving directory '/mnt/lfs/sources/gcc-10.2.0/build'
+
+lfs:/mnt/lfs/sources/gcc-10.2.0/build$ make DESTDIR=$LFS install
+Making install in include
+make[1]: Entering directory '/mnt/lfs/sources/gcc-10.2.0/build/include'
+make[2]: Entering directory '/mnt/lfs/sources/gcc-10.2.0/build/include'
+make[2]: Nothing to be done for 'install-exec-am'.
+
 ===== TL;DR =====
-===== TL;DR =====
-===== TL;DR =====
-===== TL;DR =====
+
+make[2]: Nothing to be done for 'install-data-am'.
+make[2]: Leaving directory '/mnt/lfs/sources/gcc-10.2.0/build'
+make[1]: Leaving directory '/mnt/lfs/sources/gcc-10.2.0/build'
+
+lfs:/mnt/lfs/sources/gcc-10.2.0/build$ cd ../..
+
+lfs:/mnt/lfs/sources$ rm -rf gcc-10.2.0
+
+lfs:/mnt/lfs/sources$
+
+```
+
 <hr>
 <hr>
 <hr>
