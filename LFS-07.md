@@ -323,6 +323,212 @@ lfs:/mnt/lfs/sources$
 <br>
 ## Linux-5.8.3 API Headers
 
+```
+tar xf linux-5.8.3.tar.xz
+cd linux-5.8.3
+time make mrproper
+time make headers
+find usr/include -name '.*' -delete
+rm usr/include/Makefile
+cp -rv usr/include $LFS/usr
+
+```
+
+```
+lfs:/mnt/lfs/sources$ tar xf linux-5.8.3.tar.xz
+
+lfs:/mnt/lfs/sources$ cd linux-5.8.3
+
+lfs:/mnt/lfs/sources/linux-5.8.3$ time make mrproper
+
+real	0m4.248s
+user	0m2.632s
+sys	0m0.832s
+
+lfs:/mnt/lfs/sources/linux-5.8.3$ time make headers
+  HOSTCC  scripts/basic/fixdep
+  WRAP    arch/x86/include/generated/uapi/asm/bpf_perf_event.h
+  WRAP    arch/x86/include/generated/uapi/asm/errno.h
+  WRAP    arch/x86/include/generated/uapi/asm/fcntl.h
+
+===== TL;DR =====
+
+  HDRINST usr/include/asm/fcntl.h
+  HDRINST usr/include/asm/unistd_32.h
+  HDRINST usr/include/asm/errno.h
+
+real	0m10.397s
+user	0m9.593s
+sys	0m2.702s
+
+lfs:/mnt/lfs/sources/linux-5.8.3$ find usr/include -name '.*' -delete
+
+lfs:/mnt/lfs/sources/linux-5.8.3$ rm usr/include/Makefile
+
+lfs:/mnt/lfs/sources/linux-5.8.3$ cp -rv usr/include $LFS/usr
+'usr/include' -> '/mnt/lfs/usr/include'
+'usr/include/asm-generic' -> '/mnt/lfs/usr/include/asm-generic'
+'usr/include/asm-generic/auxvec.h' -> '/mnt/lfs/usr/include/asm-generic/auxvec.h'
+
+===== TL;DR =====
+
+'usr/include/asm/sockios.h' -> '/mnt/lfs/usr/include/asm/sockios.h'
+'usr/include/asm/fcntl.h' -> '/mnt/lfs/usr/include/asm/fcntl.h'
+'usr/include/asm/errno.h' -> '/mnt/lfs/usr/include/asm/errno.h'
+lfs:/mnt/lfs/sources/linux-5.8.3$ 
+
+```
+
+```
+cd ..
+rm -rf linux-5.8.3
+
+```
+
+## Glibc-2.32
+
+```
+tar xf glibc-2.32.tar.xz
+cd glibc-2.32
+case $(uname -m) in
+    i?86)   ln -sfv ld-linux.so.2 $LFS/lib/ld-lsb.so.3
+    ;;
+    x86_64) ln -sfv ../lib/ld-linux-x86-64.so.2 $LFS/lib64
+            ln -sfv ../lib/ld-linux-x86-64.so.2 $LFS/lib64/ld-lsb-x86-64.so.3
+    ;;
+esac
+patch -Np1 -i ../glibc-2.32-fhs-1.patch
+mkdir -v build
+cd       build
+../configure                             \
+      --prefix=/usr                      \
+      --host=$LFS_TGT                    \
+      --build=$(../scripts/config.guess) \
+      --enable-kernel=3.2                \
+      --with-headers=$LFS/usr/include    \
+      libc_cv_slibdir=/lib
+
+```
+
+```
+lfs:/mnt/lfs/sources$ tar xf glibc-2.32.tar.xz
+
+lfs:/mnt/lfs/sources$ cd glibc-2.32
+
+lfs:/mnt/lfs/sources/glibc-2.32$ case $(uname -m) in
+>     i?86)   ln -sfv ld-linux.so.2 $LFS/lib/ld-lsb.so.3
+>     ;;
+>     x86_64) ln -sfv ../lib/ld-linux-x86-64.so.2 $LFS/lib64
+>             ln -sfv ../lib/ld-linux-x86-64.so.2 $LFS/lib64/ld-lsb-x86-64.so.3
+>     ;;
+> esac
+'/mnt/lfs/lib64/ld-linux-x86-64.so.2' -> '../lib/ld-linux-x86-64.so.2'
+'/mnt/lfs/lib64/ld-lsb-x86-64.so.3' -> '../lib/ld-linux-x86-64.so.2'
+
+lfs:/mnt/lfs/sources/glibc-2.32$ patch -Np1 -i ../glibc-2.32-fhs-1.patch
+patching file Makeconfig
+Hunk #1 succeeded at 245 (offset -5 lines).
+patching file nscd/nscd.h
+Hunk #1 succeeded at 161 (offset 49 lines).
+patching file nss/db-Makefile
+patching file sysdeps/generic/paths.h
+patching file sysdeps/unix/sysv/linux/paths.h
+
+lfs:/mnt/lfs/sources/glibc-2.32$ mkdir -v build
+mkdir: created directory 'build'
+
+lfs:/mnt/lfs/sources/glibc-2.32$ cd       build
+
+lfs:/mnt/lfs/sources/glibc-2.32/build$ ../configure                             \
+>       --prefix=/usr                      \
+>       --host=$LFS_TGT                    \
+>       --build=$(../scripts/config.guess) \
+
+===== TL;DR =====
+
+config.status: creating Makefile
+config.status: creating config.h
+config.status: executing default commands
+
+```
+
+```
+time make
+
+```
+
+```
+lfs:/mnt/lfs/sources/glibc-2.32/build$ time make
+make -r PARALLELMFLAGS="" -C .. objdir=`pwd` all
+make[1]: Entering directory '/mnt/lfs/sources/glibc-2.32'
+LC_ALL=C gawk -f scripts/sysd-rules.awk > /mnt/lfs/sources/glibc-2.32/build/sysd-rulesT \
+
+===== TL;DR =====
+
+make[2]: Leaving directory '/mnt/lfs/sources/glibc-2.32/elf'
+make[1]: Leaving directory '/mnt/lfs/sources/glibc-2.32'
+
+real    2m2.134s
+user    8m6.755s
+sys     1m53.313s
+
+```
+
+```
+time make DESTDIR=$LFS install
+echo 'int main(){}' > dummy.c
+$LFS_TGT-gcc dummy.c
+readelf -l a.out | grep '/ld-linux'
+rm -v dummy.c a.out
+$LFS/tools/libexec/gcc/$LFS_TGT/10.2.0/install-tools/mkheaders
+cd ../..
+rm -rf glibc-2.32
+
+```
+
+```
+lfs:/mnt/lfs/sources/glibc-2.32/build$ time make DESTDIR=$LFS install
+LC_ALL=C; export LC_ALL; \
+make -r PARALLELMFLAGS="" -C .. objdir=`pwd` install
+make[1]: Entering directory '/mnt/lfs/sources/glibc-2.32'
+
+===== TL;DR =====
+
+rm -f /mnt/lfs/sources/glibc-2.32/build/stubs.h
+make[1]: Leaving directory '/mnt/lfs/sources/glibc-2.32'
+
+real    0m29.065s
+user    0m38.891s
+sys     0m4.372s
+
+lfs:/mnt/lfs/sources/glibc-2.32/build$ echo 'int main(){}' > dummy.c
+
+lfs:/mnt/lfs/sources/glibc-2.32/build$ $LFS_TGT-gcc dummy.c
+
+lfs:/mnt/lfs/sources/glibc-2.32/build$ readelf -l a.out | grep '/ld-linux'
+      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
+
+lfs:/mnt/lfs/sources/glibc-2.32/build$ rm -v dummy.c a.out
+removed 'dummy.c'
+removed 'a.out'
+
+lfs:/mnt/lfs/sources/glibc-2.32/build$ $LFS/tools/libexec/gcc/$LFS_TGT/10.2.0/install-tools/mkheaders
+
+lfs:/mnt/lfs/sources/glibc-2.32/build$ cd ../..
+
+lfs:/mnt/lfs/sources$ rm -rf glibc-2.32
+
+lfs:/mnt/lfs/sources$ 
+
+```
+
+<br>
+## Libstdc++ from GCC-10.2.0, Pass 1
+
+```
+
+===== TL;DR =====
+```
 
 
 ===== TL;DR =====
