@@ -18,6 +18,10 @@ If you never have installed a VirtualBox Guest before:
 
 # Linux From Scratch (LFS)
 
+* Visit <http://www.linuxfromscratch.org/lfs/view/stable/>, or
+
+  * download <http://www.linuxfromscratch.org/lfs/downloads/10.0/>.
+
 * [Set a Blank VirtualBox Guest of LFS](LFS-01.md) (LFS-ORIG.ova)
 
 * [Install Debian NetInst](LFS-02.md)
