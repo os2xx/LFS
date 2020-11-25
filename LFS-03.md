@@ -10,13 +10,18 @@
 [PREV](LFS-02.md)
 [NEXT](LFS-04.md)
 
+# LFS: Chapter 2 part 1
+
 <img src="pictures/LFS-A35.jpg" width="960">
 <br>
 
+<br>
+### INPUT
 ```
 ssh -p 6024 cbkadal@localhost
 ```
 
+### OUTPUT
 ```
 rms46@pamulang1:~$ ssh -p 6024 cbkadal@localhost
 The authenticity of host '[localhost]:6024 ([127.0.0.1]:6024)' can't be established.
@@ -36,6 +41,8 @@ cbkadal@osp:~$
 
 ```
 
+<br>
+### INPUT
 ```
 cat > ~/.bash_profile << "EOF"
 # Files .bash_profile
@@ -52,6 +59,7 @@ echo   "LFS=$LFS"
 
 ```
 
+### OUTPUT
 ```
 cbkadal@osp:~$ cat > ~/.bash_profile << "EOF"
 > # Files .bash_profile
@@ -73,16 +81,21 @@ LFS=/mnt/lfs
 
 # LFS (Ch. 2) Preparing the LFS Host (=VirtualBox Guest)
 
+<br>
+### INPUT
 ```
 su -
 ```
 
+### OUTPUT
 ```
 cbkadal@osp:~$ su -
 Password: 
 root@osp:~# 
 ```
 
+<br>
+### INPUT
 ```
 cat > ~/.bash_profile << "EOF"
 # Files .bash_profile
@@ -99,6 +112,7 @@ echo   "LFS=$LFS"
 
 ```
 
+### OUTPUT
 ```
 root@osp:~# cat > ~/.bash_profile << "EOF"
 > # Files .bash_profile
@@ -120,6 +134,8 @@ root@osp:~#
 
 ```
 
+<br>
+### INPUT
 ```
 apt-get update
 apt-get dist-upgrade -y
@@ -135,6 +151,7 @@ cd
 
 ```
 
+### OUTPUT
 ```
 root@osp:~# apt-get update
 Hit:1 http://security.debian.org/debian-security buster/updates InRelease
@@ -182,6 +199,8 @@ root@osp:/~#
 
 ```
 
+<br>
+### INPUT
 ```
 DEBS="
 apt-file
@@ -196,7 +215,7 @@ apt-get install $DEBS -y
 
 ```
 
-
+### OUTPUT
 ```
 root@osp:~# DEBS="
 > apt-file
@@ -268,11 +287,14 @@ root@osp:~#
 
 ```
 
+<br>
+### INPUT
 ```
 shutdown -h now
 
 ```
 
+### OUTPUT
 ```
 root@osp:~# shutdown -h now
 Connection to localhost closed by remote host.

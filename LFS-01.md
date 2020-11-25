@@ -10,7 +10,7 @@
 [PREV](index.md)
 [NEXT](LFS-02.md)
 
-# Virtual Box Guest
+# Set a Blank VirtualBox Guest of LFS
 
 <br>
 * Create LFS-ORIG.ova

@@ -10,9 +10,13 @@
 [PREV](LFS-01.md)
 [NEXT](LFS-03.md)
 
+# Install Debian NetInst (Virtual Box)
+
 * See also <https://osp4diss.vlsm.org/InstallDebianNetinst.html>
 
+<br>
 # Virtual Box Guest
+
 <br>
 * Create LFS-ORIG
 
