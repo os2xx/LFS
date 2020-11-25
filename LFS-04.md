@@ -10,14 +10,19 @@
 [PREV](LFS-03.md)
 [NEXT](LFS-05.md)
 
+# LFS: Chapter 2 part 2
+
 <br>
 <img src="pictures/LFS-A36.jpg" width="960">
 
+<br>
+### INPUT
 ```
 ssh -p 6024 cbkadal@localhost
 
 ```
 
+### OUTPUT
 ```
 rms46@pamulang1:~$ ssh -p 6024 cbkadal@localhost
 cbkadal@localhost's password: 
@@ -34,11 +39,14 @@ cbkadal@osp:~$
 
 ```
 
+<br>
+### INPUT
 ```
 echo "LFS=$LFS"
 
 ```
 
+### OUTPUT
 ```
 cbkadal@osp:~$ echo "LFS=$LFS"
 LFS=/mnt/lfs
@@ -47,7 +55,11 @@ cbkadal@osp:~$
 
 ```
 
+<br>
+### INPUT
 ```
+cd /tmp
+
 cat > version-check.sh << "EOF"
 #!/bin/bash
 # Simple script to list version numbers of critical development tools
@@ -119,9 +131,14 @@ EOF
 
 bash version-check.sh
 
-```
+cd
 
 ```
+
+### OUTPUT
+```
+cbkadal@osp:~$ cd /tmp
+
 cbkadal@osp:/tmp$ cat > version-check.sh << "EOF"
 > #!/bin/bash
 > # Simple script to list version numbers of critical development tools
@@ -160,19 +177,30 @@ tar (GNU tar) 1.30
 texi2any (GNU texinfo) 6.5
 xz (XZ Utils) 5.2.4
 g++ compilation OK
-cbkadal@osp:/tmp$
+
+cbkadal@osp:/tmp$ cd
+
+cbkadal@osp:~$ 
 
 ```
 
+<br>
+### INPUT
 ```
 su -
-```
 
 ```
 
+### OUTPUT
+```
+cbkadal@osp:~$  su -
+
+root@osp:~#
+
 ```
 
-
+<br>
+### INPUT
 ```
 echo      "LFS=$LFS"
 mkdir     -v $LFS
@@ -183,6 +211,7 @@ parted    -l
 
 ```
 
+### OUTPUT
 ```
 root@osp:~# echo      "LFS=$LFS"
 LFS=/mnt/lfs
@@ -223,6 +252,8 @@ Number  Start   End     Size    Type     File system  Flags
 
 ```
 
+<br>
+### INPUT
 ```
 mv /etc/fstab /etc/ZOLD-$(date +%y%m%d)-fstab
 cat > /etc/fstab << "EOF"
@@ -241,6 +272,7 @@ swapon -s
 
 ```
 
+### OUTPUT
 ```
 root@osp:~# mv /etc/fstab /etc/ZOLD-$(date +%y%m%d)-fstab
 
@@ -277,11 +309,14 @@ root@osp:~#
 
 ```
 
+<br>
+### INPUT
 ```
 shutdown -h now
 
 ```
 
+### OUTPUT
 ```
 root@osp:~# shutdown -h now
 Connection to localhost closed by remote host.
