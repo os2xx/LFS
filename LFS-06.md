@@ -10,14 +10,19 @@
 [PREV](LFS-05.md)
 [NEXT](LFS-07.md)
 
+# LFS: Chapter 4
+
 <br>
 <img src="pictures/LFS-A38.jpg" width="960">
 
+<br>
+### INPUT
 ```
 ssh -p 6024 cbkadal@localhost
 
 ```
 
+### OUTPUT
 ```
 rms46@pamulang1:~$ ssh -p 6024 cbkadal@localhost
 cbkadal@localhost's password:
@@ -28,10 +33,14 @@ cbkadal@osp:~$
 
 ```
 
+<br>
+### INPUT
 ```
 su -
+
 ```
 
+### OUTPUT
 ```
 cbkadal@osp:~$ su -
 Password:
@@ -40,6 +49,8 @@ root@osp:~#
 
 ```
 
+<br>
+### INPUT
 ```
 echo $LFS
 mkdir -pv $LFS/{bin,etc,lib,sbin,usr,var}
@@ -52,7 +63,7 @@ useradd -s /bin/bash -g lfs -m -k /dev/null lfs
 
 ```
 
-
+### OUTPUT
 ```
 root@osp:~# echo $LFS
 /mnt/lfs
@@ -80,6 +91,8 @@ root@osp:~#
 
 ```
 
+<br>
+### INPUT
 ```
 [ ! -e /etc/bash.bashrc ] || mv -v /etc/bash.bashrc /etc/bash.bashrc.NOUSE
 passwd lfs
@@ -92,6 +105,7 @@ su - lfs
 
 ```
 
+### OUTPUT
 ```
 root@osp:~# [ ! -e /etc/bash.bashrc ] || mv -v /etc/bash.bashrc /etc/bash.bashrc.NOUSE
 renamed '/etc/bash.bashrc' -> '/etc/bash.bashrc.NOUSE'
@@ -124,6 +138,8 @@ lfs@osp:~$
 
 ```
 
+<br>
+### INPUT
 ```
 cat > ~/.bash_profile << "EOF"
 exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash
@@ -144,6 +160,7 @@ source ~/.bash_profile
 
 ```
 
+### OUTPUT
 ```
 lfs@osp:~$ cat > ~/.bash_profile << "EOF"
 > exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash
@@ -167,24 +184,31 @@ lfs:~$
 
 ```
 
+<br>
+### INPUT
 ```
 exit
 
 ```
 
 
+### OUTPUT
 ```
 lfs:~$ exit
 exit
 
 root@osp:~# 
+
 ```
 
+<br>
+### INPUT
 ```
 shutdown -h now
 
 ```
 
+### OUTPUT
 ```
 root@osp:~# shutdown -h now
 Connection to localhost closed by remote host.
