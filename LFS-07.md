@@ -8,16 +8,21 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-06.md)
-[NEXT](index.md)
+[NEXT](LFS-08.md)
+
+# LFS: Chapter 5
 
 <br>
 <img src="pictures/LFS-A39.jpg" width="960">
 
+<br>
+### INPUT
 ```
 ssh -p 6024 lfs@localhost
 
 ```
 
+### OUTPUT
 ```
 rms46@pamulang1:~$ ssh -p 6024 lfs@localhost
 lfs@localhost's password:
@@ -28,12 +33,15 @@ lfs@osp:~$
 
 ```
 
+<br>
+### INPUT
 ```
 echo $LFS
 cd $LFS/sources/
 
 ```
 
+### OUTPUT
 ```
 lfs:~$ echo $LFS
 /mnt/lfs
@@ -45,6 +53,8 @@ lfs:~$ cd $LFS/sources/
 <br>
 ## Binutils-2.35 - Pass 1
 
+<br>
+### INPUT
 ```
 tar xf binutils-2.35.tar.xz 
 cd binutils-2.35
@@ -58,6 +68,7 @@ cd       build
 
 ```
 
+### OUTPUT
 ```
 lfs:/mnt/lfs/sources$ tar xf binutils-2.35.tar.xz 
 
@@ -87,11 +98,14 @@ lfs:/mnt/lfs/sources/binutils-2.35/build$
 
 ```
 
+<br>
+### INPUT
 ```
 time make
 
 ```
 
+### OUTPUT
 ```
 lfs:/mnt/lfs/sources/binutils-2.35/build$ time make
 make[1]: Entering directory '/mnt/lfs/sources/binutils-2.35/build'
@@ -112,6 +126,8 @@ lfs:/mnt/lfs/sources/binutils-2.35/build$
 
 ```
 
+<br>
+### INPUT
 ```
 time make install
 cd ../..
@@ -119,6 +135,7 @@ rm -rf binutils-2.35
 
 ```
 
+### OUTPUT
 ```
 lfs:/mnt/lfs/sources/binutils-2.35/build$ time make install
 make[1]: Entering directory '/mnt/lfs/sources/binutils-2.35/build'
@@ -147,6 +164,8 @@ lfs:/mnt/lfs/sources$
 <br>
 ## GCC-10.2.0 - Pass 1
 
+<br>
+### INPUT
 ```
 tar xf gcc-10.2.0.tar.xz
 cd gcc-10.2.0/
@@ -165,6 +184,7 @@ esac
 
 ```
 
+### OUTPUT
 ```
 lfs:/mnt/lfs/sources$ tar xf gcc-10.2.0.tar.xz
 
@@ -196,7 +216,8 @@ lfs:/mnt/lfs/sources/gcc-10.2.0$
 
 ```
 
-
+<br>
+### INPUT
 ```
 mkdir -v build
 cd       build
@@ -223,6 +244,7 @@ cd       build
 
 ```
 
+### OUTPUT
 ```
 lfs:/mnt/lfs/sources/gcc-10.2.0$ mkdir -v build
 mkdir: created directory 'build'
@@ -244,11 +266,14 @@ lfs:/mnt/lfs/sources/gcc-10.2.0/build$
 
 ```
 
+<br>
+### INPUT
 ```
 time make
 
 ```
 
+### OUTPUT
 ```
 top - 00:23:22 up  1:02,  2 users,  load average: 4.38, 4.95, 3.09
 Tasks: 122 total,   5 running, 117 sleeping,   0 stopped,   0 zombie
@@ -266,6 +291,8 @@ MiB Swap:   1024.0 total,   1024.0 free,      0.0 used.   5063.0 avail Mem
 <br>
 <img src="pictures/LFS-A40.jpg" width="960">
 
+<br>
+### INPUT
 ```
 ===== TL;DR =====
 
@@ -279,11 +306,14 @@ sys	1m51.009s
 
 ```
 
+<br>
+### INPUT
 ```
 time make install
 
 ```
 
+### OUTPUT
 ```
 ===== TL;DR =====
 
@@ -298,6 +328,8 @@ lfs:/mnt/lfs/sources/gcc-10.2.0/build$
 
 ```
 
+<br>
+### INPUT
 ```
 cd ..
 cat gcc/limitx.h gcc/glimits.h gcc/limity.h > \
@@ -307,6 +339,7 @@ rm -rf gcc-10.2.0
 
 ```
 
+### OUTPUT
 ```
 lfs:/mnt/lfs/sources/gcc-10.2.0/build$ cd ..
 
@@ -323,6 +356,8 @@ lfs:/mnt/lfs/sources$
 <br>
 ## Linux-5.8.3 API Headers
 
+<br>
+### INPUT
 ```
 tar xf linux-5.8.3.tar.xz
 cd linux-5.8.3
@@ -334,6 +369,7 @@ cp -rv usr/include $LFS/usr
 
 ```
 
+### OUTPUT
 ```
 lfs:/mnt/lfs/sources$ tar xf linux-5.8.3.tar.xz
 
@@ -379,14 +415,28 @@ lfs:/mnt/lfs/sources/linux-5.8.3$
 
 ```
 
+<br>
+### INPUT
 ```
 cd ..
 rm -rf linux-5.8.3
 
 ```
 
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/linux-5.8.3$ cd ..
+
+lfs:/mnt/lfs/sources/$ rm -rf linux-5.8.3
+
+lfs:/mnt/lfs/sources/$ 
+
+```
+
 ## Glibc-2.32
 
+<br>
+### INPUT
 ```
 tar xf glibc-2.32.tar.xz
 cd glibc-2.32
@@ -410,6 +460,7 @@ cd       build
 
 ```
 
+### OUTPUT
 ```
 lfs:/mnt/lfs/sources$ tar xf glibc-2.32.tar.xz
 
@@ -452,11 +503,14 @@ config.status: executing default commands
 
 ```
 
+<br>
+### INPUT
 ```
 time make
 
 ```
 
+### OUTPUT
 ```
 lfs:/mnt/lfs/sources/glibc-2.32/build$ time make
 make -r PARALLELMFLAGS="" -C .. objdir=`pwd` all
@@ -474,6 +528,8 @@ sys     1m53.313s
 
 ```
 
+<br>
+### INPUT
 ```
 time make DESTDIR=$LFS install
 echo 'int main(){}' > dummy.c
@@ -486,6 +542,7 @@ rm -rf glibc-2.32
 
 ```
 
+### OUTPUT
 ```
 lfs:/mnt/lfs/sources/glibc-2.32/build$ time make DESTDIR=$LFS install
 LC_ALL=C; export LC_ALL; \
@@ -525,6 +582,8 @@ lfs:/mnt/lfs/sources$
 <br>
 ## Libstdc++ from GCC-10.2.0, Pass 1
 
+<br>
+### INPUT
 ```
 tar xf gcc-10.2.0.tar.xz
 cd gcc-10.2.0
@@ -541,6 +600,8 @@ cd       build
 
 ```
 
+<br>
+### INPUT
 ```
 lfs:/mnt/lfs/sources$ tar xf gcc-10.2.0.tar.xz
 
@@ -564,11 +625,14 @@ lfs:/mnt/lfs/sources/gcc-10.2.0/build$ ../libstdc++-v3/configure           \
 
 ```
 
+### OUTPUT
 ```
 time make
 
 ```
 
+<br>
+### INPUT
 ```
 lfs:/mnt/lfs/sources/gcc-10.2.0/build$ time make
 make "AR_FLAGS=" "CC_FOR_BUILD=" "CC_FOR_TARGET=" "CFLAGS=-g -O2"
@@ -586,6 +650,7 @@ sys     0m4.571s
 
 ```
 
+### OUTPUT
 ```
 make DESTDIR=$LFS install
 cd ../..
@@ -593,6 +658,8 @@ rm -rf gcc-10.2.0
 
 ```
 
+<br>
+### INPUT
 ```
 lfs:/mnt/lfs/sources/gcc-10.2.0/build$ make DESTDIR=$LFS install
 Making install in include
@@ -669,6 +736,6 @@ rms46@pamulang1:~$
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-06.md)
-[NEXT](index.md)
+[NEXT](LFS-08.md)
 <br>
 
