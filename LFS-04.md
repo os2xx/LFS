@@ -193,7 +193,8 @@ su -
 
 ### OUTPUT
 ```
-cbkadal@osp:~$  su -
+cbkadal@osp:~$ su -
+Password:
 
 root@osp:~#
 

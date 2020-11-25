@@ -10,14 +10,19 @@
 [PREV](LFS-04.md)
 [NEXT](LFS-06.md)
 
+# LFS: Chapter 3
+
 <br>
 <img src="pictures/LFS-A37.jpg" width="960">
 
+<br>
+### INPUT
 ```
 ssh -p 6024 cbkadal@localhost
 
 ```
 
+### OUTPUT
 ```
 rms46@pamulang1:~$ ssh -p 6024 cbkadal@localhost
 cbkadal@localhost's password: 
@@ -28,11 +33,14 @@ cbkadal@osp:~$
 
 ```
 
+<br>
+### INPUT
 ```
 su -
 
 ```
 
+### OUTPUT
 ```
 cbkadal@osp:~$ su -
 Password: 
@@ -41,6 +49,8 @@ root@osp:~#
 
 ```
 
+<br>
+### INPUT
 ```
 echo $LFS
 mkdir -v $LFS/sources
@@ -49,6 +59,7 @@ exit
 
 ```
 
+### OUTPUT
 ```
 root@osp:~# echo $LFS
 /mnt/lfs
@@ -66,6 +77,8 @@ cbkadal@osp:~$
 
 ```
 
+<br>
+### INPUT
 ```
 echo $LFS
 wget --continue http://www.linuxfromscratch.org/lfs/view/stable/wget-list
@@ -77,6 +90,7 @@ popd
 
 ```
 
+### OUTPUT
 ```
 cbkadal@osp:~$ echo $LFS
 /mnt/lfs
@@ -158,11 +172,14 @@ cbkadal@osp:~$
 
 ```
 
+<br>
+### INPUT
 ```
 su -
 
 ```
 
+### OUTPUT
 ```
 cbkadal@osp:~$ su -
 Password:
@@ -171,11 +188,14 @@ root@osp:~#
 
 ```
 
+<br>
+### INPUT
 ```
 shutdown -h now
 
 ```
 
+### OUTPUT
 ```
 root@osp:~# shutdown -h now
 Connection to localhost closed by remote host.
