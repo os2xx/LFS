@@ -782,6 +782,38 @@ lfs:/mnt/lfs/sources/findutils-4.7.0$
 
 ```
 
+<br>
+# Gawk-5.1.0
+
+### INPUT
+```
+tar xf gawk-5.1.0.tar.xz
+cd gawk-5.1.0
+sed -i 's/extras//' Makefile.in
+./configure --prefix=/usr   \
+            --host=$LFS_TGT \
+            --build=$(./config.guess)
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
 <br>### INPUT### OUTPUT
 ===== TL;DR =====
 
