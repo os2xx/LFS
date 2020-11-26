@@ -50,9 +50,9 @@ lfs:~$ cd $LFS/sources/
 
 ```
 
+<br>
 # Installation of M4
 
-<br>
 ### INPUT
 ```
 tar xf m4-1.4.18.tar.xz
@@ -142,6 +142,8 @@ lfs:/mnt/lfs/sources$
 ```
 
 <br>
+# Ncurses-6.2
+
 ### INPUT
 ```
 tar xf ncurses-6.2.tar.gz
@@ -295,6 +297,114 @@ lfs:/mnt/lfs/sources/ncurses-6.2$ cd ..
 lfs:/mnt/lfs/sources$ rm -rf ncurses-6.2
 
 lfs:/mnt/lfs/sources$
+
+```
+
+<br>
+# Bash-5.0
+
+### INPUT
+```
+tar xf bash-5.0.tar.gz
+cd bash-5.0
+patch -Np1 -i ../bash-5.0-upstream_fixes-1.patch
+./configure --prefix=/usr                   \
+            --build=$(support/config.guess) \
+            --host=$LFS_TGT                 \
+            --without-bash-malloc
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources$ tar xf bash-5.0.tar.gz
+
+lfs:/mnt/lfs/sources$ cd bash-5.0
+
+lfs:/mnt/lfs/sources/bash-5.0$ patch -Np1 -i ../bash-5.0-upstream_fixes-1.patch
+patching file bashhist.c
+patching file bashline.c
+patching file builtins/evalstring.c
+
+===== TL;DR =====
+
+patching file tests/varenv.right
+patching file variables.c
+patching file y.tab.c
+
+lfs:/mnt/lfs/sources/bash-5.0$ ./configure --prefix=/usr                   \
+>             --build=$(support/config.guess) \
+>             --host=$LFS_TGT                 \
+>             --without-bash-malloc
+
+===== TL;DR =====
+
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+config.status: executing default commands
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/bash-5.0$ time make
+rm -f mksyntax
+gcc -DPROGRAM='"bash"' -DCONF_HOSTTYPE='"x86_64"' -DCONF_OSTYPE='"linux-gnu"' ...
+gcc -DPROGRAM='"bash"' -DCONF_HOSTTYPE='"x86_64"' -DCONF_OSTYPE='"linux-gnu"' ...
+
+===== TL;DR =====
+
+real	0m8.294s
+user	0m30.051s
+sys	0m2.976s
+
+```
+
+<br>
+### INPUT
+```
+make DESTDIR=$LFS install
+mv $LFS/usr/bin/bash $LFS/bin/bash
+ln -sv bash $LFS/bin/sh
+cd ..
+rm -rf bash-5.0
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/bash-5.0$ make DESTDIR=$LFS install
+
+	  ***********************************************************
+	  *                                                         *
+	  * GNU bash, version 5.0.11(1)-release (x86_64-lfs-linux-gnu)
+	  *                                                         *
+	  ***********************************************************
+mkdir -p -- /mnt/lfs/usr/share/doc/bash
+
+===== TL;DR =====
+
+setpgid
+seq
+make[1]: Leaving directory '/mnt/lfs/sources/bash-5.0/examples/loadables'
+
+lfs:/mnt/lfs/sources/bash-5.0$ mv $LFS/usr/bin/bash $LFS/bin/bash
+
+lfs:/mnt/lfs/sources/bash-5.0$ ln -sv bash $LFS/bin/sh
+'/mnt/lfs/bin/sh' -> 'bash'
+
+lfs:/mnt/lfs/sources/bash-5.0$ cd ..
+
+lfs:/mnt/lfs/sources$ rm -rf bash-5.0
+
+lfs:/mnt/lfs/sources$ 
 
 ```
 
