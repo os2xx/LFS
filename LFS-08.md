@@ -408,6 +408,26 @@ lfs:/mnt/lfs/sources$
 
 ```
 
+<br>
+# Coreutils-8.32
+
+<br>
+### INPUT
+```
+tar xf coreutils-8.32.tar.xz
+cd coreutils-8.32
+patch -Np1 -i ../
+
+
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
 <br>### INPUT### OUTPUT
 ===== TL;DR =====
 
