@@ -114,7 +114,7 @@ sys	0m1.446s
 <br>
 ### INPUT
 ```
-make DESTDIR=$LFS install
+time make DESTDIR=$LFS install
 cd ..
 rm -rf m4-1.4.18
 
@@ -122,7 +122,7 @@ rm -rf m4-1.4.18
 
 ### OUTPUT
 ```
-lfs:/mnt/lfs/sources/m4-1.4.18$ make DESTDIR=$LFS install
+lfs:/mnt/lfs/sources/m4-1.4.18$ time make DESTDIR=$LFS install
 make  install-recursive
 make[1]: Entering directory '/mnt/lfs/sources/m4-1.4.18'
 Making install in .
@@ -370,7 +370,7 @@ sys	0m2.976s
 <br>
 ### INPUT
 ```
-make DESTDIR=$LFS install
+time make DESTDIR=$LFS install
 mv $LFS/usr/bin/bash $LFS/bin/bash
 ln -sv bash $LFS/bin/sh
 cd ..
@@ -380,7 +380,7 @@ rm -rf bash-5.0
 
 ### OUTPUT
 ```
-lfs:/mnt/lfs/sources/bash-5.0$ make DESTDIR=$LFS install
+lfs:/mnt/lfs/sources/bash-5.0$ time  make DESTDIR=$LFS install
 
 	  ***********************************************************
 	  *                                                         *
@@ -416,16 +416,201 @@ lfs:/mnt/lfs/sources$
 ```
 tar xf coreutils-8.32.tar.xz
 cd coreutils-8.32
-patch -Np1 -i ../
-
-
+patch -Np1 -i ../coreutils-8.32-i18n-1.patch
+./configure --prefix=/usr                     \
+            --host=$LFS_TGT                   \
+            --build=$(build-aux/config.guess) \
+            --enable-install-program=hostname \
+            --enable-no-install-program=kill,uptime
 
 ```
 
 ### OUTPUT
 ```
+fs:/mnt/lfs/sources$ tar xf coreutils-8.32.tar.xz
+
+lfs:/mnt/lfs/sources$ cd coreutils-8.32
+
+lfs:/mnt/lfs/sources/coreutils-8.32$ patch -Np1 -i ../coreutils-8.32-i18n-1.patch
+patching file bootstrap.conf
+patching file configure.ac
+patching file lib/linebuffer.h
 
 ===== TL;DR =====
+
+patching file tests/misc/uniq.pl
+patching file tests/pr/pr-tests.pl
+patching file tests/unexpand/mb.sh
+
+lfs:/mnt/lfs/sources/coreutils-8.32$ ./configure --prefix=/usr                     \
+>             --host=$LFS_TGT                   \
+>             --build=$(build-aux/config.guess) \
+>             --enable-install-program=hostname \
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+lfs:/mnt/lfs/sources/coreutils-8.32$ 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/bash-5.0$ time make
+rm -f mksyntax
+gcc -DPROGRAM='"bash"' -DCONF_HOSTTYPE='"x86_64"' -DCONF_OSTYPE='"linux-gnu"' -DCONF_MACHTYPE='"x86_64-lfs-linux-gnu"' -DCONF_VENDOR='"lfs"' -DLOCALEDIR='"/usr/share/locale"' -DPACKAGE='"bash"' -DSHELL -DHAVE_CONFIG_H   -I.  -I. -I./include -I./lib   -g -DCROSS_COMPILING -rdynamic -g -DCROSS_COMPILING -o mksyntax ./mksyntax.c 
+
+===== TL;DR =====
+
+real	0m8.340s
+user	0m29.895s
+sys	0m3.000s
+
+lfs:/mnt/lfs/sources/bash-5.0$ 
+
+```
+
+<br>
+### INPUT
+```
+time make DESTDIR=$LFS install
+mv -v $LFS/usr/bin/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} $LFS/bin
+mv -v $LFS/usr/bin/{false,ln,ls,mkdir,mknod,mv,pwd,rm}        $LFS/bin
+mv -v $LFS/usr/bin/{rmdir,stty,sync,true,uname}               $LFS/bin
+mv -v $LFS/usr/bin/{head,nice,sleep,touch}                    $LFS/bin
+mv -v $LFS/usr/bin/chroot                                     $LFS/usr/sbin
+mkdir -pv $LFS/usr/share/man/man8
+mv -v $LFS/usr/share/man/man1/chroot.1                        $LFS/usr/share/man/man8/chroot.8
+sed -i 's/"1"/"8"/'                                           $LFS/usr/share/man/man8/chroot.8
+cd ..
+rm -rf coreutils-8.32
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/bash-5.0$ make DESTDIR=$LFS install
+
+	  ***********************************************************
+	  *                                                         *
+	  * GNU bash, version 5.0.11(1)-release (x86_64-lfs-linux-gnu)
+	  *                                                         *
+	  ***********************************************************
+
+===== TL;DR =====
+
+setpgid
+seq
+make[1]: Leaving directory '/mnt/lfs/sources/bash-5.0/examples/loadables'
+
+lfs:/mnt/lfs/sources/bash-5.0$ mv $LFS/usr/bin/bash $LFS/bin/bash
+
+lfs:/mnt/lfs/sources/bash-5.0$ ln -sv bash $LFS/bin/sh
+'/mnt/lfs/bin/sh' -> 'bash'
+
+lfs:/mnt/lfs/sources/bash-5.0$ cd ..
+
+lfs:/mnt/lfs/sources$ rm -rf bash-5.0
+
+lfs:/mnt/lfs/sources$ 
+
+```
+
+<br>
+# Diffutils-3.7
+
+<br>
+### INPUT
+```
+tar xf diffutils-3.7.tar.xz
+cd diffutils-3.7
+./configure --prefix=/usr --host=$LFS_TGT
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources$ tar xf diffutils-3.7.tar.xz
+
+lfs:/mnt/lfs/sources$ cd diffutils-3.7
+
+lfs:/mnt/lfs/sources/diffutils-3.7$ ./configure --prefix=/usr --host=$LFS_TGT
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for x86_64-lfs-linux-gnu-strip... x86_64-lfs-linux-gnu-strip
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+lfs:/mnt/lfs/sources/diffutils-3.7$ 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/diffutils-3.7$ time make
+Making all in lib
+make[1]: Entering directory '/mnt/lfs/sources/diffutils-3.7/lib'
+  GEN      alloca.h
+
+===== TL;DR =====
+
+real	0m3.633s
+user	0m9.712s
+sys	0m1.544s
+
+lfs:/mnt/lfs/sources/diffutils-3.7$ 
+
+```
+
+<br>
+### INPUT
+```
+time make DESTDIR=$LFS install
+cd ..
+rm -rf diffutils-3.7
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/diffutils-3.7$ time make DESTDIR=$LFS install
+Making install in lib
+make[1]: Entering directory '/mnt/lfs/sources/diffutils-3.7/lib'
+make  install-am
+
+===== TL;DR =====
+
+real	0m0.476s
+user	0m0.423s
+sys	0m0.080s
+
+lfs:/mnt/lfs/sources/diffutils-3.7$ cd ..
+
+lfs:/mnt/lfs/sources$ rm -rf diffutils-3.7
+
+lfs:/mnt/lfs/sources$ 
+
 ```
 
 <br>### INPUT### OUTPUT

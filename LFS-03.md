@@ -204,6 +204,7 @@ root@osp:/~#
 ```
 DEBS="
 apt-file
+automake
 bison
 build-essential
 gawk
