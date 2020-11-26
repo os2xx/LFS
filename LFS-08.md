@@ -613,6 +613,175 @@ lfs:/mnt/lfs/sources$
 
 ```
 
+<br>
+# File-5.39
+
+<br>
+### INPUT
+```
+tar xf file-5.39.tar.gz
+cd file-5.39
+./configure --prefix=/usr --host=$LFS_TGT
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources$ tar xf file-5.39.tar.gz
+
+lfs:/mnt/lfs/sources$ cd file-5.39
+
+lfs:/mnt/lfs/sources/file-5.39$ ./configure --prefix=/usr --host=$LFS_TGT
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for x86_64-lfs-linux-gnu-strip... x86_64-lfs-linux-gnu-strip
+
+lfs:/mnt/lfs/sources/file-5.39$ 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/file-5.39$ time make
+make  all-recursive
+make[1]: Entering directory '/mnt/lfs/sources/file-5.39'
+Making all in src
+
+===== TL;DR =====
+
+real	0m1.758s
+user	0m6.283s
+sys	0m0.765s
+
+lfs:/mnt/lfs/sources/file-5.39$ 
+
+```
+
+<br>
+### INPUT
+```
+time make DESTDIR=$LFS install
+cd ..
+rm -rf file-5.39
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/file-5.39$ make DESTDIR=$LFS install
+Making install in src
+make[1]: Entering directory '/mnt/lfs/sources/file-5.39/src'
+make  install-am
+
+===== TL;DR =====
+
+ /usr/bin/mkdir -p '/mnt/lfs/usr/lib/pkgconfig'
+ /usr/bin/install -c -m 644 libmagic.pc '/mnt/lfs/usr/lib/pkgconfig'
+make[2]: Leaving directory '/mnt/lfs/sources/file-5.39'
+make[1]: Leaving directory '/mnt/lfs/sources/file-5.39'
+
+lfs:/mnt/lfs/sources/file-5.39$ cd ..
+
+lfs:/mnt/lfs/sources$ rm -rf file-5.39
+
+lfs:/mnt/lfs/sources$ 
+```
+
+<br>
+# Findutils-4.7.0
+
+### INPUT
+```
+tar xf findutils-4.7.0.tar.xz
+cd findutils-4.7.0
+./configure --prefix=/usr   \
+            --host=$LFS_TGT \
+            --build=$(build-aux/config.guess)
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/findutils-4.7.0$ ./configure --prefix=/usr   \
+>             --host=$LFS_TGT \
+>             --build=$(build-aux/config.guess)
+checking for a BSD-compatible install... /usr/bin/install -c
+
+===== TL;DR =====
+
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+lfs:/mnt/lfs/sources/findutils-4.7.0$ 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+
+lfs:/mnt/lfs/sources/findutils-4.7.0$ time make
+make  all-recursive
+make[1]: Entering directory '/mnt/lfs/sources/findutils-4.7.0'
+Making all in gl
+make[2]: Entering directory '/mnt/lfs/sources/findutils-4.7.0/gl'
+
+===== TL;DR =====
+
+real	0m5.254s
+user	0m13.391s
+sys	0m1.953s
+
+lfs:/mnt/lfs/sources/findutils-4.7.0$ 
+
+```
+
+<br>
+### INPUT
+```
+time make DESTDIR=$LFS install
+mv -v $LFS/usr/bin/find $LFS/bin
+sed -i 's|find:=${BINDIR}|find:=/bin|' $LFS/usr/bin/updatedb
+cd ..
+rm -rf findutils-4.7.0
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/findutils-4.7.0$ time make DESTDIR=$LFS install
+Making install in gl
+make[1]: Entering directory '/mnt/lfs/sources/findutils-4.7.0/gl'
+Making install in lib
+
+===== TL;DR =====
+
+real	0m0.755s
+user	0m0.689s
+sys	0m0.141s
+
+lfs:/mnt/lfs/sources/findutils-4.7.0$ mv -v $LFS/usr/bin/find $LFS/bin
+renamed '/mnt/lfs/usr/bin/find' -> '/mnt/lfs/bin/find'
+
+lfs:/mnt/lfs/sources/findutils-4.7.0$ sed -i 's|find:=${BINDIR}|find:=/bin|' $LFS/usr/bin/updatedb
+
+lfs:/mnt/lfs/sources/findutils-4.7.0$ 
+
+```
+
 <br>### INPUT### OUTPUT
 ===== TL;DR =====
 
