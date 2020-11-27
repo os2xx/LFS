@@ -1235,6 +1235,192 @@ lfs:/mnt/lfs/sources$
 
 ```
 
+<br>
+# Sed-4.8
+
+### INPUT
+```
+tar xf sed-4.8.tar.xz
+
+cd sed-4.8/
+
+./configure --prefix=/usr   \
+            --host=$LFS_TGT \
+            --bindir=/bin
+
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources$ tar xf sed-4.8.tar.xz
+
+lfs:/mnt/lfs/sources$ cd sed-4.8/
+
+lfs:/mnt/lfs/sources/sed-4.8$ ./configure --prefix=/usr   \
+>             --host=$LFS_TGT \
+>             --bindir=/bin
+checking for a BSD-compatible install... /usr/bin/install -c
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+lfs:/mnt/lfs/sources/sed-4.8$ 
+
+```
+
+<br>
+### INPUT
+```
+time make 
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/sed-4.8$ time make 
+  GEN      lib/alloca.h
+  GEN      lib/ctype.h
+
+===== TL;DR =====
+
+real	0m2.836s
+user	0m6.898s
+sys	0m0.745s
+
+lfs:/mnt/lfs/sources/sed-4.8$ 
+
+```
+
+<br>
+### INPUT
+```
+time make DESTDIR=$LFS install
+cd ../
+rm -rf sed-4.8/
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/sed-4.8$ time make DESTDIR=$LFS install
+make  install-recursive
+make[1]: Entering directory '/mnt/lfs/sources/sed-4.8'
+Making install in po
+make[2]: Entering directory '/mnt/lfs/sources/sed-4.8/po'
+
+===== TL;DR =====
+
+real	0m0.945s
+user	0m0.411s
+sys	0m0.072s
+
+lfs:/mnt/lfs/sources/sed-4.8$ cd ../
+
+lfs:/mnt/lfs/sources$ rm -rf sed-4.8/
+
+lfs:/mnt/lfs/sources$ 
+
+```
+
+<br>
+# Tar-1.32
+
+### INPUT
+```
+tar xf tar-1.32.tar.xz
+cd tar-1.32/
+./configure --prefix=/usr                     \
+            --host=$LFS_TGT                   \
+            --build=$(build-aux/config.guess) \
+            --bindir=/bin
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources$ tar xf tar-1.32.tar.xz
+
+lfs:/mnt/lfs/sources$ cd tar-1.32/
+
+lfs:/mnt/lfs/sources/tar-1.32$ ./configure --prefix=/usr                     \
+>             --host=$LFS_TGT                   \
+>             --build=$(build-aux/config.guess) \
+>             --bindir=/bin
+
+===== TL;DR =====
+
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+config.status: executing tests/atconfig commands
+
+lfs:/mnt/lfs/sources/tar-1.32$ 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/tar-1.32$ time make
+make  all-recursive
+make[1]: Entering directory '/mnt/lfs/sources/tar-1.32'
+Making all in doc
+
+===== TL;DR =====
+
+real	0m5.555s
+user	0m17.114s
+sys	0m1.591s
+
+lfs:/mnt/lfs/sources/tar-1.32$ 
+
+```
+
+<br>
+### INPUT
+```
+time make DESTDIR=$LFS install
+cd ../
+rm -rvf tar-1.32/
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/tar-1.32$ time make DESTDIR=$LFS install
+Making install in doc
+make[1]: Entering directory '/mnt/lfs/sources/tar-1.32/doc'
+make[2]: Entering directory '/mnt/lfs/sources/tar-1.32/doc'
+make[2]: Nothing to be done for 'install-exec-am'.
+
+===== TL;DR =====
+
+real	0m0.528s
+user	0m0.476s
+sys	0m0.182s
+
+lfs:/mnt/lfs/sources/tar-1.32$ 
+
+lfs:/mnt/lfs/sources/tar-1.32$ cd ../
+
+lfs:/mnt/lfs/sources$ rm -rf tar-1.32/
+
+lfs:/mnt/lfs/sources$ 
+
+```
+
+
+
+
 
 
 
