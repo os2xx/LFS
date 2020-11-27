@@ -798,10 +798,177 @@ sed -i 's/extras//' Makefile.in
 
 ### OUTPUT
 ```
+lfs:/mnt/lfs/sources$ tar xf gawk-5.1.0.tar.xz
+
+lfs:/mnt/lfs/sources$ cd gawk-5.1.0
+
+lfs:/mnt/lfs/sources/gawk-5.1.0$ sed -i 's/extras//' Makefile.in
+
+lfs:/mnt/lfs/sources/gawk-5.1.0$ ./configure --prefix=/usr   \
+>             --host=$LFS_TGT \
+>             --build=$(./config.guess)
+checking for a BSD-compatible install... ./install-sh -c
 
 ===== TL;DR =====
+
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+config.status: executing libtool commands
+
+lfs:/mnt/lfs/sources/gawk-5.1.0$ 
+
 ```
 
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/gawk-5.1.0$ time make
+make  all-recursive
+make[1]: Entering directory '/mnt/lfs/sources/gawk-5.1.0'
+Making all in support
+
+===== TL;DR =====
+
+real	0m5.680s
+user	0m20.044s
+sys	0m1.392s
+
+lfs:/mnt/lfs/sources/gawk-5.1.0$ 
+
+```
+
+<br>
+### INPUT
+```
+time make DESTDIR=$LFS install
+cd ..
+rm -rf gawk-5.1.0
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/gawk-5.1.0$ time make DESTDIR=$LFS install
+make  install-recursive
+make[1]: Entering directory '/mnt/lfs/sources/gawk-5.1.0'
+Making install in support
+
+===== TL;DR =====
+
+real	0m1.296s
+user	0m1.040s
+sys	0m0.286s
+
+lfs:/mnt/lfs/sources/gawk-5.1.0$ cd ..
+
+lfs:/mnt/lfs/sources$ rm -rf gawk-5.1.0
+
+lfs:/mnt/lfs/sources$ 
+
+```
+
+<br>
+# Grep-3.4
+
+### INPUT
+```
+tar xf grep-3.4.tar.xz
+cd grep-3.4
+./configure --prefix=/usr   \
+            --host=$LFS_TGT \
+            --bindir=/bin
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources$ tar xf grep-3.4.tar.xz
+
+lfs:/mnt/lfs/sources$ cd grep-3.4
+
+lfs:/mnt/lfs/sources/grep-3.4$ ./configure --prefix=/usr   \
+>             --host=$LFS_TGT \
+>             --bindir=/bin
+checking for a BSD-compatible install... /usr/bin/install -c
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+lfs:/mnt/lfs/sources/grep-3.4$ 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/grep-3.4$ time make
+make  all-recursive
+make[1]: Entering directory '/mnt/lfs/sources/grep-3.4'
+Making all in po
+make[2]: Entering directory '/mnt/lfs/sources/grep-3.4/po'
+
+===== TL;DR =====
+
+real	0m3.776s
+user	0m9.598s
+sys	0m1.038s
+
+lfs:/mnt/lfs/sources/grep-3.4$ 
+
+```
+
+<br>
+### INPUT
+```
+time make DESTDIR=$LFS install
+cd ..
+rm -rf grep-3.4
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/grep-3.4$ time make DESTDIR=$LFS install
+Making install in po
+make[1]: Entering directory '/mnt/lfs/sources/grep-3.4/po'
+installing af.gmo as /mnt/lfs/usr/share/locale/af/LC_MESSAGES/grep.mo
+
+===== TL;DR =====
+
+real	0m0.829s
+user	0m0.600s
+sys	0m0.205s
+
+lfs:/mnt/lfs/sources/grep-3.4$ 
+
+lfs:/mnt/lfs/sources/grep-3.4$ cd ..
+
+lfs:/mnt/lfs/sources$ rm -rf grep-3.4
+
+lfs:/mnt/lfs/sources$ 
+
+```
+
+
+
+
+
+[](X 13 XXXXXX)
 <br>
 ### INPUT
 ```
@@ -814,11 +981,10 @@ sed -i 's/extras//' Makefile.in
 ===== TL;DR =====
 ```
 
+<hr>
+<hr>
 <br>### INPUT### OUTPUT
 ===== TL;DR =====
-
-<hr>
-<hr>
 <hr>
 
 
