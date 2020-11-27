@@ -10,7 +10,10 @@
 
 # Virtual Box Guest
 
-If you never have installed a VirtualBox Guest before:
+<span style="color:red; font-weight:bold; font-size:larger;">
+It is assumed that you undestand how install a Debian VirtualBox Guest.
+If you have never installed a VirtualBox Guest before,
+</span>
 
 * Visit: <https://osp4diss.vlsm.org/>
 

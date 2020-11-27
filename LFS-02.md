@@ -10,15 +10,23 @@
 [PREV](LFS-01.md)
 [NEXT](LFS-03.md)
 
+<br>
+<span style="color:red; font-weight:bold; font-size:larger;">
+It is assumed that you undestand how install a Debian VirtualBox Guest.
+If you have never installed a VirtualBox Guest before, visit [OSP4DISS](https://osp4diss.vlsm.org/).
+</span>
+
+<br>
 # Install Debian NetInst (Virtual Box)
 
-* See also <https://osp4diss.vlsm.org/InstallDebianNetinst.html>
+It is assumed you understand how to install a guest on Virtual Box
+
+* If not, see  <https://osp4diss.vlsm.org/InstallDebianNetinst.html>
 
 <br>
 # Virtual Box Guest
 
-<br>
-* Create LFS-ORIG
+* Import LFS-CLEAN.ova (from LFS-ORIG.ova)
 
   * Settings
 
@@ -98,6 +106,10 @@
 
 <img src="pictures/LFS-A34.jpg" width="960">
 <br>
+
+* Back to "pamulang1" host
+
+* Save/Create LFS-CLEAN.OVA (backup)
 
 <br>
 #### ENDOFPAGE

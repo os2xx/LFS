@@ -10,9 +10,15 @@
 [PREV](index.md)
 [NEXT](LFS-02.md)
 
-# Set a Blank VirtualBox Guest of LFS
+<br>
+<span style="color:red; font-weight:bold; font-size:larger;">
+It is assumed that you undestand how install a Debian VirtualBox Guest.
+If you have never installed a VirtualBox Guest before, visit [OSP4DISS](https://osp4diss.vlsm.org/).
+</span>
 
 <br>
+# Set a Blank VirtualBox Guest of LFS
+
 * Create LFS-ORIG.ova
 
   * Base Memory Maximum, eg. 8096 MB

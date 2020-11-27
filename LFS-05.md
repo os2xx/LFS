@@ -10,6 +10,13 @@
 [PREV](LFS-04.md)
 [NEXT](LFS-06.md)
 
+<br>
+<span style="color:red; font-weight:bold; font-size:larger;">
+It is assumed that you undestand how install a Debian VirtualBox Guest.
+If you have never installed a VirtualBox Guest before, visit [OSP4DISS](https://osp4diss.vlsm.org/).
+</span>
+
+<br>
 # LFS: Chapter 3
 
 <br>
