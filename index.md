@@ -36,7 +36,9 @@ If you never have installed a VirtualBox Guest before:
 
 * [LFS: Chapter 5](LFS-07.md)
 
-* [LFS: Chapter 6](LFS-08.md)
+* [LFS: Chapter 6 part 1](LFS-08.md)
+
+* [LFS: Chapter 6 part 2](LFS-09.md)
 
 <br>
 <hr>

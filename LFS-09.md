@@ -7,10 +7,10 @@
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-07.md)
-[NEXT](LFS-09.md)
+[PREV](LFS-08.md)
+[NEXT](index.md)
 
-# LFS: Chapter 6 part 1
+# LFS: Chapter 6 part 2
 
 <br>
 <img src="pictures/LFS-A41.jpg" width="960">
@@ -1526,12 +1526,31 @@ lfs:/mnt/lfs/sources$
 
 ```
 
+
+
+
+
+
 <hr>
 <hr>
 <hr>
 
+[](X 13 XXXXXX)
 <br>
-# EXIT
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<hr>
+<hr>
+<hr>
 
 ```
 su -
@@ -1571,7 +1590,7 @@ rms46@pamulang1:~$
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-07.md)
-[NEXT](LFS-09.md)
+[PREV](LFS-08.md)
+[NEXT](index.md)
 <br>
 
