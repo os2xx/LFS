@@ -964,6 +964,277 @@ lfs:/mnt/lfs/sources$
 
 ```
 
+<br>
+# Gzip-1.10
+
+### INPUT
+```
+tar xf gzip-1.10.tar.xz
+cd gzip-1.10
+./configure --prefix=/usr --host=$LFS_TGT
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources$ tar xf gzip-1.10.tar.xz
+
+lfs:/mnt/lfs/sources$ cd gzip-1.10
+
+lfs:/mnt/lfs/sources/gzip-1.10$ ./configure --prefix=/usr --host=$LFS_TGT
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for x86_64-lfs-linux-gnu-strip... x86_64-lfs-linux-gnu-strip
+
+===== TL;DR =====
+
+config.status: creating tests/Makefile
+config.status: creating lib/config.h
+config.status: executing depfiles commands
+
+lfs:/mnt/lfs/sources/gzip-1.10$ 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/gzip-1.10$ time make
+  GEN      version.c
+  GEN      version.h
+make  all-recursive
+
+===== TL;DR =====
+
+real	0m1.283s
+user	0m4.258s
+sys	0m0.704s
+
+lfs:/mnt/lfs/sources/gzip-1.10$ 
+
+```
+
+<br>
+### INPUT
+```
+time make DESTDIR=$LFS install
+mv -v $LFS/usr/bin/gzip $LFS/bin
+cd ..
+rm -rf gzip-1.10
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/gzip-1.10$ time make DESTDIR=$LFS install
+make  install-recursive
+make[1]: Entering directory '/mnt/lfs/sources/gzip-1.10'
+Making install in lib
+
+===== TL;DR =====
+
+real	0m0.385s
+user	0m0.345s
+sys	0m0.081s
+
+lfs:/mnt/lfs/sources/gzip-1.10$ mv -v $LFS/usr/bin/gzip $LFS/bin
+renamed '/mnt/lfs/usr/bin/gzip' -> '/mnt/lfs/bin/gzip'
+
+lfs:/mnt/lfs/sources/gzip-1.10$ cd ..
+
+lfs:/mnt/lfs/sources$ rm -rf gzip-1.10
+
+lfs:/mnt/lfs/sources$ 
+
+```
+
+<br>
+# Make-4.3
+
+### INPUT
+```
+tar xf make-4.3.tar.gz
+cd make-4.3
+./configure --prefix=/usr   \
+            --without-guile \
+            --host=$LFS_TGT \
+            --build=$(build-aux/config.guess)
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources$ tar xf make-4.3.tar.gz
+
+lfs:/mnt/lfs/sources$ cd make-4.3
+
+lfs:/mnt/lfs/sources/make-4.3$ ./configure --prefix=/usr   \
+>             --without-guile \
+>             --host=$LFS_TGT \
+>             --build=$(build-aux/config.guess)
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+lfs:/mnt/lfs/sources/make-4.3$ 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/make-4.3$ time make
+Making all in lib
+make[1]: Entering directory '/mnt/lfs/sources/make-4.3/lib'
+rm -f alloca.h-t alloca.h && \
+
+===== TL;DR =====
+
+real	0m1.305s
+user	0m5.598s
+sys	0m0.503s
+
+lfs:/mnt/lfs/sources/make-4.3$ 
+
+```
+
+<br>
+### INPUT
+```
+time make DESTDIR=$LFS install
+cd ..
+rm -rf make-4.3
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/make-4.3$ time make DESTDIR=$LFS install
+Making install in lib
+make[1]: Entering directory '/mnt/lfs/sources/make-4.3/lib'
+make  install-recursive
+
+===== TL;DR =====
+
+real	0m0.312s
+user	0m0.286s
+sys	0m0.063s
+
+lfs:/mnt/lfs/sources/make-4.3$ cd ..
+
+lfs:/mnt/lfs/sources$ rm -rf make-4.3
+
+lfs:/mnt/lfs/sources$ 
+
+```
+
+<br>
+# Patch-2.7.6
+
+### INPUT
+```
+tar xf patch-2.7.6.tar.xz
+cd patch-2.7.6
+./configure --prefix=/usr   \
+            --host=$LFS_TGT \
+            --build=$(build-aux/config.guess)
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources$ tar xf patch-2.7.6.tar.xz
+
+lfs:/mnt/lfs/sources$ cd patch-2.7.6
+
+lfs:/mnt/lfs/sources/patch-2.7.6$ ./configure --prefix=/usr   \
+>             --host=$LFS_TGT \
+>             --build=$(build-aux/config.guess)
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+
+===== TL;DR =====
+
+config.status: creating tests/Makefile
+config.status: creating config.h
+config.status: executing depfiles commands
+
+lfs:/mnt/lfs/sources/patch-2.7.6$ 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/patch-2.7.6$ time make
+make  all-recursive
+make[1]: Entering directory '/mnt/lfs/sources/patch-2.7.6'
+Making all in lib
+
+===== TL;DR =====
+
+real	0m1.812s
+user	0m6.440s
+sys	0m0.810s
+
+lfs:/mnt/lfs/sources/patch-2.7.6$ 
+
+```
+
+<br>
+### INPUT
+```
+time make DESTDIR=$LFS install
+cd ..
+rm -rf patch-2.7.6
+
+```
+
+### OUTPUT
+```
+lfs:/mnt/lfs/sources/patch-2.7.6$ time make DESTDIR=$LFS install
+make  install-recursive
+make[1]: Entering directory '/mnt/lfs/sources/patch-2.7.6'
+Making install in lib
+make[2]: Entering directory '/mnt/lfs/sources/patch-2.7.6/lib'
+
+===== TL;DR =====
+
+real	0m0.277s
+user	0m0.229s
+sys	0m0.060s
+
+lfs:/mnt/lfs/sources/patch-2.7.6$ 
+
+lfs:/mnt/lfs/sources/patch-2.7.6$ cd ..
+
+lfs:/mnt/lfs/sources$ rm -rf patch-2.7.6
+
+lfs:/mnt/lfs/sources$ 
+
+```
+
 
 
 
