@@ -207,7 +207,7 @@ su -
 cbkadal@osp:~$ su -
 Password:
 
-root@osp:~#
+root:~#
 
 ```
 
@@ -225,24 +225,24 @@ parted    -l
 
 ### OUTPUT
 ```
-root@osp:~# echo      "LFS=$LFS"
+root:~# echo      "LFS=$LFS"
 LFS=/mnt/lfs
 
-root@osp:~# mkdir     -v $LFS
+root:~# mkdir     -v $LFS
 mkdir: created directory '/mnt/lfs'
 
-root@osp:~# dd if=/dev/zero of=/var/tmp/.swapfile.bin bs=1MiB count=1024
+root:~# dd if=/dev/zero of=/var/tmp/.swapfile.bin bs=1MiB count=1024
 1024+0 records in
 1024+0 records out
 1073741824 bytes (1.1 GB, 1.0 GiB) copied, 0.454999 s, 2.4 GB/s
 
-root@osp:~# chmod 600 /var/tmp/.swapfile.bin
+root:~# chmod 600 /var/tmp/.swapfile.bin
 
-root@osp:~# mkswap    /var/tmp/.swapfile.bin
+root:~# mkswap    /var/tmp/.swapfile.bin
 Setting up swapspace version 1, size = 1024 MiB (1073737728 bytes)
 no label, UUID=f9857393-ad65-43f9-b990-9f87a1e42581
 
-root@osp:~# parted    -l
+root:~# parted    -l
 Model: ATA VBOX HARDDISK (scsi)
 Disk /dev/sda: 17.2GB
 Sector size (logical/physical): 512B/512B
@@ -286,9 +286,9 @@ swapon -s
 
 ### OUTPUT
 ```
-root@osp:~# mv /etc/fstab /etc/ZOLD-$(date +%y%m%d)-fstab
+root:~# mv /etc/fstab /etc/ZOLD-$(date +%y%m%d)-fstab
 
-root@osp:~# cat > /etc/fstab << "EOF"
+root:~# cat > /etc/fstab << "EOF"
 > # /etc/fstab: static file system information.
 > #
 > # <file system>       <mount point> <type>       <options>     <dump> <pass>
@@ -298,9 +298,9 @@ root@osp:~# cat > /etc/fstab << "EOF"
 > /dev/sr0               /media/cdrom0 udf,iso9660 user,noauto       0   0
 > EOF
 
-root@osp:~# mount -a
+root:~# mount -a
 
-root@osp:~# df
+root:~# df
 Filesystem     1K-blocks    Used Available Use% Mounted on
 udev             4020820       0   4020820   0% /dev
 tmpfs             807132    8620    798512   2% /run
@@ -311,13 +311,13 @@ tmpfs            4035644       0   4035644   0% /sys/fs/cgroup
 tmpfs             807128       0    807128   0% /run/user/1000
 /dev/sdb1       32894736   49176  31151560   1% /mnt/lfs
 
-root@osp:~# swapon -a
+root:~# swapon -a
 
-root@osp:~# swapon -s
+root:~# swapon -s
 Filename				Type		Size	Used	Priority
 /var/tmp/.swapfile.bin                 	file    	1048572	0	-2
 
-root@osp:~# 
+root:~# 
 
 ```
 
@@ -330,7 +330,7 @@ shutdown -h now
 
 ### OUTPUT
 ```
-root@osp:~# shutdown -h now
+root:~# shutdown -h now
 Connection to localhost closed by remote host.
 Connection to localhost closed.
 

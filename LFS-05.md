@@ -56,7 +56,7 @@ su -
 cbkadal@osp:~$ su -
 Password: 
 
-root@osp:~#
+root:~#
 
 ```
 
@@ -72,16 +72,16 @@ exit
 
 ### OUTPUT
 ```
-root@osp:~# echo $LFS
+root:~# echo $LFS
 /mnt/lfs
 
-root@osp:~# mkdir -v $LFS/sources
+root:~# mkdir -v $LFS/sources
 mkdir: created directory '/mnt/lfs/sources'
 
-root@osp:~# chmod -v a+wt $LFS/sources
+root:~# chmod -v a+wt $LFS/sources
 mode of '/mnt/lfs/sources' changed from 0755 (rwxr-xr-x) to 1777 (rwxrwxrwt)
 
-root@osp:~# exit
+root:~# exit
 logout
 
 cbkadal@osp:~$ 
@@ -195,7 +195,7 @@ su -
 cbkadal@osp:~$ su -
 Password:
 
-root@osp:~#
+root:~#
 
 ```
 
@@ -208,7 +208,7 @@ shutdown -h now
 
 ### OUTPUT
 ```
-root@osp:~# shutdown -h now
+root:~# shutdown -h now
 Connection to localhost closed by remote host.
 Connection to localhost closed.
 

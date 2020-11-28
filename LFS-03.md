@@ -48,7 +48,7 @@ individual files in /usr/share/doc/*/copyright.
 
 Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
-cbkadal@osp:~$ 
+cbkadal:~$ 
 
 ```
 
@@ -72,7 +72,7 @@ echo   "LFS=$LFS"
 
 ### OUTPUT
 ```
-cbkadal@osp:~$ cat > ~/.bash_profile << "EOF"
+cbkadal:~$ cat > ~/.bash_profile << "EOF"
 > # Files .bash_profile
 > alias cl='clear'
 > alias h='history'
@@ -83,9 +83,9 @@ cbkadal@osp:~$ cat > ~/.bash_profile << "EOF"
 > export LFS=/mnt/lfs
 > EOF
 
-cbkadal@osp:~$ source ~/.bash_profile
+cbkadal:~$ source ~/.bash_profile
 
-cbkadal@osp:~$ echo   "LFS=$LFS"
+cbkadal:~$ echo   "LFS=$LFS"
 LFS=/mnt/lfs
 
 ```
@@ -100,9 +100,9 @@ su -
 
 ### OUTPUT
 ```
-cbkadal@osp:~$ su -
+cbkadal:~$ su -
 Password: 
-root@osp:~# 
+root:~# 
 ```
 
 <br>
@@ -110,13 +110,11 @@ root@osp:~#
 ```
 cat > ~/.bash_profile << "EOF"
 # Files .bash_profile
-alias cl='clear'
-alias h='history'
-alias sss='. ~/.profile'
 export EDITOR=/usr/bin/vi
 export HISTSIZE=2000
 export HISTFILESIZE=2000
 export LFS=/mnt/lfs
+export PS1='\u:\w\$ '
 EOF
 source ~/.bash_profile
 echo   "LFS=$LFS"
@@ -125,23 +123,21 @@ echo   "LFS=$LFS"
 
 ### OUTPUT
 ```
-root@osp:~# cat > ~/.bash_profile << "EOF"
+root:~# cat > ~/.bash_profile << "EOF"
 > # Files .bash_profile
-> alias cl='clear'
-> alias h='history'
-> alias sss='. ~/.profile'
 > export EDITOR=/usr/bin/vi
 > export HISTSIZE=2000
 > export HISTFILESIZE=2000
 > export LFS=/mnt/lfs
+> export PS1='\u:\w\$ '
 > EOF
 
-root@osp:~# source ~/.bash_profile
+root:~# source ~/.bash_profile
 
-root@osp:~# echo   "LFS=$LFS"
+root:~# echo   "LFS=$LFS"
 LFS=/mnt/lfs
 
-root@osp:~#
+root:~#
 
 ```
 
@@ -164,48 +160,48 @@ cd
 
 ### OUTPUT
 ```
-root@osp:~# apt-get update
+root:~# apt-get update
 Hit:1 http://security.debian.org/debian-security buster/updates InRelease
 Hit:2 http://deb.debian.org/debian buster InRelease
 Get:3 http://deb.debian.org/debian buster-updates InRelease [51.9 kB]
 Fetched 51.9 kB in 1s (66.4 kB/s)
 Reading package lists... Done
 
-root@osp:~# apt-get dist-upgrade -y
+root:~# apt-get dist-upgrade -y
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
 Calculating upgrade... Done
 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
 
-root@osp:~# apt-get autoremove --purge -y
+root:~# apt-get autoremove --purge -y
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
 
-root@osp:~# apt-get autoclean -y
+root:~# apt-get autoclean -y
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
 
-root@osp:~# apt-get clean -y
+root:~# apt-get clean -y
 
-root@osp:~# cd /bin
+root:~# cd /bin
 
-root@osp:/bin# ls -al sh
+root:/bin# ls -al sh
 lrwxrwxrwx 1 root root 4 Nov 21 13:29 sh -> dash
 
-root@osp:/bin# rm sh
+root:/bin# rm sh
 
-root@osp:/bin# ln -s bash sh
+root:/bin# ln -s bash sh
 
-root@osp:/bin# ls -al sh
+root:/bin# ls -al sh
 lrwxrwxrwx 1 root root 4 Nov 21 16:59 sh -> bash
 
-root@osp:/bin# cd
+root:/bin# cd
 
-root@osp:/~# 
+root:/~# 
 
 
 ```
@@ -229,7 +225,7 @@ apt-get install $DEBS -y
 
 ### OUTPUT
 ```
-root@osp:~# DEBS="
+root:~# DEBS="
 > apt-file
 > bison
 > build-essential
@@ -238,7 +234,7 @@ root@osp:~# DEBS="
 > parted
 > "
 
-root@osp:~# apt-get install $DEBS -y
+root:~# apt-get install $DEBS -y
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
@@ -295,7 +291,7 @@ update-perl-sax-parsers: Updating overall Perl SAX parser modules info file...
 Replacing config file /etc/perl/XML/SAX/ParserDetails.ini with new version
 Processing triggers for libc-bin (2.28-10) ...
 Processing triggers for man-db (2.8.5-2) ...
-root@osp:~# 
+root:~# 
 
 ```
 
@@ -308,7 +304,7 @@ shutdown -h now
 
 ### OUTPUT
 ```
-root@osp:~# shutdown -h now
+root:~# shutdown -h now
 Connection to localhost closed by remote host.
 Connection to localhost closed.
 

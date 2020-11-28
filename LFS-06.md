@@ -56,7 +56,7 @@ su -
 cbkadal@osp:~$ su -
 Password:
 
-root@osp:~#
+root:~#
 
 ```
 
@@ -76,10 +76,10 @@ useradd -s /bin/bash -g lfs -m -k /dev/null lfs
 
 ### OUTPUT
 ```
-root@osp:~# echo $LFS
+root:~# echo $LFS
 /mnt/lfs
 
-root@osp:~# mkdir -pv $LFS/{bin,etc,lib,sbin,usr,var}
+root:~# mkdir -pv $LFS/{bin,etc,lib,sbin,usr,var}
 mkdir: created directory '/mnt/lfs/bin'
 mkdir: created directory '/mnt/lfs/etc'
 mkdir: created directory '/mnt/lfs/lib'
@@ -87,18 +87,18 @@ mkdir: created directory '/mnt/lfs/sbin'
 mkdir: created directory '/mnt/lfs/usr'
 mkdir: created directory '/mnt/lfs/var'
 
-root@osp:~# case $(uname -m) in
+root:~# case $(uname -m) in
 >   x86_64) mkdir -pv $LFS/lib64 ;;
 > esac
 mkdir: created directory '/mnt/lfs/lib64'
-root@osp:~# mkdir -pv $LFS/tools
+root:~# mkdir -pv $LFS/tools
 mkdir: created directory '/mnt/lfs/tools'
 
-root@osp:~# groupadd lfs
+root:~# groupadd lfs
 
-root@osp:~# useradd -s /bin/bash -g lfs -m -k /dev/null lfs
+root:~# useradd -s /bin/bash -g lfs -m -k /dev/null lfs
 
-root@osp:~# 
+root:~# 
 
 ```
 
@@ -118,15 +118,15 @@ su - lfs
 
 ### OUTPUT
 ```
-root@osp:~# [ ! -e /etc/bash.bashrc ] || mv -v /etc/bash.bashrc /etc/bash.bashrc.NOUSE
+root:~# [ ! -e /etc/bash.bashrc ] || mv -v /etc/bash.bashrc /etc/bash.bashrc.NOUSE
 renamed '/etc/bash.bashrc' -> '/etc/bash.bashrc.NOUSE'
 
-root@osp:~# passwd lfs
+root:~# passwd lfs
 New password: *******
 Retype new password: *******
 passwd: password updated successfully
 
-root@osp:~# chown -v lfs $LFS/{usr,lib,var,etc,bin,sbin,tools}
+root:~# chown -v lfs $LFS/{usr,lib,var,etc,bin,sbin,tools}
 changed ownership of '/mnt/lfs/usr' from root to lfs
 changed ownership of '/mnt/lfs/lib' from root to lfs
 changed ownership of '/mnt/lfs/var' from root to lfs
@@ -135,15 +135,15 @@ changed ownership of '/mnt/lfs/bin' from root to lfs
 changed ownership of '/mnt/lfs/sbin' from root to lfs
 changed ownership of '/mnt/lfs/tools' from root to lfs
 
-root@osp:~# case $(uname -m) in
+root:~# case $(uname -m) in
 >   x86_64) chown -v lfs $LFS/lib64 ;;
 > esac
 changed ownership of '/mnt/lfs/lib64' from root to lfs
 
-root@osp:~# chown -v lfs $LFS/sources
+root:~# chown -v lfs $LFS/sources
 changed ownership of '/mnt/lfs/sources' from root to lfs
 
-root@osp:~# su - lfs
+root:~# su - lfs
 
 lfs@osp:~$
 
@@ -208,7 +208,7 @@ exit
 lfs:~$ exit
 exit
 
-root@osp:~# 
+root:~# 
 
 ```
 
@@ -221,7 +221,7 @@ shutdown -h now
 
 ### OUTPUT
 ```
-root@osp:~# shutdown -h now
+root:~# shutdown -h now
 Connection to localhost closed by remote host.
 Connection to localhost closed.
 

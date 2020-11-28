@@ -1552,7 +1552,7 @@ su -
 cbkadal@osp:~$ su -
 Password:
 
-root@osp:~#
+root:~#
 
 ```
 
@@ -1562,7 +1562,7 @@ shutdown -h now
 ```
 
 ```
-root@osp:~# shutdown -h now
+root:~# shutdown -h now
 Connection to localhost closed by remote host.
 Connection to localhost closed.
 
