@@ -21,7 +21,7 @@ If you have never installed a VirtualBox Guest before, visit [OSP4DISS](https://
 
 ## Virtual Box Guest LFS-01
 
-* Import LFS-01.ova (from LFS-CLEAN.ova)
+* Import LFS-CLEAN.ova, rename to LFS-01
 
 <img src="pictures/LFS-A35.jpg" width="960">
 <br>

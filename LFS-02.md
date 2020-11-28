@@ -26,9 +26,7 @@ It is assumed you understand how to install a guest on Virtual Box
 <br>
 # Virtual Box Guest LFS-CLEAN
 
-* Import LFS-CLEAN.ova (from LFS-ORIG.ova)
-
-  * Settings
+* Import LFS-ORIG.ova, rename to LFS-CLEAN
 
 <img src="pictures/LFS-A15.jpg" width="960">
 <br>

@@ -19,6 +19,10 @@ If you have never installed a VirtualBox Guest before, visit [OSP4DISS](https://
 <br>
 # LFS: Chapter 4
 
+## Virtual Box Guest LFS-04
+
+* Import LFS-03.ova, rename to LFS-04
+
 <br>
 <img src="pictures/LFS-A38.jpg" width="960">
 
