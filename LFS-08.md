@@ -438,7 +438,7 @@ patch -Np1 -i ../coreutils-8.32-i18n-1.patch
 
 ### OUTPUT
 ```
-fs:/mnt/lfs/sources$ tar xf coreutils-8.32.tar.xz
+lfs:/mnt/lfs/sources$ tar xf coreutils-8.32.tar.xz
 
 lfs:/mnt/lfs/sources$ cd coreutils-8.32
 
@@ -460,6 +460,7 @@ lfs:/mnt/lfs/sources/coreutils-8.32$ ./configure --prefix=/usr                  
 
 ===== TL;DR =====
 
+config.status: executing depfiles commands
 config.status: executing po-directories commands
 config.status: creating po/POTFILES
 config.status: creating po/Makefile
@@ -477,17 +478,18 @@ time make
 
 ### OUTPUT
 ```
-lfs:/mnt/lfs/sources/bash-5.0$ time make
-rm -f mksyntax
-gcc -DPROGRAM='"bash"' -DCONF_HOSTTYPE='"x86_64"' -DCONF_OSTYPE='"linux-gnu"' -DCONF_MACHTYPE='"x86_64-lfs-linux-gnu"' -DCONF_VENDOR='"lfs"' -DLOCALEDIR='"/usr/share/locale"' -DPACKAGE='"bash"' -DSHELL -DHAVE_CONFIG_H   -I.  -I. -I./include -I./lib   -g -DCROSS_COMPILING -rdynamic -g -DCROSS_COMPILING -o mksyntax ./mksyntax.c 
+lfs:/mnt/lfs/sources/coreutils-8.32$ time make
+CDPATH="${ZSH_VERSION+.}:" && cd . && /bin/sh /mnt/lfs/sources/coreutils-8.32/build-aux/missing aclocal-1.16 -I m4
+CDPATH="${ZSH_VERSION+.}:" && cd . && /bin/sh /mnt/lfs/sources/coreutils-8.32/build-aux/missing autoconf
+ cd . && /bin/sh /mnt/lfs/sources/coreutils-8.32/build-aux/missing automake-1.16 --gnu
 
 ===== TL;DR =====
 
-real	0m8.340s
-user	0m29.895s
-sys	0m3.000s
+real	0m39.615s
+user	1m16.252s
+sys	0m13.384s
 
-lfs:/mnt/lfs/sources/bash-5.0$ 
+lfs:/mnt/lfs/sources/coreutils-8.32$ 
 
 ```
 
@@ -510,28 +512,63 @@ rm -rf coreutils-8.32
 
 ### OUTPUT
 ```
-lfs:/mnt/lfs/sources/bash-5.0$ make DESTDIR=$LFS install
-
-	  ***********************************************************
-	  *                                                         *
-	  * GNU bash, version 5.0.11(1)-release (x86_64-lfs-linux-gnu)
-	  *                                                         *
-	  ***********************************************************
+lfs:/mnt/lfs/sources/coreutils-8.32$ time make DESTDIR=$LFS install
+make  install-recursive
+make[1]: Entering directory '/mnt/lfs/sources/coreutils-8.32'
+Making install in po
 
 ===== TL;DR =====
 
-setpgid
-seq
-make[1]: Leaving directory '/mnt/lfs/sources/bash-5.0/examples/loadables'
+real	0m3.069s
+user	0m2.642s
+sys	0m0.848s
 
-lfs:/mnt/lfs/sources/bash-5.0$ mv $LFS/usr/bin/bash $LFS/bin/bash
+lfs:/mnt/lfs/sources/coreutils-8.32$ mv -v $LFS/usr/bin/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} $LFS/bin
+renamed '/mnt/lfs/usr/bin/cat' -> '/mnt/lfs/bin/cat'
+renamed '/mnt/lfs/usr/bin/chgrp' -> '/mnt/lfs/bin/chgrp'
+renamed '/mnt/lfs/usr/bin/chmod' -> '/mnt/lfs/bin/chmod'
+renamed '/mnt/lfs/usr/bin/chown' -> '/mnt/lfs/bin/chown'
+renamed '/mnt/lfs/usr/bin/cp' -> '/mnt/lfs/bin/cp'
+renamed '/mnt/lfs/usr/bin/date' -> '/mnt/lfs/bin/date'
+renamed '/mnt/lfs/usr/bin/dd' -> '/mnt/lfs/bin/dd'
+renamed '/mnt/lfs/usr/bin/df' -> '/mnt/lfs/bin/df'
+renamed '/mnt/lfs/usr/bin/echo' -> '/mnt/lfs/bin/echo'
 
-lfs:/mnt/lfs/sources/bash-5.0$ ln -sv bash $LFS/bin/sh
-'/mnt/lfs/bin/sh' -> 'bash'
+lfs:/mnt/lfs/sources/coreutils-8.32$ mv -v $LFS/usr/bin/{false,ln,ls,mkdir,mknod,mv,pwd,rm}        $LFS/bin
+renamed '/mnt/lfs/usr/bin/false' -> '/mnt/lfs/bin/false'
+renamed '/mnt/lfs/usr/bin/ln' -> '/mnt/lfs/bin/ln'
+renamed '/mnt/lfs/usr/bin/ls' -> '/mnt/lfs/bin/ls'
+renamed '/mnt/lfs/usr/bin/mkdir' -> '/mnt/lfs/bin/mkdir'
+renamed '/mnt/lfs/usr/bin/mknod' -> '/mnt/lfs/bin/mknod'
+renamed '/mnt/lfs/usr/bin/mv' -> '/mnt/lfs/bin/mv'
+renamed '/mnt/lfs/usr/bin/pwd' -> '/mnt/lfs/bin/pwd'
+renamed '/mnt/lfs/usr/bin/rm' -> '/mnt/lfs/bin/rm'
 
-lfs:/mnt/lfs/sources/bash-5.0$ cd ..
+lfs:/mnt/lfs/sources/coreutils-8.32$ mv -v $LFS/usr/bin/{rmdir,stty,sync,true,uname}               $LFS/bin
+renamed '/mnt/lfs/usr/bin/rmdir' -> '/mnt/lfs/bin/rmdir'
+renamed '/mnt/lfs/usr/bin/stty' -> '/mnt/lfs/bin/stty'
+renamed '/mnt/lfs/usr/bin/sync' -> '/mnt/lfs/bin/sync'
+renamed '/mnt/lfs/usr/bin/true' -> '/mnt/lfs/bin/true'
+renamed '/mnt/lfs/usr/bin/uname' -> '/mnt/lfs/bin/uname'
 
-lfs:/mnt/lfs/sources$ rm -rf bash-5.0
+lfs:/mnt/lfs/sources/coreutils-8.32$ mv -v $LFS/usr/bin/{head,nice,sleep,touch}                    $LFS/bin
+renamed '/mnt/lfs/usr/bin/head' -> '/mnt/lfs/bin/head'
+renamed '/mnt/lfs/usr/bin/nice' -> '/mnt/lfs/bin/nice'
+renamed '/mnt/lfs/usr/bin/sleep' -> '/mnt/lfs/bin/sleep'
+renamed '/mnt/lfs/usr/bin/touch' -> '/mnt/lfs/bin/touch'
+
+lfs:/mnt/lfs/sources/coreutils-8.32$ mv -v $LFS/usr/bin/chroot                                     $LFS/usr/sbin
+renamed '/mnt/lfs/usr/bin/chroot' -> '/mnt/lfs/usr/sbin/chroot'
+
+lfs:/mnt/lfs/sources/coreutils-8.32$ mkdir -pv $LFS/usr/share/man/man8
+
+lfs:/mnt/lfs/sources/coreutils-8.32$ mv -v $LFS/usr/share/man/man1/chroot.1                        $LFS/usr/share/man/mann8/chroot.8
+renamed '/mnt/lfs/usr/share/man/man1/chroot.1' -> '/mnt/lfs/usr/share/man/man8/chroot.8'
+
+lfs:/mnt/lfs/sources/coreutils-8.32$ sed -i 's/"1"/"8"/'                                           $LFS/usr/share/man/mann8/chroot.8
+lfs:/mnt/lfs/sources/coreutils-8.32$ cd ..
+
+lfs:/mnt/lfs/sources$ rm -rf coreutils-8.32
 
 lfs:/mnt/lfs/sources$ 
 
@@ -540,7 +577,6 @@ lfs:/mnt/lfs/sources$
 <br>
 # Diffutils-3.7
 
-<br>
 ### INPUT
 ```
 tar xf diffutils-3.7.tar.xz
