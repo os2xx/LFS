@@ -561,17 +561,47 @@ time make
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/gettext-0.21# time make
 
 ===== TL;DR =====
+
+real	2m40.902s
+user	2m27.278s
+sys	0m16.910s
+
+(lfs chroot) root:/sources/gettext-0.21# 
+
 ```
 
 <br>
 ### INPUT
 ```
 cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /usr/bin
-
-
+cd ../
 rm -rf gettext-0.21/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gettext-0.21# cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /usr/bin
+'gettext-tools/src/msgfmt' -> '/usr/bin/msgfmt'
+'gettext-tools/src/msgmerge' -> '/usr/bin/msgmerge'
+'gettext-tools/src/xgettext' -> '/usr/bin/xgettext'
+
+(lfs chroot) root:/sources/gettext-0.21# cd ../
+
+(lfs chroot) root:/sources# rm -rf gettext-0.21
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Bison-3.7.1
+
+### INPUT
+```
 
 ```
 
@@ -580,6 +610,31 @@ rm -rf gettext-0.21/
 
 ===== TL;DR =====
 ```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
 
 
 
