@@ -11,8 +11,13 @@
 # Virtual Box Guest
 
 <span style="color:red; font-weight:bold; font-size:larger;">
-It is assumed that you undestand how install a Debian VirtualBox Guest.
+It is assumed that you understand how install a Debian VirtualBox Guest.
 If you have never installed a VirtualBox Guest before,
+</span>
+<hr>
+<hr>
+<span style="color:red; font-weight:bold; font-size:larger;">
+PS: "===== TL;DR =====" means TOO LONG, DID NOT READ (SKIPPED)
 </span>
 
 * Visit: <https://osp4diss.vlsm.org/>
