@@ -414,18 +414,6 @@ mode of '/var/log/btmp' changed from 0644 (rw-r--r--) to 0600 (rw-------)
 
 ### INPUT
 ```
-exit
-
-```
-
-### OUTPUT
-```
-
-```
-
-<br>
-### INPUT
-```
 tar xf gcc-10.2.0.tar.xz
 cd gcc-10.2.0/
 ln -s gthr-posix.h libgcc/gthr-default.h
@@ -602,6 +590,320 @@ rm -rf gettext-0.21/
 
 ### INPUT
 ```
+tar xf bison-3.7.1.tar.xz
+cd bison-3.7.1/
+./configure --prefix=/usr \
+            --docdir=/usr/share/doc/bison-3.7.1
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf bison-3.7.1.tar.xz
+
+(lfs chroot) root:/sources# cd bison-3.7.1/
+
+(lfs chroot) root:/sources/bison-3.7.1# ./configure --prefix=/usr \
+>             --docdir=/usr/share/doc/bison-3.7.1
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a race-free mkdir -p... /bin/mkdir -p
+
+===== TL;DR =====
+
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+config.status: executing tests/atconfig commands
+
+(lfs chroot) root:/sources/bison-3.7.1# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bison-3.7.1# time make
+
+===== TL;DR =====
+
+real	0m15.110s
+user	0m13.464s
+sys	0m1.071s
+
+(lfs chroot) root:/sources/bison-3.7.1# 
+```
+
+<br>
+### INPUT
+```
+time make install
+cd ../
+rm -rf bison-3.7.1/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bison-3.7.1# time make install
+
+===== TL;DR =====
+
+real	0m1.035s
+user	0m0.925s
+sys	0m0.169s
+
+(lfs chroot) root:/sources/bison-3.7.1# cd ../
+
+(lfs chroot) root:/sources# rm -rf bison-3.7.1/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Perl-5.32.0
+
+### INPUT
+```
+tar xf perl-5.32.0.tar.xz
+cd perl-5.32.0/
+sh Configure -des                                        \
+             -Dprefix=/usr                               \
+             -Dvendorprefix=/usr                         \
+             -Dprivlib=/usr/lib/perl5/5.32/core_perl     \
+             -Darchlib=/usr/lib/perl5/5.32/core_perl     \
+             -Dsitelib=/usr/lib/perl5/5.32/site_perl     \
+             -Dsitearch=/usr/lib/perl5/5.32/site_perl    \
+             -Dvendorlib=/usr/lib/perl5/5.32/vendor_perl \
+             -Dvendorarch=/usr/lib/perl5/5.32/vendor_perl
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/perl-5.32.0# tar xf perl-5.32.0.tar.xz
+
+===== TL;DR =====
+
+Finding dependencies for miniperlmain.o
+Finding dependencies for opmini.o
+Finding dependencies for perlmini.o
+Updating makefile...
+Now you must run 'make'.
+
+If you compile perl5 on a different machine or from a different object
+directory, copy the Policy.sh file from this object directory to the
+new one before you run Configure -- this will help you with most of
+the policy defaults.
+
+(lfs chroot) root:/sources/perl-5.32.0#
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/perl-5.32.0# time make
+
+===== TL;DR =====
+
+Extracting streamzip (with variable substitutions)
+make[1]: Leaving directory '/sources/perl-5.32.0/utils'
+ 
+	Everything is up to date. Type 'make test' to run test suite.
+
+real	2m32.970s
+user	2m25.214s
+sys	0m7.930s
+
+(lfs chroot) root:/sources/perl-5.32.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make test
+
+```
+
+### OUTPUT
+
+* Ignore these following failed tests (Just FYI) 
+
+```
+(lfs chroot) root:/sources/perl-5.32.0# time make test
+
+===== TL;DR =====
+
+Failed 6 tests out of 2450, 99.76% okay.
+	../cpan/Socket/t/getnameinfo.t
+	../dist/Net-Ping/t/110_icmp_inst.t
+	../dist/Net-Ping/t/500_ping_icmp.t
+	../dist/Net-Ping/t/501_ping_icmpv6.t
+	../dist/Net-Ping/t/520_icmp_ttl.t
+	../lib/Net/hostent.t
+### Since not all tests were successful, you may want to run some of
+### them individually and examine any diagnostic messages they produce.
+### See the INSTALL document's section on "make test".
+### You have a good chance to get more information by running
+###   ./perl harness
+### in the 't' directory since most (>=80%) of the tests succeeded.
+### You may have to set your dynamic library search path,
+### LD_LIBRARY_PATH, to point to the build directory:
+###   setenv LD_LIBRARY_PATH `pwd`; cd t; ./perl harness
+###   LD_LIBRARY_PATH=`pwd`; export LD_LIBRARY_PATH; cd t; ./perl harness
+###   export LD_LIBRARY_PATH=`pwd`; cd t; ./perl harness
+### for csh-style shells, like tcsh; or for traditional/modern
+### Bourne-style shells, like bash, ksh, and zsh, respectively.
+Elapsed: 629 sec
+u=5.80  s=5.07  cu=362.97  cs=30.14  scripts=2450  tests=1143706
+make: *** [makefile:800: test] Error 1
+
+real	10m35.015s
+user	6m14.547s
+sys	0m35.947s
+(lfs chroot) root:/sources/perl-5.32.0#
+
+```
+
+<br>
+### INPUT
+```
+time make install
+cd ../
+rm -rf perl-5.32.0/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/perl-5.32.0# time make install
+
+===== TL;DR =====
+
+  /usr/lib/perl5/5.32/core_perl/pod/perltodo.pod
+  /usr/lib/perl5/5.32/core_perl/pod/perltooc.pod
+  /usr/lib/perl5/5.32/core_perl/pod/perltoot.pod
+./perl -Ilib -I. installman --destdir= 
+Manual page installation was disabled by Configure
+
+real	0m7.100s
+user	0m6.054s
+sys	0m1.017s
+
+(lfs chroot) root:/sources/perl-5.32.0# cd ../
+
+(lfs chroot) root:/sources# rm -rf perl-5.32.0/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Python-3.8.5
+
+### INPUT
+```
+tar xf Python-3.8.5.tar.xz
+cd Python-3.8.5/
+./configure --prefix=/usr   \
+            --enable-shared \
+            --without-ensurepip
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/Python-3.8.5# tar xf Python-3.8.5.tar.xz
+
+===== TL;DR =====
+
+creating Modules/Setup.local
+creating Makefile
+
+If you want a release build with all stable optimizations active (PGO, etc),
+please run ./configure --enable-optimizations
+
+(lfs chroot) root:/sources/Python-3.8.5#
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/Python-3.8.5# time make
+
+===== TL;DR =====
+
+gcc -pthread     -Xlinker -export-dynamic -o Programs/_testembed Programs/_testembed.o -L. -lpython3.8 -lcrypt -lpthread -ldl  -lutil -lm   -lm 
+sed -e "s,@EXENAME@,/usr/bin/python3.8," < ./Misc/python-config.in >python-config.py
+LC_ALL=C sed -e 's,\$(\([A-Za-z0-9_]*\)),\$\{\1\},g' < Misc/python-config.sh >python-config
+
+real	1m52.537s
+user	1m46.532s
+sys	0m4.885s
+
+(lfs chroot) root:/sources/Python-3.8.5# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+cd ../
+rm -rf Python-3.8.5/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/Python-3.8.5# time make install
+
+===== TL;DR =====
+
+	LD_LIBRARY_PATH=/sources/Python-3.8.5 ./python -E -m ensurepip \
+		$ensurepip --root=/ ; \
+fi
+
+real	0m9.523s
+user	0m19.831s
+sys	0m4.367s
+
+(lfs chroot) root:/sources/Python-3.8.5# cd ../
+
+(lfs chroot) root:/sources# rm -rf Python-3.8.5/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Texinfo-6.7
+
+### INPUT
+```
+tar xf texinfo-6.7.tar.xz
+cd texinfo-6.7/
 
 ```
 
@@ -627,6 +929,8 @@ rm -rf gettext-0.21/
 ### INPUT
 ```
 
+cd texinfo-6.7/
+
 ```
 
 ### OUTPUT
@@ -634,6 +938,7 @@ rm -rf gettext-0.21/
 
 ===== TL;DR =====
 ```
+
 
 
 
