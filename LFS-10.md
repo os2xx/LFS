@@ -7,8 +7,8 @@
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-08.md)
-[NEXT](index.md)
+[PREV](LFS-09.md)
+[NEXT](LFS-11.md)
 
 <br>
 <span style="color:red; font-weight:bold; font-size:larger;">
@@ -980,49 +980,278 @@ sys	0m0.096s
 
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-<hr>
-<hr>
-<hr>
-
-[](X 13 XXXXXX)
 <br>
+# Util-linux-2.36
+
 ### INPUT
 ```
+tar xf util-linux-2.36.tar.xz
+cd util-linux-2.36/
+mkdir -pv /var/lib/hwclock
+./configure ADJTIME_PATH=/var/lib/hwclock/adjtime    \
+            --docdir=/usr/share/doc/util-linux-2.36 \
+            --disable-chfn-chsh  \
+            --disable-login      \
+            --disable-nologin    \
+            --disable-su         \
+            --disable-setpriv    \
+            --disable-runuser    \
+            --disable-pylibmount \
+            --disable-static     \
+            --without-python
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/util-linux-2.36# tar xf util-linux-2.36.tar.xz
 
 ===== TL;DR =====
+
+	warnings:
+
+ -fno-common -Wall -Wextra -Wmissing-declarations -Wmissing-parameter-type -Wmissing-prototypes -Wno-missing-field-initializers -Wredundant-decls -Wsign-compare -Wtype-limits -Wuninitialized -Wunused-but-set-parameter -Wunused-but-set-variable -Wunused-parameter -Wunused-result -Wunused-variable -Wnested-externs -Wpointer-arith -Wstrict-prototypes -Wimplicit-function-declaration -Wdiscarded-qualifiers -Waddress-of-packed-member -Werror=sequence-point
+
+	Type 'make' or 'make <utilname>' to compile.
+
+(lfs chroot) root:/sources/util-linux-2.36#
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/util-linux-2.36# time make
+
+===== TL;DR =====
+
+  GEN      libmount/mount.pc
+  GEN      libsmartcols/smartcols.pc
+  GEN      libfdisk/fdisk.pc
+make[2]: Leaving directory '/sources/util-linux-2.36'
+make[1]: Leaving directory '/sources/util-linux-2.36'
+
+real	1m22.561s
+user	1m13.930s
+sys	0m7.893s
+
+(lfs chroot) root:/sources/util-linux-2.36# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+cd ../
+rm -rf util-linux-2.36/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/util-linux-2.36# time make install
+
+===== TL;DR =====
+
+make[3]: Leaving directory '/sources/util-linux-2.36'
+make[2]: Leaving directory '/sources/util-linux-2.36'
+make[1]: Leaving directory '/sources/util-linux-2.36'
+
+real	0m2.683s
+user	0m2.102s
+sys	0m0.351s
+
+(lfs chroot) root:/sources/util-linux-2.36# cd ../
+
+(lfs chroot) root:/sources# rm -rf util-linux-2.36/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Cleaning up and Saving the Temporary System
+
+### INPUT
+```
+find /usr/{lib,libexec} -name \*.la -delete
+rm -rf /usr/share/{info,man,doc}/*
+exit
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# find /usr/{lib,libexec} -name \*.la -delete
+
+(lfs chroot) root:/sources# rm -rf /usr/share/{info,man,doc}/*
+
+(lfs chroot) root:/sources# exit
+
+```
+
+<br>
+<span style="color:red; font-weight:bold; font-size:larger;">
+EXIT CHROOT
+</span>
+
+### INPUT
+```
+pwd
+umount $LFS/dev{/pts,}
+umount $LFS/{sys,proc,run}
+strip --strip-debug $LFS/usr/lib/*
+strip --strip-unneeded $LFS/usr/{,s}bin/*
+strip --strip-unneeded $LFS/tools/bin/*
+
+```
+
+### OUTPUT
+```
+root:/mnt/lfs# pwd
+/mnt/lfs
+
+root:/mnt/lfs# umount $LFS/dev{/pts,}
+
+root:/mnt/lfs# umount $LFS/{sys,proc,run}
+
+root:/mnt/lfs# strip --strip-debug $LFS/usr/lib/*
+strip: Warning: '/mnt/lfs/usr/lib/audit' is a directory
+strip: Warning: '/mnt/lfs/usr/lib/bash' is a directory
+strip: Warning: '/mnt/lfs/usr/lib/gawk' is a directory
+strip: Warning: '/mnt/lfs/usr/lib/gcc' is a directory
+strip: Warning: '/mnt/lfs/usr/lib/gconv' is a directory
+strip:/mnt/lfs/usr/lib/libc.so: file format not recognized
+strip:/mnt/lfs/usr/lib/libgcc_s.so: file format not recognized
+strip:/mnt/lfs/usr/lib/libm.a: file format not recognized
+strip:/mnt/lfs/usr/lib/libm.so: file format not recognized
+strip:/mnt/lfs/usr/lib/libncurses.so: file format not recognized
+strip:/mnt/lfs/usr/lib/libstdc++.so.6.0.28-gdb.py: file format not recognized
+strip: Warning: '/mnt/lfs/usr/lib/perl5' is a directory
+strip: Warning: '/mnt/lfs/usr/lib/pkgconfig' is a directory
+strip: Warning: '/mnt/lfs/usr/lib/python3.8' is a directory
+strip: Warning: '/mnt/lfs/usr/lib/terminfo' is a directory
+strip: Warning: '/mnt/lfs/usr/lib/texinfo' is a directory
+root:/mnt/lfs# strip --strip-unneeded $LFS/usr/{,s}bin/*
+strip:/mnt/lfs/usr/bin/2to3: file format not recognized
+strip:/mnt/lfs/usr/bin/2to3-3.8: file format not recognized
+strip:/mnt/lfs/usr/bin/bashbug: file format not recognized
+strip:/mnt/lfs/usr/bin/catchsegv: file format not recognized
+strip:/mnt/lfs/usr/bin/corelist: file format not recognized
+strip:/mnt/lfs/usr/bin/cpan: file format not recognized
+strip:/mnt/lfs/usr/bin/enc2xs: file format not recognized
+strip:/mnt/lfs/usr/bin/encguess: file format not recognized
+strip:/mnt/lfs/usr/bin/gunzip: file format not recognized
+strip:/mnt/lfs/usr/bin/gzexe: file format not recognized
+strip:/mnt/lfs/usr/bin/h2ph: file format not recognized
+strip:/mnt/lfs/usr/bin/h2xs: file format not recognized
+strip:/mnt/lfs/usr/bin/idle3: file format not recognized
+strip:/mnt/lfs/usr/bin/idle3.8: file format not recognized
+strip:/mnt/lfs/usr/bin/instmodsh: file format not recognized
+strip:/mnt/lfs/usr/bin/json_pp: file format not recognized
+strip:/mnt/lfs/usr/bin/ldd: file format not recognized
+strip:/mnt/lfs/usr/bin/libnetcfg: file format not recognized
+strip:/mnt/lfs/usr/bin/lzcmp: file format not recognized
+strip:/mnt/lfs/usr/bin/lzdiff: file format not recognized
+strip:/mnt/lfs/usr/bin/lzegrep: file format not recognized
+strip:/mnt/lfs/usr/bin/lzfgrep: file format not recognized
+strip:/mnt/lfs/usr/bin/lzgrep: file format not recognized
+strip:/mnt/lfs/usr/bin/lzless: file format not recognized
+strip:/mnt/lfs/usr/bin/lzmore: file format not recognized
+strip:/mnt/lfs/usr/bin/makeinfo: file format not recognized
+strip:/mnt/lfs/usr/bin/mtrace: file format not recognized
+strip:/mnt/lfs/usr/bin/ncursesw6-config: file format not recognized
+strip:/mnt/lfs/usr/bin/pdftexi2dvi: file format not recognized
+strip:/mnt/lfs/usr/bin/perlbug: file format not recognized
+strip:/mnt/lfs/usr/bin/perldoc: file format not recognized
+strip:/mnt/lfs/usr/bin/perlivp: file format not recognized
+strip:/mnt/lfs/usr/bin/perlthanks: file format not recognized
+strip:/mnt/lfs/usr/bin/piconv: file format not recognized
+strip:/mnt/lfs/usr/bin/pl2pm: file format not recognized
+strip:/mnt/lfs/usr/bin/pod2html: file format not recognized
+strip:/mnt/lfs/usr/bin/pod2man: file format not recognized
+strip:/mnt/lfs/usr/bin/pod2texi: file format not recognized
+strip:/mnt/lfs/usr/bin/pod2text: file format not recognized
+strip:/mnt/lfs/usr/bin/pod2usage: file format not recognized
+strip:/mnt/lfs/usr/bin/podchecker: file format not recognized
+strip:/mnt/lfs/usr/bin/prove: file format not recognized
+strip:/mnt/lfs/usr/bin/ptar: file format not recognized
+strip:/mnt/lfs/usr/bin/ptardiff: file format not recognized
+strip:/mnt/lfs/usr/bin/ptargrep: file format not recognized
+strip:/mnt/lfs/usr/bin/pydoc3: file format not recognized
+strip:/mnt/lfs/usr/bin/pydoc3.8: file format not recognized
+strip:/mnt/lfs/usr/bin/python3.8-config: file format not recognized
+strip:/mnt/lfs/usr/bin/python3-config: file format not recognized
+strip:/mnt/lfs/usr/bin/shasum: file format not recognized
+strip:/mnt/lfs/usr/bin/sotruss: file format not recognized
+strip:/mnt/lfs/usr/bin/splain: file format not recognized
+strip:/mnt/lfs/usr/bin/streamzip: file format not recognized
+strip:/mnt/lfs/usr/bin/texi2any: file format not recognized
+strip:/mnt/lfs/usr/bin/texi2dvi: file format not recognized
+strip:/mnt/lfs/usr/bin/texi2pdf: file format not recognized
+strip:/mnt/lfs/usr/bin/texindex: file format not recognized
+strip:/mnt/lfs/usr/bin/tzselect: file format not recognized
+strip:/mnt/lfs/usr/bin/uncompress: file format not recognized
+strip:/mnt/lfs/usr/bin/updatedb: file format not recognized
+strip:/mnt/lfs/usr/bin/xsubpp: file format not recognized
+strip:/mnt/lfs/usr/bin/xtrace: file format not recognized
+strip:/mnt/lfs/usr/bin/xzcmp: file format not recognized
+strip:/mnt/lfs/usr/bin/xzdiff: file format not recognized
+strip:/mnt/lfs/usr/bin/xzegrep: file format not recognized
+strip:/mnt/lfs/usr/bin/xzfgrep: file format not recognized
+strip:/mnt/lfs/usr/bin/xzgrep: file format not recognized
+strip:/mnt/lfs/usr/bin/xzless: file format not recognized
+strip:/mnt/lfs/usr/bin/xzmore: file format not recognized
+strip:/mnt/lfs/usr/bin/yacc: file format not recognized
+strip:/mnt/lfs/usr/bin/zcat: file format not recognized
+strip:/mnt/lfs/usr/bin/zcmp: file format not recognized
+strip:/mnt/lfs/usr/bin/zdiff: file format not recognized
+strip:/mnt/lfs/usr/bin/zegrep: file format not recognized
+strip:/mnt/lfs/usr/bin/zfgrep: file format not recognized
+strip:/mnt/lfs/usr/bin/zforce: file format not recognized
+strip:/mnt/lfs/usr/bin/zgrep: file format not recognized
+strip:/mnt/lfs/usr/bin/zipdetails: file format not recognized
+strip:/mnt/lfs/usr/bin/zless: file format not recognized
+strip:/mnt/lfs/usr/bin/zmore: file format not recognized
+strip:/mnt/lfs/usr/bin/znew: file format not recognized
+
+root:/mnt/lfs# strip --strip-unneeded $LFS/tools/bin/*
+
+root:/mnt/lfs# 
+
+```
+
+<br>
+# BACKUP 
+
+### INPUT
+```
+cd $LFS && tar -cJpf $HOME/lfs-temp-tools-10.0.tar.xz .
+ls -al $HOME/lfs-temp-tools-10.0.tar.xz 
+
+```
+
+### OUTPUT
+```
+root:/mnt/lfs# cd $LFS && tar -cJpf $HOME/lfs-temp-tools-10.0.tar.xz .
+
+root:/mnt/lfs# ls -al $HOME/lfs-temp-tools-10.0.tar.xz 
+-rw-r--r-- 1 root root 866660400 Nov 30 16:31 /root/lfs-temp-tools-10.0.tar.xz
+
+root:/mnt/lfs# 
+
 ```
 
 <hr>
 <hr>
 <hr>
-
-```
-su -
-```
-
-```
-cbkadal@osp:~$ su -
-Password:
-
-root:~#
-
-```
 
 ```
 shutdown -h now
@@ -1030,7 +1259,7 @@ shutdown -h now
 ```
 
 ```
-root:~# shutdown -h now
+root:/mnt/lfs# shutdown -h now
 Connection to localhost closed by remote host.
 Connection to localhost closed.
 
@@ -1050,7 +1279,7 @@ rms46@pamulang1:~$
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-08.md)
-[NEXT](index.md)
+[PREV](LFS-09.md)
+[NEXT](LFS-11.md)
 <br>
 
