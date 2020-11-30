@@ -1272,6 +1272,28 @@ rms46@pamulang1:~$
 * Create LFS-07.OVA (backup)
 
 <br>
+# OVA Files
+
+* Use the VirtualBox utility to compact the OVA file size.
+
+```
+rms46@pamulang1:~/Documents$ ls -al LFS-0*
+-rw-r--r-- 1 rms46 rms46  669637120 Dec  1 01:37 LFS-01.ova
+-rw-r--r-- 1 rms46 rms46  669640192 Dec  1 01:37 LFS-02.ova
+-rw-r--r-- 1 rms46 rms46 1107378176 Dec  1 01:37 LFS-03.ova
+-rw-r--r-- 1 rms46 rms46 1115932160 Dec  1 01:37 LFS-04.ova
+-rw-r--r-- 1 rms46 rms46 1632316416 Dec  1 01:37 LFS-05.ova
+-rw-r--r-- 1 rms46 rms46 1652909568 Dec  1 01:37 LFS-06.ova
+-rw-r--r-- 1 rms46 rms46 2819810816 Dec  1 01:37 LFS-06-part2.ova
+-rw-r--r-- 1 rms46 rms46 1835484672 Dec  1 01:37 LFS-07.ova
+
+rms46@pamulang1:~/Documents$
+
+```
+
+
+
+<br>
 #### ENDOFPAGE
 [HOME](index.md)
 [ABOUT](README.md)
