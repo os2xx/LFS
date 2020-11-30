@@ -904,39 +904,80 @@ sys	0m4.367s
 ```
 tar xf texinfo-6.7.tar.xz
 cd texinfo-6.7/
+./configure --prefix=/usr
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/texinfo-6.7# tar xf texinfo-6.7.tar.xz
 
 ===== TL;DR =====
+
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+config.status: creating po_document/POTFILES
+config.status: creating po_document/Makefile
+
+(lfs chroot) root:/sources/texinfo-6.7# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/texinfo-6.7# time make
 
 ===== TL;DR =====
+
+make[2]: Entering directory '/sources/texinfo-6.7'
+make[2]: Leaving directory '/sources/texinfo-6.7'
+make[1]: Leaving directory '/sources/texinfo-6.7'
+
+real	0m20.947s
+user	0m19.742s
+sys	0m1.743s
+
+(lfs chroot) root:/sources/texinfo-6.7# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make install
 
-cd texinfo-6.7/
+cd ../
+rm -rf texinfo-6.7/
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/texinfo-6.7# time make install
 
 ===== TL;DR =====
+
+make[2]: Nothing to be done for 'install-data-am'.
+make[2]: Leaving directory '/sources/texinfo-6.7'
+make[1]: Leaving directory '/sources/texinfo-6.7'
+
+real	0m0.676s
+user	0m0.597s
+sys	0m0.096s
+
+(lfs chroot) root:/sources/texinfo-6.7# cd ../
+
+(lfs chroot) root:/sources# rm -rf texinfo-6.7/
+
+(lfs chroot) root:/sources# 
+
 ```
 
 
