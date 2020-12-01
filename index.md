@@ -30,6 +30,8 @@ PS: "===== TL;DR =====" means TOO LONG, DID NOT READ (SKIPPED)
 
   * Download the text from <http://www.linuxfromscratch.org/lfs/downloads/stable/>.
 
+  * And watch <https://www.youtube.com/playlist?list=PLyc5xVO2uDsD3DrDJB5LrTdCadiqr2HCp>
+
 * [Set a Blank VirtualBox Guest of LFS](LFS-01.md) (LFS-ORIG.ova)
 
 * [Install Debian NetInst](LFS-02.md)
