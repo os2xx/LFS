@@ -504,6 +504,138 @@ sys	0m0.023s
 
 ```
 
+<br>
+# DejaGNU-1.6.2
+
+### INPUT
+```
+tar xf dejagnu-1.6.2.tar.gz
+cd dejagnu-1.6.2/
+./configure --prefix=/usr
+makeinfo --html --no-split -o doc/dejagnu.html doc/dejagnu.texi
+makeinfo --plaintext       -o doc/dejagnu.txt  doc/dejagnu.texi
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf dejagnu-1.6.2.tar.gz
+
+(lfs chroot) root:/sources# cd dejagnu-1.6.2/
+
+(lfs chroot) root:/sources/dejagnu-1.6.2# ./configure --prefix=/usr
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+
+===== TL;DR =====
+
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: executing depfiles commands
+
+(lfs chroot) root:/sources/dejagnu-1.6.2# makeinfo --html --no-split -o doc/dejagnu.html doc/dejagnu.texi
+
+(lfs chroot) root:/sources/dejagnu-1.6.2# makeinfo --plaintext       -o doc/dejagnu.txt  doc/dejagnu.texi
+
+(lfs chroot) root:/sources/dejagnu-1.6.2#
+
+```
+
+<br>
+### INPUT
+```
+time make install
+install -v -dm755  /usr/share/doc/dejagnu-1.6.2
+install -v -m644   doc/dejagnu.{html,txt} /usr/share/doc/dejagnu-1.6.2
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/dejagnu-1.6.2# time make install
+Done. Now run 'make install'.
+make[1]: Entering directory '/sources/dejagnu-1.6.2'
+ /bin/mkdir -p '/usr/bin'
+
+===== TL;DR =====
+
+ install-info --info-dir='/usr/share/info' '/usr/share/info/dejagnu.info'
+make[1]: Leaving directory '/sources/dejagnu-1.6.2'
+
+real	0m0.069s
+user	0m0.062s
+sys	0m0.008s
+
+(lfs chroot) root:/sources/dejagnu-1.6.2# install -v -dm755  /usr/share/doc/dejagnu-1.6.2
+install: creating directory '/usr/share/doc/dejagnu-1.6.2'
+
+(lfs chroot) root:/sources/dejagnu-1.6.2# install -v -m644   doc/dejagnu.{html,txt} /usr/share/doc/dejagnu-1.6.2
+'doc/dejagnu.html' -> '/usr/share/doc/dejagnu-1.6.2/dejagnu.html'
+'doc/dejagnu.txt' -> '/usr/share/doc/dejagnu-1.6.2/dejagnu.txt'
+
+(lfs chroot) root:/sources/dejagnu-1.6.2# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/dejagnu-1.6.2# time make check
+Done. Now run 'make install'.
+make  unit
+make[1]: Entering directory '/sources/dejagnu-1.6.2'
+
+===== TL;DR =====
+
+Running ./testsuite/runtest.all/libs.exp ...
+Running ./testsuite/runtest.all/load_lib.exp ...
+Running ./testsuite/runtest.all/options.exp ...
+Running ./testsuite/runtest.all/stats-sub.exp ...
+Running ./testsuite/runtest.all/stats.exp ...
+
+===== TL;DR =====
+
+		=== runtest Summary ===
+
+# of expected passes		77
+DejaGnu version	1.6.2
+Expect version	5.45.4
+Tcl version	8.6
+
+make[1]: Leaving directory '/sources/dejagnu-1.6.2'
+
+real	0m2.291s
+user	0m1.574s
+sys	0m0.279s
+(lfs chroot) root:/sources/dejagnu-1.6.2#
+
+```
+
+<br>
+### INPUT
+```
+cd ../
+rm -rf dejagnu-1.6.2/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/dejagnu-1.6.2# cd ../
+
+(lfs chroot) root:/sources# rm -rf dejagnu-1.6.2/
+
+(lfs chroot) root:/sources# 
+
+```
+
 
 
 
