@@ -160,6 +160,7 @@ chroot "$LFS" /usr/bin/env -i   \
     TERM="$TERM"                \
     PS1='(lfs chroot) \u:\w\$ ' \
     PATH=/bin:/usr/bin:/sbin:/usr/sbin \
+    MAKEFLAGS='-j6' \
     /bin/bash --login +h
 
 df
@@ -185,6 +186,7 @@ root:~# chroot "$LFS" /usr/bin/env -i   \
 >     TERM="$TERM"                \
 >     PS1='(lfs chroot) \u:\w\$ ' \
 >     PATH=/bin:/usr/bin:/sbin:/usr/sbin \
+>     MAKEFLAGS='-j6' \
 >     /bin/bash --login +h
 
 (lfs chroot) I have no name!:/# df
