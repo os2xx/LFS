@@ -64,6 +64,8 @@ export EDITOR=/usr/bin/vi
 export HISTSIZE=2000
 export HISTFILESIZE=2000
 export LFS=/mnt/lfs
+export PS1='\u:\w\$ '
+export MAKEFLAGS='-j6'
 EOF
 source ~/.bash_profile
 echo   "LFS=$LFS"
@@ -81,6 +83,8 @@ cbkadal:~$ cat > ~/.bash_profile << "EOF"
 > export HISTSIZE=2000
 > export HISTFILESIZE=2000
 > export LFS=/mnt/lfs
+> export PS1='\u:\w\$ '
+> export MAKEFLAGS='-j6'
 > EOF
 
 cbkadal:~$ source ~/.bash_profile
@@ -115,6 +119,7 @@ export HISTSIZE=2000
 export HISTFILESIZE=2000
 export LFS=/mnt/lfs
 export PS1='\u:\w\$ '
+export MAKEFLAGS='-j6'
 EOF
 source ~/.bash_profile
 echo   "LFS=$LFS"
@@ -130,6 +135,7 @@ root:~# cat > ~/.bash_profile << "EOF"
 > export HISTFILESIZE=2000
 > export LFS=/mnt/lfs
 > export PS1='\u:\w\$ '
+> export MAKEFLAGS='-j6'
 > EOF
 
 root:~# source ~/.bash_profile
