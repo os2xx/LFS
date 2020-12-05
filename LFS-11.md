@@ -386,6 +386,125 @@ Installing private header files to /usr/include/
 
 ```
 
+<br>
+# Expect-5.45.4
+
+### INPUT
+```
+tar xf expect5.45.4.tar.gz
+cd expect5.45.4/
+./configure --prefix=/usr           \
+            --with-tcl=/usr/lib     \
+            --enable-shared         \
+            --mandir=/usr/share/man \
+            --with-tclinclude=/usr/include
+
+```
+
+### OUTPUT
+```
+===== TL;DR =====
+
+checking sys/param.h presence... yes
+checking for sys/param.h... yes
+configure: creating ./config.status
+config.status: creating Makefile
+
+(lfs chroot) root:/sources/expect5.45.4# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+===== TL;DR =====
+
+	-Wl,-rpath,/usr/lib \
+	-Wl,-rpath,/usr/lib/expect5.45.4
+: expect
+
+real	0m0.767s
+user	0m3.334s
+sys	0m0.363s
+
+(lfs chroot) root:/sources/expect5.45.4#
+
+```
+
+<br>
+### INPUT
+```
+time make test
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/expect5.45.4# time make test
+(echo 'if {![package vsatisfies [package provide Tcl] 8.6]} {return}' ; \
+ echo 'package ifneeded Expect 5.45.4 \
+    [list load [file join $dir libexpect5.45.4.so]]'\
+) > pkgIndex.tcl
+TCL_LIBRARY=`echo /usr/include/library` LD_LIBRARY_PATH=".:/usr/lib:" PATH=".:/usr/lib:/bin:/usr/bin:/sbin:/usr/sbin" TCLLIBPATH="." /usr/bin/tclsh8.6 `echo ./tests/all.tcl` 
+cat.test
+expect.test
+logfile.test
+via sendvia send_uservia send_stdoutvia send_ttypid.test
+send.test
+spawn.test
+stty.test
+all.tcl:	Total	29	Passed	29	Skipped	0	Failed	0
+Sourced 0 Test Files.
+
+real	0m13.284s
+user	0m0.105s
+sys	0m0.063s
+
+(lfs chroot) root:/sources/expect5.45.4# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+ln -svf expect5.45.4/libexpect5.45.4.so /usr/lib
+cd ../
+rm -rf expect5.45.4/
+
+```
+
+### OUTPUT
+```
+===== TL;DR =====
+
+    /usr/bin/install -c $i /usr/bin/$i ; \
+    rm -f $i ; \
+  else true; fi ; \
+done
+
+real	0m0.062s
+user	0m0.125s
+sys	0m0.023s
+
+(lfs chroot) root:/sources/expect5.45.4# ln -svf expect5.45.4/libexpect5.45.4.so /usr/lib
+'/usr/lib/libexpect5.45.4.so' -> 'expect5.45.4/libexpect5.45.4.so'
+
+(lfs chroot) root:/sources/expect5.45.4# cd ../
+
+(lfs chroot) root:/sources# rm -rf expect5.45.4/
+
+(lfs chroot) root:/sources# 
+
+```
+
+
 
 
 
