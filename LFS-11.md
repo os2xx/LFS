@@ -698,8 +698,33 @@ cd       build
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf glibc-2.32.tar.xz
+
+(lfs chroot) root:/sources# cd glibc-2.32/
+
+(lfs chroot) root:/sources/glibc-2.32# patch -Np1 -i ../glibc-2.32-fhs-1.patch
+patching file Makeconfig
+Hunk #1 succeeded at 245 (offset -5 lines).
+patching file nscd/nscd.h
+
+(lfs chroot) root:/sources/glibc-2.32# mkdir -v build
+mkdir: created directory 'build'
+
+(lfs chroot) root:/sources/glibc-2.32# cd       build
+
+(lfs chroot) root:/sources/glibc-2.32/build# ../configure --prefix=/usr                            \
+>              --disable-werror                         \
+>              --enable-kernel=3.2                      \
+>              --enable-stack-protector=strong          \
 
 ===== TL;DR =====
+
+config.status: creating Makefile
+config.status: creating config.h
+config.status: executing default commands
+
+(lfs chroot) root:/sources/glibc-2.32/build#
+
 ```
 
 <br>
@@ -707,13 +732,21 @@ cd       build
 ```
 time make
 
-
 ```
 
 ### OUTPUT
 ```
 
 ===== TL;DR =====
+make[2]: Leaving directory '/sources/glibc-2.32/elf'
+make[1]: Leaving directory '/sources/glibc-2.32'
+
+real	2m35.656s
+user	9m45.811s
+sys	2m30.884s
+
+(lfs chroot) root:/sources/glibc-2.32/build# 
+
 ```
 
 <br>
@@ -731,6 +764,28 @@ time make check
 ```
 
 ===== TL;DR =====
+
+UNSUPPORTED: resolv/tst-resolv-ai_idn
+UNSUPPORTED: resolv/tst-resolv-ai_idn-latin1
+UNSUPPORTED: stdlib/tst-system
+UNSUPPORTED: string/tst-strerror
+UNSUPPORTED: string/tst-strsignal
+Summary of test results:
+      3 FAIL
+   4233 PASS
+     28 UNSUPPORTED
+     17 XFAIL
+      2 XPASS
+make[1]: *** [Makefile:633: tests] Error 1
+make[1]: Leaving directory '/sources/glibc-2.32'
+make: *** [Makefile:9: check] Error 2
+
+real	17m42.348s
+user	26m39.834s
+sys	5m16.890s
+
+(lfs chroot) root:/sources/glibc-2.32/build# 
+
 ```
 
 <br>
@@ -749,6 +804,28 @@ mkdir -pv /usr/lib/locale
 ```
 
 ===== TL;DR =====
+
+  /sources/glibc-2.32/build/elf/ldconfig  \
+			/lib /usr/lib
+LD_SO=ld-linux-x86-64.so.2 CC="gcc" echo not running scripts/test-installation.pl /sources/glibc-2.32/build/
+not running scripts/test-installation.pl /sources/glibc-2.32/build/
+make[1]: Leaving directory '/sources/glibc-2.32'
+
+real	0m28.986s
+user	0m37.396s
+sys	0m5.469s
+
+(lfs chroot) root:/sources/glibc-2.32/build# cp -v ../nscd/nscd.conf /etc/nscd.conf
+'../nscd/nscd.conf' -> '/etc/nscd.conf'
+
+(lfs chroot) root:/sources/glibc-2.32/build# mkdir -pv /var/cache/nscd
+mkdir: created directory '/var/cache/nscd'
+
+(lfs chroot) root:/sources/glibc-2.32/build# mkdir -pv /usr/lib/locale
+mkdir: created directory '/usr/lib/locale'
+
+(lfs chroot) root:/sources/glibc-2.32/build# 
+
 ```
 
 <br>
@@ -788,6 +865,23 @@ make localedata/install-locales
 ```
 
 ===== TL;DR =====
+
+zh_SG.GB2312... done
+ done
+zh_TW.UTF-8...zh_TW.EUC-TW... done
+ done
+zh_TW.BIG5...zu_ZA.UTF-8... done
+zu_ZA.ISO-8859-1... done
+ done
+ done
+ done
+ done
+ done
+make[2]: Leaving directory '/sources/glibc-2.32/localedata'
+make[1]: Leaving directory '/sources/glibc-2.32'
+
+(lfs chroot) root:/sources/glibc-2.32/build#
+
 ```
 
 <br>
@@ -817,8 +911,26 @@ EOF
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/glibc-2.32/build# cat > /etc/nsswitch.conf << "EOF"
+> # Begin /etc/nsswitch.conf
+> 
+> passwd: files
+> group: files
+> shadow: files
+> 
+> hosts: files dns
+> networks: files
+> 
+> protocols: files
+> services: files
+> ethers: files
+> rpc: files
+> 
+> # End /etc/nsswitch.conf
+> EOF
 
-===== TL;DR =====
+(lfs chroot) root:/sources/glibc-2.32/build# 
+
 ```
 
 <br>
@@ -842,14 +954,116 @@ unset ZONEINFO
 
 tzselect
 
-ln -sfv /usr/share/zoneinfo/<xxx> /etc/localtime
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/glibc-2.32/build# tar -xf ../../tzdata2020a.tar.gz
+
+(lfs chroot) root:/sources/glibc-2.32/build# ZONEINFO=/usr/share/zoneinfo
+
+(lfs chroot) root:/sources/glibc-2.32/build# mkdir -pv $ZONEINFO/{posix,right}
+mkdir: created directory '/usr/share/zoneinfo/posix'
+mkdir: created directory '/usr/share/zoneinfo/right'
+
+(lfs chroot) root:/sources/glibc-2.32/build# for tz in etcetera southamerica northamerica europe africa antarctica  \
+>           asia australasia backward pacificnew systemv; do
+>     zic -L /dev/null   -d $ZONEINFO       ${tz}
+>     zic -L /dev/null   -d $ZONEINFO/posix ${tz}
+>     zic -L leapseconds -d $ZONEINFO/right ${tz}
+
+===== TL;DR =====
+
+warning: "leapseconds", line 79: "#expires" is obsolescent; use "Expires"
+warning: "leapseconds", line 79: "#expires" is obsolescent; use "Expires"
+warning: "leapseconds", line 79: "#expires" is obsolescent; use "Expires"
+
+(lfs chroot) root:/sources/glibc-2.32/build# cp -v zone.tab zone1970.tab iso3166.tab $ZONEINFO
+'zone.tab' -> '/usr/share/zoneinfo/zone.tab'
+'zone1970.tab' -> '/usr/share/zoneinfo/zone1970.tab'
+'iso3166.tab' -> '/usr/share/zoneinfo/iso3166.tab'
+
+(lfs chroot) root:/sources/glibc-2.32/build# zic -d $ZONEINFO -p America/New_York
+
+(lfs chroot) root:/sources/glibc-2.32/build# unset ZONEINFO
+
+(lfs chroot) root:/sources/glibc-2.32/build# tzselect
+Please identify a location so that time zone rules can be set correctly.
+Please select a continent, ocean, "coord", or "TZ".
+ 1) Africa
+ 2) Americas
+ 3) Antarctica
+ 4) Asia
+ 5) Atlantic Ocean
+ 6) Australia
+ 7) Europe
+ 8) Indian Ocean
+ 9) Pacific Ocean
+10) coord - I want to use geographical coordinates.
+11) TZ - I want to specify the timezone using the Posix TZ format.
+#? 4
+
+Please select a country whose clocks agree with yours.
+ 1) Afghanistan		  14) India		    27) Lebanon		      40) Singapore
+ 2) Armenia		  15) Indonesia		    28) Macau		      41) Sri Lanka
+ 3) Azerbaijan		  16) Iran		    29) Malaysia	      42) Syria
+ 4) Bahrain		  17) Iraq		    30) Mongolia	      43) Taiwan
+ 5) Bangladesh		  18) Israel		    31) Myanmar (Burma)	      44) Tajikistan
+ 6) Bhutan		  19) Japan		    32) Nepal		      45) Thailand
+ 7) Brunei		  20) Jordan		    33) Oman		      46) Turkmenistan
+ 8) Cambodia		  21) Kazakhstan	    34) Pakistan	      47) United Arab Emirates
+ 9) China		  22) Korea (North)	    35) Palestine	      48) Uzbekistan
+10) Cyprus		  23) Korea (South)	    36) Philippines	      49) Vietnam
+11) East Timor		  24) Kuwait		    37) Qatar		      50) Yemen
+12) Georgia		  25) Kyrgyzstan	    38) Russia
+13) Hong Kong		  26) Laos		    39) Saudi Arabia
+#? 15
+
+Please select one of the following timezones.
+1) Java, Sumatra
+2) Borneo (west, central)
+3) Borneo (east, south); Sulawesi/Celebes, Bali, Nusa Tengarra; Timor (west)
+4) New Guinea (West Papua / Irian Jaya); Malukus/Moluccas
+#? 1
+
+The following information has been given:
+
+	Indonesia
+	Java, Sumatra
+
+Therefore TZ='Asia/Jakarta' will be used.
+Selected time is now:	Sun Dec  6 16:11:54 WIB 2020.
+Universal Time is now:	Sun Dec  6 09:11:54 UTC 2020.
+Is the above information OK?
+1) Yes
+2) No
+#? 1
+
+You can make this change permanent for yourself by appending the line
+	TZ='Asia/Jakarta'; export TZ
+to the file '.profile' in your home directory; then log out and log in again.
+
+Here is that TZ value again, this time on standard output so that you
+can use the /usr/bin/tzselect command in shell scripts:
+Asia/Jakarta
+
+(lfs chroot) root:/sources/glibc-2.32/build#
+
+```
+
+### INPUT
+```
+ln -sfv /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/glibc-2.32/build# ln -sfv /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
+'/etc/localtime' -> '/usr/share/zoneinfo/Asia/Jakarta'
 
-===== TL;DR =====
+(lfs chroot) root:/sources/glibc-2.32/build# 
+
 ```
 
 <br>
@@ -875,15 +1089,487 @@ mkdir -pv /etc/ld.so.conf.d
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/glibc-2.32/build# cat > /etc/ld.so.conf << "EOF"
+> # Begin /etc/ld.so.conf
+> /usr/local/lib
+> /opt/lib
+> 
+> EOF
 
-===== TL;DR =====
+(lfs chroot) root:/sources/glibc-2.32/build# cat >> /etc/ld.so.conf << "EOF"
+> # Add an include directory
+> include /etc/ld.so.conf.d/*.conf
+> 
+> EOF
+
+(lfs chroot) root:/sources/glibc-2.32/build# mkdir -pv /etc/ld.so.conf.d
+mkdir: created directory '/etc/ld.so.conf.d'
+
+(lfs chroot) root:/sources/glibc-2.32/build# 
+
 ```
 
 <br>
-#
+### INPUT
+```
+cd ../../
+rm -rf glibc-2.32/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/glibc-2.32/build# cd ../../
+
+(lfs chroot) root:/sources# rm -rf glibc-2.32/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Zlib-1.2.11
 
 ### INPUT
 ```
+tar xf zlib-1.2.11.tar.xz
+cd zlib-1.2.11/
+./configure --prefix=/usr
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf zlib-1.2.11.tar.xz
+
+(lfs chroot) root:/sources# cd zlib-1.2.11/
+
+(lfs chroot) root:/sources/zlib-1.2.11# ./configure --prefix=/usr
+Checking for gcc...
+Checking for shared library support...
+Building shared library libz.so.1.2.11 with gcc.
+Checking for size_t... Yes.
+Checking for off64_t... Yes.
+Checking for fseeko... Yes.
+Checking for strerror... Yes.
+Checking for unistd.h... Yes.
+Checking for stdarg.h... Yes.
+Checking whether to use vs[n]printf() or s[n]printf()... using vs[n]printf().
+Checking for vsnprintf() in stdio.h... Yes.
+Checking for return value of vsnprintf()... Yes.
+Checking for attribute(visibility) support... Yes.
+
+(lfs chroot) root:/sources/zlib-1.2.11# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/zlib-1.2.11# time make
+gcc -O3 -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN -I. -c -o example.o test/example.c
+gcc -O3 -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN  -c -o adler32.o adler32.c
+gcc -O3 -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN  -c -o crc32.o crc32.c
+
+===== TL;DR =====
+
+real	0m1.280s
+user	0m6.074s
+sys	0m0.660s
+
+(lfs chroot) root:/sources/zlib-1.2.11# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/zlib-1.2.11# time make check
+hello world
+hello world
+hello world
+zlib version 1.2.11 = 0x12b0, compile flags = 0xa9
+uncompress(): hello, hello!
+zlib version 1.2.11 = 0x12b0, compile flags = 0xa9
+uncompress(): hello, hello!
+gzread(): hello, hello!
+gzgets() after gzseek:  hello!
+gzread(): hello, hello!
+gzgets() after gzseek:  hello!
+inflate(): hello, hello!
+inflate(): hello, hello!
+zlib version 1.2.11 = 0x12b0, compile flags = 0xa9
+large_inflate(): OK
+after inflateSync(): hello, hello!
+uncompress(): hello, hello!
+inflate with dictionary: hello, hello!
+		*** zlib shared test OK ***
+gzread(): hello, hello!
+gzgets() after gzseek:  hello!
+inflate(): hello, hello!
+large_inflate(): OK
+large_inflate(): OK
+after inflateSync(): hello, hello!
+after inflateSync(): hello, hello!
+inflate with dictionary: hello, hello!
+inflate with dictionary: hello, hello!
+		*** zlib 64-bit test OK ***
+		*** zlib test OK ***
+
+real	0m0.024s
+user	0m0.018s
+sys	0m0.058s
+
+(lfs chroot) root:/sources/zlib-1.2.11# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+mv -v /usr/lib/libz.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libz.so) /usr/lib/libz.so
+
+cd ../
+rm -rf zlib-1.2.11/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/zlib-1.2.11# time make install
+rm -f /usr/lib/libz.a
+cp libz.a /usr/lib
+chmod 644 /usr/lib/libz.a
+cp libz.so.1.2.11 /usr/lib
+chmod 755 /usr/lib/libz.so.1.2.11
+rm -f /usr/share/man/man3/zlib.3
+cp zlib.3 /usr/share/man/man3
+chmod 644 /usr/share/man/man3/zlib.3
+rm -f /usr/lib/pkgconfig/zlib.pc
+cp zlib.pc /usr/lib/pkgconfig
+chmod 644 /usr/lib/pkgconfig/zlib.pc
+rm -f /usr/include/zlib.h /usr/include/zconf.h
+cp zlib.h zconf.h /usr/include
+chmod 644 /usr/include/zlib.h /usr/include/zconf.h
+
+real	0m0.625s
+user	0m0.020s
+sys	0m0.004s
+
+(lfs chroot) root:/sources/zlib-1.2.11# mv -v /usr/lib/libz.so.* /lib
+renamed '/usr/lib/libz.so.1' -> '/lib/libz.so.1'
+renamed '/usr/lib/libz.so.1.2.11' -> '/lib/libz.so.1.2.11'
+
+(lfs chroot) root:/sources/zlib-1.2.11# ln -sfv ../../lib/$(readlink /usr/lib/libz.so) /usr/lib/libz.so
+'/usr/lib/libz.so' -> '../../lib/libz.so.1.2.11'
+
+(lfs chroot) root:/sources/zlib-1.2.11# cd ../
+
+(lfs chroot) root:/sources# rm -rf zlib-1.2.11/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Bzip2-1.0.8
+
+### INPUT
+```
+tar xf bzip2-1.0.8.tar.gz
+cd bzip2-1.0.8/
+patch -Np1 -i ../bzip2-1.0.8-install_docs-1.patch
+sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
+sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
+make -f Makefile-libbz2_so
+make clean
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf bzip2-1.0.8.tar.gz
+
+(lfs chroot) root:/sources# cd bzip2-1.0.8/
+
+(lfs chroot) root:/sources/bzip2-1.0.8# patch -Np1 -i ../bzip2-1.0.8-install_docs-1.patch
+patching file Makefile
+
+(lfs chroot) root:/sources/bzip2-1.0.8# sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
+
+(lfs chroot) root:/sources/bzip2-1.0.8# sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
+
+(lfs chroot) root:/sources/bzip2-1.0.8# make -f Makefile-libbz2_so
+gcc -fpic -fPIC -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -c blocksort.c
+gcc -fpic -fPIC -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -c huffman.c
+gcc -fpic -fPIC -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -c crctable.c
+
+===== TL;DR =====
+
+gcc -fpic -fPIC -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -o bzip2-shared bzip2.c libbz2.so.1.0.8
+rm -f libbz2.so.1.0
+ln -s libbz2.so.1.0.8 libbz2.so.1.0
+
+(lfs chroot) root:/sources/bzip2-1.0.8# make clean
+rm -f *.o libbz2.a bzip2 bzip2recover \
+sample1.rb2 sample2.rb2 sample3.rb2 \
+sample1.tst sample2.tst sample3.tst
+
+(lfs chroot) root:/sources/bzip2-1.0.8# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bzip2-1.0.8# time make
+gcc -Wall -Winline -O2 -g -D_FILE_OFFSET_BITS=64 -c huffman.c
+
+If compilation produces errors, or a large number of warnings,
+please read README.COMPILATION.PROBLEMS -- you might be able to
+adjust the flags in this Makefile to improve matters.
+
+===== TL;DR =====
+
+real	0m1.211s
+user	0m3.037s
+sys	0m0.199s
+
+(lfs chroot) root:/sources/bzip2-1.0.8#
+
+```
+
+<br>
+### INPUT
+```
+time make PREFIX=/usr install
+cp -v bzip2-shared /bin/bzip2
+cp -av libbz2.so* /lib
+ln -sv ../../lib/libbz2.so.1.0 /usr/lib/libbz2.so
+rm -v /usr/bin/{bunzip2,bzcat,bzip2}
+ln -sv bzip2 /bin/bunzip2
+ln -sv bzip2 /bin/bzcat
+
+cd ../
+rm -rf bzip2-1.0.8/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bzip2-1.0.8# time make PREFIX=/usr install
+if ( test ! -d /usr/bin ) ; then mkdir -p /usr/bin ; fi
+if ( test ! -d /usr/lib ) ; then mkdir -p /usr/lib ; fi
+if ( test ! -d /usr/share/man ) ; then mkdir -p /usr/share/man ; fi
+
+===== TL;DR =====
+
+real	0m0.142s
+user	0m0.076s
+sys	0m0.043s
+
+(lfs chroot) root:/sources/bzip2-1.0.8# cp -v bzip2-shared /bin/bzip2
+'bzip2-shared' -> '/bin/bzip2'
+
+(lfs chroot) root:/sources/bzip2-1.0.8# cp -av libbz2.so* /lib
+'libbz2.so.1.0' -> '/lib/libbz2.so.1.0'
+'libbz2.so.1.0.8' -> '/lib/libbz2.so.1.0.8'
+
+(lfs chroot) root:/sources/bzip2-1.0.8# ln -sv ../../lib/libbz2.so.1.0 /usr/lib/libbz2.so
+'/usr/lib/libbz2.so' -> '../../lib/libbz2.so.1.0'
+
+(lfs chroot) root:/sources/bzip2-1.0.8# rm -v /usr/bin/{bunzip2,bzcat,bzip2}
+removed '/usr/bin/bunzip2'
+removed '/usr/bin/bzcat'
+removed '/usr/bin/bzip2'
+
+(lfs chroot) root:/sources/bzip2-1.0.8# ln -sv bzip2 /bin/bunzip2
+'/bin/bunzip2' -> 'bzip2'
+
+(lfs chroot) root:/sources/bzip2-1.0.8# ln -sv bzip2 /bin/bzcat
+'/bin/bzcat' -> 'bzip2'
+
+(lfs chroot) root:/sources/bzip2-1.0.8# cd ../
+
+(lfs chroot) root:/sources# rm -rf bzip2-1.0.8/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Xz-5.2.5
+
+### INPUT
+```
+tar xf xz-5.2.5.tar.xz
+cd xz-5.2.5/
+./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/xz-5.2.5
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf xz-5.2.5.tar.xz
+
+(lfs chroot) root:/sources# cd xz-5.2.5/
+
+(lfs chroot) root:/sources/xz-5.2.5# ./configure --prefix=/usr    \
+>             --disable-static \
+>             --docdir=/usr/share/doc/xz-5.2.5
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+(lfs chroot) root:/sources/xz-5.2.5#
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/xz-5.2.5# time make
+make  all-recursive
+make[1]: Entering directory '/sources/xz-5.2.5'
+Making all in src
+
+===== TL;DR =====
+
+make[2]: Entering directory '/sources/xz-5.2.5'
+make[2]: Leaving directory '/sources/xz-5.2.5'
+make[1]: Leaving directory '/sources/xz-5.2.5'
+
+real	0m3.195s
+user	0m11.290s
+sys	0m1.975s
+
+(lfs chroot) root:/sources/xz-5.2.5#
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/xz-5.2.5# time make check
+Making check in src
+make[1]: Entering directory '/sources/xz-5.2.5/src'
+Making check in liblzma
+make[2]: Entering directory '/sources/xz-5.2.5/src/liblzma'
+
+===== TL;DR =====
+
+==================
+All 9 tests passed
+==================
+make[2]: Leaving directory '/sources/xz-5.2.5/tests'
+make[1]: Leaving directory '/sources/xz-5.2.5/tests'
+make[1]: Entering directory '/sources/xz-5.2.5'
+make[1]: Leaving directory '/sources/xz-5.2.5'
+
+real	0m7.546s
+user	0m7.816s
+sys	0m1.844s
+
+(lfs chroot) root:/sources/xz-5.2.5#
+
+```
+
+<br>
+### INPUT
+```
+time make install
+mv -v   /usr/bin/{lzma,unlzma,lzcat,xz,unxz,xzcat} /bin
+mv -v /usr/lib/liblzma.so.* /lib
+ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so
+cd ../
+rm -rf xz-5.2.5/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/xz-5.2.5# time make install
+Making install in src
+make[1]: Entering directory '/sources/xz-5.2.5/src'
+Making install in liblzma
+
+===== TL;DR =====
+
+make[2]: Leaving directory '/sources/xz-5.2.5'
+make[1]: Leaving directory '/sources/xz-5.2.5'
+
+real	0m0.630s
+user	0m0.725s
+sys	0m0.120s
+
+(lfs chroot) root:/sources/xz-5.2.5# mv -v   /usr/bin/{lzma,unlzma,lzcat,xz,unxz,xzcat} /bin
+renamed '/usr/bin/lzma' -> '/bin/lzma'
+renamed '/usr/bin/unlzma' -> '/bin/unlzma'
+renamed '/usr/bin/lzcat' -> '/bin/lzcat'
+renamed '/usr/bin/xz' -> '/bin/xz'
+renamed '/usr/bin/unxz' -> '/bin/unxz'
+renamed '/usr/bin/xzcat' -> '/bin/xzcat'
+
+(lfs chroot) root:/sources/xz-5.2.5# mv -v /usr/lib/liblzma.so.* /lib
+renamed '/usr/lib/liblzma.so.5' -> '/lib/liblzma.so.5'
+renamed '/usr/lib/liblzma.so.5.2.5' -> '/lib/liblzma.so.5.2.5'
+
+(lfs chroot) root:/sources/xz-5.2.5# ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so
+'/usr/lib/liblzma.so' -> '../../lib/liblzma.so.5.2.5'
+
+(lfs chroot) root:/sources/xz-5.2.5# cd ../
+
+(lfs chroot) root:/sources# rm -rf xz-5.2.5/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Zstd-1.4.5
+
+### INPUT
+```
+tar xf zstd-1.4.5.tar.gz
+cd zstd-1.4.5/
+time make
 
 ```
 
@@ -894,6 +1580,24 @@ mkdir -pv /etc/ld.so.conf.d
 ```
 
 <br>
+### INPUT
+```
+make prefix=/usr install
+rm -v /usr/lib/libzstd.a
+mv -v /usr/lib/libzstd.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libzstd.so) /usr/lib/libzstd.so
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+# 
+
 ### INPUT
 ```
 
@@ -922,7 +1626,7 @@ mkdir -pv /etc/ld.so.conf.d
 ```
 
 cd ../
-cd glibc-2.32/
+rm -rf zstd-1.4.5/
 
 ```
 
@@ -931,13 +1635,6 @@ cd glibc-2.32/
 
 ===== TL;DR =====
 ```
-
-
-
-
-
-
-
 
 
 
