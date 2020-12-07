@@ -2021,18 +2021,480 @@ sys	0m0.026s
 ```
 
 <br>
-# XXX
+# Bc-3.1.5 
 
 ### INPUT
 ```
+tar xf bc-3.1.5.tar.xz
+cd bc-3.1.5/
+PREFIX=/usr CC=gcc CFLAGS="-std=c99" ./configure.sh -G -O3
 
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf bc-3.1.5.tar.xz
+
+(lfs chroot) root:/sources# cd bc-3.1.5/
+
+(lfs chroot) root:/sources/bc-3.1.5# PREFIX=/usr CC=gcc CFLAGS="-std=c99" ./configure.sh -G -O3
+Testing NLS...
+NLS works.
+
+Testing gencat...
+gencat works.
+
+Testing history...
+History works.
+
+Building bc
+Building dc
+
+===== TL;DR =====
+
+LONG_BIT=
+GEN_HOST=1
+GEN_EMU=
+
+(lfs chroot) root:/sources/bc-3.1.5# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bc-3.1.5# time make
+mkdir -p bin
+gcc -std=c99 -o gen/strgen gen/strgen.c
+gcc -DBC_ENABLED=1 -DDC_ENABLED=1 -I./include/ -DVERSION=3.1.5  -DEXECPREFIX= -DMAINEXEC=bc 
+
+===== TL;DR =====
+
+real	0m1.358s
+user	0m3.315s
+sys	0m0.271s
+(lfs chroot) root:/sources/bc-3.1.5# 
+
+```
+
+<br>
+### INPUT
+```
+time make test
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bc-3.1.5# time make test
+***********************************************************************
+
+===== TL;DR =====
+
+All dc tests passed.
+
+===== TL;DR =====
+
+All bc tests passed.
+
+***********************************************************************
+
+real	0m1.696s
+user	0m1.842s
+sys	0m0.539s
+
+(lfs chroot) root:/sources/bc-3.1.5# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+cd ../
+rm -rf bc-3.1.5/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bc-3.1.5# time make install
+./locale_install.sh /usr/share/locale/%L/%N bc 
+./safe-install.sh -Dm644 manuals/bc.1 /usr/share/man/man1/bc.1
+./safe-install.sh -Dm644 manuals/dc.1 /usr/share/man/man1/dc.1
+./install.sh /usr/bin ""
+
+real	0m10.579s
+user	0m10.435s
+sys	0m0.265s
+
+(lfs chroot) root:/sources/bc-3.1.5# cd ../
+
+(lfs chroot) root:/sources# rm -rf bc-3.1.5/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Flex-2.6.4
+
+### INPUT
+```
+tar xf flex-2.6.4.tar.gz
+cd flex-2.6.4/
+./configure --prefix=/usr --docdir=/usr/share/doc/flex-2.6.4
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf flex-2.6.4.tar.gz
+
+(lfs chroot) root:/sources# cd flex-2.6.4/
+
+(lfs chroot) root:/sources/flex-2.6.4# ./configure --prefix=/usr --docdir=/usr/share/doc/flex-2.6.4
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking how to print strings... printf
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+(lfs chroot) root:/sources/flex-2.6.4# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/flex-2.6.4# time make
+Making all in src
+make[1]: Entering directory '/sources/flex-2.6.4/src'
+make  all-am
+
+===== TL;DR =====
+
+real	0m3.273s
+user	0m10.860s
+sys	0m0.935s
+
+(lfs chroot) root:/sources/flex-2.6.4# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/flex-2.6.4# time make check
+Making check in src
+make[1]: Entering directory '/sources/flex-2.6.4/src'
+make[1]: Nothing to be done for 'check'.
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for the fast lexical analyser generator 2.6.4
+============================================================================
+# TOTAL: 114
+# PASS:  114
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+make[3]: Leaving directory '/sources/flex-2.6.4/tests'
+make[2]: Leaving directory '/sources/flex-2.6.4/tests'
+make[1]: Leaving directory '/sources/flex-2.6.4/tests'
+Making check in tools
+make[1]: Entering directory '/sources/flex-2.6.4/tools'
+make[1]: Nothing to be done for 'check'.
+make[1]: Leaving directory '/sources/flex-2.6.4/tools'
+make[1]: Entering directory '/sources/flex-2.6.4'
+make[1]: Nothing to be done for 'check-am'.
+make[1]: Leaving directory '/sources/flex-2.6.4'
+
+real	0m8.171s
+user	0m38.032s
+sys	0m3.412s
+
+(lfs chroot) root:/sources/flex-2.6.4# 
+
+```
+
+<br>
+### INPUT
+
+```
+time make install
+ln -sv flex /usr/bin/lex
+cd ../
+rm -rf flex-2.6.4/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/flex-2.6.4# time make install
+Making install in src
+make[1]: Entering directory '/sources/flex-2.6.4/src'
+make[2]: Entering directory '/sources/flex-2.6.4/src'
+
+===== TL;DR =====
+
+real	0m0.518s
+user	0m0.398s
+sys	0m0.119s
+
+(lfs chroot) root:/sources/flex-2.6.4# ln -sv flex /usr/bin/lex
+'/usr/bin/lex' -> 'flex'
+
+(lfs chroot) root:/sources/flex-2.6.4# cd ../
+
+(lfs chroot) root:/sources# rm -rf flex-2.6.4/
+
+(lfs chroot) root:/sources#
+
+```
+
+<br>
+# Binutils-2.35 
+
+### INPUT
+```
+tar xf binutils-2.35.tar.xz
+cd binutils-2.35/
+expect -c "spawn ls"
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf binutils-2.35.tar.xz
+
+(lfs chroot) root:/sources# cd binutils-2.35/
+
+(lfs chroot) root:/sources/binutils-2.35# expect -c "spawn ls"
+spawn ls
+
+(lfs chroot) root:/sources/binutils-2.35# 
+
+```
+
+<br>
+### INPUT
+```
+sed -i '/@\tincremental_copy/d' gold/testsuite/Makefile.in
+mkdir -v build
+cd       build
+../configure --prefix=/usr       \
+             --enable-gold       \
+             --enable-ld=default \
+             --enable-plugins    \
+             --enable-shared     \
+             --disable-werror    \
+             --enable-64-bit-bfd \
+             --with-system-zlib
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/binutils-2.35# sed -i '/@\tincremental_copy/d' gold/testsuite/Makefile.in
+
+(lfs chroot) root:/sources/binutils-2.35# mkdir -v build
+mkdir: created directory 'build'
+
+(lfs chroot) root:/sources/binutils-2.35# cd       build
+
+(lfs chroot) root:/sources/binutils-2.35/build# ../configure --prefix=/usr       \
+>              --enable-gold       \
+>              --enable-ld=default \
+>              --enable-plugins    \
+>              --enable-shared     \
+
+===== TL;DR =====
+
+checking whether to enable maintainer-specific portions of Makefiles... no
+configure: creating ./config.status
+config.status: creating Makefile
+
+(lfs chroot) root:/sources/binutils-2.35/build# 
+
+```
+
+<br>
+### INPUT
+```
+time make tooldir=/usr
 
 ```
 
 ### OUTPUT
 ```
 
+(lfs chroot) root:/sources/binutils-2.35/build# time make tooldir=/usr
+make[1]: Entering directory '/sources/binutils-2.35/build'
+make[1]: Nothing to be done for 'all-target'.
+mkdir -p -- ./libiberty
+
 ===== TL;DR =====
+
+real	2m0.515s
+user	8m46.501s
+sys	0m38.007s
+(lfs chroot) root:/sources/binutils-2.35/build# 
+
+```
+
+<br>
+### INPUT
+```
+time make -k check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/binutils-2.35/build# time make -k check
+make[1]: Entering directory '/sources/binutils-2.35/build'
+make[2]: Entering directory '/sources/binutils-2.35/build/etc'
+make[2]: Nothing to be done for 'check'.
+
+===== TL;DR =====
+
+		=== binutils Summary ===
+
+# of expected passes		274
+# of unsupported tests		2
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for gold 0.1
+============================================================================
+# TOTAL: 277
+# PASS:  277
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for gold 0.1
+============================================================================
+# TOTAL: 4
+# PASS:  4
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+		=== gas Summary ===
+
+# of expected passes		1445
+/sources/binutils-2.35/build/gas/as-new 2.35
+
+===== TL;DR =====
+
+		=== ld Summary ===
+
+# of expected passes		2565
+# of expected failures		57
+# of untested testcases		1
+# of unsupported tests		23
+./ld-new 2.35
+
+===== TL;DR =====
+
+real	4m45.134s
+user	5m26.275s
+sys	1m24.328s
+
+(lfs chroot) root:/sources/binutils-2.35/build# 
+
+```
+
+<br>
+### INPUT
+```
+make tooldir=/usr install
+cd ../../
+rm -rf binutils-2.35/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/binutils-2.35/build# make tooldir=/usr install
+make[1]: Entering directory '/sources/binutils-2.35/build'
+/bin/sh ../mkinstalldirs /usr /usr
+make[1]: Nothing to be done for 'install-target'.
+
+===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the `LD_RUN_PATH' environment variable
+     during linking
+   - use the `-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+make[3]: Leaving directory '/sources/binutils-2.35/build/ld'
+make[2]: Leaving directory '/sources/binutils-2.35/build/ld'
+make[1]: Leaving directory '/sources/binutils-2.35/build'
+
+(lfs chroot) root:/sources/binutils-2.35/build# cd ../../
+
+(lfs chroot) root:/sources# rm -rf binutils-2.35/
+
+(lfs chroot) root:/sources#
+
 ```
 
 
