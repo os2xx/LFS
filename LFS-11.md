@@ -2497,6 +2497,331 @@ make[1]: Leaving directory '/sources/binutils-2.35/build'
 
 ```
 
+<br>
+# GMP-6.2.0
+
+### INPUT
+```
+tar xf gmp-6.2.0.tar.xz
+cd gmp-6.2.0/
+./configure --prefix=/usr    \
+            --enable-cxx     \
+            --disable-static \
+            --docdir=/usr/share/doc/gmp-6.2.0
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf gmp-6.2.0.tar.xz
+
+(lfs chroot) root:/sources# cd gmp-6.2.0/
+
+(lfs chroot) root:/sources/gmp-6.2.0# ./configure --prefix=/usr    \
+>             --enable-cxx     \
+>             --disable-static \
+>             --docdir=/usr/share/doc/gmp-6.2.0
+
+===== TL;DR =====
+
+configure: summary of build options:
+
+  Version:           GNU MP 6.2.0
+  Host type:         kabylake-pc-linux-gnu
+  ABI:               64
+  Install prefix:    /usr
+  Compiler:          gcc
+  Static libraries:  no
+  Shared libraries:  yes
+
+(lfs chroot) root:/sources/gmp-6.2.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+time make html
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gmp-6.2.0# time make
+gcc `test -f 'gen-fac.c' || echo './'`gen-fac.c -o gen-fac
+gcc `test -f 'gen-fib.c' || echo './'`gen-fib.c -o gen-fib
+gcc `test -f 'gen-bases.c' || echo './'`gen-bases.c -o gen-bases -lm
+
+===== TL;DR =====
+
+real	0m11.202s
+user	0m41.589s
+sys	0m6.513s
+
+(lfs chroot) root:/sources/gmp-6.2.0# time make html
+Making html in tests
+make[1]: Entering directory '/sources/gmp-6.2.0/tests'
+Making html in .
+make[2]: Entering directory '/sources/gmp-6.2.0/tests'
+
+===== TL;DR =====
+
+real	0m2.189s
+user	0m1.896s
+sys	0m0.037s
+
+(lfs chroot) root:/sources/gmp-6.2.0# 
+
+```
+
+<br>
+### INPUT
+```
+make check 2>&1 | tee gmp-check-log
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gmp-6.2.0# make check 2>&1 | tee gmp-check-log
+make  check-recursive
+make[1]: Entering directory '/sources/gmp-6.2.0'
+Making check in tests
+make[2]: Entering directory '/sources/gmp-6.2.0/tests'
+Making check in .
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU MP 6.2.0
+============================================================================
+# TOTAL: 8
+# PASS:  8
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU MP 6.2.0
+============================================================================
+# TOTAL: 50
+# PASS:  50
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU MP 6.2.0
+============================================================================
+# TOTAL: 64
+# PASS:  64
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU MP 6.2.0
+============================================================================
+# TOTAL: 15
+# PASS:  15
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU MP 6.2.0
+============================================================================
+# TOTAL: 28
+# PASS:  28
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU MP 6.2.0
+============================================================================
+# TOTAL: 7
+# PASS:  7
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU MP 6.2.0
+============================================================================
+# TOTAL: 3
+# PASS:  3
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU MP 6.2.0
+============================================================================
+# TOTAL: 22
+# PASS:  22
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+make[2]: Nothing to be done for 'check-am'.
+make[2]: Leaving directory '/sources/gmp-6.2.0'
+make[1]: Leaving directory '/sources/gmp-6.2.0'
+
+(lfs chroot) root:/sources/gmp-6.2.0# 
+
+```
+
+<br>
+### INPUT
+```
+awk '/# PASS:/{total+=$3} ; END{print total}' gmp-check-log
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gmp-6.2.0# awk '/# PASS:/{total+=$3} ; END{print total}' gmp-check-log
+197
+
+(lfs chroot) root:/sources/gmp-6.2.0# 
+
+```
+
+<br>
+### INPUT
+```
+make install
+make install-html
+cd ../
+rm -rf gmp-6.2.0/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gmp-6.2.0# make install
+make  install-recursive
+make[1]: Entering directory '/sources/gmp-6.2.0'
+Making install in tests
+
+===== TL;DR =====
+
++-------------------------------------------------------------+
+| CAUTION:                                                    |
+|                                                             |
+| If you have not already run "make check", then we strongly  |
+| recommend you do so.                                        |
+|                                                             |
+| GMP has been carefully tested by its authors, but compilers |
+| are all too often released with serious bugs.  GMP tends to |
+| explore interesting corners in compilers and has hit bugs   |
+| on quite a few occasions.                                   |
+|                                                             |
++-------------------------------------------------------------+
+
+===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+make[3]: Leaving directory '/sources/gmp-6.2.0'
+make[2]: Leaving directory '/sources/gmp-6.2.0'
+make[1]: Leaving directory '/sources/gmp-6.2.0'
+
+(lfs chroot) root:/sources/gmp-6.2.0# make install-html
+Making install-html in tests
+make[1]: Entering directory '/sources/gmp-6.2.0/tests'
+Making install-html in .
+make[2]: Entering directory '/sources/gmp-6.2.0/tests'
+
+===== TL;DR =====
+
+make[1]: Entering directory '/sources/gmp-6.2.0'
+make[1]: Nothing to be done for 'install-html-am'.
+make[1]: Leaving directory '/sources/gmp-6.2.0'
+
+(lfs chroot) root:/sources/gmp-6.2.0# cd ../
+
+(lfs chroot) root:/sources# rm -rf gmp-6.2.0/
+
+(lfs chroot) root:/sources#
+
+```
+
+<br>
+# XXX
+
+### INPUT
+```
+
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+
 
 
 
