@@ -1575,8 +1575,25 @@ time make
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf zstd-1.4.5.tar.gz
+
+(lfs chroot) root:/sources# cd zstd-1.4.5/
+
+(lfs chroot) root:/sources/zstd-1.4.5# time make
+make[1]: Entering directory '/sources/zstd-1.4.5/lib'
+make[1]: Entering directory '/sources/zstd-1.4.5/programs'
+make[1]: Nothing to be done for 'lib-release'.
 
 ===== TL;DR =====
+
+cp programs/zstd .
+
+real	0m25.783s
+user	0m24.555s
+sys	0m0.657s
+
+(lfs chroot) root:/sources/zstd-1.4.5#
+
 ```
 
 <br>
@@ -1586,47 +1603,429 @@ make prefix=/usr install
 rm -v /usr/lib/libzstd.a
 mv -v /usr/lib/libzstd.so.* /lib
 ln -sfv ../../lib/$(readlink /usr/lib/libzstd.so) /usr/lib/libzstd.so
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-# 
-
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-### INPUT
-```
-
 cd ../
 rm -rf zstd-1.4.5/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/zstd-1.4.5# make prefix=/usr install
+make[1]: Entering directory '/sources/zstd-1.4.5/lib'
+cc -Wall -Wextra -Wcast-qual -Wcast-align -Wshadow -Wstrict-aliasing=1 
+
+===== TL;DR =====
+
+Installing binaries
+Installing man pages
+zstd installation completed
+make[1]: Leaving directory '/sources/zstd-1.4.5/programs'
+
+(lfs chroot) root:/sources/zstd-1.4.5# rm -v /usr/lib/libzstd.a
+removed '/usr/lib/libzstd.a'
+
+(lfs chroot) root:/sources/zstd-1.4.5# mv -v /usr/lib/libzstd.so.* /lib
+renamed '/usr/lib/libzstd.so.1' -> '/lib/libzstd.so.1'
+renamed '/usr/lib/libzstd.so.1.4.5' -> '/lib/libzstd.so.1.4.5'
+
+(lfs chroot) root:/sources/zstd-1.4.5# ln -sfv ../../lib/$(readlink /usr/lib/libzstd.so) /usr/lib/libzstd.so
+'/usr/lib/libzstd.so' -> '../../lib/libzstd.so.1.4.5'
+
+(lfs chroot) root:/sources/zstd-1.4.5# cd ../
+
+(lfs chroot) root:/sources# rm -rf zstd-1.4.5/
+
+(lfs chroot) root:/sources#
+
+```
+
+<br>
+# File-5.39
+
+### INPUT
+```
+tar xf file-5.39.tar.gz
+cd file-5.39/
+./configure --prefix=/usr
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf file-5.39.tar.gz
+
+(lfs chroot) root:/sources# cd file-5.39/
+
+(lfs chroot) root:/sources/file-5.39# ./configure --prefix=/usr
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+
+===== TL;DR =====
+
+config.status: creating config.h
+config.status: executing depfiles commands
+config.status: executing libtool commands
+
+(lfs chroot) root:/sources/file-5.39# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/file-5.39# time make
+make  all-recursive
+make[1]: Entering directory '/sources/file-5.39'
+Making all in src
+make[2]: Entering directory '/sources/file-5.39/src'
+
+===== TL;DR =====
+
+real	0m1.881s
+user	0m6.464s
+sys	0m0.862s
+
+(lfs chroot) root:/sources/file-5.39# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/file-5.39# time make check
+Making check in src
+make[1]: Entering directory '/sources/file-5.39/src'
+make  check-am
+make[2]: Entering directory '/sources/file-5.39/src'
+
+===== TL;DR =====
+
+real	0m0.421s
+user	0m0.382s
+sys	0m0.051s
+
+(lfs chroot) root:/sources/file-5.39#
+
+```
+
+<br>
+### INPUT
+```
+time make install
+cd ../
+rm -rf file-5.39/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/file-5.39# time make install
+Making install in src
+make[1]: Entering directory '/sources/file-5.39/src'
+make  install-am
+make[2]: Entering directory '/sources/file-5.39/src'
+
+===== TL;DR =====
+
+real	0m0.259s
+user	0m0.156s
+sys	0m0.036s
+
+(lfs chroot) root:/sources/file-5.39# cd ../
+
+(lfs chroot) root:/sources# rm -rf file-5.39/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Readline-8.0
+
+### INPUT
+```
+tar xf readline-8.0.tar.gz
+cd readline-8.0/
+sed -i '/MV.*old/d' Makefile.in
+sed -i '/{OLDSUFF}/c:' support/shlib-install
+./configure --prefix=/usr    \
+            --disable-static \
+            --with-curses    \
+            --docdir=/usr/share/doc/readline-8.0
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf readline-8.0.tar.gz
+
+(lfs chroot) root:/sources# cd readline-8.0/
+
+(lfs chroot) root:/sources/readline-8.0# sed -i '/MV.*old/d' Makefile.in
+
+(lfs chroot) root:/sources/readline-8.0# sed -i '/{OLDSUFF}/c:' support/shlib-install
+
+(lfs chroot) root:/sources/readline-8.0# ./configure --prefix=/usr    \
+>             --disable-static \
+>             --with-curses    \
+>             --docdir=/usr/share/doc/readline-8.0
+
+===== TL;DR =====
+
+config.status: creating readline.pc
+config.status: creating config.h
+config.status: executing default commands
+
+(lfs chroot) root:/sources/readline-8.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make SHLIB_LIBS="-lncursesw"
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/readline-8.0# time make SHLIB_LIBS="-lncursesw"
+test -d shlib || mkdir shlib
+( cd shlib ; make -j6 --jobserver-auth=3,4 all )
+make[1]: warning: -j6 forced in submake: resetting jobserver mode.
+
+===== TL;DR =====
+
+real	0m1.068s
+user	0m4.845s
+sys	0m0.685s
+
+(lfs chroot) root:/sources/readline-8.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make SHLIB_LIBS="-lncursesw" install
+mv -v /usr/lib/lib{readline,history}.so.* /lib
+chmod -v u+w /lib/lib{readline,history}.so.*
+ln -sfv ../../lib/$(readlink /usr/lib/libreadline.so) /usr/lib/libreadline.so
+ln -sfv ../../lib/$(readlink /usr/lib/libhistory.so ) /usr/lib/libhistory.so
+install -v -m644 doc/*.{ps,pdf,html,dvi} /usr/share/doc/readline-8.0
+cd ../
+rm -rf readline-8.0/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/readline-8.0# time make SHLIB_LIBS="-lncursesw" install
+/bin/sh ./support/mkinstalldirs /usr/include \
+	/usr/include/readline /usr/lib \
+	/usr/share/info /usr/share/man/man3 /usr/share/doc/readline-8.0 \
+	/usr/lib/pkgconfig
+
+===== TL;DR =====
+
+real	0m0.125s
+user	0m0.060s
+sys	0m0.011s
+
+(lfs chroot) root:/sources/readline-8.0# mv -v /usr/lib/lib{readline,history}.so.* /lib
+renamed '/usr/lib/libreadline.so.8' -> '/lib/libreadline.so.8'
+renamed '/usr/lib/libreadline.so.8.0' -> '/lib/libreadline.so.8.0'
+renamed '/usr/lib/libhistory.so.8' -> '/lib/libhistory.so.8'
+renamed '/usr/lib/libhistory.so.8.0' -> '/lib/libhistory.so.8.0'
+
+(lfs chroot) root:/sources/readline-8.0# chmod -v u+w /lib/lib{readline,history}.so.*
+mode of '/lib/libreadline.so.8' retained as 0755 (rwxr-xr-x)
+mode of '/lib/libreadline.so.8.0' retained as 0755 (rwxr-xr-x)
+mode of '/lib/libhistory.so.8' retained as 0755 (rwxr-xr-x)
+mode of '/lib/libhistory.so.8.0' retained as 0755 (rwxr-xr-x)
+
+(lfs chroot) root:/sources/readline-8.0# ln -sfv ../../lib/$(readlink /usr/lib/libreadline.so) /usr/lib/libreadline.so
+'/usr/lib/libreadline.so' -> '../../lib/libreadline.so.8'
+
+(lfs chroot) root:/sources/readline-8.0# ln -sfv ../../lib/$(readlink /usr/lib/libhistory.so ) /usr/lib/libhistory.so
+'/usr/lib/libhistory.so' -> '../../lib/libhistory.so.8'
+
+(lfs chroot) root:/sources/readline-8.0# install -v -m644 doc/*.{ps,pdf,html,dvi} /usr/share/doc/readline-8.0
+'doc/history.ps' -> '/usr/share/doc/readline-8.0/history.ps'
+'doc/history_3.ps' -> '/usr/share/doc/readline-8.0/history_3.ps'
+'doc/readline.ps' -> '/usr/share/doc/readline-8.0/readline.ps'
+
+===== TL;DR =====
+
+'doc/history.dvi' -> '/usr/share/doc/readline-8.0/history.dvi'
+'doc/readline.dvi' -> '/usr/share/doc/readline-8.0/readline.dvi'
+'doc/rluserman.dvi' -> '/usr/share/doc/readline-8.0/rluserman.dvi'
+
+(lfs chroot) root:/sources/readline-8.0# cd ../
+
+(lfs chroot) root:/sources# rm -rf readline-8.0/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# M4-1.4.18
+
+### INPUT
+```
+tar xf m4-1.4.18.tar.xz
+cd m4-1.4.18/
+sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' lib/*.c
+echo "#define _IO_IN_BACKUP 0x100" >> lib/stdio-impl.h
+./configure --prefix=/usr
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf m4-1.4.18.tar.xz
+
+(lfs chroot) root:/sources# cd m4-1.4.18/
+
+(lfs chroot) root:/sources/m4-1.4.18# sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' lib/*.c
+
+(lfs chroot) root:/sources/m4-1.4.18# echo "#define _IO_IN_BACKUP 0x100" >> lib/stdio-impl.h
+
+(lfs chroot) root:/sources/m4-1.4.18# ./configure --prefix=/usr
+
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+
+===== TL;DR =====
+
+config.status: creating lib/config.h
+config.status: executing depfiles commands
+config.status: executing stamp-h commands
+
+(lfs chroot) root:/sources/m4-1.4.18# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/m4-1.4.18# time make
+make  all-recursive
+make[1]: Entering directory '/sources/m4-1.4.18'
+Making all in .
+make[2]: Entering directory '/sources/m4-1.4.18'
+
+===== TL;DR =====
+
+real	0m2.096s
+user	0m6.527s
+sys	0m1.192s
+
+(lfs chroot) root:/sources/m4-1.4.18# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/m4-1.4.18# time make check
+  GEN      public-submodule-commit
+make  check-recursive
+make[1]: Entering directory '/sources/m4-1.4.18'
+Making check in .
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU M4 1.4.18
+============================================================================
+# TOTAL: 170
+# PASS:  157
+# SKIP:  13
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+make[6]: Leaving directory '/sources/m4-1.4.18/tests'
+make[5]: Leaving directory '/sources/m4-1.4.18/tests'
+make[4]: Leaving directory '/sources/m4-1.4.18/tests'
+make[3]: Leaving directory '/sources/m4-1.4.18/tests'
+make[2]: Leaving directory '/sources/m4-1.4.18/tests'
+make[1]: Leaving directory '/sources/m4-1.4.18'
+
+real	0m11.022s
+user	0m22.038s
+sys	0m4.207s
+
+(lfs chroot) root:/sources/m4-1.4.18# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+cd ../
+rm -rf m4-1.4.18/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/m4-1.4.18# time make install
+make  install-recursive
+make[1]: Entering directory '/sources/m4-1.4.18'
+Making install in .
+
+===== TL;DR =====
+
+real	0m0.373s
+user	0m0.348s
+sys	0m0.026s
+
+(lfs chroot) root:/sources/m4-1.4.18# cd ../
+
+(lfs chroot) root:/sources# rm -rf m4-1.4.18/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# XXX
+
+### INPUT
+```
+
 
 ```
 
