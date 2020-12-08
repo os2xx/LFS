@@ -416,6 +416,7 @@ mode of '/var/log/btmp' changed from 0644 (rw-r--r--) to 0600 (rw-------)
 
 ### INPUT
 ```
+cd /sources/
 tar xf gcc-10.2.0.tar.xz
 cd gcc-10.2.0/
 ln -s gthr-posix.h libgcc/gthr-default.h
@@ -433,6 +434,8 @@ cd       build
 
 ### OUTPUT
 ```
+(lfs chroot) root:/# cd /sources/
+
 (lfs chroot) root:/sources# tar xf gcc-10.2.0.tar.xz
 
 (lfs chroot) root:/sources# cd gcc-10.2.0/
