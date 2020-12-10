@@ -3998,8 +3998,73 @@ readelf -l a.out | grep ': /lib'
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/gcc-10.2.0/build# time make install
+make[1]: Entering directory '/sources/gcc-10.2.0/build'
+/bin/sh ../mkinstalldirs /usr /usr
+make[2]: Entering directory '/sources/gcc-10.2.0/build/fixincludes'
+rm -rf /usr/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/install-tools
 
 ===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib/../lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the `LD_RUN_PATH' environment variable
+     during linking
+   - use the `-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m11.736s
+user	0m5.751s
+sys	0m1.763s
+
+(lfs chroot) root:/sources/gcc-10.2.0/build# rm -rf /usr/lib/gcc/$(gcc -dumpmachine)/10.2.0/include-fixed/bits/
+
+(lfs chroot) root:/sources/gcc-10.2.0/build# chown -v -R root:root \
+>     /usr/lib/gcc/*linux-gnu/10.2.0/include{,-fixed}
+ownership of '/usr/lib/gcc/x86_64-lfs-linux-gnu/10.2.0/include/shaintrin.h' retained as root:root
+ownership of '/usr/lib/gcc/x86_64-lfs-linux-gnu/10.2.0/include/avx512bf16intrin.h' retained as root:root
+ownership of '/usr/lib/gcc/x86_64-lfs-linux-gnu/10.2.0/include/tmmintrin.h' retained as root:root
+
+===== TL;DR =====
+
+changed ownership of '/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed/syslimits.h' from tester:root to root:root
+changed ownership of '/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed/limits.h' from tester:root to root:root
+changed ownership of '/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed/README' from tester:root to root:root
+changed ownership of '/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed' from tester:root to root:root
+
+(lfs chroot) root:/sources/gcc-10.2.0/build# ln -sv ../usr/bin/cpp /lib
+'/lib/cpp' -> '../usr/bin/cpp'
+
+(lfs chroot) root:/sources/gcc-10.2.0/build# install -v -dm755 /usr/lib/bfd-plugins
+install: creating directory '/usr/lib/bfd-plugins'
+
+(lfs chroot) root:/sources/gcc-10.2.0/build# ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/10.2.0/liblto_plugin.so \
+>         /usr/lib/bfd-plugins/
+'/usr/lib/bfd-plugins/liblto_plugin.so' -> '../../libexec/gcc/x86_64-pc-linux-gnu/10.2.0/liblto_plugin.so'
+
+(lfs chroot) root:/sources/gcc-10.2.0/build# echo 'int main(){}' > dummy.c
+
+(lfs chroot) root:/sources/gcc-10.2.0/build# cc dummy.c -v -Wl,--verbose &> dummy.log
+
+(lfs chroot) root:/sources/gcc-10.2.0/build# readelf -l a.out | grep ': /lib'
+      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
+
+(lfs chroot) root:/sources/gcc-10.2.0/build# 
+
 ```
 
 * [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
