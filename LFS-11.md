@@ -4823,8 +4823,229 @@ renamed '/usr/bin/killall' -> '/bin/killall'
 ```
 
 <br>
+# Gettext-0.21
+
+### INPUT
+```
+tar xf gettext-0.21.tar.xz
+cd gettext-0.21/
+./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/gettext-0.21
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf gettext-0.21.tar.xz
+
+(lfs chroot) root:/sources# cd gettext-0.21/
+
+(lfs chroot) root:/sources/gettext-0.21# ./configure --prefix=/usr    \
+>             --disable-static \
+>             --docdir=/usr/share/doc/gettext-0.21
+checking for a BSD-compatible install... /usr/bin/install -c
+
+===== TL;DR =====
+
+config.status: creating installpaths
+config.status: creating po/Makefile
+config.status: executing po-directories commands
+
+(lfs chroot) root:/sources/gettext-0.21# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gettext-0.21# time make
+
+===== TL;DR =====
+
+make[2]: Nothing to be done for 'all-am'.
+make[2]: Leaving directory '/sources/gettext-0.21'
+make[1]: Leaving directory '/sources/gettext-0.21'
+
+real	1m29.631s
+user	2m30.243s
+sys	0m17.733s
+
+(lfs chroot) root:/sources/gettext-0.21# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gettext-0.21# time make check
+make  check-recursive
+make[1]: Entering directory '/sources/gettext-0.21'
+Making check in gnulib-local
+make[2]: Entering directory '/sources/gettext-0.21/gnulib-local'
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for gettext-runtime 0.21
+============================================================================
+# TOTAL: 0
+# PASS:  0
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for 
+============================================================================
+# TOTAL: 2
+# PASS:  2
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for gettext-tools 0.21
+============================================================================
+# TOTAL: 445
+# PASS:  422
+# SKIP:  23
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for gettext-tools 0.21
+============================================================================
+# TOTAL: 14
+# PASS:  14
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for gettext-tools 0.21
+============================================================================
+# TOTAL: 266
+# PASS:  252
+# SKIP:  14
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m41.428s
+user	2m15.708s
+sys	0m31.576s
+
+(lfs chroot) root:/sources/gettext-0.21# 
+
+```
+
+<br>
+### INPUT
+```
+make install
+chmod -v 0755 /usr/lib/preloadable_libintl.so
+cd ../
+rm -rf gettext-0.21/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gettext-0.21# make install
+make  install-recursive
+make[1]: Entering directory '/sources/gettext-0.21'
+Making install in gnulib-local
+
+===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+make[3]: Leaving directory '/sources/gettext-0.21'
+make[2]: Leaving directory '/sources/gettext-0.21'
+make[1]: Leaving directory '/sources/gettext-0.21'
+
+(lfs chroot) root:/sources/gettext-0.21# chmod -v 0755 /usr/lib/preloadable_libintl.so
+mode of '/usr/lib/preloadable_libintl.so' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
+
+(lfs chroot) root:/sources/gettext-0.21# cd ../
+
+(lfs chroot) root:/sources# rm -rf gettext-0.21/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
 # XXX
 
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
 ### INPUT
 ```
 
