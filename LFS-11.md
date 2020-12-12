@@ -4078,8 +4078,13 @@ grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/gcc-10.2.0/build# grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log
+/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crt1.o succeeded
+/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o succeeded
+/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crtn.o succeeded
 
-===== TL;DR =====
+(lfs chroot) root:/sources/gcc-10.2.0/build# 
+
 ```
 * /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crt1.o succeeded
 * /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/../../../../lib/crti.o succeeded
@@ -4094,8 +4099,15 @@ grep -B4 '^ /usr/include' dummy.log
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/gcc-10.2.0/build# grep -B4 '^ /usr/include' dummy.log
+#include <...> search starts here:
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include
+ /usr/local/include
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed
+ /usr/include
 
-===== TL;DR =====
+(lfs chroot) root:/sources/gcc-10.2.0/build# 
+
 ```
 * #include <...> search starts here:
 * /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include
@@ -4112,6 +4124,17 @@ grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/gcc-10.2.0/build# grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'
+SEARCH_DIR("/usr/x86_64-pc-linux-gnu/lib64")
+SEARCH_DIR("/usr/local/lib64")
+SEARCH_DIR("/lib64")
+SEARCH_DIR("/usr/lib64")
+SEARCH_DIR("/usr/x86_64-pc-linux-gnu/lib")
+SEARCH_DIR("/usr/local/lib")
+SEARCH_DIR("/lib")
+SEARCH_DIR("/usr/lib");
+
+(lfs chroot) root:/sources/gcc-10.2.0/build# 
 
 ===== TL;DR =====
 ```
@@ -4133,8 +4156,11 @@ grep "/lib.*/libc.so.6 " dummy.log
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/gcc-10.2.0/build# grep "/lib.*/libc.so.6 " dummy.log
+attempt to open /lib/libc.so.6 succeeded
 
-===== TL;DR =====
+(lfs chroot) root:/sources/gcc-10.2.0/build# 
+
 ```
 * attempt to open /lib/libc.so.6 succeeded
 
@@ -4147,8 +4173,11 @@ grep found dummy.log
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/gcc-10.2.0/build# grep found dummy.log
+found ld-linux-x86-64.so.2 at /lib/ld-linux-x86-64.so.2
 
-===== TL;DR =====
+(lfs chroot) root:/sources/gcc-10.2.0/build# 
+
 ```
 * found ld-linux-x86-64.so.2 at /lib/ld-linux-x86-64.so.2
 
@@ -4158,17 +4187,37 @@ grep found dummy.log
 rm -v dummy.c a.out dummy.log
 mkdir -pv /usr/share/gdb/auto-load/usr/lib
 mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib
-
-cd ../
+cd ../../
 rm -rf gcc-10.2.0/
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/gcc-10.2.0/build# rm -v dummy.c a.out dummy.log
+removed 'dummy.c'
+removed 'a.out'
+removed 'dummy.log'
 
-===== TL;DR =====
+(lfs chroot) root:/sources/gcc-10.2.0/build# mkdir -pv /usr/share/gdb/auto-load/usr/lib
+mkdir: created directory '/usr/share/gdb'
+mkdir: created directory '/usr/share/gdb/auto-load'
+mkdir: created directory '/usr/share/gdb/auto-load/usr'
+mkdir: created directory '/usr/share/gdb/auto-load/usr/lib'
+
+(lfs chroot) root:/sources/gcc-10.2.0/build# mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib
+renamed '/usr/lib/libstdc++.so.6.0.28-gdb.py' -> '/usr/share/gdb/auto-load/usr/lib/libstdc++.so.6.0.28-gdb.py'
+
+(lfs chroot) root:/sources/gcc-10.2.0/build# cd ../../
+
+(lfs chroot) root:/sources# rm -rf gcc-10.2.0/
+
+(lfs chroot) root:/sources#
+
 ```
+
+<br>
+# XXX
 
 
 
