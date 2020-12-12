@@ -5032,20 +5032,288 @@ mode of '/usr/lib/preloadable_libintl.so' changed from 0644 (rw-r--r--) to 0755 
 ```
 
 <br>
-# XXX
+# Bison-3.7.1
 
 ### INPUT
 ```
+tar xf bison-3.7.1.tar.xz
+cd bison-3.7.1/
+./configure --prefix=/usr --docdir=/usr/share/doc/bison-3.7.1
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf bison-3.7.1.tar.xz
+
+(lfs chroot) root:/sources# cd bison-3.7.1/
+
+(lfs chroot) root:/sources/bison-3.7.1# ./configure --prefix=/usr --docdir=/usr/share/doc/bison-3.7.1
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a race-free mkdir -p... /bin/mkdir -p
+checking for gawk... gawk
 
 ===== TL;DR =====
+
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+config.status: executing tests/atconfig commands
+
+(lfs chroot) root:/sources/bison-3.7.1# 
+
 ```
 
 <br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bison-3.7.1# time make
+  LEX      examples/c/reccalc/scan.stamp
+  GEN      lib/alloca.h
+  GEN      lib/configmake.h
+
+===== TL;DR =====
+
+real	0m3.387s
+user	0m15.963s
+sys	0m1.657s
+
+(lfs chroot) root:/sources/bison-3.7.1# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bison-3.7.1# time make check
+  GEN      public-submodule-commit
+make  check-recursive
+make[1]: Entering directory '/sources/bison-3.7.1'
+Making check in po
+
+===== TL;DR =====
+
+## --------------------------- ##
+## GNU Bison 3.7.1 test suite. ##
+## --------------------------- ##
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU Bison 3.7.1
+============================================================================
+# TOTAL: 11
+# PASS:  11
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+## ------------- ##
+## Test results. ##
+## ------------- ##
+
+617 tests were successful.
+43 tests were skipped.
+
+===== TL;DR =====
+
+real	2m32.173s
+user	12m38.290s
+sys	0m54.384s
+
+(lfs chroot) root:/sources/bison-3.7.1# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+cd ../
+rm -rf bison-3.7.1/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bison-3.7.1# time make install
+make  install-recursive
+make[1]: Entering directory '/sources/bison-3.7.1'
+Making install in po
+make[2]: Entering directory '/sources/bison-3.7.1/po'
+
+===== TL;DR =====
+
+real	0m1.135s
+user	0m0.984s
+sys	0m0.284s
+
+(lfs chroot) root:/sources/bison-3.7.1# cd ../
+
+(lfs chroot) root:/sources# rm -rf bison-3.7.1/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Grep-3.4
+
+### INPUT
+```
+tar xf grep-3.4.tar.xz
+cd grep-3.4/
+./configure --prefix=/usr --bindir=/bin
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf grep-3.4.tar.xz
+
+(lfs chroot) root:/sources# cd grep-3.4/
+
+(lfs chroot) root:/sources/grep-3.4# ./configure --prefix=/usr --bindir=/bin
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a race-free mkdir -p... /bin/mkdir -p
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+(lfs chroot) root:/sources/grep-3.4# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/grep-3.4# time make
+make  all-recursive
+make[1]: Entering directory '/sources/grep-3.4'
+Making all in po
+
+===== TL;DR =====
+
+real	0m3.727s
+user	0m8.606s
+sys	0m1.157s
+
+(lfs chroot) root:/sources/grep-3.4# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/grep-3.4# time make check
+  GEN      public-submodule-commit
+Making check in po
+make[1]: Entering directory '/sources/grep-3.4/po'
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU grep 3.4
+============================================================================
+# TOTAL: 113
+# PASS:  92
+# SKIP:  19
+# XFAIL: 2
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU grep 3.4
+============================================================================
+# TOTAL: 185
+# PASS:  177
+# SKIP:  8
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m21.542s
+user	1m0.421s
+sys	0m5.272s
+
+(lfs chroot) root:/sources/grep-3.4# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+cd ../
+rm -rf grep-3.4/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/grep-3.4# time make install
+Making install in po
+make[1]: Entering directory '/sources/grep-3.4/po'
+installing af.gmo as /usr/share/locale/af/LC_MESSAGES/grep.mo
+
+===== TL;DR =====
+
+real	0m0.913s
+user	0m0.772s
+sys	0m0.227s
+
+(lfs chroot) root:/sources/grep-3.4# cd ../
+
+(lfs chroot) root:/sources# rm -rf grep-3.4/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# XXX
+
 ### INPUT
 ```
 
