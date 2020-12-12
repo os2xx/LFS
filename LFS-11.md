@@ -4217,7 +4217,169 @@ renamed '/usr/lib/libstdc++.so.6.0.28-gdb.py' -> '/usr/share/gdb/auto-load/usr/l
 ```
 
 <br>
+# Pkg-config-0.29.2
+
+<br>
+### INPUT
+```
+tar xf pkg-config-0.29.2.tar.gz
+cd pkg-config-0.29.2/
+./configure --prefix=/usr              \
+            --with-internal-glib       \
+            --disable-host-tool        \
+            --docdir=/usr/share/doc/pkg-config-0.29.2
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf pkg-config-0.29.2.tar.gz
+
+(lfs chroot) root:/sources# cd pkg-config-0.29.2/
+
+(lfs chroot) root:/sources/pkg-config-0.29.2# ./configure --prefix=/usr              \
+>             --with-internal-glib       \
+>             --disable-host-tool        \
+>             --docdir=/usr/share/doc/pkg-config-0.29.2
+
+===== TL;DR =====
+
+config.status: executing depfiles commands
+config.status: executing libtool commands
+config.status: executing glib/glibconfig.h commands
+
+(lfs chroot) root:/sources/pkg-config-0.29.2# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/pkg-config-0.29.2# time make
+make  all-recursive
+make[1]: Entering directory '/sources/pkg-config-0.29.2'
+Making all in glib
+
+===== TL;DR =====
+
+real	0m6.398s
+user	0m26.713s
+sys	0m3.561s
+
+(lfs chroot) root:/sources/pkg-config-0.29.2# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/pkg-config-0.29.2# time make check
+Making check in glib
+make[1]: Entering directory '/sources/pkg-config-0.29.2/glib'
+make  check-recursive
+make[2]: Entering directory '/sources/pkg-config-0.29.2/glib'
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for glib 2.38.2
+============================================================================
+# TOTAL: 0
+# PASS:  0
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for glib 2.38.2
+============================================================================
+# TOTAL: 0
+# PASS:  0
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+===================
+All 30 tests passed
+===================
+
+===== TL;DR =====
+
+real	0m1.222s
+user	0m1.243s
+sys	0m0.181s
+
+(lfs chroot) root:/sources/pkg-config-0.29.2# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+cd ../
+rm -rf pkg-config-0.29.2/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/pkg-config-0.29.2# time make install
+Making install in glib
+make[1]: Entering directory '/sources/pkg-config-0.29.2/glib'
+make  install-recursive
+make[2]: Entering directory '/sources/pkg-config-0.29.2/glib'
+
+real	0m0.184s
+user	0m0.225s
+sys	0m0.029s
+
+===== TL;DR =====
+
+(lfs chroot) root:/sources/pkg-config-0.29.2# cd ../
+
+(lfs chroot) root:/sources# rm -rf pkg-config-0.29.2/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
 # XXX
+
+### INPUT
+```
+
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
 
 
 
