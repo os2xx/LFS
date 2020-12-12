@@ -5682,11 +5682,63 @@ sys	0m0.057s
 ```
 
 <br>
-# XXX
+# GDBM-1.18.1
 
 ### INPUT
 ```
 
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+[](X 13 XXXXXX)
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+[](X 13 XXXXXX)
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+[](X 13 XXXXXX)
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+[](X 13 XXXXXX)
+<br>
+### INPUT
+```
 
 ```
 
