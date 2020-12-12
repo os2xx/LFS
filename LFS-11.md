@@ -4367,6 +4367,462 @@ sys	0m0.029s
 ```
 
 <br>
+# Ncurses-6.2
+
+### INPUT
+```
+tar xf ncurses-6.2.tar.gz
+cd ncurses-6.2/
+sed -i '/LIBTOOL_INSTALL/d' c++/Makefile.in
+./configure --prefix=/usr           \
+            --mandir=/usr/share/man \
+            --with-shared           \
+            --without-debug         \
+            --without-normal        \
+            --enable-pc-files       \
+            --enable-widec
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf ncurses-6.2.tar.gz
+
+(lfs chroot) root:/sources# cd ncurses-6.2/
+
+(lfs chroot) root:/sources/ncurses-6.2# sed -i '/LIBTOOL_INSTALL/d' c++/Makefile.in
+
+(lfs chroot) root:/sources/ncurses-6.2# ./configure --prefix=/usr           \
+>             --mandir=/usr/share/man \
+>             --with-shared           \
+>             --without-debug         \
+>             --without-normal        \
+>             --enable-pc-files       \
+>             --enable-widec
+
+===== TL;DR =====
+
+** Configuration summary for NCURSES 6.2 20200212:
+
+       extended funcs: yes
+       xterm terminfo: xterm-new
+
+        bin directory: /usr/bin
+        lib directory: /usr/lib
+    include directory: /usr/include
+        man directory: /usr/share/man
+   terminfo directory: /usr/share/terminfo
+ pkg-config directory: /usr/lib/pkgconfig
+
+(lfs chroot) root:/sources/ncurses-6.2# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/ncurses-6.2# time make
+cd man && make DESTDIR="" RPATH_LIST="/usr/lib" all
+make[1]: Entering directory '/sources/ncurses-6.2/man'
+/bin/sh ./MKterminfo.sh ./terminfo.head ./../include/Caps ./../include/Caps-ncurses ./terminfo.tail >terminfo.5
+
+===== TL;DR =====
+
+real	0m8.685s
+user	0m34.046s
+sys	0m4.935s
+
+(lfs chroot) root:/sources/ncurses-6.2# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/ncurses-6.2# time make install
+cd man && make DESTDIR="" RPATH_LIST="/usr/lib" install
+make[1]: Entering directory '/sources/ncurses-6.2/man'
+/bin/sh ../edit_man.sh normal installing /usr/share/man . terminfo.5 *-config.1 ./*.[0-9]*
+
+===== TL;DR =====
+
+1750 entries written to /usr/share/terminfo
+
+===== TL;DR =====
+
+real	0m5.923s
+user	0m3.672s
+sys	0m0.978s
+
+(lfs chroot) root:/sources/ncurses-6.2# 
+
+```
+
+<br>
+### INPUT
+```
+mv -v /usr/lib/libncursesw.so.6* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libncursesw.so) /usr/lib/libncursesw.so
+for lib in ncurses form panel menu ; do
+    rm -vf                    /usr/lib/lib${lib}.so
+    echo "INPUT(-l${lib}w)" > /usr/lib/lib${lib}.so
+    ln -sfv ${lib}w.pc        /usr/lib/pkgconfig/${lib}.pc
+done
+rm -vf                     /usr/lib/libcursesw.so
+echo "INPUT(-lncursesw)" > /usr/lib/libcursesw.so
+ln -sfv libncurses.so      /usr/lib/libcurses.so
+mkdir -v       /usr/share/doc/ncurses-6.2
+cp -v -R doc/* /usr/share/doc/ncurses-6.2
+cd ../
+rm -rf ncurses-6.2/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/ncurses-6.2# mv -v /usr/lib/libncursesw.so.6* /lib
+renamed '/usr/lib/libncursesw.so.6' -> '/lib/libncursesw.so.6'
+renamed '/usr/lib/libncursesw.so.6.2' -> '/lib/libncursesw.so.6.2'
+
+(lfs chroot) root:/sources/ncurses-6.2# ln -sfv ../../lib/$(readlink /usr/lib/libncursesw.so) /usr/lib/libncursesw.so
+'/usr/lib/libncursesw.so' -> '../../lib/libncursesw.so.6'
+
+(lfs chroot) root:/sources/ncurses-6.2# for lib in ncurses form panel menu ; do
+>     rm -vf                    /usr/lib/lib${lib}.so
+>     echo "INPUT(-l${lib}w)" > /usr/lib/lib${lib}.so
+>     ln -sfv ${lib}w.pc        /usr/lib/pkgconfig/${lib}.pc
+> done
+removed '/usr/lib/libncurses.so'
+'/usr/lib/pkgconfig/ncurses.pc' -> 'ncursesw.pc'
+'/usr/lib/pkgconfig/form.pc' -> 'formw.pc'
+'/usr/lib/pkgconfig/panel.pc' -> 'panelw.pc'
+'/usr/lib/pkgconfig/menu.pc' -> 'menuw.pc'
+
+(lfs chroot) root:/sources/ncurses-6.2# rm -vf                     /usr/lib/libcursesw.so
+
+(lfs chroot) root:/sources/ncurses-6.2# echo "INPUT(-lncursesw)" > /usr/lib/libcursesw.so
+
+(lfs chroot) root:/sources/ncurses-6.2# ln -sfv libncurses.so      /usr/lib/libcurses.so
+'/usr/lib/libcurses.so' -> 'libncurses.so'
+
+(lfs chroot) root:/sources/ncurses-6.2# mkdir -v       /usr/share/doc/ncurses-6.2
+mkdir: created directory '/usr/share/doc/ncurses-6.2'
+
+(lfs chroot) root:/sources/ncurses-6.2# cp -v -R doc/* /usr/share/doc/ncurses-6.2
+'doc/hackguide.doc' -> '/usr/share/doc/ncurses-6.2/hackguide.doc'
+'doc/html' -> '/usr/share/doc/ncurses-6.2/html'
+'doc/html/index.html' -> '/usr/share/doc/ncurses-6.2/html/index.html'
+
+===== TL;DR =====
+
+(lfs chroot) root:/sources/ncurses-6.2# cd ../
+
+(lfs chroot) root:/sources# rm -rf ncurses-6.2/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Sed-4.8
+
+### INPUT
+```
+tar xf sed-4.8.tar.xz
+cd sed-4.8/
+./configure --prefix=/usr --bindir=/bin
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf sed-4.8.tar.xz
+
+(lfs chroot) root:/sources# cd sed-4.8/
+
+(lfs chroot) root:/sources/sed-4.8# ./configure --prefix=/usr --bindir=/bin
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a race-free mkdir -p... /bin/mkdir -p
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+(lfs chroot) root:/sources/sed-4.8# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/sed-4.8# time make
+  GEN      lib/alloca.h
+  GEN      lib/ctype.h
+  GEN      lib/fcntl.h
+
+===== TL;DR =====
+
+real	0m2.877s
+user	0m6.648s
+sys	0m0.707s
+
+(lfs chroot) root:/sources/sed-4.8# 
+
+```
+
+<br>
+### INPUT
+```
+time make html
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/sed-4.8# time make html
+Making html in po
+make[1]: Entering directory '/sources/sed-4.8/po'
+make[1]: Nothing to be done for 'html'.
+
+===== TL;DR =====
+
+real	0m0.721s
+user	0m0.637s
+sys	0m0.066s
+
+(lfs chroot) root:/sources/sed-4.8# 
+
+```
+
+<br>
+### INPUT
+```
+chown -Rv tester .
+su tester -c "PATH=$PATH make check"
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/sed-4.8# chown -Rv tester .
+changed ownership of './bootstrap.conf' from root to tester
+changed ownership of './bootstrap' from root to tester
+changed ownership of './Makefile.in' from root to tester
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU sed 4.8
+============================================================================
+# TOTAL: 67
+# PASS:  59
+# SKIP:  8
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU sed 4.8
+============================================================================
+# TOTAL: 178
+# PASS:  157
+# SKIP:  21
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+make[2]: Leaving directory '/sources/sed-4.8/gnulib-tests'
+make[1]: Leaving directory '/sources/sed-4.8'
+
+(lfs chroot) root:/sources/sed-4.8# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/sed-4.8# time make install
+make  install-recursive
+make[1]: Entering directory '/sources/sed-4.8'
+Making install in po
+make[2]: Entering directory '/sources/sed-4.8/po'
+
+===== TL;DR =====
+
+real	0m0.866s
+user	0m0.661s
+sys	0m0.229s
+
+(lfs chroot) root:/sources/sed-4.8# 
+
+```
+
+<br>
+### INPUT
+```
+install -d -m755           /usr/share/doc/sed-4.8
+install -m644 doc/sed.html /usr/share/doc/sed-4.8
+cd ../
+rm -rf sed-4.8/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/sed-4.8# install -d -m755           /usr/share/doc/sed-4.8
+
+(lfs chroot) root:/sources/sed-4.8# install -m644 doc/sed.html /usr/share/doc/sed-4.8
+
+(lfs chroot) root:/sources/sed-4.8# cd ../
+
+(lfs chroot) root:/sources# rm -rf sed-4.8/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Psmisc-23.3
+
+### INPUT
+```
+tar xf psmisc-23.3.tar.xz
+cd psmisc-23.3/
+./configure --prefix=/usr
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf psmisc-23.3.tar.xz
+
+(lfs chroot) root:/sources# cd psmisc-23.3/
+
+(lfs chroot) root:/sources/psmisc-23.3# ./configure --prefix=/usr
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+(lfs chroot) root:/sources/psmisc-23.3# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/psmisc-23.3# time make
+export LC_ALL=C ; \
+	gcc -E -dM src/signames.c |\
+	tr -s '\t ' ' ' | sort -n -k 3 | sed \
+
+===== TL;DR =====
+
+real	0m0.580s
+user	0m1.494s
+sys	0m0.192s
+
+(lfs chroot) root:/sources/psmisc-23.3# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/psmisc-23.3# time make install
+make  install-recursive
+make[1]: Entering directory '/sources/psmisc-23.3'
+Making install in doc
+
+===== TL;DR =====
+
+real	0m0.488s
+user	0m0.354s
+sys	0m0.186s
+
+(lfs chroot) root:/sources/psmisc-23.3#
+
+```
+
+<br>
+### INPUT
+```
+mv -v /usr/bin/fuser   /bin
+mv -v /usr/bin/killall /bin
+cd ../
+rm -rf psmisc-23.3/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/psmisc-23.3# mv -v /usr/bin/fuser   /bin
+renamed '/usr/bin/fuser' -> '/bin/fuser'
+
+(lfs chroot) root:/sources/psmisc-23.3# mv -v /usr/bin/killall /bin
+renamed '/usr/bin/killall' -> '/bin/killall'
+
+(lfs chroot) root:/sources/psmisc-23.3# cd ../
+
+(lfs chroot) root:/sources# rm -rf psmisc-23.3/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
 # XXX
 
 ### INPUT
