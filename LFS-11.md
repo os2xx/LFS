@@ -5312,6 +5312,376 @@ sys	0m0.227s
 ```
 
 <br>
+# Bash-5.0
+
+### INPUT
+```
+tar xf bash-5.0.tar.gz
+cd bash-5.0/
+patch -Np1 -i ../bash-5.0-upstream_fixes-1.patch
+./configure --prefix=/usr                    \
+            --docdir=/usr/share/doc/bash-5.0 \
+            --without-bash-malloc            \
+            --with-installed-readline
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf bash-5.0.tar.gz
+
+(lfs chroot) root:/sources# cd bash-5.0/
+
+(lfs chroot) root:/sources/bash-5.0# patch -Np1 -i ../bash-5.0-upstream_fixes-1.patch
+patching file bashhist.c
+patching file bashline.c
+patching file builtins/evalstring.c
+
+===== TL;DR =====
+
+patching file tests/varenv.right
+patching file variables.c
+patching file y.tab.c
+
+(lfs chroot) root:/sources/bash-5.0# ./configure --prefix=/usr                    \
+>             --docdir=/usr/share/doc/bash-5.0 \
+>             --without-bash-malloc            \
+>             --with-installed-readline
+
+===== TL;DR =====
+
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+config.status: executing default commands
+
+(lfs chroot) root:/sources/bash-5.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bash-5.0# time make
+rm -f mksyntax
+gcc -DPROGRAM='"bash"' -DCONF_HOSTTYPE='"x86_64"' -DCONF_OSTYPE='"linux-gnu"' -DCONF_MACHTYPE='"x86_64-pc-linux-gnu"' -DCONF_VENDOR='"pc"' -DLOCALEDIR='"/usr/share/locale"' -DPACKAGE='"bash"' -DSHELL -DHAVE_CONFIG_H   -I.  -I. -I./include -I./lib   -g -O2   -rdynamic -g -O2 -Wno-parentheses -Wno-format-security   -rdynamic -g -O2  -o mksyntax ./mksyntax.c 
+rm -f mksignames.o
+
+===== TL;DR =====
+
+real	0m7.503s
+user	0m24.112s
+sys	0m2.264s
+
+(lfs chroot) root:/sources/bash-5.0# 
+
+```
+
+<br>
+### INPUT
+```
+echo $(tty)
+chown -Rv tester . $(tty)
+su tester << EOF
+PATH=$PATH make tests < $(tty)
+EOF
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bash-5.0# echo $(tty)
+/dev/pts/0
+
+(lfs chroot) root:/sources/bash-5.0# chown -Rv tester . $(tty)
+changed ownership of './parse.y' from 286 to tester
+changed ownership of './y.tab.o' from root to tester
+changed ownership of './bashhist.c' from 286 to tester
+
+===== TL;DR =====
+
+changed ownership of './version.o' from root to tester
+changed ownership of '.' from 286 to tester
+changed ownership of '/dev/pts/0' from 1000 to tester
+
+(lfs chroot) root:/sources/bash-5.0# su tester << EOF
+> PATH=$PATH make tests < $(tty)
+> EOF
+
+	  ***********************************************************
+	  *                                                         *
+	  * GNU bash, version 5.0.11(1)-release (x86_64-pc-linux-gnu)
+	  *                                                         *
+	  ***********************************************************
+
+===== TL;DR =====
+
+warning: UNIX versions number signals and schedule processes differently.
+warning: If output differing only in line numbers is produced, please
+warning: do not consider this a test failure.
+
+===== TL;DR =====
+
+run-type
+run-varenv
+run-vredir
+
+(lfs chroot) root:/sources/bash-5.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+mv -vf /usr/bin/bash /bin
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bash-5.0# time make install
+
+	  ***********************************************************
+	  *                                                         *
+	  * GNU bash, version 5.0.11(1)-release (x86_64-pc-linux-gnu)
+	  *                                                         *
+	  ***********************************************************
+
+===== TL;DR =====
+
+real	0m1.650s
+user	0m2.630s
+sys	0m0.836s
+
+(lfs chroot) root:/sources/bash-5.0# mv -vf /usr/bin/bash /bin
+renamed '/usr/bin/bash' -> '/bin/bash'
+
+(lfs chroot) root:/sources/bash-5.0# 
+
+```
+
+<br>
+### INPUT
+```
+exec /bin/bash --login +h
+/bin/bash --version
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bash-5.0# exec /bin/bash --login +h
+
+(lfs chroot) root:/sources/bash-5.0# /bin/bash --version
+GNU bash, version 5.0.11(1)-release (x86_64-pc-linux-gnu)
+Copyright (C) 2019 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+
+This is free software; you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+(lfs chroot) root:/sources/bash-5.0# 
+
+```
+
+<br>
+### INPUT
+```
+cd ../
+rm -rf bash-5.0/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/bash-5.0# cd ../
+
+(lfs chroot) root:/sources# rm -rf bash-5.0/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Libtool-2.4.6
+
+### INPUT
+```
+tar xf libtool-2.4.6.tar.xz
+cd libtool-2.4.6/
+./configure --prefix=/usr
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf libtool-2.4.6.tar.xz
+
+(lfs chroot) root:/sources# cd libtool-2.4.6/
+
+(lfs chroot) root:/sources/libtool-2.4.6# ./configure --prefix=/usr
+## ------------------------- ##
+## Configuring libtool 2.4.6 ##
+## ------------------------- ##
+
+===== TL;DR =====
+
+config.status: executing tests/atconfig commands
+config.status: executing depfiles commands
+config.status: executing libtool commands
+
+(lfs chroot) root:/sources/libtool-2.4.6# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/libtool-2.4.6# time make
+  GEN      libtoolize
+make  all-recursive
+make[1]: Entering directory '/sources/libtool-2.4.6'
+Making all in .
+make[2]: Entering directory '/sources/libtool-2.4.6'
+  CC       libltdl/lt__strl.lo
+  CC       libltdl/loaders/libltdl_libltdl_la-preopen.lo
+  CC       libltdl/libltdl_libltdl_la-lt__alloc.lo
+  CC       libltdl/libltdl_libltdl_la-lt_dlloader.lo
+  CC       libltdl/libltdl_libltdl_la-lt_error.lo
+  CC       libltdl/libltdl_libltdl_la-ltdl.lo
+  CC       libltdl/libltdl_libltdl_la-slist.lo
+  CC       libltdl/loaders/dlopen.lo
+  CCLD     libltdl/dlopen.la
+  CCLD     libltdl/libltdl.la
+make[2]: Leaving directory '/sources/libtool-2.4.6'
+make[1]: Leaving directory '/sources/libtool-2.4.6'
+
+real	0m1.125s
+user	0m1.951s
+sys	0m0.231s
+
+(lfs chroot) root:/sources/libtool-2.4.6# 
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/libtool-2.4.6# time make check
+  GEN      public-submodule-commit
+make  check-recursive
+make[1]: Entering directory '/sources/libtool-2.4.6'
+Making check in .
+
+===== TL;DR =====
+
+## ----------------------------- ##
+## GNU Libtool 2.4.6 test suite. ##
+## ----------------------------- ##
+
+===== TL;DR =====
+
+## ------------- ##
+## Test results. ##
+## ------------- ##
+
+ERROR: 139 tests were run,
+64 failed (59 expected failures).
+31 tests were skipped.
+## -------------------------- ##
+## testsuite.log was created. ##
+## -------------------------- ##
+
+Please send `tests/testsuite.log' and all information you think might help:
+
+   To: <bug-libtool@gnu.org>
+   Subject: [GNU Libtool 2.4.6] testsuite: 123 124 125 126 130 failed
+
+You may investigate any problem if you feel able to do so, in which
+case the test suite provides a good starting point.  Its output may
+be found below `tests/testsuite.dir'.
+
+===== TL;DR =====
+
+real	4m19.301s
+user	3m44.835s
+sys	0m43.692s
+
+(lfs chroot) root:/sources/libtool-2.4.6#
+
+```
+
+<br>
+### INPUT
+```
+time make install
+cd ../
+rm -rf libtool-2.4.6/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/libtool-2.4.6# time make install
+make  install-recursive
+make[1]: Entering directory '/sources/libtool-2.4.6'
+Making install in .
+
+===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m0.310s
+user	0m0.354s
+sys	0m0.057s
+
+(lfs chroot) root:/sources/libtool-2.4.6# cd ../
+
+(lfs chroot) root:/sources# rm -rf libtool-2.4.6/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
 # XXX
 
 ### INPUT
@@ -5325,10 +5695,6 @@ sys	0m0.227s
 
 ===== TL;DR =====
 ```
-
-
-
-
 
 
 
