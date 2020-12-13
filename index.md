@@ -52,7 +52,9 @@ PS: "===== TL;DR =====" means TOO LONG, DID NOT READ (SKIPPED)
 
 * [LFS: Chapter 7](LFS-10.md)
 
-* [LFS: Chapter 8](LFS-11.md)
+* [LFS: Chapter 8 part 1](LFS-11.md)
+
+* [LFS: Chapter 8 part 2](LFS-12.md)
 
 <br>
 <hr>

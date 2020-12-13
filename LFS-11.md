@@ -8,7 +8,7 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-10.md)
-[NEXT](index.md)
+[NEXT](LFS-12.md)
 
 <br>
 <span style="color:red; font-weight:bold; font-size:larger;">
@@ -17,7 +17,7 @@ If you have never installed a VirtualBox Guest before, visit [OSP4DISS](https://
 </span>
 
 <br>
-# LFS: Chapter 8
+# LFS: Chapter 8 part1
 
 ## Virtual Box Guest LFS-08
 
@@ -6786,63 +6786,35 @@ install: creating directory '/usr/share/doc/intltool-0.51.0'
 
 ```
 
+<hr>
+<hr>
+<hr>
+
 <br>
-# XXX
-
 ### INPUT
-```
 
+```
+exit
 
 ```
 
 ### OUTPUT
 ```
-
-===== TL;DR =====
-```
-
-
-
-
-
-<hr>
-<hr>
-<hr>
-
-[](X 13 XXXXXX)
-<br>
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<hr>
-<hr>
-<hr>
-
-```
-su -
-```
-
-```
-cbkadal@osp:~$ su -
-Password:
+(lfs chroot) root:/sources# exit
+logout
 
 root:~#
 
 ```
 
+<br>
+### INPUT
 ```
 shutdown -h now
 
 ```
 
+### OUTPUT
 ```
 root:~# shutdown -h now
 Connection to localhost closed by remote host.
@@ -6865,6 +6837,6 @@ rms46@pamulang1:~$
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-10.md)
-[NEXT](index.md)
+[NEXT](LFS-12.md)
 <br>
 
