@@ -6480,6 +6480,7 @@ sys	0m1.954s
 <br>
 ### INPUT
 ```
+unset BUILD_ZLIB BUILD_BZIP2
 cd ../
 rm -rf perl-5.32.0/
 
@@ -6487,6 +6488,8 @@ rm -rf perl-5.32.0/
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/perl-5.32.0# unset BUILD_ZLIB BUILD_BZIP2
+
 (lfs chroot) root:/sources/perl-5.32.0# cd ../
 
 (lfs chroot) root:/sources# rm -rf perl-5.32.0/
@@ -6496,8 +6499,56 @@ rm -rf perl-5.32.0/
 ```
 
 <br>
-# XXX
+# XML::Parser-2.46
 
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
 ### INPUT
 ```
 
