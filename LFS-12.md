@@ -820,8 +820,23 @@ cd libffi-3.3/
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf libffi-3.3.tar.gz
+
+(lfs chroot) root:/sources# cd libffi-3.3/
+
+(lfs chroot) root:/sources/libffi-3.3# ./configure --prefix=/usr --disable-static --with-gcc-arch=native
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking target system type... x86_64-pc-linux-gnu
 
 ===== TL;DR =====
+
+config.status: executing libtool commands
+config.status: executing include commands
+config.status: executing src commands
+
+(lfs chroot) root:/sources/libffi-3.3# 
+
 ```
 
 <br>
@@ -833,8 +848,24 @@ time make
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/libffi-3.3# time make
+MAKE x86_64-pc-linux-gnu : 0 * all-all
+make[1]: Entering directory '/sources/libffi-3.3/x86_64-pc-linux-gnu'
+make  all-recursive
+make[2]: Entering directory '/sources/libffi-3.3/x86_64-pc-linux-gnu'
 
 ===== TL;DR =====
+
+make[3]: Leaving directory '/sources/libffi-3.3/x86_64-pc-linux-gnu'
+make[2]: Leaving directory '/sources/libffi-3.3/x86_64-pc-linux-gnu'
+make[1]: Leaving directory '/sources/libffi-3.3/x86_64-pc-linux-gnu'
+
+real	0m0.649s
+user	0m1.306s
+sys	0m0.164s
+
+(lfs chroot) root:/sources/libffi-3.3# 
+
 ```
 
 <br>
@@ -846,8 +877,33 @@ time make check
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/libffi-3.3# time make check
+MAKE x86_64-pc-linux-gnu : 0 * check
+make[1]: Entering directory '/sources/libffi-3.3/x86_64-pc-linux-gnu'
+Making check in include
 
 ===== TL;DR =====
+
+		=== libffi tests ===
+
+===== TL;DR =====
+
+		=== libffi Summary ===
+
+# of expected passes		2284
+
+===== TL;DR =====
+
+make[2]: Entering directory '/sources/libffi-3.3/x86_64-pc-linux-gnu'
+make[2]: Leaving directory '/sources/libffi-3.3/x86_64-pc-linux-gnu'
+make[1]: Leaving directory '/sources/libffi-3.3/x86_64-pc-linux-gnu'
+
+real	3m26.182s
+user	3m7.521s
+sys	0m16.970s
+
+(lfs chroot) root:/sources/libffi-3.3# 
+
 ```
 
 <br>
@@ -859,32 +915,245 @@ time make install
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/libffi-3.3# time make install
+MAKE x86_64-pc-linux-gnu : 0 * install
+make[1]: Entering directory '/sources/libffi-3.3/x86_64-pc-linux-gnu'
+Making install in include
 
 ===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib/../lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m0.331s
+user	0m0.248s
+sys	0m0.081s
+
+(lfs chroot) root:/sources/libffi-3.3# 
+
 ```
 
 <br>
 ### INPUT
 ```
-
 cd ../
-rm -rf 
+rm -rf libffi-3.3/
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/libffi-3.3# cd ../
 
-===== TL;DR =====
+(lfs chroot) root:/sources# rm -rf libffi-3.3/
+
+(lfs chroot) root:/sources# 
+
 ```
 
 <br>
-# XXX
+# OpenSSL-1.1.1g
+
+### INPUT
+```
+tar xf openssl-1.1.1g.tar.gz
+cd openssl-1.1.1g/
+./config --prefix=/usr         \
+         --openssldir=/etc/ssl \
+         --libdir=lib          \
+         shared                \
+         zlib-dynamic
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/openssl-1.1.1g# tar xf openssl-1.1.1g.tar.gz
+tar: openssl-1.1.1g.tar.gz: Cannot open: No such file or directory
+tar: Error is not recoverable: exiting now
+(lfs chroot) root:/sources/openssl-1.1.1g# cd openssl-1.1.1g/
+bash: cd: openssl-1.1.1g/: No such file or directory
+
+(lfs chroot) root:/sources/openssl-1.1.1g# ./config --prefix=/usr         \
+>          --openssldir=/etc/ssl \
+>          --libdir=lib          \
+>          shared                \
+>          zlib-dynamic
+
+===== TL;DR =====
+
+**********************************************************************
+***                                                                ***
+***   OpenSSL has been successfully configured                     ***
+***                                                                ***
+***   If you encounter a problem while building, please open an    ***
+***   issue on GitHub <https://github.com/openssl/openssl/issues>  ***
+***   and include the output from the following command:           ***
+***                                                                ***
+***       perl configdata.pm --dump                                ***
+***                                                                ***
+***   (If you are new to OpenSSL, you might want to consult the    ***
+***   'Troubleshooting' section in the INSTALL file first)         ***
+***                                                                ***
+**********************************************************************
+
+===== TL;DR =====
+
+(lfs chroot) root:/sources/openssl-1.1.1g# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/openssl-1.1.1g# time make
+/usr/bin/perl "-I." -Mconfigdata "util/dofile.pl" \
+    "-oMakefile" include/crypto/bn_conf.h.in > include/crypto/bn_conf.h
+/usr/bin/perl "-I." -Mconfigdata "util/dofile.pl" \
+    "-oMakefile" include/crypto/dso_conf.h.in > include/crypto/dso_conf.h
+
+===== TL;DR =====
+
+real	0m25.300s
+user	2m8.937s
+sys	0m15.934s
+
+(lfs chroot) root:/sources/openssl-1.1.1g# 
+
+```
+
+<br>
+### INPUT
+```
+time make test
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/openssl-1.1.1g# time make test
+make depend && make _tests
+make[1]: Entering directory '/sources/openssl-1.1.1g'
+make[1]: Leaving directory '/sources/openssl-1.1.1g'
+
+===== TL;DR =====
+
+All tests successful.
+Files=155, Tests=1468, 97 wallclock secs ( 1.35 usr  0.31 sys + 86.44 cusr 20.35 csys = 108.45 CPU)
+Result: PASS
+make[1]: Leaving directory '/sources/openssl-1.1.1g'
+
+real	1m36.605s
+user	1m28.040s
+sys	0m20.681s
+
+(lfs chroot) root:/sources/openssl-1.1.1g# 
+
+```
+
+<br>
+### INPUT
+```
+sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
+time make MANSUFFIX=ssl install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/openssl-1.1.1g# sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
+
+(lfs chroot) root:/sources/openssl-1.1.1g# time make MANSUFFIX=ssl install
+make depend && make _build_libs
+make depend && make _build_engines
+make depend && make _build_programs
+
+===== TL;DR =====
+
+real	0m26.951s
+user	0m47.106s
+sys	0m5.351s
+
+(lfs chroot) root:/sources/openssl-1.1.1g# 
+
+```
+
+<br>
+### INPUT
+```
+mv -v /usr/share/doc/openssl /usr/share/doc/openssl-1.1.1g
+cp -vfr doc/* /usr/share/doc/openssl-1.1.1g
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/openssl-1.1.1g# mv -v /usr/share/doc/openssl /usr/share/doc/openssl-1.1.1g
+renamed '/usr/share/doc/openssl' -> '/usr/share/doc/openssl-1.1.1g'
+
+(lfs chroot) root:/sources/openssl-1.1.1g# cp -vfr doc/* /usr/share/doc/openssl-1.1.1g
+'doc/HOWTO' -> '/usr/share/doc/openssl-1.1.1g/HOWTO'
+'doc/HOWTO/certificates.txt' -> '/usr/share/doc/openssl-1.1.1g/HOWTO/certificates.txt'
+'doc/HOWTO/keys.txt' -> '/usr/share/doc/openssl-1.1.1g/HOWTO/keys.txt'
+
+===== TL;DR =====
+
+'doc/man7/ssl.pod' -> '/usr/share/doc/openssl-1.1.1g/man7/ssl.pod'
+'doc/man7/x509.pod' -> '/usr/share/doc/openssl-1.1.1g/man7/x509.pod'
+'doc/openssl-c-indent.el' -> '/usr/share/doc/openssl-1.1.1g/openssl-c-indent.el'
+
+(lfs chroot) root:/sources/openssl-1.1.1g# 
+
+```
+
+<br>
+### INPUT
+```
+cd ../
+rm -rf openssl-1.1.1g/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/openssl-1.1.1g# cd ../
+
+(lfs chroot) root:/sources# rm -rf openssl-1.1.1g/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Python-3.8.5
 
 ### INPUT
 ```
 
-
 ```
 
 ### OUTPUT
@@ -892,7 +1161,6 @@ rm -rf
 
 ===== TL;DR =====
 ```
-
 
 
 
