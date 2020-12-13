@@ -5686,7 +5686,172 @@ sys	0m0.057s
 
 ### INPUT
 ```
+tar xf gdbm-1.18.1.tar.gz
+cd gdbm-1.18.1/
+sed -r -i '/^char.*parseopt_program_(doc|args)/d' src/parseopt.c
+./configure --prefix=/usr    \
+            --disable-static \
+            --enable-libgdbm-compat
 
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf gdbm-1.18.1.tar.gz
+
+(lfs chroot) root:/sources# cd gdbm-1.18.1/
+
+(lfs chroot) root:/sources/gdbm-1.18.1# sed -r -i '/^char.*parseopt_program_(doc|args)/d' src/parseopt.c
+
+(lfs chroot) root:/sources/gdbm-1.18.1# ./configure --prefix=/usr    \
+>             --disable-static \
+>             --enable-libgdbm-compat
+
+===== TL;DR =====
+
+*******************************************************************
+GDBM settings summary:
+
+Compatibility library ......................... yes
+Memory mapped I/O ............................. yes
+GNU Readline .................................. yes
+Debugging support ............................. no
+*******************************************************************
+
+(lfs chroot) root:/sources/gdbm-1.18.1# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gdbm-1.18.1# time make
+make  all-recursive
+make[1]: Entering directory '/sources/gdbm-1.18.1'
+
+===== TL;DR =====
+
+real	0m1.347s
+user	0m4.560s
+sys	0m0.647s
+
+(lfs chroot) root:/sources/gdbm-1.18.1# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gdbm-1.18.1# time make check
+Making check in po
+make[1]: Entering directory '/sources/gdbm-1.18.1/po'
+make[1]: Leaving directory '/sources/gdbm-1.18.1/po'
+
+===== TL;DR =====
+
+## ----------------------- ##
+## gdbm 1.18.1 test suite. ##
+## ----------------------- ##
+
+===== TL;DR =====
+
+## ------------- ##
+## Test results. ##
+## ------------- ##
+
+All 30 tests were successful.
+
+===== TL;DR =====
+
+real	0m14.587s
+user	0m5.038s
+sys	0m1.756s
+
+(lfs chroot) root:/sources/gdbm-1.18.1# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gdbm-1.18.1# time make install
+Making install in po
+make[1]: Entering directory '/sources/gdbm-1.18.1/po'
+installing da.gmo as /usr/share/locale/da/LC_MESSAGES/gdbm.mo
+installing de.gmo as /usr/share/locale/de/LC_MESSAGES/gdbm.mo
+
+===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the `LD_RUN_PATH' environment variable
+     during linking
+   - use the `-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m0.969s
+user	0m0.587s
+sys	0m0.179s
+
+(lfs chroot) root:/sources/gdbm-1.18.1# 
+
+```
+
+<br>
+### INPUT
+```
+cd ../
+rm -rf gdbm-1.18.1/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gdbm-1.18.1# cd ../
+
+(lfs chroot) root:/sources# rm -rf gdbm-1.18.1/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# XXX
+
+### INPUT
+```
 
 ```
 
@@ -5696,7 +5861,6 @@ sys	0m0.057s
 ===== TL;DR =====
 ```
 
-[](X 13 XXXXXX)
 <br>
 ### INPUT
 ```
@@ -5709,7 +5873,6 @@ sys	0m0.057s
 ===== TL;DR =====
 ```
 
-[](X 13 XXXXXX)
 <br>
 ### INPUT
 ```
@@ -5722,7 +5885,6 @@ sys	0m0.057s
 ===== TL;DR =====
 ```
 
-[](X 13 XXXXXX)
 <br>
 ### INPUT
 ```
@@ -5735,7 +5897,6 @@ sys	0m0.057s
 ===== TL;DR =====
 ```
 
-[](X 13 XXXXXX)
 <br>
 ### INPUT
 ```
@@ -5747,7 +5908,6 @@ sys	0m0.057s
 
 ===== TL;DR =====
 ```
-
 
 
 
