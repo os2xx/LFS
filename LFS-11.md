@@ -5989,6 +5989,513 @@ rm -rf gperf-3.1/
 ```
 
 <br>
+# Expat-2.2.9
+
+### INPUT
+```
+tar xf expat-2.2.9.tar.xz
+cd expat-2.2.9/
+./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/expat-2.2.9
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf expat-2.2.9.tar.xz
+
+(lfs chroot) root:/sources# cd expat-2.2.9/
+
+(lfs chroot) root:/sources/expat-2.2.9# ./configure --prefix=/usr    \
+>             --disable-static \
+>             --docdir=/usr/share/doc/expat-2.2.9
+checking build system type... x86_64-pc-linux-gnu
+
+===== TL;DR =====
+
+config.status: expat_config.h is unchanged
+config.status: executing depfiles commands
+config.status: executing libtool commands
+
+(lfs chroot) root:/sources/expat-2.2.9# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/expat-2.2.9# time make
+make  all-recursive
+make[1]: Entering directory '/sources/expat-2.2.9'
+Making all in lib
+
+===== TL;DR =====
+
+real	0m2.512s
+user	0m4.299s
+sys	0m0.216s
+
+(lfs chroot) root:/sources/expat-2.2.9# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/expat-2.2.9# time make check
+Making check in lib
+make[1]: Entering directory '/sources/expat-2.2.9/lib'
+make[1]: Nothing to be done for 'check'.
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for expat 2.2.9
+============================================================================
+# TOTAL: 2
+# PASS:  2
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m3.521s
+user	0m6.535s
+sys	0m0.227s
+
+(lfs chroot) root:/sources/expat-2.2.9# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/expat-2.2.9# time make install
+Making install in lib
+make[1]: Entering directory '/sources/expat-2.2.9/lib'
+make[2]: Entering directory '/sources/expat-2.2.9/lib'
+
+===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m0.258s
+user	0m0.226s
+sys	0m0.056s
+
+(lfs chroot) root:/sources/expat-2.2.9# 
+
+```
+
+<br>
+### INPUT
+```
+install -v -m644 doc/*.{html,png,css} /usr/share/doc/expat-2.2.9
+cd ../
+rm -rf expat-2.2.9/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/expat-2.2.9# install -v -m644 doc/*.{html,png,css} /usr/share/doc/expat-2.2.9
+'doc/reference.html' -> '/usr/share/doc/expat-2.2.9/reference.html'
+'doc/expat.png' -> '/usr/share/doc/expat-2.2.9/expat.png'
+'doc/valid-xhtml10.png' -> '/usr/share/doc/expat-2.2.9/valid-xhtml10.png'
+'doc/style.css' -> '/usr/share/doc/expat-2.2.9/style.css'
+
+(lfs chroot) root:/sources/expat-2.2.9# cd ../
+
+(lfs chroot) root:/sources# rm -rf expat-2.2.9/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Inetutils-1.9.4
+
+### INPUT
+```
+tar xf inetutils-1.9.4.tar.xz
+cd inetutils-1.9.4/
+./configure --prefix=/usr        \
+            --localstatedir=/var \
+            --disable-logger     \
+            --disable-whois      \
+            --disable-rcp        \
+            --disable-rexec      \
+            --disable-rlogin     \
+            --disable-rsh        \
+            --disable-servers
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf inetutils-1.9.4.tar.xz
+
+(lfs chroot) root:/sources# cd inetutils-1.9.4/
+
+(lfs chroot) root:/sources/inetutils-1.9.4# ./configure --prefix=/usr        \
+>             --localstatedir=/var \
+>             --disable-logger     \
+>             --disable-whois      \
+
+===== TL;DR =====
+
+Summary of build decisions:
+
+  Clients:
+
+    dnsdomainname  yes
+    ftp            yes  /usr/lib/libreadline.so
+    hostname       yes
+    ifconfig       yes
+    logger         no
+    ping           yes  
+    ping6          yes  
+    rcp            no
+    rexec          no
+    rlogin         no
+    rsh            no
+    talk           yes  -lcurses
+    telnet         yes  -lcurses
+    tftp           yes
+    traceroute     yes  
+    whois          no
+
+  Servers:
+
+    ftpd           no
+    inetd          no
+    rexecd         no
+    rlogind        no
+    rshd           no
+    syslogd        no
+    talkd          no
+    telnetd        no
+    tftpd          no
+    uucpd          no
+
+  Support:
+
+    libls          yes
+
+(lfs chroot) root:/sources/inetutils-1.9.4# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/inetutils-1.9.4# time make
+echo 1.9.4 > .version-t && mv .version-t .version
+make  all-recursive
+make[1]: Entering directory '/sources/inetutils-1.9.4'
+
+===== TL;DR =====
+
+real	0m3.611s
+user	0m10.324s
+sys	0m1.372s
+
+(lfs chroot) root:/sources/inetutils-1.9.4# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/inetutils-1.9.4# time make check
+  GEN      public-submodule-commit
+make  check-recursive
+make[1]: Entering directory '/sources/inetutils-1.9.4'
+Making check in lib
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU inetutils 1.9.4
+============================================================================
+# TOTAL: 10
+# PASS:  10
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m0.617s
+user	0m0.664s
+sys	0m0.128s
+
+(lfs chroot) root:/sources/inetutils-1.9.4# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/inetutils-1.9.4# time make install
+make  install-recursive
+make[1]: Entering directory '/sources/inetutils-1.9.4'
+Making install in lib
+
+===== TL;DR =====
+
+real	0m0.626s
+user	0m0.595s
+sys	0m0.077s
+
+(lfs chroot) root:/sources/inetutils-1.9.4# 
+
+```
+
+<br>
+### INPUT
+```
+mv -v /usr/bin/{hostname,ping,ping6,traceroute} /bin
+mv -v /usr/bin/ifconfig /sbin
+
+cd ../
+rm -rf inetutils-1.9.4/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/inetutils-1.9.4# mv -v /usr/bin/{hostname,ping,ping6,traceroute} /bin
+renamed '/usr/bin/hostname' -> '/bin/hostname'
+renamed '/usr/bin/ping' -> '/bin/ping'
+renamed '/usr/bin/ping6' -> '/bin/ping6'
+renamed '/usr/bin/traceroute' -> '/bin/traceroute'
+
+(lfs chroot) root:/sources/inetutils-1.9.4# mv -v /usr/bin/ifconfig /sbin
+renamed '/usr/bin/ifconfig' -> '/sbin/ifconfig'
+
+(lfs chroot) root:/sources/inetutils-1.9.4# cd ../
+
+(lfs chroot) root:/sources# rm -rf inetutils-1.9.4/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Perl-5.32.0
+
+### INPUT
+```
+tar xf perl-5.32.0.tar.xz
+cd perl-5.32.0/
+export BUILD_ZLIB=False
+export BUILD_BZIP2=0
+sh Configure -des                                         \
+             -Dprefix=/usr                                \
+             -Dvendorprefix=/usr                          \
+             -Dprivlib=/usr/lib/perl5/5.32/core_perl      \
+             -Darchlib=/usr/lib/perl5/5.32/core_perl      \
+             -Dsitelib=/usr/lib/perl5/5.32/site_perl      \
+             -Dsitearch=/usr/lib/perl5/5.32/site_perl     \
+             -Dvendorlib=/usr/lib/perl5/5.32/vendor_perl  \
+             -Dvendorarch=/usr/lib/perl5/5.32/vendor_perl \
+             -Dman1dir=/usr/share/man/man1                \
+             -Dman3dir=/usr/share/man/man3                \
+             -Dpager="/usr/bin/less -isR"                 \
+             -Duseshrplib                                 \
+             -Dusethreads
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf perl-5.32.0.tar.xz
+
+(lfs chroot) root:/sources# cd perl-5.32.0/
+
+(lfs chroot) root:/sources/perl-5.32.0# export BUILD_ZLIB=False
+
+(lfs chroot) root:/sources/perl-5.32.0# export BUILD_BZIP2=0
+
+(lfs chroot) root:/sources/perl-5.32.0# sh Configure -des                                         \
+>              -Dprefix=/usr                                \
+>              -Dvendorprefix=/usr                          \
+>              -Dprivlib=/usr/lib/perl5/5.32/core_perl      \
+
+===== TL;DR =====
+
+If you compile perl5 on a different machine or from a different object
+directory, copy the Policy.sh file from this object directory to the
+new one before you run Configure -- this will help you with most of
+the policy defaults.
+
+===== TL;DR =====
+
+(lfs chroot) root:/sources/perl-5.32.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/perl-5.32.0# time make
+makefile:258: warning: ignoring prerequisites on suffix rule definition
+makefile:254: warning: ignoring prerequisites on suffix rule definition
+makefile:258: warning: ignoring prerequisites on suffix rule definition
+
+===== TL;DR =====
+
+	Everything is up to date. Type 'make test' to run test suite.
+
+real	0m38.923s
+user	2m56.380s
+sys	0m11.043s
+
+(lfs chroot) root:/sources/perl-5.32.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make test
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/perl-5.32.0# time make test
+makefile:258: warning: ignoring prerequisites on suffix rule definition
+makefile:254: warning: ignoring prerequisites on suffix rule definition
+makefile:258: warning: ignoring prerequisites on suffix rule definition
+
+===== TL;DR =====
+
+All tests successful.
+Elapsed: 843 sec
+u=7.53  s=3.44  cu=464.40  cs=35.90  scripts=2554  tests=1220605
+
+real	14m5.076s
+user	7m58.432s
+sys	0m40.190s
+
+(lfs chroot) root:/sources/perl-5.32.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/perl-5.32.0# time make install
+makefile:258: warning: ignoring prerequisites on suffix rule definition
+makefile:254: warning: ignoring prerequisites on suffix rule definition
+makefile:258: warning: ignoring prerequisites on suffix rule definition
+
+===== TL;DR =====
+
+real	0m17.170s
+user	0m21.790s
+sys	0m1.954s
+
+(lfs chroot) root:/sources/perl-5.32.0# 
+
+```
+
+<br>
+### INPUT
+```
+cd ../
+rm -rf perl-5.32.0/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/perl-5.32.0# cd ../
+
+(lfs chroot) root:/sources# rm -rf perl-5.32.0/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
 # XXX
 
 ### INPUT
@@ -6001,7 +6508,6 @@ rm -rf gperf-3.1/
 
 ===== TL;DR =====
 ```
-
 
 
 
