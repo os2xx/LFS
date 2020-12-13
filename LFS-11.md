@@ -5848,56 +5848,149 @@ rm -rf gdbm-1.18.1/
 ```
 
 <br>
+# Gperf-3.1
+
+### INPUT
+```
+tar xf gperf-3.1.tar.gz
+cd gperf-3.1/
+./configure --prefix=/usr --docdir=/usr/share/doc/gperf-3.1
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf gperf-3.1.tar.gz
+
+(lfs chroot) root:/sources# cd gperf-3.1/
+
+(lfs chroot) root:/sources/gperf-3.1# ./configure --prefix=/usr --docdir=/usr/share/doc/gperf-3.1
+checking whether make sets $(MAKE)... yes
+configure: creating ./config.status
+config.status: creating Makefile
+
+===== TL;DR =====
+
+checking for a BSD compatible install... /usr/bin/install -c
+configure: creating ./config.status
+config.status: creating Makefile
+
+(lfs chroot) root:/sources/gperf-3.1# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gperf-3.1# time make
+cd lib; make all
+make[1]: Entering directory '/sources/gperf-3.1/lib'
+gcc -g -O2 -I. -c ./getopt.c
+gcc -g -O2 -I. -c ./getopt1.c
+
+===== TL;DR =====
+
+real	0m1.080s
+user	0m1.843s
+sys	0m0.180s
+
+(lfs chroot) root:/sources/gperf-3.1# 
+
+```
+
+<br>
+### INPUT
+```
+time make -j1 check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gperf-3.1# time make -j1 check
+cd lib; make check
+make[1]: Entering directory '/sources/gperf-3.1/lib'
+make[1]: Nothing to be done for 'check'.
+
+===== TL;DR =====
+
+real	0m0.798s
+user	0m0.704s
+sys	0m0.092s
+
+(lfs chroot) root:/sources/gperf-3.1# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gperf-3.1# time make install
+cd lib; make install
+make[1]: Entering directory '/sources/gperf-3.1/lib'
+make[1]: Nothing to be done for 'install'.
+make[1]: Leaving directory '/sources/gperf-3.1/lib'
+cd src; make install
+make[1]: Entering directory '/sources/gperf-3.1/src'
+/bin/sh ./../build-aux/mkinstalldirs /usr/bin
+/usr/bin/install -c gperf /usr/bin/gperf
+make[1]: Leaving directory '/sources/gperf-3.1/src'
+cd tests; make install
+make[1]: Entering directory '/sources/gperf-3.1/tests'
+make[1]: Nothing to be done for 'install'.
+make[1]: Leaving directory '/sources/gperf-3.1/tests'
+cd doc; make install
+make[1]: Entering directory '/sources/gperf-3.1/doc'
+/bin/sh ./../build-aux/mkinstalldirs /usr/share/info
+/usr/bin/install -c -m 644 ./gperf.info /usr/share/info/gperf.info
+/bin/sh ./../build-aux/mkinstalldirs /usr/share/man/man1
+/usr/bin/install -c -m 644 ./gperf.1 /usr/share/man/man1/gperf.1
+/bin/sh ./../build-aux/mkinstalldirs /usr/share/doc/gperf-3.1
+mkdir -p -- /usr/share/doc/gperf-3.1
+/usr/bin/install -c -m 644 ./gperf.html /usr/share/doc/gperf-3.1/gperf.html
+make[1]: Leaving directory '/sources/gperf-3.1/doc'
+
+real	0m0.108s
+user	0m0.037s
+sys	0m0.010s
+
+(lfs chroot) root:/sources/gperf-3.1# 
+
+```
+
+<br>
+### INPUT
+```
+cd ../
+rm -rf gperf-3.1/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gperf-3.1# cd ../
+
+(lfs chroot) root:/sources# rm -rf gperf-3.1/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
 # XXX
 
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
 ### INPUT
 ```
 
