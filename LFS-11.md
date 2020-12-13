@@ -6503,52 +6503,148 @@ rm -rf perl-5.32.0/
 
 ### INPUT
 ```
+tar xf XML-Parser-2.46.tar.gz
+cd XML-Parser-2.46/
+perl Makefile.PL
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf XML-Parser-2.46.tar.gz
 
-===== TL;DR =====
+(lfs chroot) root:/sources# cd XML-Parser-2.46/
+
+(lfs chroot) root:/sources/XML-Parser-2.46# perl Makefile.PL
+Checking if your kit is complete...
+Looks good
+Warning: prerequisite LWP::UserAgent 0 not found.
+Writing MYMETA.yml and MYMETA.json
+Generating a Unix-style Makefile
+Writing Makefile for XML::Parser
+Writing MYMETA.yml and MYMETA.json
+
+(lfs chroot) root:/sources/XML-Parser-2.46# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/XML-Parser-2.46# time make
+make[1]: Entering directory '/sources/XML-Parser-2.46/Expat'
+cp Parser/Encodings/iso-8859-7.enc blib/lib/XML/Parser/Encodings/iso-8859-7.enc
+cp Parser/Encodings/big5.enc blib/lib/XML/Parser/Encodings/big5.enc
 
 ===== TL;DR =====
+
+real	0m1.501s
+user	0m1.646s
+sys	0m0.137s
+
+(lfs chroot) root:/sources/XML-Parser-2.46# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make test
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/XML-Parser-2.46# time make test
+make[1]: Entering directory '/sources/XML-Parser-2.46/Expat'
+"/usr/bin/perl" -MExtUtils::Command::MM -e 'cp_nonempty' -- Expat.bs ../blib/arch/auto/XML/Parser/Expat/Expat.bs 644
+Manifying 1 pod document
+make[1]: Leaving directory '/sources/XML-Parser-2.46/Expat'
+PERL_DL_NONLAZY=1 "/usr/bin/perl" "-MExtUtils::Command::MM" "-MTest::Harness" "-e" "undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')" t/*.t
+t/astress.t ........... ok     
+t/cdata.t ............. ok   
+t/decl.t .............. ok     
+t/defaulted.t ......... ok   
+t/encoding.t .......... ok   
+t/external_ent.t ...... Couldn't load LWP based external entity handler
+Switching to file-based external entity handler
+ (To avoid this message, use NoLWP option to XML::Parser)
+t/external_ent.t ...... ok   
+t/file.t .............. ok   
+t/file_open_scalar.t .. ok   
+t/finish.t ............ ok   
+t/namespaces.t ........ ok     
+t/parament.t .......... 1/13 Couldn't load LWP based external entity handler
+Switching to file-based external entity handler
+ (To avoid this message, use NoLWP option to XML::Parser)
+t/parament.t .......... ok     
+t/partial.t ........... ok   
+t/skip.t .............. ok   
+t/stream.t ............ ok   
+t/styles.t ............ ok     
+All tests successful.
+Files=15, Tests=140,  0 wallclock secs ( 0.03 usr  0.01 sys +  0.43 cusr  0.03 csys =  0.50 CPU)
+Result: PASS
 
-===== TL;DR =====
+real	0m0.600s
+user	0m0.554s
+sys	0m0.066s
+
+(lfs chroot) root:/sources/XML-Parser-2.46# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make install
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/XML-Parser-2.46# time make install
+make[1]: Entering directory '/sources/XML-Parser-2.46/Expat'
+"/usr/bin/perl" -MExtUtils::Command::MM -e 'cp_nonempty' -- Expat.bs ../blib/arch/auto/XML/Parser/Expat/Expat.bs 644
+Manifying 1 pod document
 
 ===== TL;DR =====
+
+real	0m0.167s
+user	0m0.163s
+sys	0m0.029s
+
+(lfs chroot) root:/sources/XML-Parser-2.46#
+
 ```
 
 <br>
+### INPUT
+```
+cd ../
+rm -rf XML-Parser-2.46/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/XML-Parser-2.46# cd ../
+
+(lfs chroot) root:/sources# rm -rf XML-Parser-2.46/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# XXX
+
 ### INPUT
 ```
 
