@@ -6643,10 +6643,155 @@ rm -rf XML-Parser-2.46/
 ```
 
 <br>
+# Intltool-0.51.0
+
+### INPUT
+```
+tar xf intltool-0.51.0.tar.gz
+cd intltool-0.51.0/
+sed -i 's:\\\${:\\\$\\{:' intltool-update.in
+./configure --prefix=/usr
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf intltool-0.51.0.tar.gz
+
+(lfs chroot) root:/sources# cd intltool-0.51.0/
+
+(lfs chroot) root:/sources/intltool-0.51.0# sed -i 's:\\\${:\\\$\\{:' intltool-update.in
+
+(lfs chroot) root:/sources/intltool-0.51.0# ./configure --prefix=/usr
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+
+===== TL;DR =====
+
+config.status: creating tests/cases/Makefile
+config.status: creating tests/results/Makefile
+config.status: creating tests/selftest.pl
+
+(lfs chroot) root:/sources/intltool-0.51.0#
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/intltool-0.51.0# time make
+Making all in tests
+make[1]: Entering directory '/sources/intltool-0.51.0/tests'
+Making all in cases
+
+===== TL;DR =====
+
+real	0m0.022s
+user	0m0.024s
+sys	0m0.009s
+
+(lfs chroot) root:/sources/intltool-0.51.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/intltool-0.51.0# time make check
+Making check in tests
+make[1]: Entering directory '/sources/intltool-0.51.0/tests'
+Making check in cases
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for intltool 0.51.0
+============================================================================
+# TOTAL: 1
+# PASS:  1
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m1.378s
+user	0m1.224s
+sys	0m0.153s
+
+(lfs chroot) root:/sources/intltool-0.51.0#
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/intltool-0.51.0# time make install
+Making install in tests
+make[1]: Entering directory '/sources/intltool-0.51.0/tests'
+Making install in cases
+
+===== TL;DR =====
+
+real	0m0.061s
+user	0m0.043s
+sys	0m0.005s
+
+(lfs chroot) root:/sources/intltool-0.51.0#
+
+```
+
+<br>
+### INPUT
+```
+install -v -Dm644 doc/I18N-HOWTO /usr/share/doc/intltool-0.51.0/I18N-HOWTO
+cd ../
+rm -rf intltool-0.51.0/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/intltool-0.51.0# install -v -Dm644 doc/I18N-HOWTO /usr/share/doc/intltool-0.51.0/I18N-HOWTO
+install: creating directory '/usr/share/doc/intltool-0.51.0'
+'doc/I18N-HOWTO' -> '/usr/share/doc/intltool-0.51.0/I18N-HOWTO'
+
+(lfs chroot) root:/sources/intltool-0.51.0# cd ../
+
+(lfs chroot) root:/sources# rm -rf intltool-0.51.0/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
 # XXX
 
 ### INPUT
 ```
+
 
 ```
 
