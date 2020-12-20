@@ -1310,69 +1310,227 @@ python-3.8.5-docs-html/genindex.html
 ```
 tar xf ninja-1.10.0.tar.gz
 cd ninja-1.10.0/
+export NINJAJOBS=4
+sed -i '/int Guess/a \
+  int   j = 0;\
+  char* jobs = getenv( "NINJAJOBS" );\
+  if ( jobs != NULL ) j = atoi( jobs );\
+  if ( j > 0 ) return j;\
+' src/ninja.cc
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf ninja-1.10.0.tar.gz
 
-===== TL;DR =====
+(lfs chroot) root:/sources# cd ninja-1.10.0/
+
+(lfs chroot) root:/sources/ninja-1.10.0# export NINJAJOBS=4
+
+(lfs chroot) root:/sources/ninja-1.10.0# sed -i '/int Guess/a \
+>   int   j = 0;\
+>   char* jobs = getenv( "NINJAJOBS" );\
+>   if ( jobs != NULL ) j = atoi( jobs );\
+>   if ( j > 0 ) return j;\
+> ' src/ninja.cc
+
+(lfs chroot) root:/sources/ninja-1.10.0# 
+
 ```
 
 <br>
 ### INPUT
 ```
+python3 configure.py --bootstrap
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/ninja-1.10.0# python3 configure.py --bootstrap
+bootstrapping ninja...
+warning: A compatible version of re2c (>= 0.11.3) was not found; changes to src/*.in.cc will not affect your build.
+wrote build.ninja.
+bootstrap complete.  rebuilding...
+[29/29] LINK ninja
 
-===== TL;DR =====
+(lfs chroot) root:/sources/ninja-1.10.0# 
+
 ```
 
 <br>
 ### INPUT
 ```
+./ninja ninja_test
+./ninja_test --gtest_filter=-SubprocessTest.SetWithLots
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/ninja-1.10.0# ./ninja ninja_test
+[19/19] LINK ninja_test
 
-===== TL;DR =====
+(lfs chroot) root:/sources/ninja-1.10.0# ./ninja_test --gtest_filter=-SubprocessTest.SetWithLots
+[341/341] ElideMiddle.ElideInTheMiddle
+passed
+
+(lfs chroot) root:/sources/ninja-1.10.0# 
+
 ```
 
 <br>
 ### INPUT
 ```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-### INPUT
-```
-
+install -vm755 ninja /usr/bin/
+install -vDm644 misc/bash-completion /usr/share/bash-completion/completions/ninja
+install -vDm644 misc/zsh-completion  /usr/share/zsh/site-functions/_ninja
 cd ../
 rm -rf ninja-1.10.0/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/ninja-1.10.0# install -vm755 ninja /usr/bin/
+'ninja' -> '/usr/bin/ninja'
+
+(lfs chroot) root:/sources/ninja-1.10.0# install -vDm644 misc/bash-completion /usr/share/bash-completion/completions/ninja
+'misc/bash-completion' -> '/usr/share/bash-completion/completions/ninja'
+
+(lfs chroot) root:/sources/ninja-1.10.0# install -vDm644 misc/zsh-completion  /usr/share/zsh/site-functions/_ninja
+install: creating directory '/usr/share/zsh'
+install: creating directory '/usr/share/zsh/site-functions'
+'misc/zsh-completion' -> '/usr/share/zsh/site-functions/_ninja'
+
+(lfs chroot) root:/sources/ninja-1.10.0# cd ../
+
+(lfs chroot) root:/sources# rm -rf ninja-1.10.0/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Meson-0.55.0
+
+### INPUT
+```
+tar xf meson-0.55.0.tar.gz
+cd meson-0.55.0/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf meson-0.55.0.tar.gz
+
+(lfs chroot) root:/sources# cd meson-0.55.0/
+
+(lfs chroot) root:/sources/meson-0.55.0# 
+
+```
+
+<br>
+### INPUT
+```
+python3 setup.py build
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/meson-0.55.0# python3 setup.py build
+running build
+running build_py
+creating build
+creating build/lib
+
+===== TL;DR =====
+
+copying mesonbuild/dependencies/data/CMakeLists.txt -> build/lib/mesonbuild/dependencies/data
+copying mesonbuild/dependencies/data/CMakeListsLLVM.txt -> build/lib/mesonbuild/dependencies/data
+copying mesonbuild/dependencies/data/CMakePathInfo.txt -> build/lib/mesonbuild/dependencies/data
+
+(lfs chroot) root:/sources/meson-0.55.0# 
+
+```
+
+<br>
+### INPUT
+```
+python3 setup.py install --root=dest
+cp -rv dest/* /
+
+cd ../
+rm -rf meson-0.55.0/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/meson-0.55.0# python3 setup.py install --root=dest
+running install
+running build
+running build_py
+
+===== TL;DR =====
+
+'dest/usr/share/polkit-1/actions' -> '/usr/share/polkit-1/actions'
+'dest/usr/share/polkit-1/actions/com.mesonbuild.install.policy' -> '/usr/share/polkit-1/actions/com.mesonbuild.install.policy'
+'dest/usr/bin/meson' -> '/usr/bin/meson'
+
+(lfs chroot) root:/sources/meson-0.55.0# cd ../
+
+(lfs chroot) root:/sources# rm -rf meson-0.55.0/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# XXX
+
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
 
 ```
 
