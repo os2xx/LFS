@@ -1813,6 +1813,188 @@ renamed '/usr/bin/touch' -> '/bin/touch'
 
 ### INPUT
 ```
+tar xf check-0.15.2.tar.gz
+cd check-0.15.2/
+./configure --prefix=/usr --disable-static
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf check-0.15.2.tar.gz
+
+(lfs chroot) root:/sources# cd check-0.15.2/
+
+(lfs chroot) root:/sources/check-0.15.2# ./configure --prefix=/usr --disable-static
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+
+===== TL;DR =====
+
+==========================================
+Summary of Check 0.15.2 options:
+
+fork mode ............................ yes
+high resolution timer replacement .... no
+snprintf replacement ................. no
+subunit support....................... no
+timeout unit tests ................... yes
+POSIX regular expressions ............ yes
+build docs ........................... yes
+==========================================
+
+(lfs chroot) root:/sources/check-0.15.2# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/check-0.15.2# time make
+make  all-recursive
+make[1]: Entering directory '/sources/check-0.15.2'
+Making all in lib
+
+===== TL;DR =====
+
+real	0m2.114s
+user	0m7.714s
+sys	0m0.824s
+
+(lfs chroot) root:/sources/check-0.15.2# 
+
+```
+
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/check-0.15.2# time make check
+Making check in lib
+make[1]: Entering directory '/sources/check-0.15.2/lib'
+make[1]: Nothing to be done for 'check'.
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for Check 0.15.2
+============================================================================
+# TOTAL: 1
+# PASS:  1
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for Check 0.15.2
+============================================================================
+# TOTAL: 9
+# PASS:  9
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	2m56.601s
+user	0m2.217s
+sys	0m0.835s
+
+(lfs chroot) root:/sources/check-0.15.2# 
+
+```
+
+<br>
+### INPUT
+```
+time make docdir=/usr/share/doc/check-0.15.2 install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/check-0.15.2# time make docdir=/usr/share/doc/check-0.15.2 install
+Making install in lib
+make[1]: Entering directory '/sources/check-0.15.2/lib'
+make[2]: Entering directory '/sources/check-0.15.2/lib'
+make[2]: Nothing to be done for 'install-exec-am'.
+
+===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m0.348s
+user	0m0.214s
+sys	0m0.110s
+
+(lfs chroot) root:/sources/check-0.15.2#
+
+```
+
+<br>
+### INPUT
+```
+cd ../
+rm -rf check-0.15.2/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/check-0.15.2# cd ../
+
+(lfs chroot) root:/sources# rm -rf check-0.15.2/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Diffutils-3.7
+
+### INPUT
+```
 
 ```
 
@@ -1834,7 +2016,6 @@ renamed '/usr/bin/touch' -> '/bin/touch'
 
 ===== TL;DR =====
 ```
-
 
 <br>
 ### INPUT
