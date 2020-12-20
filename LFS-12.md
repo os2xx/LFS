@@ -1490,32 +1490,143 @@ running build_py
 ```
 
 <br>
+# Coreutils-8.32
+
+### INPUT
+```
+tar xf coreutils-8.32.tar.xz
+cd coreutils-8.32/
+patch -Np1 -i ../coreutils-8.32-i18n-1.patch
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+sed -i '/test.lock/s/^/#/' gnulib-tests/gnulib.mk
+autoreconf -fiv
+FORCE_UNSAFE_CONFIGURE=1 ./configure \
+            --prefix=/usr            \
+            --enable-no-install-program=kill,uptime
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+time make NON_ROOT_USERNAME=tester check-root
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+echo "dummy:x:102:tester" >> /etc/group
+chown -Rv tester .
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+su tester -c "PATH=$PATH make RUN_EXPENSIVE_TESTS=yes check"
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+sed -i '/dummy/d' /etc/group
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+mv -v /usr/bin/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} /bin
+mv -v /usr/bin/{false,ln,ls,mkdir,mknod,mv,pwd,rm} /bin
+mv -v /usr/bin/{rmdir,stty,sync,true,uname} /bin
+mv -v /usr/bin/chroot /usr/sbin
+mv -v /usr/share/man/man1/chroot.1 /usr/share/man/man8/chroot.8
+sed -i 's/"1"/"8"/' /usr/share/man/man8/chroot.8
+mv -v /usr/bin/{head,nice,sleep,touch} /bin
+
+cd ../
+rm -rf coreutils-8.32/
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
 # XXX
 
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
 ### INPUT
 ```
 
