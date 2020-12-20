@@ -1153,6 +1153,226 @@ rm -rf openssl-1.1.1g/
 
 ### INPUT
 ```
+tar xf Python-3.8.5.tar.xz
+cd Python-3.8.5/
+./configure --prefix=/usr       \
+            --enable-shared     \
+            --with-system-expat \
+            --with-system-ffi   \
+            --with-ensurepip=yes
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf Python-3.8.5.tar.xz
+
+(lfs chroot) root:/sources# cd Python-3.8.5/
+
+(lfs chroot) root:/sources/Python-3.8.5# ./configure --prefix=/usr       \
+>             --enable-shared     \
+>             --with-system-expat \
+>             --with-system-ffi   \
+>             --with-ensurepip=yes
+
+===== TL;DR =====
+
+config.status: creating pyconfig.h
+creating Modules/Setup.local
+creating Makefile
+
+
+If you want a release build with all stable optimizations active (PGO, etc),
+please run ./configure --enable-optimizations
+
+(lfs chroot) root:/sources/Python-3.8.5# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/Python-3.8.5# time make
+gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration  -I./Include/internal  -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Programs/python.o ./Programs/python.c
+gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration  -I./Include/internal  -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Parser/acceler.o Parser/acceler.c
+
+===== TL;DR =====
+
+real	0m28.704s
+user	2m4.278s
+sys	0m7.002s
+
+(lfs chroot) root:/sources/Python-3.8.5# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/Python-3.8.5# time make install
+if test "no-framework" = "no-framework" ; then \
+	/usr/bin/install -c python /usr/bin/python3.8; \
+else \
+	/usr/bin/install -c -s Mac/pythonw /usr/bin/python3.8; \
+fi
+
+===== TL;DR =====
+
+real	0m16.532s
+user	0m21.582s
+sys	0m4.845s
+
+(lfs chroot) root:/sources/Python-3.8.5# 
+
+```
+
+<br>
+### INPUT
+```
+chmod -v 755 /usr/lib/libpython3.8.so
+chmod -v 755 /usr/lib/libpython3.so
+ln -sfv pip3.8 /usr/bin/pip3
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/Python-3.8.5# chmod -v 755 /usr/lib/libpython3.8.so
+mode of '/usr/lib/libpython3.8.so' retained as 0755 (rwxr-xr-x)
+
+(lfs chroot) root:/sources/Python-3.8.5# chmod -v 755 /usr/lib/libpython3.so
+mode of '/usr/lib/libpython3.so' retained as 0755 (rwxr-xr-x)
+
+(lfs chroot) root:/sources/Python-3.8.5# ln -sfv pip3.8 /usr/bin/pip3
+'/usr/bin/pip3' -> 'pip3.8'
+
+(lfs chroot) root:/sources/Python-3.8.5# 
+
+```
+
+<br>
+### INPUT
+```
+install -v -dm755 /usr/share/doc/python-3.8.5/html 
+
+tar --strip-components=1  \
+    --no-same-owner       \
+    --no-same-permissions \
+    -C /usr/share/doc/python-3.8.5/html \
+    -xvf ../python-3.8.5-docs-html.tar.bz2
+
+cd ../
+rm -rf Python-3.8.5/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/Python-3.8.5# install -v -dm755 /usr/share/doc/python-3.8.5/html 
+install: creating directory '/usr/share/doc/python-3.8.5'
+install: creating directory '/usr/share/doc/python-3.8.5/html'
+
+(lfs chroot) root:/sources/Python-3.8.5# tar --strip-components=1  \
+>     --no-same-owner       \
+>     --no-same-permissions \
+>     -C /usr/share/doc/python-3.8.5/html \
+
+===== TL;DR =====
+
+python-3.8.5-docs-html/faq/library.html
+python-3.8.5-docs-html/faq/design.html
+python-3.8.5-docs-html/genindex.html
+
+(lfs chroot) root:/sources/Python-3.8.5# cd ../
+
+(lfs chroot) root:/sources# rm -rf Python-3.8.5/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Ninja-1.10.0
+
+### INPUT
+```
+tar xf ninja-1.10.0.tar.gz
+cd ninja-1.10.0/
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+cd ../
+rm -rf ninja-1.10.0/
 
 ```
 
