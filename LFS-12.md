@@ -1502,8 +1502,23 @@ patch -Np1 -i ../coreutils-8.32-i18n-1.patch
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf coreutils-8.32.tar.xz
+
+(lfs chroot) root:/sources# cd coreutils-8.32/
+
+(lfs chroot) root:/sources/coreutils-8.32# patch -Np1 -i ../coreutils-8.32-i18n-1.patch
+patching file bootstrap.conf
+patching file configure.ac
+patching file lib/linebuffer.h
 
 ===== TL;DR =====
+
+patching file tests/misc/uniq.pl
+patching file tests/pr/pr-tests.pl
+patching file tests/unexpand/mb.sh
+
+(lfs chroot) root:/sources/coreutils-8.32# 
+
 ```
 
 <br>
@@ -1519,8 +1534,32 @@ FORCE_UNSAFE_CONFIGURE=1 ./configure \
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/coreutils-8.32# sed -i '/test.lock/s/^/#/' gnulib-tests/gnulib.mk
+
+(lfs chroot) root:/sources/coreutils-8.32# autoreconf -fiv
+autoreconf: Entering directory `.'
+autoreconf: running: autopoint --force
+Copying file build-aux/config.rpath
 
 ===== TL;DR =====
+
+gnulib-tests/gnulib.mk:1359: library has 'test_rwlock1' as canonical name (possible typo)
+gnulib-tests/Makefile.am:1:   'gnulib-tests/gnulib.mk' included from here
+autoreconf: Leaving directory `.'
+
+(lfs chroot) root:/sources/coreutils-8.32# FORCE_UNSAFE_CONFIGURE=1 ./configure \
+>             --prefix=/usr            \
+>             --enable-no-install-program=kill,uptime
+checking for a BSD-compatible install... /usr/bin/install -c
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+(lfs chroot) root:/sources/coreutils-8.32# 
+
 ```
 
 <br>
@@ -1532,8 +1571,19 @@ time make
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/coreutils-8.32# time make
+  GEN      lib/alloca.h
+  GEN      lib/configmake.h
+  GEN      lib/arpa/inet.h
 
 ===== TL;DR =====
+
+real	0m10.365s
+user	0m48.792s
+sys	0m6.118s
+
+(lfs chroot) root:/sources/coreutils-8.32# 
+
 ```
 
 <br>
@@ -1545,8 +1595,31 @@ time make NON_ROOT_USERNAME=tester check-root
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/coreutils-8.32# time make NON_ROOT_USERNAME=tester check-root
+make check TESTS='tests/chown/basic.sh tests/cp/cp-a-selinux.sh tests/cp/preserve-gid.sh tests/cp/special-bits.sh tests/cp/cp-mv-enotsup-xattr.sh tests/cp/capability.sh tests/cp/sparse-fiemap.sh tests/cp/cross-dev-symlink.sh tests/dd/skip-seek-past-dev.sh tests/df/problematic-chars.sh tests/df/over-mount-device.sh tests/du/bind-mount-dir-cycle.sh ...
 
 ===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU coreutils 8.32
+============================================================================
+# TOTAL: 32
+# PASS:  19
+# SKIP:  13
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m1.263s
+user	0m2.223s
+sys	0m0.432s
+
+(lfs chroot) root:/sources/coreutils-8.32# 
+
 ```
 
 <br>
@@ -1559,8 +1632,21 @@ chown -Rv tester .
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/coreutils-8.32# echo "dummy:x:102:tester" >> /etc/group
+
+(lfs chroot) root:/sources/coreutils-8.32# chown -Rv tester .
+changed ownership of './bootstrap.conf' from root to tester
+changed ownership of './autom4te.cache/requests' from root to tester
+changed ownership of './autom4te.cache/traces.0' from root to tester
 
 ===== TL;DR =====
+
+changed ownership of './src/tty.c' from root to tester
+changed ownership of './src' from root to tester
+changed ownership of '.' from root to tester
+
+(lfs chroot) root:/sources/coreutils-8.32# 
+
 ```
 
 <br>
@@ -1572,8 +1658,47 @@ su tester -c "PATH=$PATH make RUN_EXPENSIVE_TESTS=yes check"
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/coreutils-8.32# su tester -c "PATH=$PATH make RUN_EXPENSIVE_TESTS=yes check"
+  GEN      public-submodule-commit
+make  check-recursive
+make[1]: Entering directory '/sources/coreutils-8.32'
 
 ===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU coreutils 8.32
+============================================================================
+# TOTAL: 625
+# PASS:  493
+# SKIP:  132
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU coreutils 8.32
+============================================================================
+# TOTAL: 345
+# PASS:  327
+# SKIP:  18
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+make[3]: Leaving directory '/sources/coreutils-8.32/gnulib-tests'
+make[2]: Leaving directory '/sources/coreutils-8.32/gnulib-tests'
+make[1]: Leaving directory '/sources/coreutils-8.32'
+
+(lfs chroot) root:/sources/coreutils-8.32# 
+
 ```
 
 <br>
@@ -1585,8 +1710,10 @@ sed -i '/dummy/d' /etc/group
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/coreutils-8.32# sed -i '/dummy/d' /etc/group
 
-===== TL;DR =====
+(lfs chroot) root:/sources/coreutils-8.32# 
+
 ```
 
 <br>
@@ -1598,8 +1725,20 @@ time make install
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/coreutils-8.32# time make install
+make  install-recursive
+make[1]: Entering directory '/sources/coreutils-8.32'
+Making install in po
+make[2]: Entering directory '/sources/coreutils-8.32/po'
 
 ===== TL;DR =====
+
+real	0m1.935s
+user	0m1.427s
+sys	0m0.490s
+
+(lfs chroot) root:/sources/coreutils-8.32# 
+
 ```
 
 <br>
@@ -1612,7 +1751,6 @@ mv -v /usr/bin/chroot /usr/sbin
 mv -v /usr/share/man/man1/chroot.1 /usr/share/man/man8/chroot.8
 sed -i 's/"1"/"8"/' /usr/share/man/man8/chroot.8
 mv -v /usr/bin/{head,nice,sleep,touch} /bin
-
 cd ../
 rm -rf coreutils-8.32/
 
@@ -1620,12 +1758,58 @@ rm -rf coreutils-8.32/
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/coreutils-8.32# mv -v /usr/bin/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} /bin
+renamed '/usr/bin/cat' -> '/bin/cat'
+renamed '/usr/bin/chgrp' -> '/bin/chgrp'
+renamed '/usr/bin/chmod' -> '/bin/chmod'
+renamed '/usr/bin/chown' -> '/bin/chown'
+renamed '/usr/bin/cp' -> '/bin/cp'
+renamed '/usr/bin/date' -> '/bin/date'
+renamed '/usr/bin/dd' -> '/bin/dd'
+renamed '/usr/bin/df' -> '/bin/df'
+renamed '/usr/bin/echo' -> '/bin/echo'
 
-===== TL;DR =====
+(lfs chroot) root:/sources/coreutils-8.32# mv -v /usr/bin/{false,ln,ls,mkdir,mknod,mv,pwd,rm} /bin
+renamed '/usr/bin/false' -> '/bin/false'
+renamed '/usr/bin/ln' -> '/bin/ln'
+renamed '/usr/bin/ls' -> '/bin/ls'
+renamed '/usr/bin/mkdir' -> '/bin/mkdir'
+renamed '/usr/bin/mknod' -> '/bin/mknod'
+renamed '/usr/bin/mv' -> '/bin/mv'
+renamed '/usr/bin/pwd' -> '/bin/pwd'
+renamed '/usr/bin/rm' -> '/bin/rm'
+
+(lfs chroot) root:/sources/coreutils-8.32# mv -v /usr/bin/{rmdir,stty,sync,true,uname} /bin
+renamed '/usr/bin/rmdir' -> '/bin/rmdir'
+renamed '/usr/bin/stty' -> '/bin/stty'
+renamed '/usr/bin/sync' -> '/bin/sync'
+renamed '/usr/bin/true' -> '/bin/true'
+renamed '/usr/bin/uname' -> '/bin/uname'
+
+(lfs chroot) root:/sources/coreutils-8.32# mv -v /usr/bin/chroot /usr/sbin
+renamed '/usr/bin/chroot' -> '/usr/sbin/chroot'
+
+(lfs chroot) root:/sources/coreutils-8.32# mv -v /usr/share/man/man1/chroot.1 /usr/share/man/man8/chroot.8
+renamed '/usr/share/man/man1/chroot.1' -> '/usr/share/man/man8/chroot.8'
+
+(lfs chroot) root:/sources/coreutils-8.32# sed -i 's/"1"/"8"/' /usr/share/man/man8/chroot.8
+
+(lfs chroot) root:/sources/coreutils-8.32# mv -v /usr/bin/{head,nice,sleep,touch} /bin
+renamed '/usr/bin/head' -> '/bin/head'
+renamed '/usr/bin/nice' -> '/bin/nice'
+renamed '/usr/bin/sleep' -> '/bin/sleep'
+renamed '/usr/bin/touch' -> '/bin/touch'
+
+(lfs chroot) root:/sources/coreutils-8.32# cd ../
+
+(lfs chroot) root:/sources# rm -rf coreutils-8.32/
+
+(lfs chroot) root:/sources# 
+
 ```
 
 <br>
-# XXX
+# Check-0.15.2
 
 ### INPUT
 ```
@@ -1651,6 +1835,66 @@ rm -rf coreutils-8.32/
 ===== TL;DR =====
 ```
 
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
 
 
 
