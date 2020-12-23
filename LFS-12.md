@@ -2531,8 +2531,30 @@ PAGE=A4 ./configure --prefix=/usr
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf groff-1.22.4.tar.gz
+
+(lfs chroot) root:/sources# cd groff-1.22.4/
+
+(lfs chroot) root:/sources/groff-1.22.4# PAGE=A4 ./configure --prefix=/usr
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
 
 ===== TL;DR =====
+
+GNU Troff version 1.22.4
+----------------------------------------------------------------------
+ Prefix                          : /usr
+ Compiler                        : gcc -g -O2 
+ X11 support                     : no
+ Doc build                       : yes 
+ URW fonts for pdf               : no
+ Use uchardet library for preconv: no
+ pdftools for distcheck          : no
+----------------------------------------------------------------------
+
+(lfs chroot) root:/sources/groff-1.22.4#
+
 ```
 
 <br>
@@ -2544,8 +2566,19 @@ time make -j1
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/groff-1.22.4# time make -j1
+  GEN      lib/alloca.h
+  GEN      lib/limits.h
+  GEN      lib/math.h
 
 ===== TL;DR =====
+
+real	0m43.727s
+user	0m41.253s
+sys	0m2.518s
+
+(lfs chroot) root:/sources/groff-1.22.4# 
+
 ```
 
 <br>
@@ -2553,13 +2586,23 @@ time make -j1
 ```
 time make install
 
-
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/groff-1.22.4# time make install
+make  install-am
+make[1]: Entering directory '/sources/groff-1.22.4'
+make[2]: Entering directory '/sources/groff-1.22.4'
 
 ===== TL;DR =====
+
+real	0m0.376s
+user	0m0.714s
+sys	0m0.134s
+
+(lfs chroot) root:/sources/groff-1.22.4# 
+
 ```
 
 <br>
@@ -2572,12 +2615,16 @@ rm -rf groff-1.22.4/
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/groff-1.22.4# cd ../
 
-===== TL;DR =====
+(lfs chroot) root:/sources# rm -rf groff-1.22.4/
+
+(lfs chroot) root:/sources# 
+
 ```
 
 <br>
-# XX
+# GRUB-2.04
 
 ### INPUT
 ```
