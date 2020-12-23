@@ -2338,7 +2338,246 @@ mkdir: created directory '/usr/share/doc/gawk-5.1.0'
 ```
 
 <br>
-# XXX
+# Findutils-4.7.0
+
+### INPUT
+```
+tar xf findutils-4.7.0.tar.xz
+cd findutils-4.7.0/
+./configure --prefix=/usr --localstatedir=/var/lib/locate
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf findutils-4.7.0.tar.xz
+
+(lfs chroot) root:/sources# cd findutils-4.7.0/
+
+(lfs chroot) root:/sources/findutils-4.7.0# ./configure --prefix=/usr --localstatedir=/var/lib/locate
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+(lfs chroot) root:/sources/findutils-4.7.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/findutils-4.7.0# time make
+make  all-recursive
+make[1]: Entering directory '/sources/findutils-4.7.0'
+Making all in gl
+
+===== TL;DR =====
+
+real	0m4.882s
+user	0m11.903s
+sys	0m1.569s
+
+(lfs chroot) root:/sources/findutils-4.7.0#
+
+```
+
+<br>
+### INPUT
+```
+chown -Rv tester .
+su tester -c "PATH=$PATH make check"
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/findutils-4.7.0# chown -Rv tester .
+changed ownership of './Makefile.in' from root to tester
+changed ownership of './README-hacking' from root to tester
+changed ownership of './ChangeLog' from root to tester
+
+===== TL;DR =====
+
+changed ownership of './po/nl.gmo' from root to tester
+changed ownership of './po' from root to tester
+changed ownership of '.' from root to tester
+
+(lfs chroot) root:/sources/findutils-4.7.0# su tester -c "PATH=$PATH make check"
+  GEN      public-submodule-commit
+Making check in gl
+make[1]: Entering directory '/sources/findutils-4.7.0/gl'
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU findutils 4.7.0
+============================================================================
+# TOTAL: 2
+# PASS:  2
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU findutils 4.7.0
+============================================================================
+# TOTAL: 236
+# PASS:  224
+# SKIP:  12
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU findutils 4.7.0
+============================================================================
+# TOTAL: 12
+# PASS:  11
+# SKIP:  1
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+make[3]: Leaving directory '/sources/findutils-4.7.0'
+make[2]: Leaving directory '/sources/findutils-4.7.0'
+make[1]: Leaving directory '/sources/findutils-4.7.0'
+
+(lfs chroot) root:/sources/findutils-4.7.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/findutils-4.7.0# time make install
+Making install in gl
+make[1]: Entering directory '/sources/findutils-4.7.0/gl'
+Making install in lib
+
+===== TL;DR =====
+
+real	0m1.139s
+user	0m0.943s
+sys	0m0.228s
+
+(lfs chroot) root:/sources/findutils-4.7.0# 
+
+```
+
+<br>
+### INPUT
+```
+mv -v /usr/bin/find /bin
+sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb
+cd ../
+rm -rf findutils-4.7.0/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/findutils-4.7.0# mv -v /usr/bin/find /bin
+renamed '/usr/bin/find' -> '/bin/find'
+
+(lfs chroot) root:/sources/findutils-4.7.0# sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb
+
+(lfs chroot) root:/sources/findutils-4.7.0# cd ../
+
+(lfs chroot) root:/sources# rm -rf findutils-4.7.0/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Groff-1.22.4
+
+### INPUT
+```
+tar xf groff-1.22.4.tar.gz
+cd groff-1.22.4/
+PAGE=A4 ./configure --prefix=/usr
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+time make -j1
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+time make install
+
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+cd ../
+rm -rf groff-1.22.4/
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+# XX
 
 ### INPUT
 ```
@@ -2355,6 +2594,17 @@ mkdir: created directory '/usr/share/doc/gawk-5.1.0'
 ### INPUT
 ```
 
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
 
 ```
 
