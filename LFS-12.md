@@ -2628,6 +2628,81 @@ rm -rf groff-1.22.4/
 
 ### INPUT
 ```
+tar xf grub-2.04.tar.xz
+cd grub-2.04/
+./configure --prefix=/usr          \
+            --sbindir=/sbin        \
+            --sysconfdir=/etc      \
+            --disable-efiemu       \
+            --disable-werror
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions
+
+cd ../
+rm -rf grub-2.04/
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+# XXXX
+
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
 
 ```
 
