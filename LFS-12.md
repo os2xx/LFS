@@ -1995,6 +1995,353 @@ rm -rf check-0.15.2/
 
 ### INPUT
 ```
+tar xf diffutils-3.7.tar.xz
+cd diffutils-3.7/
+./configure --prefix=/usr
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf diffutils-3.7.tar.xz
+
+(lfs chroot) root:/sources# cd diffutils-3.7/
+
+(lfs chroot) root:/sources/diffutils-3.7# ./configure --prefix=/usr
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+(lfs chroot) root:/sources/diffutils-3.7# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/diffutils-3.7# time make
+Making all in lib
+make[1]: Entering directory '/sources/diffutils-3.7/lib'
+  GEN      alloca.h
+  GEN      ctype.h
+
+===== TL;DR =====
+
+real	0m3.588s
+user	0m8.872s
+sys	0m1.045s
+
+(lfs chroot) root:/sources/diffutils-3.7# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/diffutils-3.7# time make check
+  GEN      public-submodule-commit
+Making check in lib
+make[1]: Entering directory '/sources/diffutils-3.7/lib'
+make  check-am
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU diffutils 3.7
+============================================================================
+# TOTAL: 22
+# PASS:  20
+# SKIP:  1
+# XFAIL: 1
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU diffutils 3.7
+============================================================================
+# TOTAL: 173
+# PASS:  160
+# SKIP:  13
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m5.562s
+user	0m15.161s
+sys	0m2.665s
+
+(lfs chroot) root:/sources/diffutils-3.7# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/diffutils-3.7# time make install
+Making install in lib
+make[1]: Entering directory '/sources/diffutils-3.7/lib'
+make  install-am
+
+===== TL;DR =====
+
+real	0m1.178s
+user	0m0.677s
+sys	0m0.259s
+
+(lfs chroot) root:/sources/diffutils-3.7#
+
+```
+
+<br>
+### INPUT
+```
+cd ../
+rm -rf diffutils-3.7/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/diffutils-3.7# cd ../
+
+(lfs chroot) root:/sources# rm -rf diffutils-3.7/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Gawk-5.1.0
+
+### INPUT
+```
+tar xf gawk-5.1.0.tar.xz
+cd gawk-5.1.0/
+sed -i 's/extras//' Makefile.in
+./configure --prefix=/usr
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf gawk-5.1.0.tar.xz
+
+(lfs chroot) root:/sources# cd gawk-5.1.0/
+
+(lfs chroot) root:/sources/gawk-5.1.0# sed -i 's/extras//' Makefile.in
+
+(lfs chroot) root:/sources/gawk-5.1.0# ./configure --prefix=/usr
+checking for a BSD-compatible install... ./install-sh -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p.
+
+===== TL;DR =====
+
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+config.status: executing libtool commands
+
+(lfs chroot) root:/sources/gawk-5.1.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make 
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gawk-5.1.0# time make 
+make  all-recursive
+make[1]: Entering directory '/sources/gawk-5.1.0'
+Making all in support
+
+===== TL;DR =====
+
+real	0m6.420s
+user	0m24.309s
+sys	0m1.609s
+
+(lfs chroot) root:/sources/gawk-5.1.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gawk-5.1.0# time make check
+make  check-recursive
+make[1]: Entering directory '/sources/gawk-5.1.0'
+Making check in support
+
+===== TL;DR =====
+
+======== Starting basic tests ========
+======== Done with basic tests ========
+
+======== Starting Unix tests ========
+======== Done with Unix tests ========
+
+======== Starting gawk extension tests ========
+======== Done with gawk extension tests ========
+
+======== Starting machine-specific tests ========
+======== Done with machine-specific tests ========
+
+======== Starting shared library tests ========
+======== Done with shared library tests ========
+
+======== Starting MPFR tests ========
+======== Done with MPFR tests ========
+
+======== Starting tests that can vary based on character set or locale support ========
+**************************************************************************
+* Some or all of these tests may fail if you have inadequate or missing  *
+* locale support. At least en_US.UTF-8, fr_FR.UTF-8, ru_RU.UTF-8 and     *
+fnmatch
+fork
+* ja_JP.UTF-8 are needed. The el_GR.iso88597 is optional but helpful.    *
+* However, if you see this message, the Makefile thinks you have what    *
+* you need ...                                                           *
+fork2
+**************************************************************************
+======== Done with tests that can vary based on character set or locale support ========
+
+===== TL;DR =====
+
+real	0m4.966s
+user	0m5.403s
+sys	0m0.780s
+
+(lfs chroot) root:/sources/gawk-5.1.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gawk-5.1.0# time make install
+make  install-recursive
+make[1]: Entering directory '/sources/gawk-5.1.0'
+Making install in support
+
+===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib/gawk
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m0.924s
+user	0m0.688s
+sys	0m0.088s
+
+(lfs chroot) root:/sources/gawk-5.1.0# 
+
+```
+
+<br>
+### INPUT
+```
+mkdir -v /usr/share/doc/gawk-5.1.0
+cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} /usr/share/doc/gawk-5.1.0
+cd ../
+rm -rf gawk-5.1.0/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gawk-5.1.0# mkdir -v /usr/share/doc/gawk-5.1.0
+mkdir: created directory '/usr/share/doc/gawk-5.1.0'
+
+(lfs chroot) root:/sources/gawk-5.1.0# cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} /usr/share/doc/gawk-5.1.0
+'doc/awkforai.txt' -> '/usr/share/doc/gawk-5.1.0/awkforai.txt'
+'doc/api-figure1.eps' -> '/usr/share/doc/gawk-5.1.0/api-figure1.eps'
+'doc/api-figure2.eps' -> '/usr/share/doc/gawk-5.1.0/api-figure2.eps'
+
+===== TL;DR =====
+
+'doc/rflashlight.pdf' -> '/usr/share/doc/gawk-5.1.0/rflashlight.pdf'
+'doc/statist.pdf' -> '/usr/share/doc/gawk-5.1.0/statist.pdf'
+'doc/statist.jpg' -> '/usr/share/doc/gawk-5.1.0/statist.jpg'
+
+(lfs chroot) root:/sources/gawk-5.1.0# cd ../
+
+(lfs chroot) root:/sources# rm -rf gawk-5.1.0/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# XXX
+
+### INPUT
+```
 
 ```
 
@@ -2008,66 +2355,6 @@ rm -rf check-0.15.2/
 ### INPUT
 ```
 
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
-### INPUT
-```
 
 ```
 
