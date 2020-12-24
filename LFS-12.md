@@ -3072,76 +3072,245 @@ rm -rf iproute2-5.8.0/
 
 ### INPUT
 ```
+tar xf kbd-2.3.0.tar.xz
+cd kbd-2.3.0/
+patch -Np1 -i ../kbd-2.3.0-backspace-1.patch
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf kbd-2.3.0.tar.xz
 
-===== TL;DR =====
+(lfs chroot) root:/sources# cd kbd-2.3.0/
+
+(lfs chroot) root:/sources/kbd-2.3.0# patch -Np1 -i ../kbd-2.3.0-backspace-1.patch
+patching file data/keymaps/i386/dvorak/dvorak-l.map
+patching file data/keymaps/i386/dvorak/dvorak-r.map
+patching file data/keymaps/i386/fgGIod/tr_f-latin5.map
+patching file data/keymaps/i386/qwerty/lt.l4.map
+patching file data/keymaps/i386/qwerty/lt.map
+patching file data/keymaps/i386/qwerty/no-latin1.map
+patching file data/keymaps/i386/qwerty/ru1.map
+patching file data/keymaps/i386/qwerty/ru2.map
+patching file data/keymaps/i386/qwerty/ru-cp1251.map
+patching file data/keymaps/i386/qwerty/ru-ms.map
+patching file data/keymaps/i386/qwerty/ru_win.map
+patching file data/keymaps/i386/qwerty/se-ir209.map
+patching file data/keymaps/i386/qwerty/se-lat6.map
+patching file data/keymaps/i386/qwerty/tr_q-latin5.map
+patching file data/keymaps/i386/qwerty/ua.map
+patching file data/keymaps/i386/qwerty/ua-utf.map
+patching file data/keymaps/i386/qwerty/ua-utf-ws.map
+patching file data/keymaps/i386/qwerty/ua-ws.map
+
+(lfs chroot) root:/sources/kbd-2.3.0# 
+
 ```
 
 <br>
 ### INPUT
 ```
+sed -i '/RESIZECONS_PROGS=/s/yes/no/' configure
+sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
+./configure --prefix=/usr --disable-vlock
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/kbd-2.3.0# sed -i '/RESIZECONS_PROGS=/s/yes/no/' configure
+
+(lfs chroot) root:/sources/kbd-2.3.0# sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
+
+(lfs chroot) root:/sources/kbd-2.3.0# ./configure --prefix=/usr --disable-vlock
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
 
 ===== TL;DR =====
+
+	kbd 2.3.0
+	======
+
+	prefix:                 /usr
+	libdir:                 ${exec_prefix}/lib
+	bindir:                 ${exec_prefix}/bin
+	datadir:                ${datarootdir}
+
+	compiler:               gcc
+	cflags:                 -O2 -D_FORTIFY_SOURCE=2  -Waggregate-return -Wall -Wcast-align -Wconversion -Wdisabled-optimization -Wextra -Wmissing-declarations -Wmissing-format-attribute -Wmissing-noreturn -Wmissing-prototypes -Wpointer-arith -Wredundant-decls -Wshadow -Wstrict-prototypes -Wwrite-strings
+
+	{get,set}keycodes:      yes
+	resizecons:             no
+	optional progs:         no
+	vlock:                  no
+	libkbdfile:             no
+	libkeymap:              no
+
+(lfs chroot) root:/sources/kbd-2.3.0# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/kbd-2.3.0# time make
+make  all-recursive
+make[1]: Entering directory '/sources/kbd-2.3.0'
+Making all in src
 
 ===== TL;DR =====
+
+real	0m4.767s
+user	0m14.309s
+sys	0m2.711s
+
+(lfs chroot) root:/sources/kbd-2.3.0#
+
 ```
 
 <br>
 ### INPUT
 ```
+time make check
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/kbd-2.3.0# time make check
+Making check in src
+make[1]: Entering directory '/sources/kbd-2.3.0/src'
+Making check in libcommon
 
 ===== TL;DR =====
+
+## ------------- ##
+## Test results. ##
+## ------------- ##
+
+36 tests were successful.
+4 tests were skipped.
+
+===== TL;DR =====
+
+real	0m0.717s
+user	0m0.642s
+sys	0m0.095s
+
+(lfs chroot) root:/sources/kbd-2.3.0# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make install
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/kbd-2.3.0# time make install
+Making install in src
+make[1]: Entering directory '/sources/kbd-2.3.0/src'
+Making install in libcommon
 
 ===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m1.216s
+user	0m0.849s
+sys	0m0.165s
+
+(lfs chroot) root:/sources/kbd-2.3.0# 
+
 ```
 
 <br>
 ### INPUT
 ```
+rm -v /usr/lib/libtswrap.{a,la,so*}
+mkdir -v            /usr/share/doc/kbd-2.3.0
+cp -R -v docs/doc/* /usr/share/doc/kbd-2.3.0
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/kbd-2.3.0# rm -v /usr/lib/libtswrap.{a,la,so*}
+removed '/usr/lib/libtswrap.a'
+removed '/usr/lib/libtswrap.la'
+removed '/usr/lib/libtswrap.so'
+removed '/usr/lib/libtswrap.so.1'
+removed '/usr/lib/libtswrap.so.1.0.0'
+
+(lfs chroot) root:/sources/kbd-2.3.0# mkdir -v            /usr/share/doc/kbd-2.3.0
+mkdir: created directory '/usr/share/doc/kbd-2.3.0'
+
+(lfs chroot) root:/sources/kbd-2.3.0# cp -R -v docs/doc/* /usr/share/doc/kbd-2.3.0
+'docs/doc/A20' -> '/usr/share/doc/kbd-2.3.0/A20'
+'docs/doc/A20/A20.html' -> '/usr/share/doc/kbd-2.3.0/A20/A20.html'
+'docs/doc/A20/xfix-286mode2' -> '/usr/share/doc/kbd-2.3.0/A20/xfix-286mode2'
 
 ===== TL;DR =====
+
+'docs/doc/utf/'$'\342\231\252\342\231\254' -> '/usr/share/doc/kbd-2.3.0/utf/'$'\342\231\252\342\231\254'
+'docs/doc/utf/utfdemo' -> '/usr/share/doc/kbd-2.3.0/utf/utfdemo'
+'docs/doc/utf/README' -> '/usr/share/doc/kbd-2.3.0/utf/README'
+
+(lfs chroot) root:/sources/kbd-2.3.0# 
+
 ```
 
 <br>
+### INPUT
+```
+cd ../
+rm -rf kbd-2.3.0/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/kbd-2.3.0# cd ../
+
+(lfs chroot) root:/sources# rm -rf kbd-2.3.0/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Libpipeline-1.5.3
+
 ### INPUT
 ```
 
