@@ -2640,8 +2640,36 @@ cd grub-2.04/
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf grub-2.04.tar.xz
+
+(lfs chroot) root:/sources# cd grub-2.04/
+
+(lfs chroot) root:/sources/grub-2.04# ./configure --prefix=/usr          \
+>             --sbindir=/sbin        \
+>             --sysconfdir=/etc      \
+>             --disable-efiemu       \
 
 ===== TL;DR =====
+
+*******************************************************
+GRUB2 will be compiled with following components:
+Platform: i386-pc
+With devmapper support: No (need libdevmapper header)
+With memory debugging: No
+With disk cache statistics: No
+With boot time statistics: No
+efiemu runtime: No (explicitly disabled)
+grub-mkfont: No (need freetype2 library)
+grub-mount: No (need FUSE library)
+starfield theme: No (No build-time grub-mkfont)
+With libzfs support: No (need zfs library)
+Build-time grub-mkfont: No (need freetype2 library)
+Without unifont (no build-time grub-mkfont)
+With liblzma from -llzma (support for XZ-compressed mips images)
+*******************************************************
+
+(lfs chroot) root:/sources/grub-2.04# 
+
 ```
 
 <br>
@@ -2653,8 +2681,18 @@ time make
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/grub-2.04# time make
+bison -d -p grub_script_yy -b grub_script ./grub-core/script/parser.y
+flex -o grub_script.yy.c --header-file=grub_script.yy.h ./grub-core/script/yylex.l
 
 ===== TL;DR =====
+
+real	0m21.226s
+user	1m17.096s
+sys	0m14.606s
+
+(lfs chroot) root:/sources/grub-2.04# 
+
 ```
 
 <br>
@@ -2666,17 +2704,137 @@ time make install
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/grub-2.04# time make install
+make  install-recursive
+make[1]: Entering directory '/sources/grub-2.04'
+Making install in grub-core/lib/gnulib
 
 ===== TL;DR =====
+
+real	0m1.193s
+user	0m1.061s
+sys	0m0.188s
+
+(lfs chroot) root:/sources/grub-2.04#
+
 ```
 
 <br>
 ### INPUT
 ```
 mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions
-
 cd ../
 rm -rf grub-2.04/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/grub-2.04# mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions
+renamed '/etc/bash_completion.d/grub' -> '/usr/share/bash-completion/completions/grub'
+
+(lfs chroot) root:/sources/grub-2.04# cd ../
+
+(lfs chroot) root:/sources# rm -rf grub-2.04/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Less-551
+
+### INPUT
+```
+tar xf less-551.tar.gz
+cd less-551/
+./configure --prefix=/usr --sysconfdir=/etc
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf less-551.tar.gz
+
+(lfs chroot) root:/sources# cd less-551/
+
+(lfs chroot) root:/sources/less-551# ./configure --prefix=/usr --sysconfdir=/etc
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+
+===== TL;DR =====
+
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating defines.h
+
+(lfs chroot) root:/sources/less-551# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/less-551# time make
+test ! -f stamp-h || CONFIG_FILES= CONFIG_HEADERS=defines.h ./config.status
+touch stamp-h
+gcc -I. -c -DBINDIR=\"/usr/bin\" -DSYSDIR=\"/etc\"  -g -O2 lesskey.c
+
+===== TL;DR =====
+
+real	0m0.887s
+user	0m3.909s
+sys	0m0.293s
+
+(lfs chroot) root:/sources/less-551# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+cd ../
+rm -rf less-551/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/less-551# time make install
+./mkinstalldirs /usr/bin /usr/share/man/man1
+/usr/bin/install -c less /usr/bin/less
+/usr/bin/install -c lesskey /usr/bin/lesskey
+/usr/bin/install -c lessecho /usr/bin/lessecho
+/usr/bin/install -c -m 644 ./less.nro /usr/share/man/man1/less.1
+/usr/bin/install -c -m 644 ./lesskey.nro /usr/share/man/man1/lesskey.1
+/usr/bin/install -c -m 644 ./lessecho.nro /usr/share/man/man1/lessecho.1
+
+real	0m0.086s
+user	0m0.033s
+sys	0m0.019s
+
+(lfs chroot) root:/sources/less-551# cd ../
+
+(lfs chroot) root:/sources# rm -rf less-551/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Gzip-1.10
+
+### INPUT
+```
+
 
 ```
 
@@ -2687,8 +2845,6 @@ rm -rf grub-2.04/
 ```
 
 <br>
-# XXXX
-
 ### INPUT
 ```
 
