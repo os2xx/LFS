@@ -111,6 +111,7 @@ chroot "$LFS" /usr/bin/env -i   \
     MAKEFLAGS='-j6' \
     /bin/bash --login +h
 df
+alias cl='clear;echo ""'
 cd /sources/
 
 ```
@@ -2834,7 +2835,267 @@ sys	0m0.019s
 
 ### INPUT
 ```
+tar xf gzip-1.10.tar.xz
+cd gzip-1.10/
+./configure --prefix=/usr
 
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf gzip-1.10.tar.xz
+
+(lfs chroot) root:/sources# cd gzip-1.10/
+
+(lfs chroot) root:/sources/gzip-1.10# ./configure --prefix=/usr
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+
+===== TL;DR =====
+
+config.status: creating tests/Makefile
+config.status: creating lib/config.h
+config.status: executing depfiles commands
+
+(lfs chroot) root:/sources/gzip-1.10# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gzip-1.10# time make
+  GEN      version.c
+  GEN      version.h
+make  all-recursive
+
+===== TL;DR =====
+
+real	0m1.395s
+user	0m3.804s
+sys	0m0.751s
+
+(lfs chroot) root:/sources/gzip-1.10# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gzip-1.10# time make check
+  GEN      public-submodule-commit
+make  check-recursive
+make[1]: Entering directory '/sources/gzip-1.10'
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for gzip 1.10
+============================================================================
+# TOTAL: 22
+# PASS:  22
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m1.796s
+user	0m1.941s
+sys	0m0.444s
+
+(lfs chroot) root:/sources/gzip-1.10# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gzip-1.10# time make install
+make  install-recursive
+make[1]: Entering directory '/sources/gzip-1.10'
+Making install in lib
+
+===== TL;DR =====
+
+real	0m0.493s
+user	0m0.415s
+sys	0m0.063s
+
+(lfs chroot) root:/sources/gzip-1.10# 
+
+```
+
+<br>
+### INPUT
+```
+mv -v /usr/bin/gzip /bin
+cd ../
+rm -rf gzip-1.10/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/gzip-1.10# mv -v /usr/bin/gzip /bin
+renamed '/usr/bin/gzip' -> '/bin/gzip'
+
+(lfs chroot) root:/sources/gzip-1.10# cd ../
+
+(lfs chroot) root:/sources# rm -rf gzip-1.10/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# IPRoute2-5.8.0
+
+### INPUT
+```
+tar xf iproute2-5.8.0.tar.xz
+cd iproute2-5.8.0/
+sed -i /ARPD/d Makefile
+rm -fv man/man8/arpd.8
+sed -i 's/.m_ipt.o//' tc/Makefile
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf iproute2-5.8.0.tar.xz
+
+(lfs chroot) root:/sources# cd iproute2-5.8.0/
+
+(lfs chroot) root:/sources/iproute2-5.8.0# sed -i /ARPD/d Makefile
+
+(lfs chroot) root:/sources/iproute2-5.8.0# rm -fv man/man8/arpd.8
+removed 'man/man8/arpd.8'
+
+(lfs chroot) root:/sources/iproute2-5.8.0# sed -i 's/.m_ipt.o//' tc/Makefile
+
+(lfs chroot) root:/sources/iproute2-5.8.0# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/iproute2-5.8.0# time make
+sh configure /usr/include
+TC schedulers
+ ATM	no
+
+===== TL;DR =====
+
+real	0m5.920s
+user	0m22.638s
+sys	0m2.404s
+
+(lfs chroot) root:/sources/iproute2-5.8.0#
+
+```
+
+<br>
+### INPUT
+```
+make DOCDIR=/usr/share/doc/iproute2-5.8.0 install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/iproute2-5.8.0# make DOCDIR=/usr/share/doc/iproute2-5.8.0 install
+
+lib
+make[1]: warning: -j6 forced in submake: resetting jobserver mode.
+make[1]: Nothing to be done for 'all'.
+
+===== TL;DR =====
+
+install -m 0644 bash-completion/tc /usr/share/bash-completion/completions
+install -m 0644 bash-completion/devlink /usr/share/bash-completion/completions
+install -m 0644 include/bpf_elf.h /usr/include/iproute2
+
+(lfs chroot) root:/sources/iproute2-5.8.0# 
+
+```
+
+<br>
+### INPUT
+```
+cd ../
+rm -rf iproute2-5.8.0/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/iproute2-5.8.0# cd ../
+
+(lfs chroot) root:/sources# rm -rf iproute2-5.8.0/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Kbd-2.3.0
+
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
 
 ```
 
