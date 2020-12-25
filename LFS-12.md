@@ -3458,16 +3458,127 @@ sys	0m0.209s
 
 ### INPUT
 ```
+tar xf make-4.3.tar.gz
+cd make-4.3/
+./configure --prefix=/usr
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf make-4.3.tar.gz
+
+(lfs chroot) root:/sources# cd make-4.3/
+
+(lfs chroot) root:/sources/make-4.3# ./configure --prefix=/usr
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
 
 ===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+(lfs chroot) root:/sources/make-4.3# 
+
 ```
 
 <br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/make-4.3# time make
+Making all in lib
+make[1]: Entering directory '/sources/make-4.3/lib'
+rm -f alloca.h-t alloca.h && \
+
+===== TL;DR =====
+
+real	0m1.448s
+user	0m5.717s
+sys	0m0.681s
+
+(lfs chroot) root:/sources/make-4.3# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/make-4.3# time make check
+Making check in lib
+make[1]: Entering directory '/sources/make-4.3/lib'
+make  check-recursive
+
+===== TL;DR =====
+
+------------------------------------------------------------------------------
+        Running tests for GNU make on Linux osp 4.19.0-13-amd64 x86_64
+                                 GNU Make 4.3
+------------------------------------------------------------------------------
+
+===== TL;DR =====
+
+690 Tests in 125 Categories Complete ... No Failures :-)
+
+======================================================================
+ Regression PASSED: GNU Make 4.3 (x86_64-pc-linux-gnu) built with gcc 
+======================================================================
+
+real	0m45.398s
+user	0m3.671s
+sys	0m2.541s
+
+(lfs chroot) root:/sources/make-4.3# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+cd ../
+rm -rf make-4.3/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/make-4.3# time make install
+Making install in lib
+make[1]: Entering directory '/sources/make-4.3/lib'
+make  install-recursive
+
+===== TL;DR =====
+
+real	0m0.702s
+user	0m0.399s
+sys	0m0.216s
+
+(lfs chroot) root:/sources/make-4.3# cd ../
+
+(lfs chroot) root:/sources# rm -rf make-4.3/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# XXX
+
 ### INPUT
 ```
 
