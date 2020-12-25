@@ -3313,52 +3313,149 @@ rm -rf kbd-2.3.0/
 
 ### INPUT
 ```
+tar xf libpipeline-1.5.3.tar.gz
+cd libpipeline-1.5.3/
+./configure --prefix=/usr
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf libpipeline-1.5.3.tar.gz
+
+(lfs chroot) root:/sources# cd libpipeline-1.5.3/
+
+(lfs chroot) root:/sources/libpipeline-1.5.3# ./configure --prefix=/usr
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
 
 ===== TL;DR =====
+
+config.status: creating config.h
+config.status: executing depfiles commands
+config.status: executing libtool commands
+
+(lfs chroot) root:/sources/libpipeline-1.5.3# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/libpipeline-1.5.3# time make
+make  all-recursive
+make[1]: Entering directory '/sources/libpipeline-1.5.3'
+Making all in gl/lib
 
 ===== TL;DR =====
+
+real	0m1.627s
+user	0m3.034s
+sys	0m0.544s
+
+(lfs chroot) root:/sources/libpipeline-1.5.3# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make check
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/libpipeline-1.5.3# time make check
+Making check in gl/lib
+make[1]: Entering directory '/sources/libpipeline-1.5.3/gl/lib'
+make  check-recursive
 
 ===== TL;DR =====
+
+============================================================================
+Testsuite summary for libpipeline 1.5.3
+============================================================================
+# TOTAL: 7
+# PASS:  7
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m1.094s
+user	0m2.667s
+sys	0m0.355s
+
+(lfs chroot) root:/sources/libpipeline-1.5.3# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make install
+cd ../
+rm -rf libpipeline-1.5.3/
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/libpipeline-1.5.3# time make install
+Making install in gl/lib
+make[1]: Entering directory '/sources/libpipeline-1.5.3/gl/lib'
+make  install-recursive
 
 ===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m0.934s
+user	0m0.372s
+sys	0m0.209s
+
+(lfs chroot) root:/sources/libpipeline-1.5.3# cd ../
+
+(lfs chroot) root:/sources# rm -rf libpipeline-1.5.3/
+
+(lfs chroot) root:/sources# 
+
 ```
 
 <br>
+# Make-4.3
+
 ### INPUT
 ```
 
