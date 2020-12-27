@@ -4340,20 +4340,186 @@ make[1]: Leaving directory '/sources/texinfo-6.7/doc'
 ```
 
 <br>
-# XXX
+# Vim-8.2.1361
 
 ### INPUT
 ```
+tar xf vim-8.2.1361.tar.gz
+cd vim-8.2.1361/
+echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
+./configure --prefix=/usr
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf vim-8.2.1361.tar.gz
+
+(lfs chroot) root:/sources# cd vim-8.2.1361/
+
+(lfs chroot) root:/sources/vim-8.2.1361# echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
+
+(lfs chroot) root:/sources/vim-8.2.1361# ./configure --prefix=/usr
+configure: creating cache auto/config.cache
+checking whether make sets $(MAKE)... yes
+checking for gcc... gcc
 
 ===== TL;DR =====
+
+configure: creating auto/config.status
+config.status: creating auto/config.mk
+config.status: creating auto/config.h
+
+(lfs chroot) root:/sources/vim-8.2.1361# 
+
 ```
 
 <br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/vim-8.2.1361# time make
+Starting make in the src directory.
+If there are problems, cd to the src directory and run make there
+cd src && make first
+
+===== TL;DR =====
+
+real	0m14.421s
+user	1m17.981s
+sys	0m3.518s
+
+(lfs chroot) root:/sources/vim-8.2.1361# 
+
+```
+
+<br>
+### INPUT
+```
+chown -Rv tester .
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/vim-8.2.1361# chown -Rv tester .
+changed ownership of './CONTRIBUTING.md' from root to tester
+changed ownership of './.hgignore' from root to tester
+changed ownership of './.travis.yml' from root to tester
+
+===== TL;DR =====
+
+changed ownership of './src/iid_ole.c' from root to tester
+changed ownership of './src' from root to tester
+changed ownership of '.' from root to tester
+
+(lfs chroot) root:/sources/vim-8.2.1361#
+
+```
+
+<br>
+### INPUT
+```
+su tester -c "LANG=en_US.UTF-8 make -j1 test" &> vim-test.log
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/vim-8.2.1361# su tester -c "LANG=en_US.UTF-8 make -j1 test" &> vim-test.log
+
+(lfs chroot) root:/sources/vim-8.2.1361# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/vim-8.2.1361# time make install
+Starting make in the src directory.
+If there are problems, cd to the src directory and run make there
+cd src && make install
+
+===== TL;DR =====
+
+real	0m0.576s
+user	0m0.756s
+sys	0m0.251s
+
+(lfs chroot) root:/sources/vim-8.2.1361#
+
+```
+
+<br>
+### INPUT
+```
+ln -sv vim /usr/bin/vi
+for L in  /usr/share/man/{,*/}man1/vim.1; do
+    ln -sv vim.1 $(dirname $L)/vi.1
+done
+ln -sv ../vim/vim82/doc /usr/share/doc/vim-8.2.1361
+
+cd ..
+rm -rf vim-8.2.1361/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/vim-8.2.1361# ln -sv vim /usr/bin/vi
+'/usr/bin/vi' -> 'vim'
+
+(lfs chroot) root:/sources/vim-8.2.1361# for L in  /usr/share/man/{,*/}man1/vim.1; do
+>     ln -sv vim.1 $(dirname $L)/vi.1
+> done
+'/usr/share/man/man1/vi.1' -> 'vim.1'
+'/usr/share/man/da.ISO8859-1/man1/vi.1' -> 'vim.1'
+'/usr/share/man/da.UTF-8/man1/vi.1' -> 'vim.1'
+'/usr/share/man/da/man1/vi.1' -> 'vim.1'
+'/usr/share/man/de.ISO8859-1/man1/vi.1' -> 'vim.1'
+'/usr/share/man/de.UTF-8/man1/vi.1' -> 'vim.1'
+'/usr/share/man/de/man1/vi.1' -> 'vim.1'
+'/usr/share/man/fr.ISO8859-1/man1/vi.1' -> 'vim.1'
+'/usr/share/man/fr.UTF-8/man1/vi.1' -> 'vim.1'
+'/usr/share/man/fr/man1/vi.1' -> 'vim.1'
+'/usr/share/man/it.ISO8859-1/man1/vi.1' -> 'vim.1'
+'/usr/share/man/it.UTF-8/man1/vi.1' -> 'vim.1'
+'/usr/share/man/it/man1/vi.1' -> 'vim.1'
+'/usr/share/man/ja/man1/vi.1' -> 'vim.1'
+'/usr/share/man/pl.ISO8859-2/man1/vi.1' -> 'vim.1'
+'/usr/share/man/pl.UTF-8/man1/vi.1' -> 'vim.1'
+'/usr/share/man/pl/man1/vi.1' -> 'vim.1'
+'/usr/share/man/ru.KOI8-R/man1/vi.1' -> 'vim.1'
+'/usr/share/man/ru.UTF-8/man1/vi.1' -> 'vim.1'
+'/usr/share/man/tr.ISO8859-9/man1/vi.1' -> 'vim.1'
+'/usr/share/man/tr.UTF-8/man1/vi.1' -> 'vim.1'
+'/usr/share/man/tr/man1/vi.1' -> 'vim.1'
+
+(lfs chroot) root:/sources/vim-8.2.1361# ln -sv ../vim/vim82/doc /usr/share/doc/vim-8.2.1361
+'/usr/share/doc/vim-8.2.1361' -> '../vim/vim82/doc'
+
+(lfs chroot) root:/sources/vim-8.2.1361# cd ..
+
+(lfs chroot) root:/sources# rm -rf vim-8.2.1361/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Eudev-3.2.9
+
 ### INPUT
 ```
 
