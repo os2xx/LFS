@@ -3577,8 +3577,193 @@ sys	0m0.216s
 ```
 
 <br>
-# XXX
+# Patch-2.7.6
 
+### INPUT
+```
+tar xf patch-2.7.6.tar.xz
+cd patch-2.7.6/
+./configure --prefix=/usr
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf patch-2.7.6.tar.xz
+
+(lfs chroot) root:/sources# cd patch-2.7.6/
+
+(lfs chroot) root:/sources/patch-2.7.6# ./configure --prefix=/usr
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+
+===== TL;DR =====
+
+config.status: creating tests/Makefile
+config.status: creating config.h
+config.status: executing depfiles commands
+
+(lfs chroot) root:/sources/patch-2.7.6# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/patch-2.7.6# time make
+make  all-recursive
+make[1]: Entering directory '/sources/patch-2.7.6'
+Making all in lib
+
+===== TL;DR =====
+
+real	0m2.040s
+user	0m7.345s
+sys	0m1.167s
+
+(lfs chroot) root:/sources/patch-2.7.6# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/patch-2.7.6# time make check
+  GEN      public-submodule-commit
+make  check-recursive
+make[1]: Entering directory '/sources/patch-2.7.6'
+Making check in lib
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU patch 2.7.6
+============================================================================
+# TOTAL: 44
+# PASS:  41
+# SKIP:  1
+# XFAIL: 2
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m0.849s
+user	0m1.681s
+sys	0m0.441s
+
+(lfs chroot) root:/sources/patch-2.7.6# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/patch-2.7.6# time make install
+make  install-recursive
+make[1]: Entering directory '/sources/patch-2.7.6'
+Making install in lib
+
+===== TL;DR =====
+
+real	0m0.254s
+user	0m0.158s
+sys	0m0.019s
+
+(lfs chroot) root:/sources/patch-2.7.6# 
+
+```
+
+<br>
+### INPUT
+```
+cd ../
+rm -rf patch-2.7.6/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/patch-2.7.6# cd ../
+
+(lfs chroot) root:/sources# rm -rf patch-2.7.6/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Man-DB-2.9.3
+
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
 ### INPUT
 ```
 
