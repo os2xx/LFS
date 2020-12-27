@@ -4078,64 +4078,270 @@ make: Leaving directory '/sources/tar-1.32/doc'
 
 ### INPUT
 ```
+tar xf texinfo-6.7.tar.xz
+cd texinfo-6.7/
+./configure --prefix=/usr --disable-static
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf texinfo-6.7.tar.xz
+
+(lfs chroot) root:/sources# cd texinfo-6.7/
+
+(lfs chroot) root:/sources/texinfo-6.7# ./configure --prefix=/usr --disable-static
+configure: WARNING: unrecognized options: --disable-static
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
 
 ===== TL;DR =====
+
+config.status: creating po_document/POTFILES
+config.status: creating po_document/Makefile
+configure: WARNING: unrecognized options: --disable-static
+
+(lfs chroot) root:/sources/texinfo-6.7# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/texinfo-6.7# time make
+make  all-recursive
+make[1]: Entering directory '/sources/texinfo-6.7'
+Making all in gnulib/lib
 
 ===== TL;DR =====
+
+real	0m8.894s
+user	0m19.673s
+sys	0m1.940s
+
+(lfs chroot) root:/sources/texinfo-6.7# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make check
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/texinfo-6.7# time make check
+Making check in gnulib/lib
+make[1]: Entering directory '/sources/texinfo-6.7/gnulib/lib'
+make  check-recursive
 
 ===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU Texinfo 6.7
+============================================================================
+# TOTAL: 85
+# PASS:  85
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU Texinfo 6.7
+============================================================================
+# TOTAL: 57
+# PASS:  57
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU Texinfo 6.7
+============================================================================
+# TOTAL: 0
+# PASS:  0
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU Texinfo 6.7
+============================================================================
+# TOTAL: 96
+# PASS:  83
+# SKIP:  13
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU Texinfo 6.7
+============================================================================
+# TOTAL: 2
+# PASS:  0
+# SKIP:  2
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU Texinfo 6.7
+============================================================================
+# TOTAL: 1
+# PASS:  1
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU Texinfo 6.7
+============================================================================
+# TOTAL: 1
+# PASS:  1
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for GNU Texinfo 6.7
+============================================================================
+# TOTAL: 1
+# PASS:  1
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m13.435s
+user	0m47.070s
+sys	0m5.431s
+
+(lfs chroot) root:/sources/texinfo-6.7# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make install
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/texinfo-6.7# time make install
+Making install in gnulib/lib
+make[1]: Entering directory '/sources/texinfo-6.7/gnulib/lib'
+make  install-recursive
 
 ===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib/texinfo
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m0.796s
+user	0m0.691s
+sys	0m0.153s
+
+(lfs chroot) root:/sources/texinfo-6.7# 
+
 ```
 
 <br>
 ### INPUT
 ```
+make TEXMF=/usr/share/texmf install-tex
+cd ../
+rm -rf texinfo-6.7/
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/texinfo-6.7# make TEXMF=/usr/share/texmf install-tex
+cd doc && make TEXMF=/usr/share/texmf install-tex
+make[1]: Entering directory '/sources/texinfo-6.7/doc'
+test -n "/usr/share/texmf" || (echo "TEXMF must be set." >&2; exit 1)
+/bin/sh /sources/texinfo-6.7/build-aux/install-sh -d /usr/share/texmf/tex/texinfo /usr/share/texmf/tex/generic/epsf
+/usr/bin/install -c -m 644 ./texinfo.tex /usr/share/texmf/tex/texinfo/texinfo.tex
+/usr/bin/install -c -m 644 ./texinfo-ja.tex /usr/share/texmf/tex/texinfo/texinfo-ja.tex
+/usr/bin/install -c -m 644 ./epsf.tex /usr/share/texmf/tex/generic/epsf/epsf.tex
+for f in txi-ca.tex txi-cs.tex txi-de.tex txi-en.tex txi-es.tex txi-fr.tex txi-hu.tex txi-is.tex txi-it.tex txi-ja.tex txi-nb.tex txi-nl.tex txi-nn.tex txi-pl.tex txi-pt.tex txi-ru.tex txi-sr.tex txi-tr.tex txi-uk.tex; do \
+  /usr/bin/install -c -m 644 ./$f /usr/share/texmf/tex/texinfo/$f; done
+make[1]: Leaving directory '/sources/texinfo-6.7/doc'
 
-===== TL;DR =====
+(lfs chroot) root:/sources/texinfo-6.7# cd ../
+
+(lfs chroot) root:/sources# rm -rf texinfo-6.7/
+
 ```
 
 <br>
+# XXX
+
 ### INPUT
 ```
 
