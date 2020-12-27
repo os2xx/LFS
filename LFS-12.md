@@ -3718,16 +3718,364 @@ rm -rf patch-2.7.6/
 
 ### INPUT
 ```
+tar xf man-db-2.9.3.tar.xz
+cd man-db-2.9.3/
+./configure --prefix=/usr                        \
+            --docdir=/usr/share/doc/man-db-2.9.3 \
+            --sysconfdir=/etc                    \
+            --disable-setuid                     \
+            --enable-cache-owner=bin             \
+            --with-browser=/usr/bin/lynx         \
+            --with-vgrind=/usr/bin/vgrind        \
+            --with-grap=/usr/bin/grap            \
+            --with-systemdtmpfilesdir=           \
+            --with-systemdsystemunitdir=
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf man-db-2.9.3.tar.xz
+
+(lfs chroot) root:/sources# cd man-db-2.9.3/
+
+(lfs chroot) root:/sources/man-db-2.9.3# ./configure --prefix=/usr                        \
+>             --docdir=/usr/share/doc/man-db-2.9.3 \
+>             --sysconfdir=/etc                    \
+>             --disable-setuid                     \
 
 ===== TL;DR =====
+
+config.status: creating po/Makefile
+config.status: creating gl/po/POTFILES
+config.status: creating gl/po/Makefile
+
+(lfs chroot) root:/sources/man-db-2.9.3# 
+
 ```
 
 <br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/man-db-2.9.3# time make
+make  all-recursive
+make[1]: Entering directory '/sources/man-db-2.9.3'
+Making all in docs
+
+===== TL;DR =====
+
+real	0m6.929s
+user	0m20.815s
+sys	0m2.442s
+
+(lfs chroot) root:/sources/man-db-2.9.3# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/man-db-2.9.3# time make check
+Making check in docs
+make[1]: Entering directory '/sources/man-db-2.9.3/docs'
+make[1]: Nothing to be done for 'check'.
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for man-db 2.9.3
+============================================================================
+# TOTAL: 29
+# PASS:  29
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for man-db 2.9.3
+============================================================================
+# TOTAL: 9
+# PASS:  9
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for man-db 2.9.3
+============================================================================
+# TOTAL: 12
+# PASS:  12
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m8.930s
+user	0m7.017s
+sys	0m1.113s
+
+(lfs chroot) root:/sources/man-db-2.9.3# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/man-db-2.9.3# time make install
+Making install in docs
+make[1]: Entering directory '/sources/man-db-2.9.3/docs'
+make[2]: Entering directory '/sources/man-db-2.9.3/docs'
+
+===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib/man-db
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib/man-db
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m1.865s
+user	0m1.474s
+sys	0m0.510s
+
+(lfs chroot) root:/sources/man-db-2.9.3# 
+
+```
+
+<br>
+### INPUT
+```
+cd ../
+rm -rf man-db-2.9.3/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/man-db-2.9.3# cd ../
+
+(lfs chroot) root:/sources# rm -rf man-db-2.9.3/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Tar-1.32
+
+### INPUT
+```
+tar xf tar-1.32.tar.xz
+cd tar-1.32/
+FORCE_UNSAFE_CONFIGURE=1  \
+./configure --prefix=/usr \
+            --bindir=/bin
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf tar-1.32.tar.xz
+
+(lfs chroot) root:/sources# cd tar-1.32/
+
+(lfs chroot) root:/sources/tar-1.32# FORCE_UNSAFE_CONFIGURE=1  \
+> ./configure --prefix=/usr \
+>             --bindir=/bin
+checking for a BSD-compatible install... /usr/bin/install -c
+
+===== TL;DR =====
+
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+config.status: executing tests/atconfig commands
+
+(lfs chroot) root:/sources/tar-1.32# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/tar-1.32# time make
+make  all-recursive
+make[1]: Entering directory '/sources/tar-1.32'
+Making all in doc
+
+===== TL;DR =====
+
+real	0m5.472s
+user	0m16.500s
+sys	0m1.590s
+
+(lfs chroot) root:/sources/tar-1.32#
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/tar-1.32# time make check
+Making check in doc
+make[1]: Entering directory '/sources/tar-1.32/doc'
+make[1]: Nothing to be done for 'check'.
+
+===== TL;DR =====
+
+## ------------- ##
+## Test results. ##
+## ------------- ##
+
+ERROR: 215 tests were run,
+1 failed unexpectedly.
+19 tests were skipped.
+## -------------------------- ##
+## testsuite.log was created. ##
+## -------------------------- ##
+
+===== TL;DR =====
+
+real	7m11.959s
+user	0m46.232s
+sys	1m5.401s
+
+(lfs chroot) root:/sources/tar-1.32# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/tar-1.32# time make install
+Making install in doc
+make[1]: Entering directory '/sources/tar-1.32/doc'
+make[2]: Entering directory '/sources/tar-1.32/doc'
+
+===== TL;DR =====
+
+real	0m1.233s
+user	0m0.783s
+sys	0m0.280s
+(lfs chroot) root:/sources/tar-1.32# 
+
+```
+
+<br>
+### INPUT
+```
+make -C doc install-html docdir=/usr/share/doc/tar-1.32
+cd ../
+rm -rf tar-1.32/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/tar-1.32# make -C doc install-html docdir=/usr/share/doc/tar-1.32
+make: Entering directory '/sources/tar-1.32/doc'
+  MAKEINFO tar.html
+ /bin/mkdir -p '/usr/share/doc/tar-1.32'
+ /bin/mkdir -p '/usr/share/doc/tar-1.32/tar.html'
+ /usr/bin/install -c -m 644 'tar.html'/* '/usr/share/doc/tar-1.32/tar.html'
+make: Leaving directory '/sources/tar-1.32/doc'
+
+(lfs chroot) root:/sources/tar-1.32# cd ../
+
+(lfs chroot) root:/sources# rm -rf tar-1.32/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Texinfo-6.7
+
 ### INPUT
 ```
 
@@ -3786,6 +4134,31 @@ rm -rf patch-2.7.6/
 
 ===== TL;DR =====
 ```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
 
 
 
