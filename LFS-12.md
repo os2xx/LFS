@@ -5330,90 +5330,503 @@ rm -rf e2fsprogs-1.45.6/
 
 ### INPUT
 ```
+tar xf sysklogd-1.5.1.tar.gz
+cd sysklogd-1.5.1/
+sed -i '/Error loading kernel symbols/{n;n;d}' ksym_mod.c
+sed -i 's/union wait/int/' syslogd.c
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources# tar xf sysklogd-1.5.1.tar.gz
 
-===== TL;DR =====
+(lfs chroot) root:/sources# cd sysklogd-1.5.1/
+
+(lfs chroot) root:/sources/sysklogd-1.5.1# sed -i '/Error loading kernel symbols/{n;n;d}' ksym_mod.c
+
+(lfs chroot) root:/sources/sysklogd-1.5.1# sed -i 's/union wait/int/' syslogd.c
+
+(lfs chroot) root:/sources/sysklogd-1.5.1# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/sysklogd-1.5.1# time make
+gcc  -O3 -DSYSV -fomit-frame-pointer -Wall -fno-strength-reduce -DSYSLOG_INET -DSYSLOG_UNIXAF -DNO_SCCS -DFSSTND -DSYSLOGD_PIDNAME=\"syslogd.pid\"  -c syslogd.c
+gcc    -c -o pidfile.o pidfile.c
 
 ===== TL;DR =====
+
+real	0m0.478s
+user	0m0.719s
+sys	0m0.063s
+
+(lfs chroot) root:/sources/sysklogd-1.5.1#
+
 ```
 
 <br>
 ### INPUT
 ```
+time make BINDIR=/sbin install
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/sysklogd-1.5.1# time make BINDIR=/sbin install
+/usr/bin/install -o root -g root -m 644 sysklogd.8 /usr/share/man/man8/sysklogd.8
+/usr/bin/install -m 500 -s syslogd /sbin/syslogd
+/usr/bin/install -o root -g root -m 644 syslogd.8 /usr/share/man/man8/syslogd.8
+/usr/bin/install -o root -g root -m 644 syslog.conf.5 /usr/share/man/man5/syslog.conf.5
+/usr/bin/install -o root -g root -m 644 klogd.8 /usr/share/man/man8/klogd.8
+/usr/bin/install -m 500 -s klogd /sbin/klogd
 
-===== TL;DR =====
+real	0m0.007s
+user	0m0.010s
+sys	0m0.001s
+(lfs chroot) root:/sources/sysklogd-1.5.1# 
+
 ```
 
 <br>
 ### INPUT
 ```
+cat > /etc/syslog.conf << "EOF"
+# Begin /etc/syslog.conf
+
+auth,authpriv.* -/var/log/auth.log
+*.*;auth,authpriv.none -/var/log/sys.log
+daemon.* -/var/log/daemon.log
+kern.* -/var/log/kern.log
+mail.* -/var/log/mail.log
+user.* -/var/log/user.log
+*.emerg *
+
+# End /etc/syslog.conf
+EOF
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/sysklogd-1.5.1# cat > /etc/syslog.conf << "EOF"
+> # Begin /etc/syslog.conf
+> 
+> auth,authpriv.* -/var/log/auth.log
+> *.*;auth,authpriv.none -/var/log/sys.log
+> daemon.* -/var/log/daemon.log
+> kern.* -/var/log/kern.log
+> mail.* -/var/log/mail.log
+> user.* -/var/log/user.log
+> *.emerg *
+> 
+> # End /etc/syslog.conf
+> EOF
 
-===== TL;DR =====
+(lfs chroot) root:/sources/sysklogd-1.5.1# 
+
 ```
 
 <br>
 ### INPUT
 ```
+cd ../
+rm -rf sysklogd-1.5.1/
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/sysklogd-1.5.1# cd ../
 
-===== TL;DR =====
+(lfs chroot) root:/sources# rm -rf sysklogd-1.5.1/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Sysvinit-2.97
+
+### INPUT
+```
+tar xf sysvinit-2.97.tar.xz
+cd sysvinit-2.97/
+patch -Np1 -i ../sysvinit-2.97-consolidated-1.patch
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf sysvinit-2.97.tar.xz
+
+(lfs chroot) root:/sources# cd sysvinit-2.97/
+
+(lfs chroot) root:/sources/sysvinit-2.97# patch -Np1 -i ../sysvinit-2.97-consolidated-1.patch
+patching file src/Makefile
+Hunk #2 succeeded at 211 (offset 2 lines).
+Hunk #3 succeeded at 236 (offset 2 lines).
+
+(lfs chroot) root:/sources/sysvinit-2.97# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/sysvinit-2.97# time make
+make VERSION=2.97 -C src all
+make[1]: Entering directory '/sources/sysvinit-2.97/src'
+cc -O2 -ansi -fomit-frame-pointer -fstack-protector-strong -W -Wall -Wunreachable-code -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -D_XOPEN_SOURCE -D_GNU_SOURCE -DVERSION=\"2.97\"    -c -o init.o init.c
 
 ===== TL;DR =====
+
+real	0m0.820s
+user	0m1.750s
+sys	0m0.245s
+
+(lfs chroot) root:/sources/sysvinit-2.97# 
+
 ```
 
 <br>
 ### INPUT
 ```
+time make install
 
 ```
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/sysvinit-2.97# time make install
+make VERSION=2.97 -C src install
+make[1]: Entering directory '/sources/sysvinit-2.97/src'
+install -m 755 -d /bin/ /sbin/
 
 ===== TL;DR =====
+
+real	0m0.062s
+user	0m0.051s
+sys	0m0.014s
+
+(lfs chroot) root:/sources/sysvinit-2.97# 
+
 ```
 
+<br>
+### INPUT
+```
+cd ../
+rm -rf sysvinit-2.97/
 
+```
 
+### OUTPUT
+```
+(lfs chroot) root:/sources/sysvinit-2.97# cd ../
 
+(lfs chroot) root:/sources# rm -rf sysvinit-2.97/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Stripping Again
+
+### INPUT
+```
+df -h
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sdb1        32G  4.7G   26G  16% /
+udev            3.9G     0  3.9G   0% /dev
+tmpfs           3.9G     0  3.9G   0% /run
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+### INPUT
+```
+save_lib="ld-2.32.so libc-2.32.so libpthread-2.32.so libthread_db-1.0.so"
+
+cd /lib
+
+for LIB in $save_lib; do
+    objcopy --only-keep-debug $LIB $LIB.dbg 
+    strip --strip-unneeded $LIB
+    objcopy --add-gnu-debuglink=$LIB.dbg $LIB 
+done    
+
+save_usrlib="libquadmath.so.0.0.0 libstdc++.so.6.0.28
+             libitm.so.1.0.0 libatomic.so.1.2.0" 
+
+cd /usr/lib
+
+for LIB in $save_usrlib; do
+    objcopy --only-keep-debug $LIB $LIB.dbg
+    strip --strip-unneeded $LIB
+    objcopy --add-gnu-debuglink=$LIB.dbg $LIB
+done
+
+unset LIB save_lib save_usrlib
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# save_lib="ld-2.32.so libc-2.32.so libpthread-2.32.so libthread_db-1.0.so"
+
+(lfs chroot) root:/sources# cd /lib
+
+(lfs chroot) root:/lib# for LIB in $save_lib; do
+>     objcopy --only-keep-debug $LIB $LIB.dbg 
+>     strip --strip-unneeded $LIB
+>     objcopy --add-gnu-debuglink=$LIB.dbg $LIB 
+> done    
+
+(lfs chroot) root:/lib# save_usrlib="libquadmath.so.0.0.0 libstdc++.so.6.0.28
+>              libitm.so.1.0.0 libatomic.so.1.2.0" 
+
+(lfs chroot) root:/lib# cd /usr/lib
+
+(lfs chroot) root:/usr/lib# for LIB in $save_usrlib; do
+>     objcopy --only-keep-debug $LIB $LIB.dbg
+>     strip --strip-unneeded $LIB
+>     objcopy --add-gnu-debuglink=$LIB.dbg $LIB
+> done
+
+(lfs chroot) root:/usr/lib# unset LIB save_lib save_usrlib
+
+```
+
+<br>
+### INPUT
+```
+find /usr/lib -type f -name \*.a \
+   -exec strip --strip-debug {} ';'
+
+find /lib /usr/lib -type f -name \*.so* ! -name \*dbg \
+   -exec strip --strip-unneeded {} ';'
+
+find /{bin,sbin} /usr/{bin,sbin,libexec} -type f \
+    -exec strip --strip-all {} ';'
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/usr/lib# find /usr/lib -type f -name \*.a \
+>    -exec strip --strip-debug {} ';'
+strip: /usr/lib/libm.a: file format not recognized
+
+(lfs chroot) root:/usr/lib# find /lib /usr/lib -type f -name \*.so* ! -name \*dbg \
+>    -exec strip --strip-unneeded {} ';'
+strip: /usr/lib/libcursesw.so: file format not recognized
+strip: /usr/lib/libgcc_s.so: file format not recognized
+strip: /usr/lib/libform.so: file format not recognized
+strip: /usr/lib/libpanel.so: file format not recognized
+strip: /usr/lib/libncurses.so: file format not recognized
+strip: /usr/lib/libm.so: file format not recognized
+strip: /usr/lib/libmenu.so: file format not recognized
+strip: /usr/lib/libc.so: file format not recognized
+
+(lfs chroot) root:/usr/lib# find /{bin,sbin} /usr/{bin,sbin,libexec} -type f \
+>     -exec strip --strip-all {} ';'
+strip: /bin/mk_cmds: file format not recognized
+strip: /bin/egrep: file format not recognized
+strip: /bin/compile_et: file format not recognized
+
+===== TL;DR =====
+
+strip: /usr/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/install-tools/fixinc.sh: file format not recognized
+strip: /usr/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/install-tools/mkinstalldirs: file format not recognized
+strip: /usr/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/install-tools/mkheaders: file format not recognized
+
+(lfs chroot) root:/usr/lib# 
+
+```
+
+<br>
+### INPUT
+```
+df -h
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/usr/lib# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sdb1        32G  2.6G   28G   9% /
+udev            3.9G     0  3.9G   0% /dev
+tmpfs           3.9G     0  3.9G   0% /run
+
+(lfs chroot) root:/usr/lib# 
+
+```
+
+<br>
+# Cleaning Up
+
+### INPUT
+```
+rm -rf /tmp/*
+logout
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/usr/lib# rm -rf /tmp/*
+
+(lfs chroot) root:/usr/lib# logout
+
+root:~# 
+
+```
+
+<br>
+### INPUT
+```
+chroot "$LFS" /usr/bin/env -i          \
+    HOME=/root TERM="$TERM"            \
+    PS1='(lfs chroot) \u:\w\$ '        \
+    PATH=/bin:/usr/bin:/sbin:/usr/sbin \
+    MAKEFLAGS='-j6'                    \
+    /bin/bash --login
+
+```
+
+### OUTPUT
+```
+root:~# chroot "$LFS" /usr/bin/env -i    \
+>     HOME=/root TERM="$TERM"            \
+>     PS1='(lfs chroot) \u:\w\$ '        \
+>     PATH=/bin:/usr/bin:/sbin:/usr/sbin \
+>     MAKEFLAGS='-j6'                    \
+>     /bin/bash --login
+
+(lfs chroot) root:/# 
+
+```
+
+<br>
+### INPUT
+```
+rm -f /usr/lib/lib{bfd,opcodes}.a
+rm -f /usr/lib/libctf{,-nobfd}.a
+rm -f /usr/lib/libbz2.a
+rm -f /usr/lib/lib{com_err,e2p,ext2fs,ss}.a
+rm -f /usr/lib/libltdl.a
+rm -f /usr/lib/libfl.a
+rm -f /usr/lib/libz.a
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/# rm -f /usr/lib/lib{bfd,opcodes}.a
+
+(lfs chroot) root:/# rm -f /usr/lib/libctf{,-nobfd}.a
+
+(lfs chroot) root:/# rm -f /usr/lib/libbz2.a
+
+(lfs chroot) root:/# rm -f /usr/lib/lib{com_err,e2p,ext2fs,ss}.a
+
+(lfs chroot) root:/# rm -f /usr/lib/libltdl.a
+
+(lfs chroot) root:/# rm -f /usr/lib/libfl.a
+
+(lfs chroot) root:/# rm -f /usr/lib/libz.a
+
+(lfs chroot) root:/# 
+
+```
+
+<br>
+### INPUT
+```
+find /usr/lib /usr/libexec -name \*.la -delete
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/# find /usr/lib /usr/libexec -name \*.la -delete
+
+(lfs chroot) root:/# 
+
+```
+
+<br>
+### INPUT
+```
+find /usr -depth -name $(uname -m)-lfs-linux-gnu\* | xargs rm -rf
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/# find /usr -depth -name $(uname -m)-lfs-linux-gnu\* | xargs rm -rf
+
+(lfs chroot) root:/# 
+
+```
+
+<br>
+### INPUT
+```
+rm -rf /tools
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/# rm -rf /tools
+
+(lfs chroot) root:/# 
+
+```
+
+<br>
+### INPUT
+```
+userdel -r tester
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/# userdel -r tester
+userdel: tester mail spool (/var/mail/tester) not found
+
+(lfs chroot) root:/# 
+
+```
 
 <hr>
 <hr>
