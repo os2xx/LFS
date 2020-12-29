@@ -5218,8 +5218,21 @@ time make check
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# time make check
+make[1]: Entering directory '/sources/e2fsprogs-1.45.6/build'
+make[1]: 'util/subst.conf' is up to date.
+make[1]: Leaving directory '/sources/e2fsprogs-1.45.6/build'
 
 ===== TL;DR =====
+
+357 tests succeeded	0 tests failed
+
+real	13m46.076s
+user	1m4.016s
+sys	0m23.288s
+
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# 
+
 ```
 
 <br>
@@ -5231,8 +5244,19 @@ time make install
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# time make install
+making install-shlibs in lib/et
+make[1]: Entering directory '/sources/e2fsprogs-1.45.6/build/doc'
+make[1]: Entering directory '/sources/e2fsprogs-1.45.6/build'
 
 ===== TL;DR =====
+
+real	0m4.530s
+user	0m1.173s
+sys	0m0.498s
+
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build#
+
 ```
 
 <br>
@@ -5246,8 +5270,19 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/libext2fs.info
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# chmod -v u+w /usr/lib/{libcom_err,libe2p,libext2fs,libss}.a
+mode of '/usr/lib/libcom_err.a' changed from 0444 (r--r--r--) to 0644 (rw-r--r--)
+mode of '/usr/lib/libe2p.a' changed from 0444 (r--r--r--) to 0644 (rw-r--r--)
+mode of '/usr/lib/libext2fs.a' changed from 0444 (r--r--r--) to 0644 (rw-r--r--)
+mode of '/usr/lib/libss.a' changed from 0444 (r--r--r--) to 0644 (rw-r--r--)
 
-===== TL;DR =====
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# gunzip -v /usr/share/info/libext2fs.info.gz
+/usr/share/info/libext2fs.info.gz:	 79.7% -- replaced with /usr/share/info/libext2fs.info
+
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# install-info --dir-file=/usr/share/info/dir /usr/share/info/libext2fs.info
+
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# 
+
 ```
 
 <br>
@@ -5261,8 +5296,15 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# makeinfo -o      doc/com_err.info ../lib/et/com_err.texinfo
 
-===== TL;DR =====
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# install -v -m644 doc/com_err.info /usr/share/info
+'doc/com_err.info' -> '/usr/share/info/com_err.info'
+
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info
+
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# 
+
 ```
 
 <br>
@@ -5275,13 +5317,89 @@ rm -rf e2fsprogs-1.45.6/
 
 ### OUTPUT
 ```
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# cd ../../
+
+(lfs chroot) root:/sources# rm -rf e2fsprogs-1.45.6/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Sysklogd-1.5.1
+
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
 
 ===== TL;DR =====
 ```
 
 <br>
-# XXX
+### INPUT
+```
 
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
 ### INPUT
 ```
 
