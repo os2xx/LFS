@@ -4522,6 +4522,309 @@ rm -rf vim-8.2.1361/
 
 ### INPUT
 ```
+tar xf eudev-3.2.9.tar.gz
+cd eudev-3.2.9/
+./configure --prefix=/usr           \
+            --bindir=/sbin          \
+            --sbindir=/sbin         \
+            --libdir=/usr/lib       \
+            --sysconfdir=/etc       \
+            --libexecdir=/lib       \
+            --with-rootprefix=      \
+            --with-rootlibdir=/lib  \
+            --enable-manpages       \
+            --disable-static
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf eudev-3.2.9.tar.gz
+
+(lfs chroot) root:/sources# cd eudev-3.2.9/
+
+(lfs chroot) root:/sources/eudev-3.2.9# ./configure --prefix=/usr           \
+>             --bindir=/sbin          \
+>             --sbindir=/sbin         \
+>             --libdir=/usr/lib       \
+
+===== TL;DR =====
+
+        prefix:                  /usr
+        exec_prefix:             ${prefix}
+        sysconfdir:              /etc
+        datadir:                 ${datarootdir}
+        includedir:              ${prefix}/include
+        bindir:                  /sbin
+        libdir:                  /usr/lib
+
+        rootprefix:              
+        rootlibdir:              /lib
+        rootlibexecdir:          /lib/udev
+        datarootdir:             ${prefix}/share
+        rootrundir:              /run
+
+        udevconfdir:             /etc/udev
+        udevconffile:            /etc/udev/udev.conf
+        udevhwdbdir:             /etc/udev/hwdb.d
+        udevhwdbbin:             /etc/udev/hwdb.bin
+        udevlibexecdir:          /lib/udev
+        udevkeymapdir:           /lib/udev/keymaps
+        udevkeymapforceredir:    /lib/udev/keymaps/force-release
+        udevrulesdir:            /lib/udev/rules.d
+
+        pkgconfiglibdir:         /usr/lib/pkgconfig
+        sharepkgconfigdir        ${datarootdir}/pkgconfig
+
+        girdir                   ${datarootdir}/gir-1.0
+        typelibsdir              /usr/lib/girepository-1.0
+
+(lfs chroot) root:/sources/eudev-3.2.9# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+
+(lfs chroot) root:/sources/eudev-3.2.9# time make
+make  all-recursive
+make[1]: Entering directory '/sources/eudev-3.2.9'
+Making all in src
+
+===== TL;DR =====
+
+real	0m5.535s
+user	0m13.960s
+sys	0m1.654s
+
+(lfs chroot) root:/sources/eudev-3.2.9# 
+
+```
+
+<br>
+### INPUT
+```
+mkdir -pv /lib/udev/rules.d
+mkdir -pv /etc/udev/rules.d
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/eudev-3.2.9# mkdir -pv /lib/udev/rules.d
+mkdir: created directory '/lib/udev'
+mkdir: created directory '/lib/udev/rules.d'
+
+(lfs chroot) root:/sources/eudev-3.2.9# mkdir -pv /etc/udev/rules.d
+mkdir: created directory '/etc/udev'
+mkdir: created directory '/etc/udev/rules.d'
+
+(lfs chroot) root:/sources/eudev-3.2.9# time make check
+Making check in src
+make[1]: Entering directory '/sources/eudev-3.2.9/src'
+Making check in shared
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for eudev 3.2.9
+============================================================================
+# TOTAL: 2
+# PASS:  2
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m8.115s
+user	0m1.374s
+sys	0m1.402s
+
+(lfs chroot) root:/sources/eudev-3.2.9# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/eudev-3.2.9# time make install
+Making install in src
+make[1]: Entering directory '/sources/eudev-3.2.9/src'
+Making install in shared
+
+===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m1.057s
+user	0m0.682s
+sys	0m0.155s
+
+(lfs chroot) root:/sources/eudev-3.2.9#
+
+```
+
+<br>
+### INPUT
+```
+tar -xvf ../udev-lfs-20171102.tar.xz
+make -f udev-lfs-20171102/Makefile.lfs install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/eudev-3.2.9# tar -xvf ../udev-lfs-20171102.tar.xz
+udev-lfs-20171102/
+udev-lfs-20171102/init-net-rules.sh
+udev-lfs-20171102/83-cdrom-symlinks.rules
+
+===== TL;DR =====
+
+udev-lfs-20171102/rule_generator.functions
+udev-lfs-20171102/55-lfs.rules
+udev-lfs-20171102/Makefile.lfs
+
+(lfs chroot) root:/sources/eudev-3.2.9# make -f udev-lfs-20171102/Makefile.lfs install
+mkdir: created directory '/usr/share/doc/udev-20171102'
+mkdir: created directory '/usr/share/doc/udev-20171102/lfs'
+'udev-lfs-20171102/55-lfs.rules' -> '/etc/udev/rules.d/55-lfs.rules'
+'udev-lfs-20171102/81-cdrom.rules' -> '/etc/udev/rules.d/81-cdrom.rules'
+'udev-lfs-20171102/83-cdrom-symlinks.rules' -> '/etc/udev/rules.d/83-cdrom-symlinks.rules'
+'udev-lfs-20171102/write_cd_rules' -> '/lib/udev/write_cd_rules'
+'udev-lfs-20171102/write_net_rules' -> '/lib/udev/write_net_rules'
+'udev-lfs-20171102/init-net-rules.sh' -> '/lib/udev/init-net-rules.sh'
+'udev-lfs-20171102/rule_generator.functions' -> '/lib/udev/rule_generator.functions'
+'udev-lfs-20171102/README' -> '/usr/share/doc/udev-20171102/lfs/README'
+'udev-lfs-20171102/55-lfs.txt' -> '/usr/share/doc/udev-20171102/lfs/55-lfs.txt'
+
+(lfs chroot) root:/sources/eudev-3.2.9# 
+
+```
+
+<br>
+### INPUT
+```
+udevadm hwdb --update
+cd ../
+rm -rf eudev-3.2.9/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/eudev-3.2.9# udevadm hwdb --update
+
+(lfs chroot) root:/sources/eudev-3.2.9# cd ../
+
+(lfs chroot) root:/sources# rm -rf eudev-3.2.9/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Procps-ng-3.3.16
+
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
 
 ```
 
