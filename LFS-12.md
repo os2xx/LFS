@@ -4765,6 +4765,177 @@ rm -rf eudev-3.2.9/
 
 ### INPUT
 ```
+tar xf procps-ng-3.3.16.tar.xz
+cd procps-ng-3.3.16/
+./configure --prefix=/usr                            \
+            --exec-prefix=                           \
+            --libdir=/usr/lib                        \
+            --docdir=/usr/share/doc/procps-ng-3.3.16 \
+            --disable-static                         \
+            --disable-kill
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf procps-ng-3.3.16.tar.xz
+
+(lfs chroot) root:/sources# cd procps-ng-3.3.16/
+
+(lfs chroot) root:/sources/procps-ng-3.3.16# ./configure --prefix=/usr                            \
+>             --exec-prefix=                           \
+>             --libdir=/usr/lib                        \
+>             --docdir=/usr/share/doc/procps-ng-3.3.16 \
+
+===== TL;DR =====
+
+config.status: executing default-1 commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+(lfs chroot) root:/sources/procps-ng-3.3.16# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/procps-ng-3.3.16# time make
+make  all-recursive
+make[1]: Entering directory '/sources/procps-ng-3.3.16'
+Making all in include
+
+===== TL;DR =====
+
+real	0m3.125s
+user	0m9.003s
+sys	0m0.981s
+
+(lfs chroot) root:/sources/procps-ng-3.3.16# 
+
+```
+
+<br>
+### INPUT
+```
+time make check
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/procps-ng-3.3.16# time make check
+make  check-recursive
+make[1]: Entering directory '/sources/procps-ng-3.3.16'
+Making check in include
+
+===== TL;DR =====
+
+============================================================================
+Testsuite summary for procps-ng 3.3.16
+============================================================================
+# TOTAL: 1
+# PASS:  1
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+
+===== TL;DR =====
+
+real	0m4.857s
+user	0m0.967s
+sys	0m0.307s
+
+(lfs chroot) root:/sources/procps-ng-3.3.16# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/procps-ng-3.3.16# time make install
+make  install-recursive
+make[1]: Entering directory '/sources/procps-ng-3.3.16'
+Making install in include
+
+===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m0.580s
+user	0m0.583s
+sys	0m0.103s
+
+(lfs chroot) root:/sources/procps-ng-3.3.16# 
+
+```
+
+<br>
+### INPUT
+```
+mv -v /usr/lib/libprocps.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so
+cd ../
+rm -rf procps-ng-3.3.16/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/procps-ng-3.3.16# mv -v /usr/lib/libprocps.so.* /lib
+renamed '/usr/lib/libprocps.so.8' -> '/lib/libprocps.so.8'
+renamed '/usr/lib/libprocps.so.8.0.2' -> '/lib/libprocps.so.8.0.2'
+
+(lfs chroot) root:/sources/procps-ng-3.3.16# ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so
+'/usr/lib/libprocps.so' -> '../../lib/libprocps.so.8.0.2'
+
+(lfs chroot) root:/sources/procps-ng-3.3.16# cd ../
+
+(lfs chroot) root:/sources# rm -rf procps-ng-3.3.16/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# Util-linux-2.36
+
+### INPUT
+```
 
 ```
 
