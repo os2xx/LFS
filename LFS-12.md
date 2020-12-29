@@ -4936,6 +4936,226 @@ renamed '/usr/lib/libprocps.so.8.0.2' -> '/lib/libprocps.so.8.0.2'
 
 ### INPUT
 ```
+tar xf util-linux-2.36.tar.xz
+cd util-linux-2.36/
+mkdir -pv /var/lib/hwclock
+./configure ADJTIME_PATH=/var/lib/hwclock/adjtime   \
+            --docdir=/usr/share/doc/util-linux-2.36 \
+            --disable-chfn-chsh  \
+            --disable-login      \
+            --disable-nologin    \
+            --disable-su         \
+            --disable-setpriv    \
+            --disable-runuser    \
+            --disable-pylibmount \
+            --disable-static     \
+            --without-python     \
+            --without-systemd    \
+            --without-systemdsystemunitdir
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf util-linux-2.36.tar.xz
+
+(lfs chroot) root:/sources# cd util-linux-2.36/
+
+(lfs chroot) root:/sources/util-linux-2.36# mkdir -pv /var/lib/hwclock
+
+(lfs chroot) root:/sources/util-linux-2.36# ./configure ADJTIME_PATH=/var/lib/hwclock/adjtime   \
+>             --docdir=/usr/share/doc/util-linux-2.36 \
+>             --disable-chfn-chsh  \
+>             --disable-login      \
+
+===== TL;DR =====
+
+	util-linux  2.36
+
+	prefix:            /usr
+	exec prefix:       ${prefix}
+
+	runstatedir:       ${localstatedir}/run
+	bindir:            /bin
+	sbindir:           /sbin
+	libdir:            /lib
+	includedir:        ${prefix}/include
+	usrbin_execdir:    ${exec_prefix}/bin
+	usrsbin_execdir:   ${exec_prefix}/sbin
+	usrlib_execdir:    ${exec_prefix}/lib
+        vendordir:         
+
+	compiler:          gcc
+	cflags:            -g -O2
+	suid cflags:       
+	ldflags:           
+	suid ldflags:      
+	ASAN enabled:      no
+
+	Python:            
+	Python version:    
+	Python libs:       
+
+	Bash completions:  ${datarootdir}/bash-completion/completions
+	Systemd support:   no
+	Systemd unitdir:   no
+	libeconf support:  no
+	Btrfs support:     yes
+	Wide-char support: yes
+
+	warnings:
+
+ -fno-common -Wall -Wextra -Wmissing-declarations -Wmissing-parameter-type -Wmissing-prototypes -Wno-missing-field-initializers -Wredundant-decls -Wsign-compare -Wtype-limits -Wuninitialized -Wunused-but-set-parameter -Wunused-but-set-variable -Wunused-parameter -Wunused-result -Wunused-variable -Wnested-externs -Wpointer-arith -Wstrict-prototypes -Wimplicit-function-declaration -Wdiscarded-qualifiers -Waddress-of-packed-member -Werror=sequence-point
+
+	Type 'make' or 'make <utilname>' to compile.
+
+(lfs chroot) root:/sources/util-linux-2.36# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/util-linux-2.36# time make
+make  all-recursive
+make[1]: Entering directory '/sources/util-linux-2.36'
+Making all in po
+
+===== TL;DR =====
+
+real	0m19.931s
+user	1m25.559s
+sys	0m11.531s
+
+(lfs chroot) root:/sources/util-linux-2.36#
+
+```
+
+<br>
+### INPUT
+```
+chown -Rv tester .
+su tester -c "make -k check"
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/util-linux-2.36# chown -Rv tester .
+changed ownership of './ipcmk' from root to tester
+changed ownership of './mkfs.minix' from root to tester
+changed ownership of './README.licensing' from 1000 to tester
+
+===== TL;DR =====
+
+changed ownership of './getopt' from root to tester
+changed ownership of './lsns' from root to tester
+changed ownership of '.' from 1000 to tester
+
+(lfs chroot) root:/sources/util-linux-2.36# su tester -c "make -k check"
+make  check-recursive
+make[1]: Entering directory '/sources/util-linux-2.36'
+Making check in po
+
+===== TL;DR =====
+
+---------------------------------------------------------------------
+  All 207 tests PASSED
+---------------------------------------------------------------------
+make[3]: Leaving directory '/sources/util-linux-2.36'
+make[2]: Leaving directory '/sources/util-linux-2.36'
+make[1]: Leaving directory '/sources/util-linux-2.36'
+
+(lfs chroot) root:/sources/util-linux-2.36# 
+
+```
+
+<br>
+### INPUT
+```
+time make install
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/util-linux-2.36# time make install
+make  install-recursive
+make[1]: Entering directory '/sources/util-linux-2.36'
+Making install in po
+
+===== TL;DR =====
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+===== TL;DR =====
+
+real	0m1.520s
+user	0m2.508s
+sys	0m0.560s
+
+(lfs chroot) root:/sources/util-linux-2.36#
+
+```
+
+<br>
+### INPUT
+```
+cd ../
+rm -rf util-linux-2.36/
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/util-linux-2.36# cd ../
+
+(lfs chroot) root:/sources# rm -rf util-linux-2.36/
+
+(lfs chroot) root:/sources# 
+
+```
+
+<br>
+# E2fsprogs-1.45.6
+
+### INPUT
+```
+
+```
+
+### OUTPUT
+```
+
+===== TL;DR =====
+```
+
+<br>
+### INPUT
+```
 
 ```
 
