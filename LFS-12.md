@@ -5144,6 +5144,75 @@ rm -rf util-linux-2.36/
 
 ### INPUT
 ```
+tar xf e2fsprogs-1.45.6.tar.gz
+cd e2fsprogs-1.45.6/
+mkdir -v build
+cd       build
+../configure --prefix=/usr           \
+             --bindir=/bin           \
+             --with-root-prefix=""   \
+             --enable-elf-shlibs     \
+             --disable-libblkid      \
+             --disable-libuuid       \
+             --disable-uuidd         \
+             --disable-fsck
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources# tar xf e2fsprogs-1.45.6.tar.gz
+
+(lfs chroot) root:/sources# cd e2fsprogs-1.45.6/
+
+(lfs chroot) root:/sources/e2fsprogs-1.45.6# mkdir -v build
+mkdir: created directory 'build'
+
+(lfs chroot) root:/sources/e2fsprogs-1.45.6# cd       build
+
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# ../configure --prefix=/usr           \
+>              --bindir=/bin           \
+>              --with-root-prefix=""   \
+>              --enable-elf-shlibs     \
+
+===== TL;DR =====
+
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# 
+
+```
+
+<br>
+### INPUT
+```
+time make
+
+```
+
+### OUTPUT
+```
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build# time make
+cd ./util ; make subst
+make[1]: Entering directory '/sources/e2fsprogs-1.45.6/build/util'
+	CREATE dirpaths.h
+
+===== TL;DR =====
+
+real	0m11.481s
+user	0m41.484s
+sys	0m4.455s
+
+(lfs chroot) root:/sources/e2fsprogs-1.45.6/build#
+
+```
+
+<br>
+### INPUT
+```
+time make check
 
 ```
 
@@ -5156,6 +5225,7 @@ rm -rf util-linux-2.36/
 <br>
 ### INPUT
 ```
+time make install
 
 ```
 
@@ -5168,6 +5238,9 @@ rm -rf util-linux-2.36/
 <br>
 ### INPUT
 ```
+chmod -v u+w /usr/lib/{libcom_err,libe2p,libext2fs,libss}.a
+gunzip -v /usr/share/info/libext2fs.info.gz
+install-info --dir-file=/usr/share/info/dir /usr/share/info/libext2fs.info
 
 ```
 
@@ -5180,6 +5253,9 @@ rm -rf util-linux-2.36/
 <br>
 ### INPUT
 ```
+makeinfo -o      doc/com_err.info ../lib/et/com_err.texinfo
+install -v -m644 doc/com_err.info /usr/share/info
+install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info
 
 ```
 
@@ -5192,6 +5268,8 @@ rm -rf util-linux-2.36/
 <br>
 ### INPUT
 ```
+cd ../../
+rm -rf e2fsprogs-1.45.6/
 
 ```
 
@@ -5202,18 +5280,8 @@ rm -rf util-linux-2.36/
 ```
 
 <br>
-### INPUT
-```
+# XXX
 
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<br>
 ### INPUT
 ```
 
