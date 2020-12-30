@@ -8,7 +8,7 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-11.md)
-[NEXT](index.md)
+[NEXT](LFS-13.md)
 
 <br>
 <span style="color:red; font-weight:bold; font-size:larger;">
@@ -5832,23 +5832,6 @@ userdel: tester mail spool (/var/mail/tester) not found
 <hr>
 <hr>
 
-[](X 13 XXXXXX)
-<br>
-### INPUT
-```
-
-```
-
-### OUTPUT
-```
-
-===== TL;DR =====
-```
-
-<hr>
-<hr>
-<hr>
-
 <br>
 ### INPUT
 
@@ -5896,6 +5879,6 @@ rms46@pamulang1:~$
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-11.md)
-[NEXT](index.md)
+[NEXT](LFS-13.md)
 <br>
 

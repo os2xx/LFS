@@ -17,7 +17,7 @@ If you have never installed a VirtualBox Guest before, visit [OSP4DISS](https://
 </span>
 
 <br>
-# LFS: Chapter 8 part1
+# LFS: Chapter 8 part 1
 
 ## Virtual Box Guest LFS-08
 
