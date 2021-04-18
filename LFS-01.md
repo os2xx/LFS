@@ -11,136 +11,45 @@
 [NEXT](LFS-02.md)
 
 <br>
-<span style="color:red; font-weight:bold; font-size:larger;">
-It is assumed that you understand how install a Debian VirtualBox Guest.
-If you have never installed a VirtualBox Guest before, visit [OSP4DISS](https://osp4diss.vlsm.org/).
-</span>
+# Set a Debian Guest from an OVA File
 
 <br>
-# Set a Blank VirtualBox Guest of LFS-ORIG
+## OVA File: DEB10-OS211.ova
 
-* Create LFS-ORIG.ova
-
-  * Base Memory Maximum, eg. 8096 MB
-
-  * **Boot Order [Optical, Harddisk]**
-
-  * Processors (Core) Maximum, eg. 6
-
-  * Delete IDE Controller
-
-  * Main SATA Disk: 16 GB.
-
-  * LFS SATA Disk: 32 GB.
-
-  * SSH: TCP Port Forwading 127.0.0.1:6024 (host) to 10.0.2.15:22 (guest)
-
-  * Export as LFS-ORIG.ova
+<img src="pictures/L101-001.jpg" width="960">
 
 <br>
-* Import a blank OVA file
+## (Rename) Debian Guest to "LFS101-000"
 
-  * Rename to LFS-ORIG
-
-<img src="pictures/LFS-A01.jpg" width="960">
-<br>
+<img src="pictures/L101-002.jpg" width="960">
 
 <br>
-* Create LFS-ORIG
+## Import Debian Guest "LFS101-000"
 
-  * Settings
+<img src="pictures/L101-003.jpg" width="960">
 
-<img src="pictures/LFS-A02.jpg" width="960">
-<br>
+* Set Base Memory Maximum, eg. 8096 MB
 
-<br>
-* Settings:General:Basic
+<img src="pictures/L101-004.jpg" width="960">
 
-  * Name: LFS-ORIG
+* Processors (Core) Maximum, eg. 6
 
-  * Type: Linux
+* Main SATA Disk: 64 GB.
 
-  * Version: Debian (64 bit)
+* LFS SATA Disk: 64 GB.
 
-<img src="pictures/LFS-A03.jpg" width="960">
-<br>
+* SSH: TCP Port Forwading 127.0.0.1:6022 (host) to 10.0.2.15:22 (guest)
+
 
 <br>
-* Settings:General:Advanced
+## (TEST) START "LFS101-000"
 
-<img src="pictures/LFS-A04.jpg" width="960">
-<br>
-
-<br>
-* Settings:System:Motherboard
-
-  * Base Memory (Maximum) eg. 8096 MB
-
-  * **Boot Order [Optical, Harddisk]**
-
-<img src="pictures/LFS-A05.jpg" width="960">
-<br>
+<img src="pictures/L101-005.jpg" width="960">
 
 <br>
-* Settings:System:Processor
+## SHUTDOWN
 
-  * Processors (Core Maximum), eg. 6
-
-<img src="pictures/LFS-A06.jpg" width="960">
-<br>
-
-<br>
-* Settings:Storage
-
-  * Delete IDE Controller
-
-<img src="pictures/LFS-A07.jpg" width="960">
-<br>
-
-<br>
-* Settings:Storage:Devices:Add SATA Optical Drive (ISO)
-
-  * Add latest Debian NetInst ISO (subject to change): debian-10.6.0-amd64-netinst.iso
-
-<img src="pictures/LFS-A08.jpg" width="960">
-<br>
-
-<img src="pictures/LFS-A09.jpg" width="960">
-<br>
-
-<br>
-* Settings:Storage:Devices
-
-<img src="pictures/LFS-A10.jpg" width="960">
-<br>
-
-<img src="pictures/LFS-A11.jpg" width="960">
-<br>
-
-<br>
-* Settings:Network:Adaptor 1
-
-  * SSH: TCP Port Forwading 127.0.0.1:6024 (host) to 10.0.2.15:22 (guest)
-
-<img src="pictures/LFS-A13.jpg" width="960">
-<br>
-
-<img src="pictures/LFS-A12.jpg" width="960">
-<br>
-
-* Storage
-
-  * Optical Drive: debian-10.6.0-amd64-netinst.iso (349 MB)
-
-  * Main SATA Disk: 16 GB.
-
-  * LFS SATA Disk: 32 GB.
-
-<img src="pictures/LFS-A14.jpg" width="960">
-<br>
-
-<br>
-* Export as LFS-ORIG.ova
+* Export as **LFS101-000.ova**
 
 <br>
 #### ENDOFPAGE

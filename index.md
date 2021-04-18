@@ -8,21 +8,20 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 
-# Virtual Box Guest
+# <span style="color:red; font-weight:bold; font-size:larger;">WORK IN PROGRESS</span>
 
-<span style="color:red; font-weight:bold; font-size:larger;">
-It is assumed that you understand how install a Debian VirtualBox Guest.
-If you have never installed a VirtualBox Guest before,
-</span>
-<hr>
-<hr>
-<span style="color:red; font-weight:bold; font-size:larger;">
-PS: "===== TL;DR =====" means TOO LONG, DID NOT READ (SKIPPED)
-</span>
+# Take Note
 
-* Visit: <https://osp4diss.vlsm.org/>
-
-* Or watch <https://www.youtube.com/playlist?list=PLwaskZn3rUGs-wP-9Nx-nVYQUBkM4Fkoz>
+* <span style="color:red; font-weight:bold; font-size:larger;">
+  It is assumed that you understand how install a Debian VirtualBox Guest.
+  If you have never installed a VirtualBox Guest before,
+  </span>
+  * Visit: <https://osp4diss.vlsm.org/>
+  * Or get a [Debian OVA Image](https://osp4diss.vlsm.org/osp-006.html)
+  * Or watch <https://www.youtube.com/playlist?list=PLwaskZn3rUGs-wP-9Nx-nVYQUBkM4Fkoz>
+  * <span style="color:red; font-weight:bold; font-size:larger;">
+  PS: "===== TL;DR =====" means TOO LONG, DID NOT READ (SKIPPED)
+  </span>
 
 # Linux From Scratch (LFS)
 
@@ -30,11 +29,11 @@ PS: "===== TL;DR =====" means TOO LONG, DID NOT READ (SKIPPED)
 
   * Download the text from <http://www.linuxfromscratch.org/lfs/downloads/stable/>.
 
-  * And watch <https://www.youtube.com/playlist?list=PLyc5xVO2uDsD3DrDJB5LrTdCadiqr2HCp>
+  * And watch <https://www.youtube.com/playlist?list=PLyc5xVO2uDsAlIkKBIGauDQ6LejoQovyL>
 
-* [Set a Blank VirtualBox Guest of LFS](LFS-01.md) (LFS-ORIG.ova)
+* [Set a Debian Guest from an OVA File](LFS-01.md)
 
-* [Install Debian NetInst](LFS-02.md)
+* [UPDATE the SYSTEM](LFS-02.md)
 
 * [LFS: Chapter 2 part 1](LFS-03.md)
 
