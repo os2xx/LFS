@@ -11,10 +11,10 @@
 [NEXT](LFS-02.md)
 
 <br>
-# Set a Debian Guest from an OVA File
+# LFS: Set a Debian Guest from an OVA File
 
 <br>
-## OVA File: DEB10-OS211.ova
+## OVA File: DEB10-210419.ova
 
 <img src="pictures/L101-001.jpg" width="960">
 
@@ -28,7 +28,7 @@
 
 <img src="pictures/L101-003.jpg" width="960">
 
-* Set Base Memory Maximum, eg. 8096 MB
+* Set Base Memory Maximum, eg. 8192 MB
 
 <img src="pictures/L101-004.jpg" width="960">
 
@@ -39,6 +39,8 @@
 * LFS SATA Disk: 64 GB.
 
 * SSH: TCP Port Forwading 127.0.0.1:6022 (host) to 10.0.2.15:22 (guest)
+
+* SSH: TCP Port Forwading 127.0.0.1:5000 (host) to 10.0.2.15:4000 (guest)
 
 
 <br>

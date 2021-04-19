@@ -10,7 +10,7 @@
 [PREV](LFS-01.md)
 [NEXT](LFS-03.md)
 
-# UPDATE the SYSTEM
+# LFS: UPDATE the SYSTEM
 
 <br>
 ## Guest "LFS101-000"
@@ -35,14 +35,13 @@ ssh -p 6022 cbkadal@localhost
 ### OUTPUT-01
 ```
 rms46@pamulang1:~$ ssh -p 6022 cbkadal@localhost
+
 The authenticity of host '[localhost]:6022 ([127.0.0.1]:6022)' can't be established.
-ECDSA key fingerprint is SHA256:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.
+ECDSA key fingerprint is SHA256:XYZZYXYZZYXYZZYXYZZYXYZZYXYZZYXYZZYXYZZYXYZ.
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 
-Warning: Permanently added '[localhost]:6024' (ECDSA) to the list of known hosts.
-cbkadal@localhost's password: 
-
-Linux osp 4.19.0-12-amd64 #1 SMP Debian 4.19.152-1 (2020-10-18) x86_64
+Warning: Permanently added '[localhost]:6022' (ECDSA) to the list of known hosts.
+Linux osp 4.19.0-16-amd64 #1 SMP Debian 4.19.181-1 (2021-03-19) x86_64
 
 The programs included with the Debian GNU/Linux system are free software;
 the exact distribution terms for each program are described in the
@@ -50,11 +49,15 @@ individual files in /usr/share/doc/*/copyright.
 
 Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
-cbkadal:~$ 
+Last login: Mon Apr 19 08:45:18 2021 from 10.0.2.2
+
+cbkadal:~$
 
 ```
 
 <br>
+## File .bash_profile
+
 ### INPUT-02
 ```
 cat > ~/.bash_profile << "EOF"
@@ -69,12 +72,15 @@ export LFS=/mnt/lfs
 export PS1='\u:\w\$ '
 export MAKEFLAGS='-j6'
 EOF
+echo "syntax off" > .vimrc
 source ~/.bash_profile
-echo   "LFS=$LFS"
+echo   "Checking LFS=$LFS"
+ls -al $LFS/
 
 ```
 
 ### OUTPUT-02
+
 ```
 cbkadal@osp:~$ cat > ~/.bash_profile << "EOF"
 > # Files .bash_profile
@@ -89,12 +95,19 @@ cbkadal@osp:~$ cat > ~/.bash_profile << "EOF"
 > export MAKEFLAGS='-j6'
 > EOF
 
+cbkadal@osp:~$ echo "syntax off" > .vimrc
+
 cbkadal@osp:~$ source ~/.bash_profile
 
-cbkadal:~$ echo   "LFS=$LFS"
-LFS=/mnt/lfs
+cbkadal:~$ echo   "Checking LFS=$LFS"
+Checking LFS=/mnt/lfs
+cbkadal:~$ ls -al $LFS/
+total 24
+drwxr-xr-x 3 cbkadal cbkadal  4096 Feb 15 19:00 .
+drwxr-xr-x 3 root    root     4096 Apr 19 10:10 ..
+drwx------ 2 cbkadal cbkadal 16384 Apr 19 10:19 lost+found
 
-cbkadal:~$ 
+cbkadal:~$
 
 ```
 
@@ -128,8 +141,10 @@ export LFS=/mnt/lfs
 export PS1='\u:\w\$ '
 export MAKEFLAGS='-j6'
 EOF
+echo "syntax off" > .vimrc
 source ~/.bash_profile
-echo   "LFS=$LFS"
+echo   "Checking LFS=$LFS"
+ls -al $LFS/
 
 ```
 
@@ -145,12 +160,20 @@ root@osp:~# cat > ~/.bash_profile << "EOF"
 > export MAKEFLAGS='-j6'
 > EOF
 
+root@osp:~# echo "syntax off" > .vimrc
+
 root@osp:~# source ~/.bash_profile
 
-root:~# echo   "LFS=$LFS"
-LFS=/mnt/lfs
+root:~# echo   "Checking LFS=$LFS"
+Checking LFS=/mnt/lfs
 
-root:~#
+root:~# ls -al $LFS/
+total 24
+drwxr-xr-x 3 cbkadal cbkadal  4096 Feb 15 19:00 .
+drwxr-xr-x 3 root    root     4096 Apr 19 10:10 ..
+drwx------ 2 cbkadal cbkadal 16384 Apr 19 10:19 lost+found
+
+root:~# 
 
 ```
 
@@ -165,39 +188,18 @@ apt-get dist-upgrade -y
 ### OUTPUT-05
 ```
 root:~# apt-get update
-Get:1 http://security.debian.org/debian-security buster/updates InRelease [65.4 kB]
-Get:2 https://dl.yarnpkg.com/debian stable InRelease [17.1 kB]                                               
-Get:3 http://security.debian.org/debian-security buster/updates/main amd64 Packages [272 kB]              
-
-===== TL;DR =====
-
-Fetched 52.1 MB in 44s (1,187 kB/s)                                                                          
+Hit:1 http://deb.debian.org/debian buster InRelease
+Hit:2 http://deb.debian.org/debian buster-updates InRelease
+Hit:3 http://security.debian.org/debian-security buster/updates InRelease
+Hit:4 https://dl.yarnpkg.com/debian stable InRelease
 Reading package lists... Done
-N: Repository 'http://deb.debian.org/debian buster InRelease' changed its 'Version' value from '10.8' to '10.9'
 
 root:~# apt-get dist-upgrade -y
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
-
-===== TL;DR =====
-
-Need to get 132 MB of archives.
-After this operation, 270 MB of additional disk space will be used.
-Get:1 http://deb.debian.org/debian buster/main amd64 base-files amd64 10.3+deb10u9 [69.9 kB]
-Get:2 http://security.debian.org/debian-security buster/updates/main amd64 libssl-dev amd64 1.1.1d-0+deb10u6 [1,794 kB]
-
-===== TL;DR =====
-
-Unpacking libpam-systemd:amd64 (241-7~deb10u7) over (241-7~deb10u6) ...
-Preparing to unpack .../systemd_241-7~deb10u7_amd64.deb ...
-Unpacking systemd (241-7~deb10u7) over (241-7~deb10u6) ...
-
-===== TL;DR =====
-
-User sessions running outdated binaries:
- cbkadal @ session #1: bash[709], sshd[691]
- cbkadal @ user manager service: systemd[694]
+Calculating upgrade... Done
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
 
 root:~#
 
@@ -225,32 +227,12 @@ root:~# apt-get autoremove --purge -y </dev/null
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
-The following packages will be REMOVED:
-  linux-image-4.19.0-13-amd64*
-0 upgraded, 0 newly installed, 1 to remove and 0 not upgraded.
-After this operation, 270 MB disk space will be freed.
-(Reading database ... 59432 files and directories currently installed.)
-Removing linux-image-4.19.0-13-amd64 (4.19.160-2) ...
-/etc/kernel/postrm.d/initramfs-tools:
-update-initramfs: Deleting /boot/initrd.img-4.19.0-13-amd64
-/etc/kernel/postrm.d/zz-update-grub:
-Generating grub configuration file ...
-Found linux image: /boot/vmlinuz-4.19.0-16-amd64
-Found initrd image: /boot/initrd.img-4.19.0-16-amd64
-Found linux image: /boot/vmlinuz-4.19.0-14-amd64
-Found initrd image: /boot/initrd.img-4.19.0-14-amd64
-done
-(Reading database ... 55030 files and directories currently installed.)
-Purging configuration files for linux-image-4.19.0-13-amd64 (4.19.160-2) ...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
 
 root:~# apt-get autoclean -y </dev/null
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
-Del libnode64 10.23.1~dfsg-1~deb10u1 [5,619 kB]
-Del nodejs 10.23.1~dfsg-1~deb10u1 [87.2 kB]
-Del python-pygments 2.3.1+dfsg-1 [596 kB]
-Del nodejs-doc 10.23.1~dfsg-1~deb10u1 [974 kB]
 
 root:~# apt-get clean -y </dev/null
 
@@ -264,7 +246,7 @@ root:/bin# rm sh
 root:/bin# ln -s bash sh
 
 root:/bin# ls -al sh
-lrwxrwxrwx 1 root root 4 Apr 19 00:29 sh -> bash
+lrwxrwxrwx 1 root root 4 Apr 19 14:36 sh -> bash
 
 root:/bin# cd
 
@@ -321,13 +303,13 @@ root:~#
 ```
 
 <br>
-### INPUT
+### INPUT-08
 ```
 poweroff
 
 ```
 
-### OUTPUT
+### OUTPUT-08
 ```
 root:~# poweroff
 Connection to localhost closed by remote host.

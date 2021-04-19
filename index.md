@@ -26,35 +26,20 @@
 # Linux From Scratch (LFS)
 
 * Visit <http://www.linuxfromscratch.org/lfs/view/stable/>, or
-
   * Download the text from <http://www.linuxfromscratch.org/lfs/downloads/stable/>.
-
   * And watch <https://www.youtube.com/playlist?list=PLyc5xVO2uDsAlIkKBIGauDQ6LejoQovyL>
-
-* [Set a Debian Guest from an OVA File](LFS-01.md)
-
-* [UPDATE the SYSTEM](LFS-02.md)
-
-* [LFS: Chapter 2 part 1](LFS-03.md)
-
-* [LFS: Chapter 2 part 2](LFS-04.md)
-
+* [LFS: Set a Debian Guest from an OVA File](LFS-01.md)
+* [LFS: UPDATE the SYSTEM](LFS-02.md)
+* [LFS: Chapter 2](LFS-03.md)
+* [LFS: If more SWAP space is needed](LFS-04.md)
 * [LFS: Chapter 3](LFS-05.md)
-
 * [LFS: Chapter 4](LFS-06.md)
-
 * [LFS: Chapter 5](LFS-07.md)
-
 * [LFS: Chapter 6 part 1](LFS-08.md)
-
 * [LFS: Chapter 6 part 2](LFS-09.md)
-
 * [LFS: Chapter 7](LFS-10.md)
-
 * [LFS: Chapter 8 part 1](LFS-11.md)
-
 * [LFS: Chapter 8 part 2](LFS-12.md)
-
 * [LFS: Chapter 9](LFS-13.md)
 
 <br>
