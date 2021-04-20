@@ -120,6 +120,31 @@ root@osp:~#
 
 ```
 
+<br>
+## BTW, you might want to add you swap file to /etc/fstab
+
+```
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system>                           <mount point>  <type>       <options>     <dump><pass>
+# / was on /dev/sda2 during installation
+UUID=7acd274a-097d-4910-8c8a-b528d2c4ff9f /               ext4        errors=remount-ro 0  1
+# /lfs was on /dev/sdb2 during installation
+UUID=0bbf7ab4-6acd-48ea-a298-f23d87a7264a /mnt/lfs        ext4        defaults          0  2
+# swap was on /dev/sda1 during installation
+UUID=65027801-cec4-447d-9056-7f1622527d81 none            swap        sw                0  0
+# swap was on /dev/sdb1 during installation
+UUID=bf399df9-a433-4bd0-9efd-a3e4386514ec none            swap        sw                0  0
+/dev/sr0                                  /media/cdrom0   udf,iso9660 user,noauto       0  0
+### Add more swap !!! ######################################################################
+/var/tmp/.swapfile.bin                    none            swap        sw                0  0
+### Add more swap !!! ######################################################################
+
+```
 
 <br>
 #### ENDOFPAGE
