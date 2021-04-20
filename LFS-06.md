@@ -29,13 +29,13 @@ If you have never installed a VirtualBox Guest before, visit [OSP4DISS](https://
 <br>
 ### INPUT
 ```
-ssh -p 6024 cbkadal@localhost
+ssh -p 6022 cbkadal@localhost
 
 ```
 
 ### OUTPUT
 ```
-rms46@pamulang1:~$ ssh -p 6024 cbkadal@localhost
+rms46@pamulang1:~$ ssh -p 6022 cbkadal@localhost
 cbkadal@localhost's password:
 
 ===== TL;DR =====

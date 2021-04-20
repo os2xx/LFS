@@ -11,7 +11,7 @@
 [NEXT](LFS-04.md)
 
 <br>
-# LFS: Chapter 2 (part 2)
+# LFS: Chapter 2
 
 ## Virtual Box Guest LFS101-002
 
