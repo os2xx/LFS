@@ -32,6 +32,7 @@
 * [LFS: UPDATE the SYSTEM](LFS-02.md)
 * [LFS: Chapter 2](LFS-03.md)
 * [LFS: If more SWAP space is needed](LFS-04.md)
+* [LFS: If /dev/sdb2 is mounted on /lfs/](LFS-04X.md)
 * [LFS: Chapter 3](LFS-05.md)
 * [LFS: Chapter 4](LFS-06.md)
 * [LFS: Chapter 5](LFS-07.md)
