@@ -28,9 +28,9 @@
 * Visit <http://www.linuxfromscratch.org/lfs/view/stable/>, or
   * Download the text from <http://www.linuxfromscratch.org/lfs/downloads/stable/>.
   * And watch <https://www.youtube.com/playlist?list=PLyc5xVO2uDsAlIkKBIGauDQ6LejoQovyL>
-* [LFS: Set a Debian Guest from an OVA File](LFS-01.md)
-* [LFS: UPDATE the SYSTEM](LFS-02.md)
-* [LFS: Chapter 2](LFS-03.md)
+* [LFS: Set a Debian Guest from an OVA File](LFS-00.md)
+* [LFS: UPDATE the SYSTEM](LFS-01.md)
+* [LFS: Chapter 2](LFS-02.md)
 * [LFS: If more SWAP space is needed](LFS-04.md)
 * [LFS: If /dev/sdb2 is mounted on /lfs/](LFS-04X.md)
 * [LFS: Chapter 3](LFS-05.md)
