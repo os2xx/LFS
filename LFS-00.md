@@ -35,9 +35,7 @@
 
 * LFS SATA Disk: 64 GB.
 
-* SSH: TCP Port Forwading 127.0.0.1:6022 (host) to 10.0.2.15:22 (guest)
-
-* SSH: TCP Port Forwading 127.0.0.1:5000 (host) to 10.0.2.15:4000 (guest)
+* SSH: TCP Port Forwading 127.0.0.1:6023 (host) to 10.0.2.15:22 (guest)
 
 
 <br>

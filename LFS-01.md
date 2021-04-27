@@ -25,19 +25,21 @@
 <br>
 ### INPUT-01
 ```
-ssh -p 6022 cbkadal@localhost
+ssh -p 6023 cbkadal@localhost
 
 ```
 
 ### OUTPUT-01
 ```
-rms46@pamulang1:~$ ssh -p 6022 cbkadal@localhost
+rms46@pamulang1:~$ ssh -p 6023 cbkadal@localhost
 
-The authenticity of host '[localhost]:6022 ([127.0.0.1]:6022)' can't be established.
+The authenticity of host '[localhost]:6023 ([127.0.0.1]:6023)' can't be established.
 ECDSA key fingerprint is SHA256:XYZZYXYZZYXYZZYXYZZYXYZZYXYZZYXYZZYXYZZYXYZ.
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 
-Warning: Permanently added '[localhost]:6022' (ECDSA) to the list of known hosts.
+Warning: Permanently added '[localhost]:6023' (ECDSA) to the list of known hosts.
+cbkadal@localhost's password: *******
+
 Linux osp 4.19.0-16-amd64 #1 SMP Debian 4.19.181-1 (2021-03-19) x86_64
 
 The programs included with the Debian GNU/Linux system are free software;
@@ -262,11 +264,14 @@ automake
 bison
 build-essential
 gawk
+locales-all
 texinfo
 parted
+vim
 "
 
 apt-get install $DEBS -y
+apt-file update
 
 ```
 
@@ -280,22 +285,30 @@ root:~# DEBS="
 > gawk
 > texinfo
 > parted
+> vim
 > "
 
 root:~# apt-get install $DEBS -y
+
+=== TL;DR ===
+
+0 upgraded, 107 newly installed, 0 to remove and 0 not upgraded.
+Need to get 64.8 MB of archives.
+After this operation, 229 MB of additional disk space will be used.
+
+=== TL;DR ===
+
+root:~# apt-file update
+Hit:1 http://security.debian.org/debian-security buster/updates InRelease
+Hit:2 http://deb.debian.org/debian buster InRelease
+Hit:3 http://deb.debian.org/debian buster-updates InRelease
+Get:4 http://deb.debian.org/debian buster/main amd64 Contents (deb) [37.3 MB]
+Get:5 http://deb.debian.org/debian buster-updates/main amd64 Contents (deb) [65.4 kB]                        
+Fetched 37.4 MB in 22s (1,738 kB/s)                                                                          
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
-apt-file is already the newest version (3.2.2).
-automake is already the newest version (1:1.16.1-4).
-bison is already the newest version (2:3.3.2.dfsg-1).
-build-essential is already the newest version (12.6).
-gawk is already the newest version (1:4.2.1+dfsg-1).
-parted is already the newest version (3.2-25).
-texinfo is already the newest version (6.5.0.dfsg.1-4+b1).
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-
-root:~# 
+All packages are up to date.
 
 ```
 

@@ -8,7 +8,7 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-02.md)
-[NEXT](LFS-04.md)
+[NEXT](LFS-03.md)
 
 <br>
 # LFS: Chapter 2
@@ -23,13 +23,13 @@
 <br>
 ### INPUT
 ```
-ssh -p 6022 cbkadal@localhost
+ssh -p 6023 cbkadal@localhost
 
 ```
 
 ### OUTPUT
 ```
-rms46@pamulang1:~$ ssh -p 6022 cbkadal@localhost
+rms46@pamulang1:~$ ssh -p 6023 cbkadal@localhost
 Linux osp 4.19.0-16-amd64 #1 SMP Debian 4.19.181-1 (2021-03-19) x86_64
 
 The programs included with the Debian GNU/Linux system are free software;
@@ -286,6 +286,6 @@ rms46@pamulang1:~$
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-02.md)
-[NEXT](LFS-04.md)
+[NEXT](LFS-03.md)
 <br>
 
