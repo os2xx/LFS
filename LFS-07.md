@@ -29,13 +29,13 @@ If you have never installed a VirtualBox Guest before, visit [OSP4DISS](https://
 <br>
 ### INPUT
 ```
-ssh -p 6022 lfs@localhost
+ssh -p 6023 lfs@localhost
 
 ```
 
 ### OUTPUT
 ```
-rms46@pamulang1:~$ ssh -p 6022 lfs@localhost
+rms46@pamulang1:~$ ssh -p 6023 lfs@localhost
 lfs@localhost's password:
 
 ===== TL;DR =====
@@ -736,7 +736,7 @@ rms46@pamulang1:~$
 
 * Back to "pamulang1" host
 
-* Create LFS-05.OVA (backup)
+* Export LFS-05.OVA (backup)
 
 <br>
 #### ENDOFPAGE

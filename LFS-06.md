@@ -231,7 +231,7 @@ rms46@pamulang1:~$
 
 * Back to "pamulang1" host
 
-* Create LFS-04.OVA (backup)
+* Export LFS-04.OVA (backup)
 
 <br>
 #### ENDOFPAGE
