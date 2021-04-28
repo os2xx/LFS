@@ -8,7 +8,7 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-04.md)
-[NEXT](LFS-08.md)
+[NEXT](LFS-06.md)
 
 <br>
 # LFS: Chapter 5
@@ -260,12 +260,48 @@ rm -rfv glibc-2.33/
 <br>
 ## Libstdc++ from GCC-10.2.0, Pass 1
 
+```
+tar xfv gcc-10.2.0.tar.xz
+cd gcc-10.2.0/
+
+```
+
+```
+mkdir -v build
+cd       build
+
+```
+
+```
+../libstdc++-v3/configure           \
+    --host=$LFS_TGT                 \
+    --build=$(../config.guess)      \
+    --prefix=/usr                   \
+    --disable-multilib              \
+    --disable-nls                   \
+    --disable-libstdcxx-pch         \
+    --with-gxx-include-dir=/tools/$LFS_TGT/include/c++/10.2.0
+
+```
+
+```
+time make
+
+```
+
+```
+time make DESTDIR=$LFS install
+
+```
+
+```
+cd ../../
+rm -rfv gcc-10.2.0/
+
+```
 
 <br>
-## ###
-
-
-
+## Done
 
 ```
 su -
@@ -289,6 +325,6 @@ poweroff
 [TOP](#)
 [BOTTOM](#endofpage)
 [PREV](LFS-04.md)
-[NEXT](LFS-08.md)
+[NEXT](LFS-06.md)
 <br>
 
