@@ -264,6 +264,7 @@ automake
 bison
 build-essential
 gawk
+liblocale-msgfmt-perl
 locales-all
 texinfo
 parted
