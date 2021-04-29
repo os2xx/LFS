@@ -254,7 +254,7 @@ root:~#
 ```
 
 <br>
-## Just to be sure
+## Installing the deb packages
 
 ### INPUT-07
 ```

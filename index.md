@@ -17,7 +17,9 @@
   If you have never installed a VirtualBox Guest before,
   </span>
   * Visit: <https://osp4diss.vlsm.org/>
-  * Or get a [Debian OVA Image](https://osp4diss.vlsm.org/osp-006.html)
+  * Or get a Debian OVA Image:
+    * [LFS-00-README.txt](https://bit.ly/3t1bEw3)
+    * [LFS-00.ova](https://bit.ly/3u2qO5G) (350 MB)
   * Or watch <https://www.youtube.com/playlist?list=PLwaskZn3rUGs-wP-9Nx-nVYQUBkM4Fkoz>
   * <span style="color:red; font-weight:bold; font-size:larger;">
   PS: "===== TL;DR =====" means TOO LONG, DID NOT READ (SKIPPED)
@@ -37,10 +39,16 @@
 * [LFS: Chapter 4](LFS-04.md)
 * [LFS: Chapter 5](LFS-05.md)
 * [LFS: Chapter 6](LFS-06.md)
-* [LFS: Chapter 7](LFS-10.md)
+* [LFS: Chapter 7 part 1](LFS-07-1.md)
+* [LFS: Chapter 7 part 5](LFS-07-5.md)
+* [LFS: Chapter 7 part 7](LFS-07-7.md)
 * [LFS: Chapter 8 part 1](LFS-11.md)
 * [LFS: Chapter 8 part 2](LFS-12.md)
 * [LFS: Chapter 9](LFS-13.md)
+
+<br>
+## Extra
+* [LFS: Chapter 7 part 3](LFS-07-3.md)
 
 <br>
 <hr>
