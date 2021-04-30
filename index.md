@@ -47,7 +47,7 @@
 
 <br>
 ## Extra
-* [LFS: Chapter 7 part 3](LFS-07-3.md)
+* [LFS: Chapter 7 part 3 - 6](LFS-07-3.md)
 
 <br>
 <hr>
