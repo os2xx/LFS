@@ -264,6 +264,7 @@ automake
 bison
 build-essential
 gawk
+git
 liblocale-msgfmt-perl
 locales-all
 texinfo
@@ -284,6 +285,9 @@ root:~# DEBS="
 > bison
 > build-essential
 > gawk
+> git
+> liblocale-msgfmt-perl
+> locales-all
 > texinfo
 > parted
 > vim
