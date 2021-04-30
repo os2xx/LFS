@@ -40,7 +40,6 @@
 * [LFS: Chapter 5](LFS-05.md)
 * [LFS: Chapter 6](LFS-06.md)
 * [LFS: Chapter 7 part 1](LFS-07-1.md)
-* [LFS: Chapter 7 part 5](LFS-07-5.md)
 * [LFS: Chapter 7 part 7](LFS-07-7.md)
 * [LFS: Chapter 8 part 1](LFS-11.md)
 * [LFS: Chapter 8 part 2](LFS-12.md)
