@@ -20,7 +20,6 @@
   * Or get a Debian OVA Image:
     * [LFS-00-README.txt](https://bit.ly/3t1bEw3)
     * [LFS-00.ova](https://bit.ly/3u2qO5G) (350 MB)
-  * Or watch <https://www.youtube.com/playlist?list=PLwaskZn3rUGs-wP-9Nx-nVYQUBkM4Fkoz>
   * <span style="color:red; font-weight:bold; font-size:larger;">
   PS: "===== TL;DR =====" means TOO LONG, DID NOT READ (SKIPPED)
   </span>
