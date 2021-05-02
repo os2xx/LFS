@@ -35,6 +35,8 @@
 * [LFS: Chapter 2](LFS-02.md)
   * [LFS: If more SWAP space is needed](LFS-02-1.md)
   * [LFS: If /dev/sdb2 is mounted on /lfs/](LFS-02-2.md)
+  * [LFS: If you want to change hostname](LFS-02-3.md)
+  * [LFS: Estimated OVA Size](LFS-02-4.md)
 * [LFS: Chapter 3](LFS-03.md)
 * [LFS: Chapter 4](LFS-04.md)
 * [LFS: Chapter 5](LFS-05.md)
