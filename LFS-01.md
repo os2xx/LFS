@@ -70,6 +70,9 @@ export HISTFILESIZE=2000
 export LFS=/mnt/lfs
 export PS1='\u:\w\$ '
 export MAKEFLAGS='-j6'
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 EOF
 echo "syntax off" > .vimrc
 source ~/.bash_profile
@@ -139,6 +142,9 @@ export HISTFILESIZE=2000
 export LFS=/mnt/lfs
 export PS1='\u:\w\$ '
 export MAKEFLAGS='-j6'
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 EOF
 echo "syntax off" > .vimrc
 source ~/.bash_profile
