@@ -7,7 +7,7 @@
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-02.md)
+[PREV](LFS-01.md)
 [NEXT](LFS-03.md)
 
 <br>
@@ -285,7 +285,7 @@ rms46@pamulang1:~$
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-02.md)
+[PREV](LFS-01.md)
 [NEXT](LFS-03.md)
 <br>
 
