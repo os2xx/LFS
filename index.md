@@ -47,7 +47,8 @@
 * [LFS: Chapter 7 part 5 - 6](LFS-07-5.md)
 * [LFS: Chapter 7 part 7 - 14](LFS-07-7.md)
 * [LFS: Chapter 8 part 1  - 17](LFS-08-01.md)
-* [LFS: Chapter 8 part 18 -   ](LFS-08-18.md)
+* [LFS: Chapter 8 part 18 - 25](LFS-08-18.md)
+* [LFS: Chapter 8 part 26 -   ](LFS-08-26.md)
 * [LFS: Chapter 8 part 40 - 78](LFS-08-40.md)
 
 <br>
