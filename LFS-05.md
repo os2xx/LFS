@@ -60,7 +60,7 @@ time make
 ```
 
 ```
-time make install
+make install -j1
 
 ```
 
