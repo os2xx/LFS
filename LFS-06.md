@@ -59,7 +59,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -113,7 +113,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS TIC_PATH=$(pwd)/build/progs/tic install
+make DESTDIR=$LFS TIC_PATH=$(pwd)/build/progs/tic install
 echo "INPUT(-lncursesw)" > $LFS/usr/lib/libncurses.so
 
 ```
@@ -157,7 +157,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -201,7 +201,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -243,7 +243,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -285,7 +285,7 @@ time make FILE_COMPILE=$(pwd)/build/src/file
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -317,7 +317,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -360,7 +360,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -392,7 +392,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -422,7 +422,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -455,7 +455,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -487,7 +487,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -519,7 +519,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -552,7 +552,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -586,7 +586,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
@@ -714,8 +714,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
-install -vm755 libctf/.libs/libctf.so.0.0.0 $LFS/usr/lib
+make DESTDIR=$LFS install -j1
 
 ```
 

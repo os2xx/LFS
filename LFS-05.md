@@ -233,6 +233,8 @@ make DESTDIR=$LFS install
 
 ```
 
+* [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
+
 ```
 echo 'int main(){}' > dummy.c
 $LFS_TGT-gcc dummy.c
