@@ -27,8 +27,9 @@
   PS: "===== TL;DR =====" means TOO LONG, DID NOT READ a.k.a. SKIPPED.
   </span>
 
-# Linux From Scratch (LFS) Explanation
+# Linux From Scratch (LFS)
 
+* Step by step explanation with VirtualBox
 * This is **NOT** the official LFS page!
   * Visit <http://www.linuxfromscratch.org/lfs/view/stable/>, and
   * Watch <https://www.youtube.com/playlist?list=PLyc5xVO2uDsAlIkKBIGauDQ6LejoQovyL>
