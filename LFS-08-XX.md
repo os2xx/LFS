@@ -7,15 +7,15 @@
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-08-26.md)
-[NEXT](LFS-08-31.md)
+[PREV](LFS-08-31.md)
+[NEXT](LFS-08-4X.md)
 
 <br>
-# LFS: Chapter 8 part 31 - XX
+# LFS: Chapter 8 part 40 - XX
 
-## Virtual Box Guest LFS-08-31
+## Virtual Box Guest LFS-08-40
 
-* Import LFS-08-26.ova, rename to LFS-08-31
+* Import LFS-08-31.ova, rename to LFS-08-40
 
 <br>
 <img src="pictures/L101-014.jpg" width="960">
@@ -50,7 +50,7 @@ poweroff
 
 * Back to "pamulang1" host
 
-* Export LFS-08-26.OVA (backup)
+* Export LFS-08-40.OVA (backup)
 
 <br>
 #### ENDOFPAGE
@@ -60,7 +60,7 @@ poweroff
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-08-26.md)
-[NEXT](LFS-08-31.md)
+[PREV](LFS-08-31.md)
+[NEXT](LFS-08-4X.md)
 <br>
 
