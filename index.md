@@ -51,8 +51,8 @@
 * [LFS: Chapter 8 part 1  - 17](LFS-08-01.md)
 * [LFS: Chapter 8 part 18 - 25](LFS-08-18.md)
 * [LFS: Chapter 8 part 26 - 30](LFS-08-26.md)
-* [LFS: Chapter 8 part 31 - 39](LFS-08-31.md)
-* [LFS: Chapter 8 part 40 - XX](LFS-08-40.md)
+* [LFS: Chapter 8 part 31 - 40](LFS-08-31.md)
+* [LFS: Chapter 8 part 41 - XX](LFS-08-41.md)
 
 <br>
 ## Extra
