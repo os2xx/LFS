@@ -18,7 +18,7 @@
 * Import LFS-08-26.ova, rename to LFS-08-31
 
 <br>
-<img src="pictures/L101-013.jpg" width="960">
+<img src="pictures/L101-014.jpg" width="960">
 
 <br>
 ## Enter CHROOT
@@ -28,6 +28,9 @@
 cd /sources/
 
 ```
+
+<br>
+## ###
 
 <br>
 ## Exit CHROOT
