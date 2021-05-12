@@ -7,18 +7,18 @@
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-08-31.md)
-[NEXT](LFS-08-XX.md)
+[PREV](LFS-08-40.md)
+[NEXT](LFS-09.md)
 
 <br>
-# LFS: Chapter 8 part 41 - XX
+# LFS: Chapter 9
 
-## Virtual Box Guest LFS-08-41
+## Virtual Box Guest LFS-09
 
-* Import LFS-08-31.ova, rename to LFS-08-41
+* Import LFS-08-40.ova, rename to LFS-09
 
 <br>
-<img src="pictures/L101-014.jpg" width="960">
+<img src="pictures/L101-010.jpg" width="960">
 
 <br>
 ## Enter CHROOT
@@ -30,7 +30,7 @@ cd /sources/
 ```
 
 <br>
-## ###
+## XXXX
 
 <br>
 ## Exit CHROOT
@@ -50,7 +50,7 @@ poweroff
 
 * Back to "pamulang1" host
 
-* Export LFS-08-41.OVA (backup)
+* Export LFS-09.OVA (backup)
 
 <br>
 #### ENDOFPAGE
@@ -60,7 +60,7 @@ poweroff
 [GITHUB](https://github.com/OSP4DISS/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
-[PREV](LFS-08-31.md)
-[NEXT](LFS-08-XX.md)
+[PREV](LFS-08-40.md)
+[NEXT](LFS-09.md)
 <br>
 
