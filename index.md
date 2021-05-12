@@ -29,7 +29,6 @@
 
 # Linux From Scratch (LFS)
 
-* Step by step explanation with VirtualBox
 * This is **NOT** the official LFS page!
   * Visit <http://www.linuxfromscratch.org/lfs/view/stable/>, and
   * Watch <https://www.youtube.com/playlist?list=PLyc5xVO2uDsAlIkKBIGauDQ6LejoQovyL>
