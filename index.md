@@ -23,15 +23,15 @@
   * Or get a Debian OVA Image:
     * [LFS-00-README.txt](https://bit.ly/3t1bEw3)
     * [LFS-00.ova](https://bit.ly/3u2qO5G) (350 MB)
-  * <span style="color:red; font-weight:bold; font-size:larger;">
+* <span style="color:red; font-weight:bold; font-size:larger;">
   PS: "===== TL;DR =====" means TOO LONG, DID NOT READ a.k.a. SKIPPED.
   </span>
 
 # Linux From Scratch (LFS)
 
-* This is **NOT** the official LFS page!
-  * Visit <http://www.linuxfromscratch.org/lfs/view/stable/>, and
-  * Watch <https://www.youtube.com/playlist?list=PLyc5xVO2uDsAlIkKBIGauDQ6LejoQovyL>
+* Visit the official LFS page first:
+  * URL: <http://www.linuxfromscratch.org/lfs/view/stable/>, and
+  * Watch: <https://www.youtube.com/playlist?list=PLyc5xVO2uDsAlIkKBIGauDQ6LejoQovyL>
 * [LFS: Set a Debian Guest from an OVA File](LFS-00.md)
 * [LFS: UPDATE the SYSTEM](LFS-01.md)
 * [LFS: Chapter 2](LFS-02.md)
