@@ -40,6 +40,7 @@
   * [LFS: If you want to change hostname](LFS-02-3.md)
   * [LFS: Estimated OVA Size](LFS-02-4.md)
   * [LFS: To Shrink and Clean the VirtualBox VDI File](LFS-02-5.md)
+  * [LFS: Disk and Memory Usage](LFS-02-6.md)
 * [LFS: Chapter 3](LFS-03.md)
 * [LFS: Chapter 4](LFS-04.md)
 * [LFS: Chapter 5](LFS-05.md)
