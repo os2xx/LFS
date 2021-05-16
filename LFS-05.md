@@ -148,7 +148,7 @@ cat gcc/limitx.h gcc/glimits.h gcc/limity.h > \
 
 
 ```
-cd ../
+cd ../../
 rm -rvf gcc-10.2.0/
 
 ```
