@@ -63,7 +63,7 @@ cat > ~/.bash_profile << "EOF"
 # Files .bash_profile
 alias cl='clear;echo "";'
 alias h='history'
-alias sss='. ~/.profile'
+alias sss='. ~/.bash_profile'
 export EDITOR=/usr/bin/vi
 export HISTSIZE=2000
 export HISTFILESIZE=2000
