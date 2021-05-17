@@ -15,6 +15,12 @@
 * This is **NOT** the official LFS page.
   You should visit 
   [this page](http://www.linuxfromscratch.org/lfs/view/stable/) first!
+  * [PDF 10.1](https://cbkadal.github.io/os211/SandBox/LFS-BOOK-10.1.pdf)
+* LFS Mirrors:
+  * <http://lfs.mirror.fileplanet.com/mirrors.html>
+  * <https://lfs.mirrors.hoobly.com/mirrors.html>
+  * <http://lfs.mirror.jaleco.com/mirrors.html>
+  * <https://lfs.maru-na.net/mirrors.html>
 * <span style="color:red; font-weight:bold; font-size:larger;">
   It is assumed that you understand how install a Debian VirtualBox Guest.
   If you have never installed a VirtualBox Guest before,
