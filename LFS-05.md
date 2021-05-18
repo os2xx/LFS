@@ -135,7 +135,7 @@ time make
 ```
 
 ```
-time make install
+make install
 
 ```
 
@@ -292,7 +292,7 @@ time make
 ```
 
 ```
-time make DESTDIR=$LFS install
+make DESTDIR=$LFS install
 
 ```
 
