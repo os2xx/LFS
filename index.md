@@ -8,45 +8,37 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 
-# <span style="color:red; font-weight:bold; font-size:larger;">WORK IN PROGRESS</span>
-
-# Take Note
+# Linux From Scratch (LFS 10.1)
 
 * This is **NOT** the official LFS page.
   You should visit 
-  [this page](http://www.linuxfromscratch.org/lfs/view/stable/) first!
-  * [PDF 10.1](https://cbkadal.github.io/os211/SandBox/LFS-BOOK-10.1.pdf)
-* LFS Mirrors:
-  * <http://lfs.mirror.fileplanet.com/mirrors.html>
-  * <https://lfs.mirrors.hoobly.com/mirrors.html>
-  * <http://lfs.mirror.jaleco.com/mirrors.html>
-  * <https://lfs.maru-na.net/mirrors.html>
-* <span style="color:red; font-weight:bold; font-size:larger;">
-  It is assumed that you understand how install a Debian VirtualBox Guest.
-  If you have never installed a VirtualBox Guest before,
-  </span>
-  * Visit: <https://osp4diss.vlsm.org/>
-  * Or get a Debian OVA Image:
-    * [LFS-00-README.txt](https://bit.ly/3t1bEw3)
-    * [LFS-00.ova](https://bit.ly/3u2qO5G) (350 MB)
-* <span style="color:red; font-weight:bold; font-size:larger;">
-  PS: "===== TL;DR =====" means TOO LONG, DID NOT READ a.k.a. SKIPPED.
-  </span>
+  [this page](http://www.linuxfromscratch.org/lfs/view/stable/) first! 
+  ([PDF](LFS-BOOK-10.1.pdf)).
+  * Watch also: <https://www.youtube.com/playlist?list=PLyc5xVO2uDsAlIkKBIGauDQ6LejoQovyL>
+  * LFS Mirrors:
+    * <http://lfs.mirror.fileplanet.com/mirrors.html>
+    * <https://lfs.mirrors.hoobly.com/mirrors.html>
+    * <http://lfs.mirror.jaleco.com/mirrors.html>
+    * <https://lfs.maru-na.net/mirrors.html>
 
-# Linux From Scratch (LFS)
+# VirtualBox: Installing ISO or Importing OVA?
 
-* Visit the official LFS page first:
-  * URL: <http://www.linuxfromscratch.org/lfs/view/stable/>, and
-  * Watch: <https://www.youtube.com/playlist?list=PLyc5xVO2uDsAlIkKBIGauDQ6LejoQovyL>
+* For installing a Debian ISO Image, visit: <https://osp4diss.vlsm.org/>.
+* For importing a Debian OVA Image:
+  * [LFS-00-README.txt](https://bit.ly/3t1bEw3)
+  * [LFS-00.ova](https://bit.ly/3u2qO5G) (350 MB)
+
+# VirtualBox: Setting a Debian Virtual Guest
+
 * [LFS: Set a Debian Guest from an OVA File](LFS-00.md)
-* [LFS: UPDATE the SYSTEM](LFS-01.md)
-* [LFS: Chapter 2](LFS-02.md)
+  * [LFS: UPDATE the SYSTEM](LFS-01.md)
   * [LFS: If more SWAP space is needed](LFS-02-1.md)
   * [LFS: If /dev/sdb2 is mounted on /lfs/](LFS-02-2.md)
   * [LFS: If you want to change hostname](LFS-02-3.md)
   * [LFS: Estimated OVA Size](LFS-02-4.md)
   * [LFS: To Shrink and Clean the VirtualBox VDI File](LFS-02-5.md)
   * [LFS: Disk and Memory Usage](LFS-02-6.md)
+* [LFS: Chapter 2](LFS-02.md)
 * [LFS: Chapter 3](LFS-03.md)
 * [LFS: Chapter 4](LFS-04.md)
 * [LFS: Chapter 5](LFS-05.md)
@@ -62,9 +54,11 @@
 * [LFS: Chapter 8 part 61 - 78](LFS-08-61.md)
 * [LFS: Chapter 9](LFS-09.md)
 
-<br>
 ## Extra
 * [LFS: Chapter 7 part 3 - 4](LFS-07-3.md)
+* <span style="color:red; font-weight:bold; font-size:larger;">
+  PS: "===== TL;DR =====" means TOO LONG, DID NOT READ a.k.a. SKIPPED.
+  </span>
 
 <br>
 <hr>
