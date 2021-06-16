@@ -31,13 +31,13 @@
 # VirtualBox: Setting a Debian Virtual Guest
 
 * [LFS: Set a Debian Guest from an OVA File](LFS-00.md)
-  * [LFS: UPDATE the SYSTEM](LFS-01.md)
+* [LFS: UPDATE the SYSTEM](LFS-01.md)
   * [LFS: If more SWAP space is needed](LFS-02-1.md)
   * [LFS: If /dev/sdb2 is mounted on /lfs/](LFS-02-2.md)
   * [LFS: If you want to change hostname](LFS-02-3.md)
-  * [LFS: Estimated OVA Size](LFS-02-4.md)
-  * [LFS: To Shrink and Clean the VirtualBox VDI File](LFS-02-5.md)
   * [LFS: Disk and Memory Usage](LFS-02-6.md)
+  * [LFS: To Shrink and Clean the VirtualBox VDI File](LFS-02-5.md)
+  * [LFS: Estimated OVA Size](LFS-02-4.md)
 * [LFS: Chapter 2](LFS-02.md)
 * [LFS: Chapter 3](LFS-03.md)
 * [LFS: Chapter 4](LFS-04.md)
