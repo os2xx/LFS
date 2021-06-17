@@ -28,9 +28,9 @@
   * [LFS-00-README.txt](https://bit.ly/3t1bEw3)
   * [LFS-00.ova](https://bit.ly/3u2qO5G) (350 MB)
 
-# VirtualBox: Setting a Debian Virtual Guest
+# LFS with a Debian VirtualBox Guest
 
-* [LFS: Set a Debian Guest from an OVA File](LFS-00.md)
+* [LFS: Set a Debian VirtualBox Guest from an OVA File](LFS-00.md)
 * [LFS: UPDATE the SYSTEM](LFS-01.md)
   * [LFS: If more SWAP space is needed](LFS-02-1.md)
   * [LFS: If /dev/sdb2 is mounted on /lfs/](LFS-02-2.md)
@@ -54,7 +54,7 @@
 * [LFS: Chapter 8 part 61 - 78](LFS-08-61.md)
 * [LFS: Chapter 9](LFS-09.md)
 
-## Extra
+## CHROOT
 * [LFS: Chapter 7 part 3 - 4](LFS-07-3.md)
 * <span style="color:red; font-weight:bold; font-size:larger;">
   PS: "===== TL;DR =====" means TOO LONG, DID NOT READ a.k.a. SKIPPED.
