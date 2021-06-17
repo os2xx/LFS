@@ -7,9 +7,9 @@
 [TOP](#)
 [BOTTOM](#endofpage)
 
-# About Linux From Scratch
+# About
 
-This site is about Linux From Scratch.
+This site is about installing Linux From Scratch with a Virtual Box.
 
 <br>
 # Acknowledgments
