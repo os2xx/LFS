@@ -4,11 +4,15 @@
 [HOME](index.md)
 [ABOUT](README.md)
 [WEB](https://lfs.vlsm.org/)
-[GITHUB](https://github.com/OSP4DISS/lfs/)
+[GITHUB](https://github.com/os2xx/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
 
-# Linux From Scratch (LFS 10.1)
+# Linux From Scratch
+
+## [LFS 11.2 Kernotex’s Highlights](https://osp4diss.vlsm.org/osp-128.html)
+## [LFS 11.1 Kernotex’s Highlights](https://osp4diss.vlsm.org/osp-124.html)
+## Linux From Scratch 10.1
 
 * This is **NOT** the official LFS page.
   You should visit 
@@ -67,7 +71,7 @@
 [HOME](index.md)
 [ABOUT](README.md)
 [WEB](https://lfs.vlsm.org/)
-[GITHUB](https://github.com/OSP4DISS/lfs/)
+[GITHUB](https://github.com/os2xx/lfs/)
 [TOP](#)
 [BOTTOM](#endofpage)
 <br>

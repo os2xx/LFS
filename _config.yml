@@ -1,5 +1,5 @@
 title: Linux From Scratch (LFS) --- Step by Step with VirtualBox
-description: (V055a-20220221).
+description: (V056-20221027).
       Linux From Scratch (LFS) --- Step by Step with VirtualBox.
       This site is managed by VauLSMorg (vlsm.org)
       since 2020. May the fork() be with Jolan Tru! --- 
@@ -22,7 +22,7 @@ plugins:
 social:
   name: URLs
   links:
-    - https://https://github.com/OSP4DISS/LFS/
+    - https://https://github.com/os2xx/LFS/
 
 # github:
 #    zip_url: https://github.com/rms46/...
