@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.35.&nbsp;Bash-5.2.21
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="grep.html" title="Grep-3.11">Prev</a>
+          <p>
+            Grep-3.11
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="libtool.html" title="Libtool-2.4.7">Next</a>
+          <p>
+            Libtool-2.4.7
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-bash" name="ch-system-bash"></a>8.35. Bash-5.2.21
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The Bash package contains the Bourne-Again Shell.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">1.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">52 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          8.35.1. Installation of Bash
+        </h2>
+        <p>
+          First, fix some issues identified upstream:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">patch -Np1 -i ../bash-5.2.21-upstream_fixes-1.patch</kbd></pre>
+        <p>
+          Prepare Bash for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr             \
+            --without-bash-malloc     \
+            --with-installed-readline \
+            --docdir=/usr/share/doc/bash-5.2.21</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the new configure option:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-installed-readline</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This option tells Bash to use the <code class=
+                "filename">readline</code> library that is already installed
+                on the system rather than using its own readline version.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Skip down to <span class="quote">“<span class="quote">Install the
+          package</span>”</span> if not running the test suite.
+        </p>
+        <p>
+          To prepare the tests, ensure that the <code class=
+          "systemitem">tester</code> user can write to the sources tree:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">chown -R tester .</kbd></pre>
+        <p>
+          The test suite of this package is designed to be run as a
+          non-<code class="systemitem">root</code> user who owns the terminal
+          connected to standard input. To satisfy the requirement, spawn a
+          new pseudo terminal using <span class="application">Expect</span>
+          and run the tests as the <code class="systemitem">tester</code>
+          user:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">su -s /usr/bin/expect tester &lt;&lt; "EOF"
+set timeout -1
+spawn make tests
+expect eof
+lassign [wait] _ _ _ value
+exit $value
+EOF</kbd></pre>
+        <p>
+          The test suite uses <span class=
+          "command"><strong>diff</strong></span> to detect the difference
+          between test script output and the expected output. Any output from
+          <span class="command"><strong>diff</strong></span> (prefixed with
+          <code class="computeroutput">&lt;</code> and <code class=
+          "computeroutput">&gt;</code>) indicates a test failure, unless
+          there is a message saying the difference can be ignored. One test
+          named <code class="filename">run-builtins</code> is known to fail
+          on some host distros with a difference on the first line of the
+          output.
+        </p>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+        <p>
+          Run the newly compiled <span class=
+          "command"><strong>bash</strong></span> program (replacing the one
+          that is currently being executed):
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">exec /usr/bin/bash --login</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-bash" name="contents-bash"></a>8.35.2. Contents of
+          Bash
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed programs:</strong>
+              <span class="segbody">bash, bashbug, and sh (link to
+              bash)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed directory:</strong>
+              <span class="segbody">/usr/include/bash, /usr/lib/bash, and
+              /usr/share/doc/bash-5.2.21</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bash" name="bash"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bash</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    A widely-used command interpreter; it performs many types
+                    of expansions and substitutions on a given command line
+                    before executing it, thus making this interpreter a
+                    powerful tool
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bashbug" name="bashbug"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bashbug</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    A shell script to help the user compose and mail standard
+                    formatted bug reports concerning <span class=
+                    "command"><strong>bash</strong></span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sh" name="sh"></a><span class="term"><span class=
+                    "command"><strong>sh</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    A symlink to the <span class=
+                    "command"><strong>bash</strong></span> program; when
+                    invoked as <span class=
+                    "command"><strong>sh</strong></span>, <span class=
+                    "command"><strong>bash</strong></span> tries to mimic the
+                    startup behavior of historical versions of <span class=
+                    "command"><strong>sh</strong></span> as closely as
+                    possible, while conforming to the POSIX standard as well
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="grep.html" title="Grep-3.11">Prev</a>
+          <p>
+            Grep-3.11
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="libtool.html" title="Libtool-2.4.7">Next</a>
+          <p>
+            Libtool-2.4.7
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

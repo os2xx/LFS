@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      2.3.&nbsp;Building LFS in Stages
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;2.&nbsp;Preparing the Host System
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="hostreqs.html" title=
+          "Host System Requirements">Prev</a>
+          <p>
+            Host System Requirements
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingpartition.html" title=
+          "Creating a New Partition">Next</a>
+          <p>
+            Creating a New Partition
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "Chapter&nbsp;2.&nbsp;Preparing the Host System">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-partitioning-stages" name="ch-partitioning-stages"></a>2.3.
+      Building LFS in Stages
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <p>
+        LFS is designed to be built in one session. That is, the instructions
+        assume that the system will not be shut down during the process. This
+        does not mean that the system has to be built in one sitting. The
+        issue is that certain procedures must be repeated after a reboot when
+        resuming LFS at different points.
+      </p>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          2.3.1. Chapters&nbsp;1–4
+        </h2>
+        <p>
+          These chapters run commands on the host system. When restarting, be
+          certain of one thing:
+        </p>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                Procedures performed as the <code class=
+                "systemitem">root</code> user after Section 2.4 must have the
+                LFS environment variable set <span class="emphasis"><em>FOR
+                THE ROOT USER</em></span>.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          2.3.2. Chapters&nbsp;5–6
+        </h2>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                The /mnt/lfs partition must be mounted.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                These two chapters <span class=
+                "emphasis"><em>must</em></span> be done as user <code class=
+                "systemitem">lfs</code>. A <span class="command"><strong>su -
+                lfs</strong></span> command must be issued before performing
+                any task in these chapters. If you don't do that, you are at
+                risk of installing packages to the host, and potentially
+                rendering it unusable.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                The procedures in <a class="xref" href=
+                "../partintro/generalinstructions.html" title=
+                "General Compilation Instructions">General Compilation
+                Instructions</a> are critical. If there is any doubt a
+                package has been installed correctly, ensure the previously
+                expanded tarball has been removed, then re-extract the
+                package, and complete all the instructions in that section.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          2.3.3. Chapters&nbsp;7–10
+        </h2>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                The /mnt/lfs partition must be mounted.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                A few operations, from <span class="quote">“<span class=
+                "quote">Changing Ownership</span>”</span> to <span class=
+                "quote">“<span class="quote">Entering the Chroot
+                Environment,</span>”</span> must be done as the <code class=
+                "systemitem">root</code> user, with the LFS environment
+                variable set for the <code class="systemitem">root</code>
+                user.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                When entering chroot, the LFS environment variable must be
+                set for <code class="systemitem">root</code>. The LFS
+                variable is not used after the chroot environment has been
+                entered.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                The virtual file systems must be mounted. This can be done
+                before or after entering chroot by changing to a host virtual
+                terminal and, as <code class="systemitem">root</code>,
+                running the commands in <a class="xref" href=
+                "../chapter07/kernfs.html#ch-tools-bindmount" title=
+                "7.3.1.&nbsp;Mounting and Populating /dev">Section&nbsp;7.3.1,
+                “Mounting and Populating /dev”</a> and <a class="xref" href=
+                "../chapter07/kernfs.html#ch-tools-kernfsmount" title=
+                "7.3.2.&nbsp;Mounting Virtual Kernel File Systems">Section&nbsp;7.3.2,
+                “Mounting Virtual Kernel File Systems”</a>.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="hostreqs.html" title=
+          "Host System Requirements">Prev</a>
+          <p>
+            Host System Requirements
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingpartition.html" title=
+          "Creating a New Partition">Next</a>
+          <p>
+            Creating a New Partition
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "Chapter&nbsp;2.&nbsp;Preparing the Host System">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

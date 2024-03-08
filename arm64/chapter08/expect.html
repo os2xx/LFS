@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.16.&nbsp;Expect-5.45.4
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="tcl.html" title="Tcl-8.6.13">Prev</a>
+          <p>
+            Tcl-8.6.13
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="dejagnu.html" title="DejaGNU-1.6.3">Next</a>
+          <p>
+            DejaGNU-1.6.3
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-expect" name="ch-system-expect"></a>8.16.
+      Expect-5.45.4
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The <span class="application">Expect</span> package contains tools
+          for automating, via scripted dialogues, interactive applications
+          such as <span class="command"><strong>telnet</strong></span>,
+          <span class="command"><strong>ftp</strong></span>, <span class=
+          "command"><strong>passwd</strong></span>, <span class=
+          "command"><strong>fsck</strong></span>, <span class=
+          "command"><strong>rlogin</strong></span>, and <span class=
+          "command"><strong>tip</strong></span>. <span class=
+          "application">Expect</span> is also useful for testing these same
+          applications as well as easing all sorts of tasks that are
+          prohibitively difficult with anything else. The <span class=
+          "application">DejaGnu</span> framework is written in <span class=
+          "application">Expect</span>.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">0.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">3.9 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          8.16.1. Installation of Expect
+        </h2>
+        <p>
+          Expect needs PTYs to work. Verify that the PTYs are working
+          properly inside the chroot environment by performing a simple test:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">python3 -c 'from pty import spawn; spawn(["echo", "ok"])'</kbd></pre>
+        <p>
+          This command should output <code class="computeroutput">ok</code>.
+          If, instead, the output includes <code class=
+          "computeroutput">OSError: out of pty devices</code>, then the
+          environment is not set up for proper PTY operation. You need to
+          exit from the chroot environment, read <a class="xref" href=
+          "../chapter07/kernfs.html" title=
+          "7.3.&nbsp;Preparing Virtual Kernel File Systems">Section&nbsp;7.3,
+          “Preparing Virtual Kernel File Systems”</a> again, and ensure the
+          <code class="systemitem">devpts</code> file system (and other
+          virtual kernel file systems) mounted correctly. Then reenter the
+          chroot environment following <a class="xref" href=
+          "../chapter07/chroot.html" title=
+          "7.4.&nbsp;Entering the Chroot Environment">Section&nbsp;7.4,
+          “Entering the Chroot Environment”</a>. This issue needs to be
+          resolved before continuing, or the test suites requiring Expect
+          (for example the test suites of Bash, Binutils, GCC, GDBM, and of
+          course Expect itself) will fail catastrophically, and other subtle
+          breakages may also happen.
+        </p>
+        <p>
+          Update two config scripts to allow building this package for
+          AArch64:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">tar -C tclconfig -xf ../autoconf-2.72.tar.xz --strip-components=2 \
+    autoconf-2.72/build-aux/config.{guess,sub}</kbd></pre>
+        <p>
+          Prepare Expect for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr           \
+            --with-tcl=/usr/lib     \
+            --enable-shared         \
+            --mandir=/usr/share/man \
+            --with-tclinclude=/usr/include</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the configure options:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-tcl=/usr/lib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This parameter is needed to tell <span class=
+                "command"><strong>configure</strong></span> where the
+                <span class="command"><strong>tclConfig.sh</strong></span>
+                script is located.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-tclinclude=/usr/include</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This explicitly tells Expect where to find Tcl's internal
+                headers.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Build the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          To test the results, issue:
+        </p>
+        <pre class="userinput"><kbd class="command">make test</kbd></pre>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make install
+ln -svf expect5.45.4/libexpect5.45.4.so /usr/lib</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-expect" name="contents-expect"></a>8.16.2. Contents
+          of Expect
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed program:</strong>
+              <span class="segbody">expect</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed library:</strong>
+              <span class="segbody">libexpect5.45.4.so</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="expect" name="expect"></a><span class=
+                    "term"><span class=
+                    "command"><strong>expect</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Communicates with other interactive programs according to
+                    a script
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libexpect" name="libexpect"></a><span class=
+                    "term"><code class=
+                    "filename">libexpect-5.45.4.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Contains functions that allow Expect to be used as a Tcl
+                    extension or to be used directly from C or C++ (without
+                    Tcl)
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="tcl.html" title="Tcl-8.6.13">Prev</a>
+          <p>
+            Tcl-8.6.13
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="dejagnu.html" title="DejaGNU-1.6.3">Next</a>
+          <p>
+            DejaGNU-1.6.3
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

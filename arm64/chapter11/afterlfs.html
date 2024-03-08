@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      11.5.&nbsp;Getting Started After LFS
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;11.&nbsp;The End
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="whatnow.html" title=
+          "Additional Resources">Prev</a>
+          <p>
+            Additional Resources
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../part5.html" title="Appendices">Next</a>
+          <p>
+            Appendices
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter11.html" title=
+          "Chapter&nbsp;11.&nbsp;The End">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="afterlfs" name="afterlfs"></a>11.5. Getting Started After LFS
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          11.5.1. Deciding what to do next
+        </h2>
+        <p>
+          Now that LFS is complete and you have a bootable system, what do
+          you do? The next step is to decide how to use it. Generally, there
+          are two broad categories to consider: workstation or server.
+          Indeed, these categories are not mutually exclusive. The
+          applications needed for each category can be combined onto a single
+          system, but let's look at them separately for now.
+        </p>
+        <p>
+          A server is the simpler category. Generally this consists of a web
+          server such as the <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/systemd/server/apache.html">
+          Apache HTTP Server</a> and a database server such as <a class=
+          "ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/systemd/server/mariadb.html">
+          MariaDB</a>. However other services are possible. The operating
+          system embedded in a single use device falls into this category.
+        </p>
+        <p>
+          On the other hand, a workstation is much more complex. It generally
+          requires a graphical user environment such as <a class="ulink"
+          href="https://www.linuxfromscratch.org/blfs/view/systemd/lxde/lxde.html">
+          LXDE</a>, <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/systemd/xfce/xfce.html">
+          XFCE</a>, <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/systemd/kde/kde.html">KDE</a>,
+          or <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/systemd/gnome/gnome.html">
+          Gnome</a> based on a basic <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/systemd/x/installing.html">
+          graphical environment</a> and several graphical based applications
+          such as the <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/systemd/xsoft/firefox.html">
+          Firefox web browser</a>, <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/systemd/xsoft/thunderbird.html">
+          Thunderbird email client</a>, or <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/systemd/xsoft/libreoffice.html">
+          LibreOffice office suite</a>. These applications require many
+          (several hundred depending on desired capabilities) more packages
+          of support applications and libraries.
+        </p>
+        <p>
+          In addition to the above, there is a set of applications for system
+          management for all kinds of systems. These applications are all in
+          the BLFS book. Not all packages are needed in every environments.
+          For example <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/systemd/basicnet/dhcpcd.html">
+          dhcpcd</a>, is not normally appropriate for a server and <a class=
+          "ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/systemd/basicnet/wireless_tools.html">
+          wireless_tools</a>, are normally only useful for a laptop system.
+        </p>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          11.5.2. Working in a basic LFS environment
+        </h2>
+        <p>
+          When you initially boot into LFS, you have all the internal tools
+          to build additional packages. Unfortunately, the user environment
+          is quite sparse. There are a couple of ways to improve this:
+        </p>
+        <div class="sect3">
+          <h3 class="sect3">
+            11.5.2.1. Work from the LFS host in chroot
+          </h3>
+          <p>
+            This method provides a complete graphical environment where a
+            full featured browser and copy/paste capabilities are available.
+            This method allows using applications like the host's version of
+            wget to download package sources to a location available when
+            working in the chroot environment.
+          </p>
+          <p>
+            In order to properly build packages in chroot, you will also need
+            to remember to mount the virtual file systems if they are not
+            already mounted. One way to do this is to create a script on the
+            <span class="bold"><strong>HOST</strong></span> system:
+          </p>
+          <pre class="screen"><span class=
+          "command"><strong>cat &gt; ~/mount-virt.sh &lt;&lt; "EOF"
+#!/bin/bash
+
+function mountbind
+{
+   if ! mountpoint $LFS/$1 &gt;/dev/null; then
+     $SUDO mount --bind /$1 $LFS/$1
+     echo $LFS/$1 mounted
+   else
+     echo $LFS/$1 already mounted
+   fi
+}
+
+function mounttype
+{
+   if ! mountpoint $LFS/$1 &gt;/dev/null; then
+     $SUDO mount -t $2 $3 $4 $5 $LFS/$1
+     echo $LFS/$1 mounted
+   else
+     echo $LFS/$1 already mounted
+   fi
+}
+
+if [ $EUID -ne 0 ]; then
+  SUDO=sudo
+else
+  SUDO=""
+fi
+
+if [ x$LFS == x ]; then
+  echo "LFS not set"
+  exit 1
+fi
+
+mountbind dev
+mounttype dev/pts devpts devpts -o gid=5,mode=620
+mounttype proc    proc   proc
+mounttype sys     sysfs  sysfs
+mounttype run     tmpfs  run
+if [ -h $LFS/dev/shm ]; then
+  install -v -d -m 1777 $LFS$(realpath /dev/shm)
+else
+  mounttype dev/shm tmpfs tmpfs -o nosuid,nodev
+fi 
+
+#mountbind usr/src
+#mountbind boot
+#mountbind home
+EOF</strong></span></pre>
+          <p>
+            Note that the last three commands in the script are commented
+            out. These are useful if those directories are mounted as
+            separate partitions on the host system and will be mounted when
+            booting the completed LFS/BLFS system.
+          </p>
+          <p>
+            The script can be run with <span class="command"><strong>bash
+            ~/mount-virt.sh</strong></span> as either a regular user
+            (recommended) or as <code class="systemitem">root</code>. If run
+            as a regular user, sudo is required on the host system.
+          </p>
+          <p>
+            Another issue pointed out by the script is where to store
+            downloaded package files. This location is arbitrary. It can be
+            in a regular user's home directory such as ~/sources or in a
+            global location like /usr/src. Our recommendation is not to mix
+            BLFS sources and LFS sources in (from the chroot environment)
+            /sources. In any case, the packages must be accessible inside the
+            chroot environment.
+          </p>
+          <p>
+            A last convenience feature presented here is to streamline the
+            process of entering the chroot environment. This can be done with
+            an alias placed in a user's ~/.bashrc file on the host system:
+          </p>
+          <pre class="screen"><span class=
+          "command"><strong>alias lfs='sudo /usr/sbin/chroot /mnt/lfs /usr/bin/env -i HOME=/root TERM="$TERM" PS1="\u:\w\\\\$ "
+PATH=/bin:/usr/bin:/sbin:/usr/sbin /bin/bash --login'</strong></span></pre>
+          <p>
+            This alias is a little tricky because of the quoting and levels
+            of backslash characters. It must be all on a single line. The
+            above command has been split in two for presentation purposes.
+          </p>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            11.5.2.2. Work remotely via ssh
+          </h3>
+          <p>
+            This method also provides a full graphical environment, but first
+            requires installing <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/openssh.html">
+            sshd</a> on the LFS system, usually in chroot. It also requires a
+            second computer. This method has the advantage of being simple by
+            not requiring the complexity of the chroot environment. It also
+            uses your LFS built kernel for all additional packages and still
+            provides a complete system for installing packages.
+          </p>
+          <p>
+            You may use the <span class="command"><strong>scp</strong></span>
+            command to upload the package sources to be built onto the LFS
+            system. If you want to download the sources onto the LFS system
+            directly instead, install <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/systemd/general/libtasn1.html">
+            libtasn1</a>, <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/p11-kit.html">
+            p11-kit</a>, <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/make-ca.html">
+            make-ca</a>, and <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/systemd/basicnet/wget.html">
+            wget</a> in chroot (or upload their sources using <span class=
+            "command"><strong>scp</strong></span> after booting the LFS
+            system).
+          </p>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            11.5.2.3. Work from the LFS command line
+          </h3>
+          <p>
+            This method requires installing <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/systemd/general/libtasn1.html">
+            libtasn1</a>, <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/p11-kit.html">
+            p11-kit</a>, <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/make-ca.html">
+            make-ca</a>, <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/systemd/basicnet/wget.html">
+            wget</a>, <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/systemd/general/gpm.html">
+            gpm</a>, and <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/systemd/basicnet/links.html">
+            links</a> (or <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/systemd/basicnet/lynx.html">
+            lynx</a>) in chroot and then rebooting into the new LFS system.
+            At this point the default system has six virtual consoles.
+            Switching consoles is as easy as using the <span class=
+            "keycap"><strong>Alt</strong></span>+<span class=
+            "keycap"><strong>Fx</strong></span> key combinations where
+            <span class="keycap"><strong>Fx</strong></span> is between
+            <span class="keycap"><strong>F1</strong></span> and <span class=
+            "keycap"><strong>F6</strong></span>. The <span class=
+            "keycap"><strong>Alt</strong></span>+<span class=
+            "keycap"><strong>←</strong></span> and <span class=
+            "keycap"><strong>Alt</strong></span>+<span class=
+            "keycap"><strong>→</strong></span> combinations also will change
+            the console.
+          </p>
+          <p>
+            At this point you can log into two different virtual consoles and
+            run the links or lynx browser in one console and bash in the
+            other. GPM then allows copying commands from the browser with the
+            left mouse button, switching consoles, and pasting into the other
+            console.
+          </p>
+          <div class="admon note">
+            <img alt="[Note]" src="../images/note.png" />
+            <h3>
+              Note
+            </h3>
+            <p>
+              As a side note, switching of virtual consoles can also be done
+              from an X Window instance with the <span class=
+              "keycap"><strong>Ctrl</strong></span>+<span class=
+              "keycap"><strong>Alt</strong></span>+<span class=
+              "keycap"><strong>Fx</strong></span> key combination, but the
+              mouse copy operation does not work between the graphical
+              interface and a virtual console. You can return to the X Window
+              display with the <span class=
+              "keycap"><strong>Ctrl</strong></span>+<span class=
+              "keycap"><strong>Alt</strong></span>+<span class=
+              "keycap"><strong>Fx</strong></span> combination, where
+              <span class="keycap"><strong>Fx</strong></span> is usually
+              <span class="keycap"><strong>F1</strong></span> but may be
+              <span class="keycap"><strong>F7</strong></span>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="whatnow.html" title=
+          "Additional Resources">Prev</a>
+          <p>
+            Additional Resources
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../part5.html" title="Appendices">Next</a>
+          <p>
+            Appendices
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter11.html" title=
+          "Chapter&nbsp;11.&nbsp;The End">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

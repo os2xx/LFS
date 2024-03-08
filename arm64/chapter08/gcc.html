@@ -1,0 +1,886 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.28.&nbsp;GCC-13.2.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="shadow.html" title="Shadow-4.14.5">Prev</a>
+          <p>
+            Shadow-4.14.5
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="ncurses.html" title=
+          "Ncurses-6.4-20230520">Next</a>
+          <p>
+            Ncurses-6.4-20230520
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-gcc" name="ch-system-gcc"></a>8.28. GCC-13.2.0
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The GCC package contains the GNU compiler collection, which
+          includes the C and C++ compilers.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">42 SBU (with tests)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">5.5 GB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          8.28.1. Installation of GCC
+        </h2>
+        <p>
+          On ARM64 hosts, set the default directory name for 64-bit libraries
+          to <span class="quote">“<span class="quote">lib</span>”</span>:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">sed -e '/lp64=/s/lib64/lib/' \
+    -i.orig gcc/config/aarch64/t-aarch64-linux</kbd></pre>
+        <p>
+          The GCC documentation recommends building GCC in a dedicated build
+          directory:
+        </p>
+        <pre class="userinput"><kbd class="command">mkdir -v build
+cd       build</kbd></pre>
+        <p>
+          Prepare GCC for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">../configure --prefix=/usr            \
+             LD=ld                    \
+             --enable-languages=c,c++ \
+             --enable-default-pie     \
+             --enable-default-ssp     \
+             --disable-multilib       \
+             --disable-bootstrap      \
+             --disable-fixincludes    \
+             --with-system-zlib</kbd></pre>
+        <p>
+          GCC supports seven different computer languages, but the
+          prerequisites for most of them have not yet been installed. See the
+          <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/systemd/general/gcc.html">
+          BLFS Book GCC page</a> for instructions on how to build all of
+          GCC's supported languages.
+        </p>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the new configure parameters:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>LD=ld</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This parameter makes the configure script use the ld program
+                installed by the Binutils package built earlier in this
+                chapter, rather than the cross-built version which would
+                otherwise be used.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-fixincludes</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                By default, during the installation of GCC some system
+                headers would be <span class="quote">“<span class=
+                "quote">fixed</span>”</span> to be used with GCC. This is not
+                necessary for a modern Linux system, and potentially harmful
+                if a package is reinstalled after installing GCC. This switch
+                prevents GCC from <span class="quote">“<span class=
+                "quote">fixing</span>”</span> the headers.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-system-zlib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This switch tells GCC to link to the system installed copy of
+                the Zlib library, rather than its own internal copy.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3><a id="pie-ssp-info" name="pie-ssp-info"></a>
+          <p>
+            PIE (position-independent executables) are binary programs that
+            can be loaded anywhere in memory. Without PIE, the security
+            feature named ASLR (Address Space Layout Randomization) can be
+            applied for the shared libraries, but not for the executables
+            themselves. Enabling PIE allows ASLR for the executables in
+            addition to the shared libraries, and mitigates some attacks
+            based on fixed addresses of sensitive code or data in the
+            executables.
+          </p>
+          <p>
+            SSP (Stack Smashing Protection) is a technique to ensure that the
+            parameter stack is not corrupted. Stack corruption can, for
+            example, alter the return address of a subroutine, thus
+            transferring control to some dangerous code (existing in the
+            program or shared libraries, or injected by the attacker
+            somehow).
+          </p>
+        </div>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <div class="admon important">
+          <img alt="[Important]" src="../images/important.png" />
+          <h3>
+            Important
+          </h3>
+          <p>
+            In this section, the test suite for GCC is considered important,
+            but it takes a long time. First-time builders are encouraged to
+            run the test suite. The time to run the tests can be reduced
+            significantly by adding -jx to the <span class=
+            "command"><strong>make -k check</strong></span> command below,
+            where x is the number of CPU cores on your system.
+          </p>
+        </div>
+        <p>
+          One set of tests in the GCC test suite is known to exhaust the
+          default stack, so increase the stack size prior to running the
+          tests:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">ulimit -s 32768</kbd></pre>
+        <p>
+          Test the results as a non-privileged user, but do not stop at
+          errors:
+        </p>
+        <pre class="userinput"><kbd class="command">chown -R tester .
+su tester -c "PATH=$PATH make -k check"</kbd></pre>
+        <p>
+          To extract a summary of the test suite results, run:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">../contrib/test_summary</kbd></pre>
+        <p>
+          To filter out only the summaries, pipe the output through
+          <strong class="userinput"><code>grep -A7 Summ</code></strong>.
+        </p>
+        <p>
+          Results can be compared with those located at <a class="ulink"
+          href="https://www.linuxfromscratch.org/lfs/build-logs/development/">
+          https://www.linuxfromscratch.org/lfs/build-logs/development/</a>
+          and <a class="ulink" href=
+          "https://gcc.gnu.org/ml/gcc-testresults/">https://gcc.gnu.org/ml/gcc-testresults/</a>.
+        </p>
+        <p>
+          In gcc tests (out of over 185,000), seven tests in the <code class=
+          "filename">analyzer</code> directory are known to fail. One
+          libstdc++ test (out of over 15000), <code class=
+          "filename">copy.cc</code>, is known to fail. For g++, 22 tests (out
+          of approximately 250,000): 14 <span class="quote">“<span class=
+          "quote">AddressSanitizer*</span>”</span> tests, 7 <code class=
+          "filename">interception-malloc-test-1.C</code> tests, and one test
+          named <code class="filename">contracts-tmpl-spec2.C</code> are
+          known to fail. On ARM64, many tests in the <code class=
+          "filename">c-c++-common/hwasan</code> directory are known to fail
+          in both gcc and g++ tests, and many tests in the <code class=
+          "filename">g++.dg/modules</code> directory are known to fail in g++
+          tests.
+        </p>
+        <p>
+          A few unexpected failures cannot always be avoided. The GCC
+          developers are usually aware of these issues, but have not resolved
+          them yet. Unless the test results are vastly different from those
+          at the above URL, it is safe to continue.
+        </p>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+        <p>
+          The GCC build directory is owned by <code class=
+          "systemitem">tester</code> now, and the ownership of the installed
+          header directory (and its content) is incorrect. Change the
+          ownership to the <code class="systemitem">root</code> user and
+          group:
+        </p>
+        <pre class="userinput"><kbd class="command">chown -v -R root:root \
+    /usr/lib/gcc/$(gcc -dumpmachine)/13.2.0/include{,-fixed}</kbd></pre>
+        <p>
+          Create a symlink required by the <a class="ulink" href=
+          "https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</a>
+          for "historical" reasons.
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">ln -svr /usr/bin/cpp /usr/lib</kbd></pre>
+        <p>
+          Many packages use the name <span class=
+          "command"><strong>cc</strong></span> to call the C compiler. We've
+          already created <span class="command"><strong>cc</strong></span> as
+          a symlink in <a class="xref" href="../chapter06/gcc-pass2.html"
+          title="6.18.&nbsp;GCC-13.2.0 - Pass 2">gcc-pass2</a>, create its
+          man page as a symlink as well:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">ln -sv gcc.1 /usr/share/man/man1/cc.1</kbd></pre>
+        <p>
+          Add a compatibility symlink to enable building programs with Link
+          Time Optimization (LTO):
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/13.2.0/liblto_plugin.so \
+        /usr/lib/bfd-plugins/</kbd></pre>
+        <p>
+          Now that our final toolchain is in place, it is important to again
+          ensure that compiling and linking will work as expected. We do this
+          by performing some sanity checks:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">echo 'int main(){}' &gt; dummy.c
+cc dummy.c -v -Wl,--verbose &amp;&gt; dummy.log
+readelf -l a.out | grep ': /lib'</kbd></pre>
+        <p>
+          There should be no errors, and the output of the last command will
+          be (allowing for platform-specific differences in the dynamic
+          linker name):
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">[Requesting program interpreter: /lib/ld-linux-aarch64.so.1]</code></pre>
+        <p>
+          Now make sure that we're set up to use the correct start files:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">grep -E -o '/usr/lib.*/S?crt[1in].*succeeded' dummy.log</kbd></pre>
+        <p>
+          The output of the last command should be:
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">/usr/lib/gcc/aarch64-unknown-linux-gnu/13.2.0/../../../../lib/Scrt1.o succeeded
+/usr/lib/gcc/aarch64-unknown-linux-gnu/13.2.0/../../../../lib/crti.o succeeded
+/usr/lib/gcc/aarch64-unknown-linux-gnu/13.2.0/../../../../lib/crtn.o succeeded</code></pre>
+        <p>
+          Depending on your machine architecture, the above may differ
+          slightly. The difference will be the name of the directory after
+          <code class="filename">/usr/lib/gcc</code>. The important thing to
+          look for here is that <span class=
+          "command"><strong>gcc</strong></span> has found all three
+          <code class="filename">crt*.o</code> files under the <code class=
+          "filename">/usr/lib</code> directory.
+        </p>
+        <p>
+          Verify that the compiler is searching for the correct header files:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">grep -B4 '^ /usr/include' dummy.log</kbd></pre>
+        <p>
+          This command should return the following output:
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">#include &lt;...&gt; search starts here:
+ /usr/lib/gcc/aarch64-unknown-linux-gnu/13.2.0/include
+ /usr/local/include
+ /usr/lib/gcc/aarch64-unknown-linux-gnu/13.2.0/include-fixed
+ /usr/include</code></pre>
+        <p>
+          Again, the directory named after your target triplet may be
+          different than the above, depending on your system architecture.
+        </p>
+        <p>
+          Next, verify that the new linker is being used with the correct
+          search paths:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'</kbd></pre>
+        <p>
+          References to paths that have components with '-linux-gnu' should
+          be ignored, but otherwise the output of the last command should be:
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">SEARCH_DIR("/usr/aarch64-unknown-linux-gnu/lib64")
+SEARCH_DIR("/usr/local/lib64")
+SEARCH_DIR("/lib64")
+SEARCH_DIR("/usr/lib64")
+SEARCH_DIR("/usr/aarch64-unknown-linux-gnu/lib")
+SEARCH_DIR("/usr/local/lib")
+SEARCH_DIR("/lib")
+SEARCH_DIR("/usr/lib");</code></pre>
+        <p>
+          Next make sure that we're using the correct libc:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">grep "/lib.*/libc.so.6 " dummy.log</kbd></pre>
+        <p>
+          The output of the last command should be:
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">attempt to open /usr/lib/libc.so.6 succeeded</code></pre>
+        <p>
+          Make sure GCC is using the correct dynamic linker:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">grep found dummy.log</kbd></pre>
+        <p>
+          The output of the last command should be (allowing for
+          platform-specific differences in dynamic linker name):
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">found ld-linux-aarch64.so.1 at /usr/lib/ld-linux-aarch64.so.1</code></pre>
+        <p>
+          If the output does not appear as shown above or is not received at
+          all, then something is seriously wrong. Investigate and retrace the
+          steps to find out where the problem is and correct it. Any issues
+          should be resolved before continuing with the process.
+        </p>
+        <p>
+          Once everything is working correctly, clean up the test files:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">rm -v dummy.c a.out dummy.log</kbd></pre>
+        <p>
+          Finally, move a misplaced file:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mkdir -pv /usr/share/gdb/auto-load/usr/lib
+mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-gcc" name="contents-gcc"></a>8.28.2. Contents of
+          GCC
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed programs:</strong>
+              <span class="segbody">c++, cc (link to gcc), cpp, g++, gcc,
+              gcc-ar, gcc-nm, gcc-ranlib, gcov, gcov-dump, gcov-tool, and
+              lto-dump</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed libraries:</strong>
+              <span class="segbody">libasan.{a,so}, libatomic.{a,so},
+              libcc1.so, libgcc.a, libgcc_eh.a, libgcc_s.so, libgcov.a,
+              libgomp.{a,so}, libhwasan.{a,so}, libitm.{a,so},
+              liblsan.{a,so}, liblto_plugin.so, libquadmath.{a,so},
+              libssp.{a,so}, libssp_nonshared.a, libstdc++.{a,so},
+              libstdc++exp.a, libstdc++fs.a, libsupc++.a, libtsan.{a,so}, and
+              libubsan.{a,so}</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed directories:</strong>
+              <span class="segbody">/usr/include/c++, /usr/lib/gcc,
+              /usr/libexec/gcc, and /usr/share/gcc-13.2.0</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="c" name="c"></a><span class="term"><span class=
+                    "command"><strong>c++</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The C++ compiler
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="cc" name="cc"></a><span class="term"><span class=
+                    "command"><strong>cc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The C compiler
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="cpp" name="cpp"></a><span class=
+                    "term"><span class="command"><strong>cpp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The C preprocessor; it is used by the compiler to expand
+                    the #include, #define, and similar directives in the
+                    source files
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="g" name="g"></a><span class="term"><span class=
+                    "command"><strong>g++</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The C++ compiler
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcc" name="gcc"></a><span class=
+                    "term"><span class="command"><strong>gcc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The C compiler
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcc-ar" name="gcc-ar"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gcc-ar</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    A wrapper around <span class=
+                    "command"><strong>ar</strong></span> that adds a plugin
+                    to the command line. This program is only used to add
+                    "link time optimization" and is not useful with the
+                    default build options.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcc-nm" name="gcc-nm"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gcc-nm</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    A wrapper around <span class=
+                    "command"><strong>nm</strong></span> that adds a plugin
+                    to the command line. This program is only used to add
+                    "link time optimization" and is not useful with the
+                    default build options.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcc-ranlib" name="gcc-ranlib"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gcc-ranlib</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    A wrapper around <span class=
+                    "command"><strong>ranlib</strong></span> that adds a
+                    plugin to the command line. This program is only used to
+                    add "link time optimization" and is not useful with the
+                    default build options.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcov" name="gcov"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gcov</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    A coverage testing tool; it is used to analyze programs
+                    to determine where optimizations will have the greatest
+                    effect
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcov-dump" name="gcov-dump"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gcov-dump</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Offline gcda and gcno profile dump tool
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gcov-tool" name="gcov-tool"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gcov-tool</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Offline gcda profile processing tool
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lto-dump" name="lto-dump"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lto-dump</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Tool for dumping object files produced by GCC with LTO
+                    enabled
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libasan" name="libasan"></a><span class=
+                    "term"><code class="filename">libasan</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The Address Sanitizer runtime library
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libatomic" name="libatomic"></a><span class=
+                    "term"><code class="filename">libatomic</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    GCC atomic built-in runtime library
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libcc1" name="libcc1"></a><span class=
+                    "term"><code class="filename">libcc1</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    A library that allows GDB to make use of GCC
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgcc" name="libgcc"></a><span class=
+                    "term"><code class="filename">libgcc</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Contains run-time support for <span class=
+                    "command"><strong>gcc</strong></span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgcov" name="libgcov"></a><span class=
+                    "term"><code class="filename">libgcov</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    This library is linked into a program when GCC is
+                    instructed to enable profiling
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgomp" name="libgomp"></a><span class=
+                    "term"><code class="filename">libgomp</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    GNU implementation of the OpenMP API for multi-platform
+                    shared-memory parallel programming in C/C++ and Fortran
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libhwasan" name="libhwasan"></a><span class=
+                    "term"><code class="filename">libhwasan</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The Hardware-assisted Address Sanitizer runtime library
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libitm" name="libitm"></a><span class=
+                    "term"><code class="filename">libitm</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The GNU transactional memory library
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="liblsan" name="liblsan"></a><span class=
+                    "term"><code class="filename">liblsan</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The Leak Sanitizer runtime library
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="liblto_plugin" name=
+                    "liblto_plugin"></a><span class="term"><code class=
+                    "filename">liblto_plugin</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    GCC's LTO plugin allows Binutils to process object files
+                    produced by GCC with LTO enabled
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libquadmath" name="libquadmath"></a><span class=
+                    "term"><code class="filename">libquadmath</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    GCC Quad Precision Math Library API
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libssp" name="libssp"></a><span class=
+                    "term"><code class="filename">libssp</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Contains routines supporting GCC's stack-smashing
+                    protection functionality. Normally it is not used,
+                    because Glibc also provides those routines.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libstdc" name="libstdc"></a><span class=
+                    "term"><code class="filename">libstdc++</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The standard C++ library
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libstdcexp" name="libstdcexp"></a><span class=
+                    "term"><code class="filename">libstdc++exp</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Experimental C++ Contracts library
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libstdcfs" name="libstdcfs"></a><span class=
+                    "term"><code class="filename">libstdc++fs</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    ISO/IEC TS 18822:2015 Filesystem library
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libsupc" name="libsupc"></a><span class=
+                    "term"><code class="filename">libsupc++</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Provides supporting routines for the C++ programming
+                    language
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libtsan" name="libtsan"></a><span class=
+                    "term"><code class="filename">libtsan</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The Thread Sanitizer runtime library
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libubsan" name="libubsan"></a><span class=
+                    "term"><code class="filename">libubsan</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The Undefined Behavior Sanitizer runtime library
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="shadow.html" title="Shadow-4.14.5">Prev</a>
+          <p>
+            Shadow-4.14.5
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="ncurses.html" title=
+          "Ncurses-6.4-20230520">Next</a>
+          <p>
+            Ncurses-6.4-20230520
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

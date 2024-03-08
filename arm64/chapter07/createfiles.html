@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.6.&nbsp;Creating Essential Files and Symlinks
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional
+        Temporary Tools
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingdirs.html" title=
+          "Creating Directories">Prev</a>
+          <p>
+            Creating Directories
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gettext.html" title=
+          "Gettext-0.22.4">Next</a>
+          <p>
+            Gettext-0.22.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional Temporary Tools">
+          Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-tools-createfiles" name="ch-tools-createfiles"></a>7.6.
+      Creating Essential Files and Symlinks
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <p>
+        Historically, Linux maintained a list of the mounted file systems in
+        the file <code class="filename">/etc/mtab</code>. Modern kernels
+        maintain this list internally and expose it to the user via the
+        <code class="filename">/proc</code> filesystem. To satisfy utilities
+        that expect to find <code class="filename">/etc/mtab</code>, create
+        the following symbolic link:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">ln -sv /proc/self/mounts /etc/mtab</kbd></pre>
+      <p>
+        Create a basic <code class="filename">/etc/hosts</code> file to be
+        referenced in some test suites, and in one of Perl's configuration
+        files as well:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; /etc/hosts &lt;&lt; EOF
+<code class="literal">127.0.0.1  localhost $(hostname)
+::1        localhost</code>
+EOF</kbd></pre>
+      <p>
+        In order for user <code class="systemitem">root</code> to be able to
+        login and for the name <span class="quote">“<span class=
+        "quote">root</span>”</span> to be recognized, there must be relevant
+        entries in the <code class="filename">/etc/passwd</code> and
+        <code class="filename">/etc/group</code> files.
+      </p>
+      <p>
+        Create the <code class="filename">/etc/passwd</code> file by running
+        the following command:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; /etc/passwd &lt;&lt; "EOF"
+<code class="literal">root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/dev/null:/usr/bin/false
+daemon:x:6:6:Daemon User:/dev/null:/usr/bin/false
+messagebus:x:18:18:D-Bus Message Daemon User:/run/dbus:/usr/bin/false
+systemd-journal-gateway:x:73:73:systemd Journal Gateway:/:/usr/bin/false
+systemd-journal-remote:x:74:74:systemd Journal Remote:/:/usr/bin/false
+systemd-journal-upload:x:75:75:systemd Journal Upload:/:/usr/bin/false
+systemd-network:x:76:76:systemd Network Management:/:/usr/bin/false
+systemd-resolve:x:77:77:systemd Resolver:/:/usr/bin/false
+systemd-timesync:x:78:78:systemd Time Synchronization:/:/usr/bin/false
+systemd-coredump:x:79:79:systemd Core Dumper:/:/usr/bin/false
+uuidd:x:80:80:UUID Generation Daemon User:/dev/null:/usr/bin/false
+systemd-oom:x:81:81:systemd Out Of Memory Daemon:/:/usr/bin/false
+nobody:x:65534:65534:Unprivileged User:/dev/null:/usr/bin/false</code>
+EOF</kbd></pre>
+      <p>
+        The actual password for <code class="systemitem">root</code> will be
+        set later.
+      </p>
+      <p>
+        Create the <code class="filename">/etc/group</code> file by running
+        the following command:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; /etc/group &lt;&lt; "EOF"
+<code class="literal">root:x:0:
+bin:x:1:daemon
+sys:x:2:
+kmem:x:3:
+tape:x:4:
+tty:x:5:
+daemon:x:6:
+floppy:x:7:
+disk:x:8:
+lp:x:9:
+dialout:x:10:
+audio:x:11:
+video:x:12:
+utmp:x:13:
+cdrom:x:15:
+adm:x:16:
+messagebus:x:18:
+systemd-journal:x:23:
+input:x:24:
+mail:x:34:
+kvm:x:61:
+systemd-journal-gateway:x:73:
+systemd-journal-remote:x:74:
+systemd-journal-upload:x:75:
+systemd-network:x:76:
+systemd-resolve:x:77:
+systemd-timesync:x:78:
+systemd-coredump:x:79:
+uuidd:x:80:
+systemd-oom:x:81:
+wheel:x:97:
+users:x:999:
+nogroup:x:65534:</code>
+EOF</kbd></pre>
+      <p>
+        The created groups are not part of any standard—they are groups
+        decided on in part by the requirements of the Udev configuration in
+        Chapter 9, and in part by common conventions employed by a number of
+        existing Linux distributions. In addition, some test suites rely on
+        specific users or groups. The Linux Standard Base (LSB, available at
+        <a class="ulink" href=
+        "https://refspecs.linuxfoundation.org/lsb.shtml">https://refspecs.linuxfoundation.org/lsb.shtml</a>)
+        only recommends that, besides the group <code class=
+        "systemitem">root</code> with a Group ID (GID) of 0, a group
+        <code class="systemitem">bin</code> with a GID of 1 be present. The
+        GID of 5 is widely used for the <code class="systemitem">tty</code>
+        group, and the number 5 is also used in <span class=
+        "phrase">systemd</span> for the <code class=
+        "systemitem">devpts</code> filesystem. All other group names and GIDs
+        can be chosen freely by the system administrator since well-written
+        programs do not depend on GID numbers, but rather use the group's
+        name.
+      </p>
+      <p>
+        The ID 65534 is used by the kernel for NFS and separate user
+        namespaces for unmapped users and groups (those exist on the NFS
+        server or the parent user namespace, but <span class=
+        "quote">“<span class="quote">do not exist</span>”</span> on the local
+        machine or in the separate namespace). We assign <code class=
+        "systemitem">nobody</code> and <code class=
+        "systemitem">nogroup</code> to avoid an unnamed ID. But other distros
+        may treat this ID differently, so any portable program should not
+        depend on this assignment.
+      </p>
+      <p>
+        Some tests in <a class="xref" href="../chapter08/chapter08.html"
+        title=
+        "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Chapter&nbsp;8</a>
+        need a regular user. We add this user here and delete this account at
+        the end of that chapter.
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">echo "tester:x:101:101::/home/tester:/bin/bash" &gt;&gt; /etc/passwd
+echo "tester:x:101:" &gt;&gt; /etc/group
+install -o tester -d /home/tester</kbd></pre>
+      <p>
+        To remove the <span class="quote">“<span class="quote">I have no
+        name!</span>”</span> prompt, start a new shell. Since the
+        <code class="filename">/etc/passwd</code> and <code class=
+        "filename">/etc/group</code> files have been created, user name and
+        group name resolution will now work:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">exec /usr/bin/bash --login</kbd></pre>
+      <p>
+        The <span class="command"><strong>login</strong></span>, <span class=
+        "command"><strong>agetty</strong></span>, and <span class=
+        "command"><strong>init</strong></span> programs (and others) use a
+        number of log files to record information such as who was logged into
+        the system and when. However, these programs will not write to the
+        log files if they do not already exist. Initialize the log files and
+        give them proper permissions:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">touch /var/log/{btmp,lastlog,faillog,wtmp}
+chgrp -v utmp /var/log/lastlog
+chmod -v 664  /var/log/lastlog
+chmod -v 600  /var/log/btmp</kbd></pre>
+      <p>
+        The <code class="filename">/var/log/wtmp</code> file records all
+        logins and logouts. The <code class=
+        "filename">/var/log/lastlog</code> file records when each user last
+        logged in. The <code class="filename">/var/log/faillog</code> file
+        records failed login attempts. The <code class=
+        "filename">/var/log/btmp</code> file records the bad login attempts.
+      </p>
+      <div class="admon note">
+        <img alt="[Note]" src="../images/note.png" />
+        <h3>
+          Note
+        </h3>
+        <p>
+          The <code class="filename">wtmp</code>, <code class=
+          "filename">btmp</code>, and <code class="filename">lastlog</code>
+          files use 32-bit integers for timestamps and they'll be
+          fundamentally broken after year 2038. Many packages have stopped
+          using them and other packages are going to stop using them. It is
+          probably best to consider them deprecated.
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingdirs.html" title=
+          "Creating Directories">Prev</a>
+          <p>
+            Creating Directories
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gettext.html" title=
+          "Gettext-0.22.4">Next</a>
+          <p>
+            Gettext-0.22.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional Temporary Tools">
+          Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

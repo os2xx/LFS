@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.6.&nbsp;Libstdc++ from GCC-13.2.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;5.&nbsp;Compiling a Cross-Toolchain
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="glibc.html" title="Glibc-2.39">Prev</a>
+          <p>
+            Glibc-2.39
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter06/chapter06.html" title=
+          "Cross Compiling Temporary Tools">Next</a>
+          <p>
+            Cross Compiling Temporary Tools
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapter&nbsp;5.&nbsp;Compiling a Cross-Toolchain">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-tools-libstdcpp" name="ch-tools-libstdcpp"></a>5.6. Libstdc++
+      from GCC-13.2.0
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          Libstdc++ is the standard C++ library. It is needed to compile C++
+          code (part of GCC is written in C++), but we had to defer its
+          installation when we built <a class="xref" href="gcc-pass1.html"
+          title="5.3.&nbsp;GCC-13.2.0 - Pass 1">gcc-pass1</a> because
+          Libstdc++ depends on Glibc, which was not yet available in the
+          target directory.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">0.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">1.1 GB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          5.6.1. Installation of Target Libstdc++
+        </h2>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            <span class="application">Libstdc++</span> is part of the GCC
+            sources. You should first unpack the GCC tarball and change to
+            the <code class="filename">gcc-13.2.0</code> directory.
+          </p>
+        </div>
+        <p>
+          Create a separate build directory for Libstdc++ and enter it:
+        </p>
+        <pre class="userinput"><kbd class="command">mkdir -v build
+cd       build</kbd></pre>
+        <p>
+          Prepare Libstdc++ for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">../libstdc++-v3/configure           \
+    --host=$LFS_TGT                 \
+    --build=$(../config.guess)      \
+    --prefix=/usr                   \
+    --disable-multilib              \
+    --disable-nls                   \
+    --disable-libstdcxx-pch         \
+    --with-gxx-include-dir=/tools/$LFS_TGT/include/c++/13.2.0</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the configure options:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--host=...</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Specifies that the cross-compiler we have just built should
+                be used instead of the one in <code class=
+                "filename">/usr/bin</code>.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-libstdcxx-pch</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This switch prevents the installation of precompiled include
+                files, which are not needed at this stage.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-gxx-include-dir=/tools/$LFS_TGT/include/c++/13.2.0</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This specifies the installation directory for include files.
+                Because Libstdc++ is the standard C++ library for LFS, this
+                directory should match the location where the C++ compiler
+                (<span class="command"><strong>$LFS_TGT-g++</strong></span>)
+                would search for the standard C++ include files. In a normal
+                build, this information is automatically passed to the
+                Libstdc++ <span class=
+                "command"><strong>configure</strong></span> options from the
+                top level directory. In our case, this information must be
+                explicitly given. The C++ compiler will prepend the sysroot
+                path <code class="filename">$LFS</code> (specified when
+                building GCC-pass1) to the include file search path, so it
+                will actually search in <code class=
+                "filename">$LFS/tools/$LFS_TGT/include/c++/13.2.0</code>. The
+                combination of the <em class=
+                "parameter"><code>DESTDIR</code></em> variable (in the
+                <span class="command"><strong>make install</strong></span>
+                command below) and this switch causes the headers to be
+                installed there.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compile Libstdc++ by running:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Install the library:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make DESTDIR=$LFS install</kbd></pre>
+        <p>
+          Remove the libtool archive files because they are harmful for
+          cross-compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">rm -v $LFS/usr/lib/lib{stdc++{,exp,fs},supc++}.la</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <p>
+          Details on this package are located in <a class="xref" href=
+          "../chapter08/gcc.html#contents-gcc" title=
+          "8.28.2.&nbsp;Contents of GCC">Section&nbsp;8.28.2, “Contents of
+          GCC.”</a>
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="glibc.html" title="Glibc-2.39">Prev</a>
+          <p>
+            Glibc-2.39
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter06/chapter06.html" title=
+          "Cross Compiling Temporary Tools">Next</a>
+          <p>
+            Cross Compiling Temporary Tools
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapter&nbsp;5.&nbsp;Compiling a Cross-Toolchain">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

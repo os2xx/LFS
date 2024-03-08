@@ -1,0 +1,603 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.63.&nbsp;GRUB-2.12
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="groff.html" title="Groff-1.23.0">Prev</a>
+          <p>
+            Groff-1.23.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gzip.html" title="Gzip-1.13">Next</a>
+          <p>
+            Gzip-1.13
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-grub" name="ch-system-grub"></a>8.63. GRUB-2.12
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The GRUB package contains the GRand Unified Bootloader.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">0.3 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">166 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          8.63.1. Installation of GRUB
+        </h2>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            On ARM64 systems, the following instruction builds GRUB for UEFI.
+            But the built GRUB lacks some features because a few optional
+            dependencies of GRUB for UEFI is beyond the scope of LFS and not
+            installed yet.
+          </p>
+          <p>
+            If your system firmware does not support UEFI, you need to skip
+            the content of this page and try to figure out how to boot your
+            system.
+          </p>
+          <p>
+            If your system has UEFI support and you wish to boot LFS with
+            UEFI, you can skip this package in LFS, and install GRUB with
+            UEFI support (and its dependencies) by following the instructions
+            on <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/grub-efi.html">
+            the BLFS page</a> (with <em class=
+            "parameter"><code>--target=x86_64</code></em> removed).
+          </p>
+        </div>
+        <div class="admon warning">
+          <img alt="[Warning]" src="../images/warning.png" />
+          <h3>
+            Warning
+          </h3>
+          <p>
+            Unset any environment variables which may affect the build:
+          </p>
+          <pre class="userinput"><kbd class=
+          "command">unset {C,CPP,CXX,LD}FLAGS</kbd></pre>
+          <p>
+            Don't try <span class="quote">“<span class=
+            "quote">tuning</span>”</span> this package with custom
+            compilation flags. This package is a bootloader. The low-level
+            operations in the source code may be broken by aggressive
+            optimization.
+          </p>
+        </div>
+        <p>
+          Add a file missing from the release tarball:
+        </p>
+        <pre class="userinput"><kbd class="command">echo <code class=
+        "literal">depends bli part_gpt</code> &gt; grub-core/extra_deps.lst</kbd></pre>
+        <p>
+          Prepare GRUB for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr          \
+            --sysconfdir=/etc      \
+            --disable-efiemu       \
+            --disable-werror</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the new configure options:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-werror</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This allows the build to complete with warnings introduced by
+                more recent versions of Flex.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-efiemu</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This option minimizes what is built by disabling a feature
+                and eliminating some test programs not needed for LFS.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          The test suite for this packages is not recommended. Most of the
+          tests depend on packages that are not available in the limited LFS
+          environment. To run the tests anyway, run <span class=
+          "command"><strong>make check</strong></span>.
+        </p>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make install
+mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions</kbd></pre>
+        <p>
+          Making your LFS system bootable with GRUB will be discussed in
+          <a class="xref" href="../chapter10/grub.html" title=
+          "10.4.&nbsp;Using GRUB to Set Up the Boot Process">Section&nbsp;10.4,
+          “Using GRUB to Set Up the Boot Process”</a>.
+        </p>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-gRUB" name="contents-gRUB"></a>8.63.2. Contents of
+          GRUB
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed programs:</strong>
+              <span class="segbody">grub-bios-setup, grub-editenv, grub-file,
+              grub-fstest, grub-glue-efi, grub-install, grub-kbdcomp,
+              grub-macbless, grub-menulst2cfg, grub-mkconfig, grub-mkimage,
+              grub-mklayout, grub-mknetdir, grub-mkpasswd-pbkdf2,
+              grub-mkrelpath, grub-mkrescue, grub-mkstandalone,
+              grub-ofpathname, grub-probe, grub-reboot, grub-render-label,
+              grub-script-check, grub-set-default, grub-sparc64-setup, and
+              grub-syslinux2cfg</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed directories:</strong>
+              <span class="segbody">/usr/lib/grub, /etc/grub.d,
+              /usr/share/grub, and /boot/grub (when grub-install is first
+              run)</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-bios-setup" name=
+                    "grub-bios-setup"></a><span class="term"><span class=
+                    "command"><strong>grub-bios-setup</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Is a helper program for <span class=
+                    "command"><strong>grub-install</strong></span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-editenv" name="grub-editenv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-editenv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Is a tool to edit the environment block
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-file" name="grub-file"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-file</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Checks to see if the given file is of the specified type
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-fstest" name="grub-fstest"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-fstest</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Is a tool to debug the filesystem driver
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-glue-efi" name=
+                    "grub-glue-efi"></a><span class="term"><span class=
+                    "command"><strong>grub-glue-efi</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Glues 32-bit and 64-bit binaries into a single file (for
+                    Apple machines)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-install" name="grub-install"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-install</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Installs GRUB on your drive
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-kbdcomp" name="grub-kbdcomp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-kbdcomp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Is a script that converts an xkb layout into one
+                    recognized by GRUB
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-macbless" name=
+                    "grub-macbless"></a><span class="term"><span class=
+                    "command"><strong>grub-macbless</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Is the Mac-style bless for HFS or HFS+ file systems
+                    (<span class="command"><strong>bless</strong></span> is
+                    peculiar to Apple machines; it makes a device bootable)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-menulst2cfg" name=
+                    "grub-menulst2cfg"></a><span class="term"><span class=
+                    "command"><strong>grub-menulst2cfg</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Converts a GRUB Legacy <code class=
+                    "filename">menu.lst</code> into a <code class=
+                    "filename">grub.cfg</code> for use with GRUB 2
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mkconfig" name=
+                    "grub-mkconfig"></a><span class="term"><span class=
+                    "command"><strong>grub-mkconfig</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Generates a <code class="filename">grub.cfg</code> file
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mkimage" name="grub-mkimage"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-mkimage</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Makes a bootable image of GRUB
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mklayout" name=
+                    "grub-mklayout"></a><span class="term"><span class=
+                    "command"><strong>grub-mklayout</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Generates a GRUB keyboard layout file
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mknetdir" name=
+                    "grub-mknetdir"></a><span class="term"><span class=
+                    "command"><strong>grub-mknetdir</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Prepares a GRUB netboot directory
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mkpasswd-pbkdf2" name=
+                    "grub-mkpasswd-pbkdf2"></a><span class=
+                    "term"><span class="command"><strong>grub-mkpasswd-pbkdf2</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Generates an encrypted PBKDF2 password for use in the
+                    boot menu
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mkrelpath" name=
+                    "grub-mkrelpath"></a><span class="term"><span class=
+                    "command"><strong>grub-mkrelpath</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Makes a system pathname relative to its root
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mkrescue" name=
+                    "grub-mkrescue"></a><span class="term"><span class=
+                    "command"><strong>grub-mkrescue</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Makes a bootable image of GRUB suitable for a floppy
+                    disk, CDROM/DVD, or a USB drive
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mkstandalone" name=
+                    "grub-mkstandalone"></a><span class="term"><span class=
+                    "command"><strong>grub-mkstandalone</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Generates a standalone image
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-ofpathname" name=
+                    "grub-ofpathname"></a><span class="term"><span class=
+                    "command"><strong>grub-ofpathname</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Is a helper program that prints the path to a GRUB device
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-probe" name="grub-probe"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-probe</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Probes device information for a given path or device
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-reboot" name="grub-reboot"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-reboot</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Sets the default boot entry for GRUB for the next boot
+                    only
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-render-label" name=
+                    "grub-render-label"></a><span class="term"><span class=
+                    "command"><strong>grub-render-label</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Renders Apple .disk_label for Apple Macs
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-script-check" name=
+                    "grub-script-check"></a><span class="term"><span class=
+                    "command"><strong>grub-script-check</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Checks the GRUB configuration script for syntax errors
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-set-default" name=
+                    "grub-set-default"></a><span class="term"><span class=
+                    "command"><strong>grub-set-default</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Sets the default boot entry for GRUB
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-sparc64-setup" name=
+                    "grub-sparc64-setup"></a><span class="term"><span class=
+                    "command"><strong>grub-sparc64-setup</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Is a helper program for grub-setup
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-syslinux2cfg" name=
+                    "grub-syslinux2cfg"></a><span class="term"><span class=
+                    "command"><strong>grub-syslinux2cfg</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Transforms a syslinux config file into grub.cfg format
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="groff.html" title="Groff-1.23.0">Prev</a>
+          <p>
+            Groff-1.23.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gzip.html" title="Gzip-1.13">Next</a>
+          <p>
+            Gzip-1.13
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

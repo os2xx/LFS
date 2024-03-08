@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.1.&nbsp;Introduction
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter06.html" title=
+          "Cross Compiling Temporary Tools">Prev</a>
+          <p>
+            Cross Compiling Temporary Tools
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="m4.html" title="M4-1.4.19">Next</a>
+          <p>
+            M4-1.4.19
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-tools-introduction-cross" name=
+      "ch-tools-introduction-cross"></a>6.1. Introduction
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <p>
+        This chapter shows how to cross-compile basic utilities using the
+        just built cross-toolchain. Those utilities are installed into their
+        final location, but cannot be used yet. Basic tasks still rely on the
+        host's tools. Nevertheless, the installed libraries are used when
+        linking.
+      </p>
+      <p>
+        Using the utilities will be possible in the next chapter after
+        entering the <span class="quote">“<span class=
+        "quote">chroot</span>”</span> environment. But all the packages built
+        in the present chapter need to be built before we do that. Therefore
+        we cannot be independent of the host system yet.
+      </p>
+      <p>
+        Once again, let us recall that improper setting of <code class=
+        "envar">LFS</code> together with building as <code class=
+        "systemitem">root</code>, may render your computer unusable. This
+        whole chapter must be done as user <code class=
+        "systemitem">lfs</code>, with the environment as described in
+        <a class="xref" href="../chapter04/settingenvironment.html" title=
+        "4.4.&nbsp;Setting Up the Environment">Section&nbsp;4.4, “Setting Up
+        the Environment”</a>.
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter06.html" title=
+          "Cross Compiling Temporary Tools">Prev</a>
+          <p>
+            Cross Compiling Temporary Tools
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="m4.html" title="M4-1.4.19">Next</a>
+          <p>
+            M4-1.4.19
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.70.&nbsp;Tar-1.35
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="patch.html" title="Patch-2.7.6">Prev</a>
+          <p>
+            Patch-2.7.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="texinfo.html" title="Texinfo-7.1">Next</a>
+          <p>
+            Texinfo-7.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-tar" name="ch-system-tar"></a>8.70. Tar-1.35
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The Tar package provides the ability to create tar archives as well
+          as perform various other kinds of archive manipulation. Tar can be
+          used on previously created archives to extract files, to store
+          additional files, or to update or list files which were already
+          stored.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">0.5 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">43 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          8.70.1. Installation of Tar
+        </h2>
+        <p>
+          Prepare Tar for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">FORCE_UNSAFE_CONFIGURE=1  \
+./configure --prefix=/usr</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the configure option:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><code class=
+              "envar">FORCE_UNSAFE_CONFIGURE=1</code></span>
+            </dt>
+            <dd>
+              <p>
+                This forces the test for <code class="function">mknod</code>
+                to be run as <code class="systemitem">root</code>. It is
+                generally considered dangerous to run this test as the
+                <code class="systemitem">root</code> user, but as it is being
+                run on a system that has only been partially built,
+                overriding it is OK.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          To test the results, issue:
+        </p>
+        <pre class="userinput"><kbd class="command">make check</kbd></pre>
+        <p>
+          One test, capabilities: binary store/restore, is known to fail if
+          it is run because LFS lacks selinux, but will be skipped if the
+          host kernel does not support extended attributes or security labels
+          on the filesystem used for building LFS.
+        </p>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make install
+make -C doc install-html docdir=/usr/share/doc/tar-1.35</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-tar" name="contents-tar"></a>8.70.2. Contents of
+          Tar
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed programs:</strong>
+              <span class="segbody">tar</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed directory:</strong>
+              <span class="segbody">/usr/share/doc/tar-1.35</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tar" name="tar"></a><span class=
+                    "term"><span class="command"><strong>tar</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Creates, extracts files from, and lists the contents of
+                    archives, also known as tarballs
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="patch.html" title="Patch-2.7.6">Prev</a>
+          <p>
+            Patch-2.7.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="texinfo.html" title="Texinfo-7.1">Next</a>
+          <p>
+            Texinfo-7.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

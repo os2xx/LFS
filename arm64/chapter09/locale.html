@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      9.7.&nbsp;Configuring the System Locale
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;9.&nbsp;System Configuration
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="console.html" title=
+          "Configuring the Linux Console">Prev</a>
+          <p>
+            Configuring the Linux Console
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="inputrc.html" title=
+          "Creating the /etc/inputrc File">Next</a>
+          <p>
+            Creating the /etc/inputrc File
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "Chapter&nbsp;9.&nbsp;System Configuration">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-config-locale" name="ch-config-locale"></a>9.7. Configuring
+      the System Locale
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <p>
+        Some environment variables are necessary for native language support.
+        Setting them properly results in:
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              The output of programs being translated into your native
+              language
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              The correct classification of characters into letters, digits
+              and other classes. This is necessary for <span class=
+              "command"><strong>bash</strong></span> to properly accept
+              non-ASCII characters in command lines in non-English locales
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              The correct alphabetical sorting order for the country
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              The appropriate default paper size
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              The correct formatting of monetary, time, and date values
+            </p>
+          </li>
+        </ul>
+      </div>
+      <p>
+        Replace <em class="replaceable"><code>&lt;ll&gt;</code></em> below
+        with the two-letter code for your desired language (e.g.,
+        <code class="literal">en</code>) and <em class=
+        "replaceable"><code>&lt;CC&gt;</code></em> with the two-letter code
+        for the appropriate country (e.g., <code class="literal">GB</code>).
+        <em class="replaceable"><code>&lt;charmap&gt;</code></em> should be
+        replaced with the canonical charmap for your chosen locale. Optional
+        modifiers such as <code class="literal">@euro</code> may also be
+        present.
+      </p>
+      <p>
+        The list of all locales supported by Glibc can be obtained by running
+        the following command:
+      </p>
+      <pre class="userinput"><kbd class="command">locale -a</kbd></pre>
+      <p>
+        Charmaps can have a number of aliases, e.g., <code class=
+        "literal">ISO-8859-1</code> is also referred to as <code class=
+        "literal">iso8859-1</code> and <code class="literal">iso88591</code>.
+        Some applications cannot handle the various synonyms correctly (e.g.,
+        require that <code class="literal">UTF-8</code> is written as
+        <code class="literal">UTF-8</code>, not <code class=
+        "literal">utf8</code>), so it is the safest in most cases to choose
+        the canonical name for a particular locale. To determine the
+        canonical name, run the following command, where <em class=
+        "replaceable"><code>&lt;locale name&gt;</code></em> is the output
+        given by <span class="command"><strong>locale -a</strong></span> for
+        your preferred locale (<code class="literal">en_GB.iso88591</code> in
+        our example).
+      </p>
+      <pre class="userinput"><kbd class="command">LC_ALL=<em class=
+      "replaceable"><code>&lt;locale name&gt;</code></em> locale charmap</kbd></pre>
+      <p>
+        For the <code class="literal">en_GB.iso88591</code> locale, the above
+        command will print:
+      </p>
+      <pre class="screen"><code class=
+      "computeroutput">ISO-8859-1</code></pre>
+      <p>
+        This results in a final locale setting of <code class=
+        "literal">en_GB.ISO-8859-1</code>. It is important that the locale
+        found using the heuristic above is tested prior to it being added to
+        the Bash startup files:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">LC_ALL=&lt;locale name&gt; locale language
+LC_ALL=&lt;locale name&gt; locale charmap
+LC_ALL=&lt;locale name&gt; locale int_curr_symbol
+LC_ALL=&lt;locale name&gt; locale int_prefix</kbd></pre>
+      <p>
+        The above commands should print the language name, the character
+        encoding used by the locale, the local currency, and the prefix to
+        dial before the telephone number in order to get into the country. If
+        any of the commands above fail with a message similar to the one
+        shown below, this means that your locale was either not installed in
+        Chapter&nbsp;8 or is not supported by the default installation of
+        Glibc.
+      </p>
+      <pre class="screen"><code class=
+      "computeroutput">locale: Cannot set LC_* to default locale: No such file or directory</code></pre>
+      <p>
+        If this happens, you should either install the desired locale using
+        the <span class="command"><strong>localedef</strong></span> command,
+        or consider choosing a different locale. Further instructions assume
+        that there are no such error messages from Glibc.
+      </p>
+      <p>
+        Other packages can also function incorrectly (but may not necessarily
+        display any error messages) if the locale name does not meet their
+        expectations. In those cases, investigating how other Linux
+        distributions support your locale might provide some useful
+        information.
+      </p>
+      <p>
+        Once the proper locale settings have been determined, create the
+        <code class="filename">/etc/locale.conf</code> file:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; /etc/locale.conf &lt;&lt; "EOF"
+<code class="literal">LANG=<em class=
+"replaceable"><code>&lt;ll&gt;_&lt;CC&gt;.&lt;charmap&gt;&lt;@modifiers&gt;</code></em></code>
+EOF</kbd></pre>
+      <p>
+        The shell program <span class=
+        "command"><strong>/bin/bash</strong></span> (here after referred as
+        <span class="quote">“<span class="quote">the shell</span>”</span>)
+        uses a collection of startup files to help create the environment to
+        run in. Each file has a specific use and may affect login and
+        interactive environments differently. The files in the <code class=
+        "filename">/etc</code> directory provide global settings. If
+        equivalent files exist in the home directory, they may override the
+        global settings.
+      </p>
+      <p>
+        An interactive login shell is started after a successful login, using
+        <span class="command"><strong>/bin/login</strong></span>, by reading
+        the <code class="filename">/etc/passwd</code> file. An interactive
+        non-login shell is started at the command-line (e.g. <code class=
+        "prompt">[prompt]$</code><span class=
+        "command"><strong>/bin/bash</strong></span>). A non-interactive shell
+        is usually present when a shell script is running. It is
+        non-interactive because it is processing a script and not waiting for
+        user input between commands.
+      </p>
+      <p>
+        <span class="phrase">The login shells are often unaffected by the
+        settings in <code class="filename">/etc/locale.conf</code>.</span>
+        Create the <code class="filename">/etc/profile</code> <span class=
+        "phrase">to read the locale settings from <code class=
+        "filename">/etc/locale.conf</code> and export them</span>, but set
+        the <code class="literal">C.UTF-8</code> locale instead if running in
+        the Linux console (to prevent programs from outputting characters
+        that the Linux console is unable to render):
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; /etc/profile &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/profile
+
+for i in $(locale); do
+  unset ${i%=*}
+done
+
+if [[ "$TERM" = linux ]]; then
+  export LANG=C.UTF-8
+else
+  source /etc/locale.conf
+
+  for i in $(locale); do
+    key=${i%=*}
+    if [[ -v $key ]]; then
+      export $key
+    fi
+  done
+fi
+
+# End /etc/profile</code>
+EOF</kbd></pre>
+      <p>
+        Note that you can modify <code class=
+        "filename">/etc/locale.conf</code> with the systemd <span class=
+        "command"><strong>localectl</strong></span> utility. To use
+        <span class="command"><strong>localectl</strong></span> for the
+        example above, run:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">localectl set-locale LANG="<em class=
+      "replaceable"><code>&lt;ll&gt;_&lt;CC&gt;.&lt;charmap&gt;&lt;@modifiers&gt;</code></em>"</kbd></pre>
+      <p>
+        You can also specify other language specific environment variables
+        such as <code class="envar">LANG</code>, <code class=
+        "envar">LC_CTYPE</code>, <code class="envar">LC_NUMERIC</code> or any
+        other environment variable from <span class=
+        "command"><strong>locale</strong></span> output. Just separate them
+        with a space. An example where <code class="envar">LANG</code> is set
+        as en_US.UTF-8 but <code class="envar">LC_CTYPE</code> is set as just
+        en_US is:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">localectl set-locale LANG="en_US.UTF-8" LC_CTYPE="en_US"</kbd></pre>
+      <div class="admon note">
+        <img alt="[Note]" src="../images/note.png" />
+        <h3>
+          Note
+        </h3>
+        <p>
+          Please note that the <span class=
+          "command"><strong>localectl</strong></span> command doesn't work in
+          the chroot environment. It can only be used after the LFS system is
+          booted with systemd.
+        </p>
+      </div>
+      <p>
+        The <code class="literal">C</code> (default) and <code class=
+        "literal">en_US</code> (the recommended one for United States English
+        users) locales are different. <code class="literal">C</code> uses the
+        US-ASCII 7-bit character set, and treats bytes with the high bit set
+        as invalid characters. That's why, e.g., the <span class=
+        "command"><strong>ls</strong></span> command substitutes them with
+        question marks in that locale. Also, an attempt to send mail with
+        such characters from Mutt or Pine results in non-RFC-conforming
+        messages being sent (the charset in the outgoing mail is indicated as
+        <code class="computeroutput">unknown 8-bit</code>). It's suggested
+        that you use the <code class="literal">C</code> locale only if you
+        are certain that you will never need 8-bit characters.
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="console.html" title=
+          "Configuring the Linux Console">Prev</a>
+          <p>
+            Configuring the Linux Console
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="inputrc.html" title=
+          "Creating the /etc/inputrc File">Next</a>
+          <p>
+            Creating the /etc/inputrc File
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "Chapter&nbsp;9.&nbsp;System Configuration">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

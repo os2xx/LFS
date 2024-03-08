@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.5.&nbsp;Glibc-2.39
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;5.&nbsp;Compiling a Cross-Toolchain
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="linux-headers.html" title=
+          "Linux-6.7.4 API Headers">Prev</a>
+          <p>
+            Linux-6.7.4 API Headers
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gcc-libstdc++.html" title=
+          "Libstdc++ from GCC-13.2.0">Next</a>
+          <p>
+            Libstdc++ from GCC-13.2.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapter&nbsp;5.&nbsp;Compiling a Cross-Toolchain">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-tools-glibc" name="ch-tools-glibc"></a>5.5. Glibc-2.39
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The Glibc package contains the main C library. This library
+          provides the basic routines for allocating memory, searching
+          directories, opening and closing files, reading and writing files,
+          string handling, pattern matching, arithmetic, and so on.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">1.5 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">846 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          5.5.1. Installation of Glibc
+        </h2>
+        <p>
+          Some of the Glibc programs use the non-FHS-compliant <code class=
+          "filename">/var/db</code> directory to store their runtime data.
+          Apply the following patch to make such programs store their runtime
+          data in the FHS-compliant locations:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">patch -Np1 -i ../glibc-2.39-fhs-1.patch</kbd></pre>
+        <p>
+          The Glibc documentation recommends building Glibc in a dedicated
+          build directory:
+        </p>
+        <pre class="userinput"><kbd class="command">mkdir -v build
+cd       build</kbd></pre>
+        <p>
+          Ensure that the <span class=
+          "command"><strong>ldconfig</strong></span> and <span class=
+          "command"><strong>sln</strong></span> utilities are installed into
+          <code class="filename">/usr/sbin</code>:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">echo "rootsbindir=/usr/sbin" &gt; configparms</kbd></pre>
+        <p>
+          Next, prepare Glibc for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">../configure                             \
+      --prefix=/usr                      \
+      --host=$LFS_TGT                    \
+      --build=$(../scripts/config.guess) \
+      --enable-kernel=4.19               \
+      --with-headers=$LFS/usr/include    \
+      --disable-nscd                     \
+      libc_cv_slibdir=/usr/lib</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the configure options:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class="parameter"><code>--host=$LFS_TGT,
+              --build=$(../scripts/config.guess)</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                The combined effect of these switches is that Glibc's build
+                system configures itself to be cross-compiled, using the
+                cross-linker and cross-compiler in <code class=
+                "filename">$LFS/tools</code>.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-kernel=4.19</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This tells Glibc to compile the library with support for 4.19
+                and later Linux kernels. Workarounds for older kernels are
+                not enabled.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-headers=$LFS/usr/include</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This tells Glibc to compile itself against the headers
+                recently installed to the $LFS/usr/include directory, so that
+                it knows exactly what features the kernel has and can
+                optimize itself accordingly.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>libc_cv_slibdir=/usr/lib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This ensures that the library is installed in /usr/lib
+                instead of the default /lib64 on 64-bit machines.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-nscd</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Do not build the name service cache daemon which is no longer
+                used.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          During this stage the following warning might appear:
+        </p>
+        <div class="blockquote">
+          <blockquote class="blockquote">
+            <pre class="screen"><code class=
+            "computeroutput">configure: WARNING:
+*** These auxiliary programs are missing or
+*** incompatible versions: msgfmt
+*** some features will be disabled.
+*** Check the INSTALL file for required versions.</code></pre>
+          </blockquote>
+        </div>
+        <p>
+          The missing or incompatible <span class=
+          "command"><strong>msgfmt</strong></span> program is generally
+          harmless. This <span class="command"><strong>msgfmt</strong></span>
+          program is part of the Gettext package, which the host distribution
+          should provide.
+        </p>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            There have been reports that this package may fail when building
+            as a <span class="quote">“<span class="quote">parallel
+            make.</span>”</span> If that occurs, rerun the make command with
+            the <code class="option">-j1</code> option.
+          </p>
+        </div>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Install the package:
+        </p>
+        <div class="admon warning">
+          <img alt="[Warning]" src="../images/warning.png" />
+          <h3>
+            Warning
+          </h3>
+          <p>
+            If <code class="envar">LFS</code> is not properly set, and
+            despite the recommendations, you are building as <code class=
+            "systemitem">root</code>, the next command will install the newly
+            built Glibc to your host system, which will almost certainly
+            render it unusable. So double-check that the environment is
+            correctly set, and that you are not <code class=
+            "systemitem">root</code>, before running the following command.
+          </p>
+        </div>
+        <pre class="userinput"><kbd class=
+        "command">make DESTDIR=$LFS install</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the <span class="command"><strong>make
+            install</strong></span> option:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>DESTDIR=$LFS</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                The <code class="envar">DESTDIR</code> make variable is used
+                by almost all packages to define the location where the
+                package should be installed. If it is not set, it defaults to
+                the root (<code class="filename">/</code>) directory. Here we
+                specify that the package is installed in <code class=
+                "filename">$LFS</code> , which will become the root directory
+                in <a class="xref" href="../chapter07/chroot.html" title=
+                "7.4.&nbsp;Entering the Chroot Environment">Section&nbsp;7.4,
+                “Entering the Chroot Environment”</a>.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Fix a hard coded path to the executable loader in the <span class=
+          "command"><strong>ldd</strong></span> script:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">sed '/RTLDLIST=/s@/usr@@g' -i $LFS/usr/bin/ldd</kbd></pre>
+        <div class="admon caution">
+          <img alt="[Caution]" src="../images/caution.png" />
+          <h3>
+            Caution
+          </h3>
+          <p>
+            At this point, it is imperative to stop and ensure that the basic
+            functions (compiling and linking) of the new toolchain are
+            working as expected. To perform a sanity check, run the following
+            commands:
+          </p>
+          <pre class="userinput"><kbd class=
+          "command">echo 'int main(){}' | $LFS_TGT-gcc -xc -
+readelf -l a.out | grep ld-linux</kbd></pre>
+          <p>
+            If everything is working correctly, there should be no errors,
+            and the output of the last command will be of the form:
+          </p>
+          <pre class="screen"><code class=
+          "computeroutput">[Requesting program interpreter: /lib/ld-linux-aarch64.so.1]</code></pre>
+          <p>
+            Note that for big-endian machines, the interpreter name will be
+            <code class="filename">/lib/ld-linux-aarch64_be.so.1</code>.
+          </p>
+          <p>
+            If the output is not as shown above, or there is no output at
+            all, then something is wrong. Investigate and retrace the steps
+            to find out where the problem is and correct it. This issue must
+            be resolved before continuing.
+          </p>
+          <p>
+            Once all is well, clean up the test file:
+          </p>
+          <pre class="userinput"><kbd class="command">rm -v a.out</kbd></pre>
+        </div>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            Building the packages in the next chapter will serve as an
+            additional check that the toolchain has been built properly. If
+            some package, especially Binutils-pass2 or GCC-pass2, fails to
+            build, it is an indication that something has gone wrong with the
+            preceding Binutils, GCC, or Glibc installations.
+          </p>
+        </div>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <p>
+          Details on this package are located in <a class="xref" href=
+          "../chapter08/glibc.html#contents-glibc" title=
+          "8.5.3.&nbsp;Contents of Glibc">Section&nbsp;8.5.3, “Contents of
+          Glibc.”</a>
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="linux-headers.html" title=
+          "Linux-6.7.4 API Headers">Prev</a>
+          <p>
+            Linux-6.7.4 API Headers
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gcc-libstdc++.html" title=
+          "Libstdc++ from GCC-13.2.0">Next</a>
+          <p>
+            Libstdc++ from GCC-13.2.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapter&nbsp;5.&nbsp;Compiling a Cross-Toolchain">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

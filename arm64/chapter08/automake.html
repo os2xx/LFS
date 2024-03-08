@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.46.&nbsp;Automake-1.16.5
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="autoconf.html" title=
+          "Autoconf-2.72">Prev</a>
+          <p>
+            Autoconf-2.72
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="openssl.html" title="OpenSSL-3.2.1">Next</a>
+          <p>
+            OpenSSL-3.2.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-automake" name="ch-system-automake"></a>8.46.
+      Automake-1.16.5
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The Automake package contains programs for generating Makefiles for
+          use with Autoconf.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">less than 0.1 SBU (about 1.6 SBU with
+              tests)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">115 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          8.46.1. Installation of Automake
+        </h2>
+        <p>
+          Prepare Automake for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr --docdir=/usr/share/doc/automake-1.16.5</kbd></pre>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Using four parallel jobs speeds up the tests, even on systems with
+          less logical cores, due to internal delays in individual tests. To
+          test the results, issue:
+        </p>
+        <pre class="userinput"><kbd class="command">make <em class=
+        "replaceable"><code>-j$(($(nproc)&gt;4?$(nproc):4))</code></em> check</kbd></pre>
+        <p>
+          Replace <em class="replaceable"><code>$((...))</code></em> with the
+          number of logical cores you want to use if you don't want to use
+          all.
+        </p>
+        <p>
+          The test t/subobj.sh is known to fail.
+        </p>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-automake" name="contents-automake"></a>8.46.2.
+          Contents of Automake
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed programs:</strong>
+              <span class="segbody">aclocal, aclocal-1.16 (hard linked with
+              aclocal), automake, and automake-1.16 (hard linked with
+              automake)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed directories:</strong>
+              <span class="segbody">/usr/share/aclocal-1.16,
+              /usr/share/automake-1.16, and
+              /usr/share/doc/automake-1.16.5</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="aclocal" name="aclocal"></a><span class=
+                    "term"><span class=
+                    "command"><strong>aclocal</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Generates <code class="filename">aclocal.m4</code> files
+                    based on the contents of <code class=
+                    "filename">configure.in</code> files
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="aclocalversion" name=
+                    "aclocalversion"></a><span class="term"><span class=
+                    "command"><strong>aclocal-1.16</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    A hard link to <span class=
+                    "command"><strong>aclocal</strong></span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="automake" name="automake"></a><span class=
+                    "term"><span class=
+                    "command"><strong>automake</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    A tool for automatically generating <code class=
+                    "filename">Makefile.in</code> files from <code class=
+                    "filename">Makefile.am</code> files [To create all the
+                    <code class="filename">Makefile.in</code> files for a
+                    package, run this program in the top-level directory. By
+                    scanning the <code class="filename">configure.in</code>
+                    file, it automatically finds each appropriate
+                    <code class="filename">Makefile.am</code> file and
+                    generates the corresponding <code class=
+                    "filename">Makefile.in</code> file.]
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="automake-version" name=
+                    "automake-version"></a><span class="term"><span class=
+                    "command"><strong>automake-1.16</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    A hard link to <span class=
+                    "command"><strong>automake</strong></span>
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="autoconf.html" title=
+          "Autoconf-2.72">Prev</a>
+          <p>
+            Autoconf-2.72
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="openssl.html" title="OpenSSL-3.2.1">Next</a>
+          <p>
+            OpenSSL-3.2.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

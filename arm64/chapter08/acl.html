@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.24.&nbsp;Acl-2.3.2
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="attr.html" title="Attr-2.5.2">Prev</a>
+          <p>
+            Attr-2.5.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="libcap.html" title="Libcap-2.69">Next</a>
+          <p>
+            Libcap-2.69
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-acl" name="ch-system-acl"></a>8.24. Acl-2.3.2
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The Acl package contains utilities to administer Access Control
+          Lists, which are used to define fine-grained discretionary access
+          rights for files and directories.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">less than 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">6.3 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          8.24.1. Installation of Acl
+        </h2>
+        <p>
+          Prepare Acl for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr         \
+            --disable-static      \
+            --docdir=/usr/share/doc/acl-2.3.2</kbd></pre>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          The Acl tests must be run on a filesystem that supports access
+          controls, but not until the <span class=
+          "application">Coreutils</span> package has been built, using the
+          <span class="application">Acl</span> libraries. If desired, return
+          to this package and run <span class="command"><strong>make
+          check</strong></span> after the <span class=
+          "application">Coreutils</span> package has been built.
+        </p>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-acl" name="contents-acl"></a>8.24.2. Contents of
+          Acl
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed programs:</strong>
+              <span class="segbody">chacl, getfacl, and setfacl</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed library:</strong>
+              <span class="segbody">libacl.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed directories:</strong>
+              <span class="segbody">/usr/include/acl and
+              /usr/share/doc/acl-2.3.2</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chacl" name="chacl"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chacl</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Changes the access control list of a file or directory
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="getfacl" name="getfacl"></a><span class=
+                    "term"><span class=
+                    "command"><strong>getfacl</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Gets file access control lists
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="setfacl" name="setfacl"></a><span class=
+                    "term"><span class=
+                    "command"><strong>setfacl</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Sets file access control lists
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libacl" name="libacl"></a><span class=
+                    "term"><code class="filename">libacl</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Contains the library functions for manipulating Access
+                    Control Lists
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="attr.html" title="Attr-2.5.2">Prev</a>
+          <p>
+            Attr-2.5.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="libcap.html" title="Libcap-2.69">Next</a>
+          <p>
+            Libcap-2.69
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

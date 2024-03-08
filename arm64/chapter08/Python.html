@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.51.&nbsp;Python-3.12.2
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="libffi.html" title="Libffi-3.4.4">Prev</a>
+          <p>
+            Libffi-3.4.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="flit-core.html" title=
+          "Flit-Core-3.9.0">Next</a>
+          <p>
+            Flit-Core-3.9.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-Python" name="ch-system-Python"></a>8.51.
+      Python-3.12.2
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The Python 3 package contains the Python development environment.
+          It is useful for object-oriented programming, writing scripts,
+          prototyping large programs, and developing entire applications.
+          Python is an interpreted computer language.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">1.8 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">485 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          8.51.1. Installation of Python 3
+        </h2>
+        <p>
+          Prepare Python for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr        \
+            --enable-shared      \
+            --with-system-expat  \
+            --enable-optimizations</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the configure options:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-system-expat</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This switch enables linking against the system version of
+                <span class="application">Expat</span>.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-optimizations</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This switch enables extensive, but time-consuming,
+                optimization steps. The interpreter is built twice; tests
+                performed on the first build are used to improve the
+                optimized final version.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Running the tests at this point is not recommended. The tests are
+          known to hang indefinitely in the partial LFS environment. If
+          desired, the tests can be rerun at the end of this chapter, or when
+          Python 3 is reinstalled in BLFS. To run the tests anyway, issue
+          <span class="command"><strong>make test</strong></span>.
+        </p>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+        <p>
+          We use the <span class="command"><strong>pip3</strong></span>
+          command to install Python 3 programs and modules for all users as
+          <code class="systemitem">root</code> in several places in this
+          book. This conflicts with the Python developers' recommendation: to
+          install packages into a virtual environment, or into the home
+          directory of a regular user (by running <span class=
+          "command"><strong>pip3</strong></span> as this user). A multi-line
+          warning is triggered whenever <span class=
+          "command"><strong>pip3</strong></span> is issued by the
+          <code class="systemitem">root</code> user.
+        </p>
+        <p>
+          The main reason for the recommendation is to avoid conflicts with
+          the system's package manager (<span class=
+          "command"><strong>dpkg</strong></span>, for example). LFS does not
+          have a system-wide package manager, so this is not a problem. Also,
+          <span class="command"><strong>pip3</strong></span> will check for a
+          new version of itself whenever it's run. Since domain name
+          resolution is not yet configured in the LFS chroot environment,
+          <span class="command"><strong>pip3</strong></span> cannot check for
+          a new version of itself, and will produce a warning.
+        </p>
+        <p>
+          After we boot the LFS system and set up a network connection, a
+          different warning will be issued, telling the user to update
+          <span class="command"><strong>pip3</strong></span> from a pre-built
+          wheel on PyPI (whenever a new version is available). But LFS
+          considers <span class="command"><strong>pip3</strong></span> to be
+          a part of Python 3, so it should not be updated separately. Also,
+          an update from a pre-built wheel would deviate from our objective:
+          to build a Linux system from source code. So the warning about a
+          new version of <span class="command"><strong>pip3</strong></span>
+          should be ignored as well. If you wish, you can suppress all these
+          warnings by running the following command, which creates a
+          configuration file:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">cat &gt; /etc/pip.conf &lt;&lt; EOF
+<code class="literal">[global]
+root-user-action = ignore
+disable-pip-version-check = true</code>
+EOF
+</kbd></pre>
+        <div class="admon important">
+          <img alt="[Important]" src="../images/important.png" />
+          <h3>
+            Important
+          </h3>
+          <p>
+            In LFS and BLFS we normally build and install Python modules with
+            the <span class="command"><strong>pip3</strong></span> command.
+            Please be sure that the <span class="command"><strong>pip3
+            install</strong></span> commands in both books are run as the
+            <code class="systemitem">root</code> user (unless it's for a
+            Python virtual environment). Running <span class=
+            "command"><strong>pip3 install</strong></span> as a
+            non-<code class="systemitem">root</code> user may seem to work,
+            but it will cause the installed module to be inaccessible by
+            other users.
+          </p>
+          <p>
+            <span class="command"><strong>pip3 install</strong></span> will
+            not reinstall an already installed module automatically. When
+            using the <span class="command"><strong>pip3
+            install</strong></span> command to upgrade a module (for example,
+            from meson-0.61.3 to meson-0.62.0), insert the option <em class=
+            "parameter"><code>--upgrade</code></em> into the command line. If
+            it's really necessary to downgrade a module, or reinstall the
+            same version for some reason, insert <em class=
+            "parameter"><code>--force-reinstall --no-deps</code></em> into
+            the command line.
+          </p>
+        </div>
+        <p>
+          If desired, install the preformatted documentation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">install -v -dm755 /usr/share/doc/python-3.12.2/html
+
+tar --no-same-owner \
+    -xvf ../python-3.12.2-docs-html.tar.bz2
+cp -R --no-preserve=mode python-3.12.2-docs-html/* \
+    /usr/share/doc/python-3.12.2/html</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the documentation install
+            commands:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><code class="option">--no-same-owner</code>
+              (tar) and <code class="option">--no-preserve=mode</code>
+              (cp)</span>
+            </dt>
+            <dd>
+              <p>
+                Ensure the installed files have the correct ownership and
+                permissions. Without these options, <span class=
+                "application">tar</span> will install the package files with
+                the upstream creator's values and files would have
+                restrictive permissions.
+              </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-python" name="contents-python"></a>8.51.2. Contents
+          of Python 3
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed programs:</strong>
+              <span class="segbody">2to3, idle3, pip3, pydoc3, python3, and
+              python3-config</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed library:</strong>
+              <span class="segbody">libpython3.12.so and libpython3.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed directories:</strong>
+              <span class="segbody">/usr/include/python3.12,
+              /usr/lib/python3, and /usr/share/doc/python-3.12.2</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="python-2to3" name="python-2to3"></a><span class=
+                    "term"><span class=
+                    "command"><strong>2to3</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is a <span class="application">Python</span> program that
+                    reads <span class="application">Python 2.x</span> source
+                    code and applies a series of fixes to transform it into
+                    valid <span class="application">Python 3.x</span> code
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="idle3" name="idle3"></a><span class=
+                    "term"><span class=
+                    "command"><strong>idle3</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is a wrapper script that opens a <span class=
+                    "application">Python</span> aware GUI editor. For this
+                    script to run, you must have installed <span class=
+                    "application">Tk</span> before Python, so that the
+                    Tkinter Python module is built.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pip3" name="pip3"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pip3</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The package installer for Python. You can use pip to
+                    install packages from Python Package Index and other
+                    indexes.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pydoc3" name="pydoc3"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pydoc3</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is the <span class="application">Python</span>
+                    documentation tool
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="python3" name="python3"></a><span class=
+                    "term"><span class=
+                    "command"><strong>python3</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is the interpreter for Python, an interpreted,
+                    interactive, object-oriented programming language
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="libffi.html" title="Libffi-3.4.4">Prev</a>
+          <p>
+            Libffi-3.4.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="flit-core.html" title=
+          "Flit-Core-3.9.0">Next</a>
+          <p>
+            Flit-Core-3.9.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

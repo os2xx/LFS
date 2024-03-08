@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.76.&nbsp;D-Bus-1.14.10
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="systemd.html" title="Systemd-255">Prev</a>
+          <p>
+            Systemd-255
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="man-db.html" title="Man-DB-2.12.0">Next</a>
+          <p>
+            Man-DB-2.12.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-dbus" name="ch-system-dbus"></a>8.76. D-Bus-1.14.10
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          D-Bus is a message bus system, a simple way for applications to
+          talk to one another. D-Bus supplies both a system daemon (for
+          events such as "new hardware device added" or "printer queue
+          changed") and a per-user-login-session daemon (for general IPC
+          needs among user applications). Also, the message bus is built on
+          top of a general one-to-one message passing framework, which can be
+          used by any two applications to communicate directly (without going
+          through the message bus daemon).
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">20 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          8.76.1. Installation of D-Bus
+        </h2>
+        <p>
+          Prepare D-Bus for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr                        \
+            --sysconfdir=/etc                    \
+            --localstatedir=/var                 \
+            --runstatedir=/run                   \
+            --enable-user-session                \
+            --disable-static                     \
+            --disable-doxygen-docs               \
+            --disable-xml-docs                   \
+            --docdir=/usr/share/doc/dbus-1.14.10 \
+            --with-system-socket=/run/dbus/system_bus_socket</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the configure options:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--runstatedir=/run</code></em> and <em class=
+              "parameter"><code>--with-system-socket=/run/dbus/system_bus_socket</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                These cause the PID file and the system bus socket to be in
+                <code class="filename">/run</code>, instead of the deprecated
+                <code class="filename">/var/run</code>.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-user-session</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This ensures the D-Bus per-user service and socket unit files
+                are installed for Systemd. They are not useful (but harmless)
+                in a base LFS installation, however they can be used once
+                systemd is rebuilt with PAM support in BLFS.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          To test the results, issue:
+        </p>
+        <pre class="userinput"><kbd class="command">make check</kbd></pre>
+        <p>
+          Many tests are disabled because they require additional packages
+          that are not included in LFS. Instructions for running the
+          comprehensive test suite can be found in <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/systemd/general/dbus.html">
+          the BLFS book</a>.
+        </p>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+        <p>
+          Create a symlink so that D-Bus and systemd can use the same
+          <code class="filename">machine-id</code> file:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">ln -sfv /etc/machine-id /var/lib/dbus</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-dbus" name="contents-dbus"></a>8.76.2. Contents of
+          D-Bus
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed programs:</strong>
+              <span class="segbody">dbus-cleanup-sockets, dbus-daemon,
+              dbus-launch, dbus-monitor, dbus-run-session, dbus-send,
+              dbus-test-tool, dbus-update-activation-environment, and
+              dbus-uuidgen</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed libraries:</strong>
+              <span class="segbody">libdbus-1.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed directories:</strong>
+              <span class="segbody">/etc/dbus-1, /usr/include/dbus-1.0,
+              /usr/lib/dbus-1.0, /usr/share/dbus-1,
+              /usr/share/doc/dbus-1.14.10, and /var/lib/dbus</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-cleanup-sockets" name=
+                    "dbus-cleanup-sockets"></a><span class=
+                    "term"><span class="command"><strong>dbus-cleanup-sockets</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is used to remove leftover sockets in a directory
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-daemon" name="dbus-daemon"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dbus-daemon</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Is the D-Bus message bus daemon
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-launch" name="dbus-launch"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dbus-launch</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Starts <span class=
+                    "command"><strong>dbus-daemon</strong></span> from a
+                    shell script
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-monitor" name="dbus-monitor"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dbus-monitor</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Monitors messages passing through a D-Bus message bus
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-run-session" name=
+                    "dbus-run-session"></a><span class="term"><span class=
+                    "command"><strong>dbus-run-session</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Starts a session bus instance of <span class=
+                    "command"><strong>dbus-daemon</strong></span> from a
+                    shell script and starts a specified program in that
+                    session
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-send" name="dbus-send"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dbus-send</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Sends a message to a D-Bus message bus
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-test-tool" name=
+                    "dbus-test-tool"></a><span class="term"><span class=
+                    "command"><strong>dbus-test-tool</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Is a tool to help packages test <span class=
+                    "application">D-Bus</span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-update-activation-environment" name=
+                    "dbus-update-activation-environment"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dbus-update-activation-environment</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Updates environment variables that will be set for
+                    <span class="application">D-Bus</span> session services
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-uuidgen" name="dbus-uuidgen"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dbus-uuidgen</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Generates a universally unique ID
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libdbus-1" name="libdbus-1"></a><span class=
+                    "term"><code class="filename">libdbus-1</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Contains API functions used to communicate with the D-Bus
+                    message bus
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="systemd.html" title="Systemd-255">Prev</a>
+          <p>
+            Systemd-255
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="man-db.html" title="Man-DB-2.12.0">Next</a>
+          <p>
+            Man-DB-2.12.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.1.&nbsp;Introduction
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional
+        Temporary Tools
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter07.html" title=
+          "Entering Chroot and Building Additional Temporary Tools">Prev</a>
+          <p>
+            Entering Chroot and Building Additional Temporary Tools
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="changingowner.html" title=
+          "Changing Ownership">Next</a>
+          <p>
+            Changing Ownership
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional Temporary Tools">
+          Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-tools-introduction-chroot" name=
+      "ch-tools-introduction-chroot"></a>7.1. Introduction
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <p>
+        This chapter shows how to build the last missing bits of the
+        temporary system: the tools needed to build the various packages. Now
+        that all circular dependencies have been resolved, a <span class=
+        "quote">“<span class="quote">chroot</span>”</span> environment,
+        completely isolated from the host operating system (except for the
+        running kernel), can be used for the build.
+      </p>
+      <p>
+        For proper operation of the isolated environment, some communication
+        with the running kernel must be established. This is done via the
+        so-called <span class="emphasis"><em>Virtual Kernel File
+        Systems</em></span>, which will be mounted before entering the chroot
+        environment. You may want to verify that they are mounted by issuing
+        the <span class="command"><strong>findmnt</strong></span> command.
+      </p>
+      <p>
+        Until <a class="xref" href="chroot.html" title=
+        "7.4.&nbsp;Entering the Chroot Environment">Section&nbsp;7.4,
+        “Entering the Chroot Environment”</a>, the commands must be run as
+        <code class="systemitem">root</code>, with the <code class=
+        "envar">LFS</code> variable set. After entering chroot, all commands
+        are run as <code class="systemitem">root</code>, fortunately without
+        access to the OS of the computer you built LFS on. Be careful anyway,
+        as it is easy to destroy the whole LFS system with bad commands.
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter07.html" title=
+          "Entering Chroot and Building Additional Temporary Tools">Prev</a>
+          <p>
+            Entering Chroot and Building Additional Temporary Tools
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="changingowner.html" title=
+          "Changing Ownership">Next</a>
+          <p>
+            Changing Ownership
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional Temporary Tools">
+          Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

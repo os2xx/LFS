@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.81.&nbsp;About Debugging Symbols
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version arm64-r12.0-319-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="e2fsprogs.html" title=
+          "E2fsprogs-1.47.0">Prev</a>
+          <p>
+            E2fsprogs-1.47.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="stripping.html" title="Stripping">Next</a>
+          <p>
+            Stripping
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-aboutdebug" name="ch-system-aboutdebug"></a>8.81.
+      About Debugging Symbols
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <p>
+        Most programs and libraries are, by default, compiled with debugging
+        symbols included (with <span class=
+        "command"><strong>gcc</strong></span>'s <em class=
+        "parameter"><code>-g</code></em> option). This means that when
+        debugging a program or library that was compiled with debugging
+        information, the debugger can provide not only memory addresses, but
+        also the names of the routines and variables.
+      </p>
+      <p>
+        The inclusion of these debugging symbols enlarges a program or
+        library significantly. Here are two examples of the amount of space
+        these symbols occupy:
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              A <span class="command"><strong>bash</strong></span> binary
+              with debugging symbols: 1200 KB
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              A <span class="command"><strong>bash</strong></span> binary
+              without debugging symbols: 480 KB (60% smaller)
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              Glibc and GCC files (<code class="filename">/lib</code> and
+              <code class="filename">/usr/lib</code>) with debugging symbols:
+              87 MB
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              Glibc and GCC files without debugging symbols: 16 MB (82%
+              smaller)
+            </p>
+          </li>
+        </ul>
+      </div>
+      <p>
+        Sizes will vary depending on which compiler and C library were used,
+        but a program that has been stripped of debugging symbols is usually
+        some 50% to 80% smaller than its unstripped counterpart. Because most
+        users will never use a debugger on their system software, a lot of
+        disk space can be regained by removing these symbols. The next
+        section shows how to strip all debugging symbols from the programs
+        and libraries.
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="e2fsprogs.html" title=
+          "E2fsprogs-1.47.0">Prev</a>
+          <p>
+            E2fsprogs-1.47.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="stripping.html" title="Stripping">Next</a>
+          <p>
+            Stripping
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
