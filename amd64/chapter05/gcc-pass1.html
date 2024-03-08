@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.3.&nbsp;GCC-13.2.0 - Pass 1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;5.&nbsp;Compiling a Cross-Toolchain
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="binutils-pass1.html" title=
+          "Binutils-2.42 - Pass 1">Prev</a>
+          <p>
+            Binutils-2.42 - Pass 1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="linux-headers.html" title=
+          "Linux-6.7.4 API Headers">Next</a>
+          <p>
+            Linux-6.7.4 API Headers
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapter&nbsp;5.&nbsp;Compiling a Cross-Toolchain">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-tools-gcc-pass1" name="ch-tools-gcc-pass1"></a>5.3.
+      GCC-13.2.0 - Pass 1
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The GCC package contains the GNU compiler collection, which
+          includes the C and C++ compilers.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">3.8 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">4.1 GB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          5.3.1. Installation of Cross GCC
+        </h2>
+        <p>
+          GCC requires the GMP, MPFR and MPC packages. As these packages may
+          not be included in your host distribution, they will be built with
+          GCC. Unpack each package into the GCC source directory and rename
+          the resulting directories so the GCC build procedures will
+          automatically use them:
+        </p>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            There are frequent misunderstandings about this chapter. The
+            procedures are the same as every other chapter, as explained
+            earlier (<a class="xref" href=
+            "../partintro/generalinstructions.html#buildinstr">Package build
+            instructions</a>). First, extract the gcc-13.2.0 tarball from the
+            sources directory, and then change to the directory created. Only
+            then should you proceed with the instructions below.
+          </p>
+        </div>
+        <pre class="userinput"><kbd class=
+        "command">tar -xf ../mpfr-4.2.1.tar.xz
+mv -v mpfr-4.2.1 mpfr
+tar -xf ../gmp-6.3.0.tar.xz
+mv -v gmp-6.3.0 gmp
+tar -xf ../mpc-1.3.1.tar.gz
+mv -v mpc-1.3.1 mpc</kbd></pre>
+        <p>
+          On x86_64 hosts, set the default directory name for 64-bit
+          libraries to <span class="quote">“<span class=
+          "quote">lib</span>”</span>:
+        </p>
+        <pre class="userinput"><kbd class="command">case $(uname -m) in
+  x86_64)
+    sed -e '/m64=/s/lib64/lib/' \
+        -i.orig gcc/config/i386/t-linux64
+ ;;
+esac</kbd></pre>
+        <p>
+          The GCC documentation recommends building GCC in a dedicated build
+          directory:
+        </p>
+        <pre class="userinput"><kbd class="command">mkdir -v build
+cd       build</kbd></pre>
+        <p>
+          Prepare GCC for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">../configure                  \
+    --target=$LFS_TGT         \
+    --prefix=$LFS/tools       \
+    --with-glibc-version=2.39 \
+    --with-sysroot=$LFS       \
+    --with-newlib             \
+    --without-headers         \
+    --enable-default-pie      \
+    --enable-default-ssp      \
+    --disable-nls             \
+    --disable-shared          \
+    --disable-multilib        \
+    --disable-threads         \
+    --disable-libatomic       \
+    --disable-libgomp         \
+    --disable-libquadmath     \
+    --disable-libssp          \
+    --disable-libvtv          \
+    --disable-libstdcxx       \
+    --enable-languages=c,c++</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the configure options:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-glibc-version=2.39</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This option specifies the version of Glibc which will be used
+                on the target. It is not relevant to the libc of the host
+                distro because everything compiled by pass1 GCC will run in
+                the chroot environment, which is isolated from libc of the
+                host distro.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-newlib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Since a working C library is not yet available, this ensures
+                that the inhibit_libc constant is defined when building
+                libgcc. This prevents the compiling of any code that requires
+                libc support.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--without-headers</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                When creating a complete cross-compiler, GCC requires
+                standard headers compatible with the target system. For our
+                purposes these headers will not be needed. This switch
+                prevents GCC from looking for them.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-default-pie and
+              --enable-default-ssp</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Those switches allow GCC to compile programs with some
+                hardening security features (more information on those in the
+                <a class="xref" href=
+                "../chapter08/gcc.html#pie-ssp-info">note on PIE and SSP</a>
+                in chapter 8) by default. The are not strictly needed at this
+                stage, since the compiler will only produce temporary
+                executables. But it is cleaner to have the temporary packages
+                be as close as possible to the final ones.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-shared</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This switch forces GCC to link its internal libraries
+                statically. We need this because the shared libraries require
+                Glibc, which is not yet installed on the target system.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-multilib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                On x86_64, LFS does not support a multilib configuration.
+                This switch is harmless for x86.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-threads, --disable-libatomic,
+              --disable-libgomp, --disable-libquadmath, --disable-libssp,
+              --disable-libvtv, --disable-libstdcxx</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                These switches disable support for threading, libatomic,
+                libgomp, libquadmath, libssp, libvtv, and the C++ standard
+                library respectively. These features may fail to compile when
+                building a cross-compiler and are not necessary for the task
+                of cross-compiling the temporary libc.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-languages=c,c++</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This option ensures that only the C and C++ compilers are
+                built. These are the only languages needed now.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compile GCC by running:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+        <p>
+          This build of GCC has installed a couple of internal system
+          headers. Normally one of them, <code class=
+          "filename">limits.h</code>, would in turn include the corresponding
+          system <code class="filename">limits.h</code> header, in this case,
+          <code class="filename">$LFS/usr/include/limits.h</code>. However,
+          at the time of this build of GCC <code class=
+          "filename">$LFS/usr/include/limits.h</code> does not exist, so the
+          internal header that has just been installed is a partial,
+          self-contained file and does not include the extended features of
+          the system header. This is adequate for building Glibc, but the
+          full internal header will be needed later. Create a full version of
+          the internal header using a command that is identical to what the
+          GCC build system does in normal circumstances:
+        </p>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            The command below shows an example of nested command substitution
+            using two methods: backquotes and a <code class=
+            "literal">$()</code> construct. It could be rewritten using the
+            same method for both substitutions, but is shown this way to
+            demonstrate how they can be mixed. Generally the <code class=
+            "literal">$()</code> method is preferred.
+          </p>
+        </div>
+        <pre class="userinput"><kbd class="command">cd ..
+cat gcc/limitx.h gcc/glimits.h gcc/limity.h &gt; \
+  `dirname $($LFS_TGT-gcc -print-libgcc-file-name)`/include/limits.h</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <p>
+          Details on this package are located in <a class="xref" href=
+          "../chapter08/gcc.html#contents-gcc" title=
+          "8.28.2.&nbsp;Contents of GCC">Section&nbsp;8.28.2, “Contents of
+          GCC.”</a>
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="binutils-pass1.html" title=
+          "Binutils-2.42 - Pass 1">Prev</a>
+          <p>
+            Binutils-2.42 - Pass 1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="linux-headers.html" title=
+          "Linux-6.7.4 API Headers">Next</a>
+          <p>
+            Linux-6.7.4 API Headers
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapter&nbsp;5.&nbsp;Compiling a Cross-Toolchain">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

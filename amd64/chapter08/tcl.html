@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.15.&nbsp;Tcl-8.6.13
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="flex.html" title="Flex-2.6.4">Prev</a>
+          <p>
+            Flex-2.6.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="expect.html" title="Expect-5.45.4">Next</a>
+          <p>
+            Expect-5.45.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-tcl" name="ch-system-tcl"></a>8.15. Tcl-8.6.13
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The <span class="application">Tcl</span> package contains the Tool
+          Command Language, a robust general-purpose scripting language. The
+          <span class="application">Expect</span> package is written in
+          <span class="application">Tcl</span> (pronounced "tickle").
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">2.7 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">89 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          8.15.1. Installation of Tcl
+        </h2>
+        <p>
+          This package and the next two (Expect and DejaGNU) are installed to
+          support running the test suites for Binutils, GCC and other
+          packages. Installing three packages for testing purposes may seem
+          excessive, but it is very reassuring, if not essential, to know
+          that the most important tools are working properly.
+        </p>
+        <p>
+          Prepare Tcl for compilation:
+        </p>
+        <pre class="userinput"><kbd class="command">SRCDIR=$(pwd)
+cd unix
+./configure --prefix=/usr           \
+            --mandir=/usr/share/man</kbd></pre>
+        <p>
+          Build the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make
+
+sed -e "s|$SRCDIR/unix|/usr/lib|" \
+    -e "s|$SRCDIR|/usr/include|"  \
+    -i tclConfig.sh
+
+sed -e "s|$SRCDIR/unix/pkgs/tdbc1.1.5|/usr/lib/tdbc1.1.5|" \
+    -e "s|$SRCDIR/pkgs/tdbc1.1.5/generic|/usr/include|"    \
+    -e "s|$SRCDIR/pkgs/tdbc1.1.5/library|/usr/lib/tcl8.6|" \
+    -e "s|$SRCDIR/pkgs/tdbc1.1.5|/usr/include|"            \
+    -i pkgs/tdbc1.1.5/tdbcConfig.sh
+
+sed -e "s|$SRCDIR/unix/pkgs/itcl4.2.3|/usr/lib/itcl4.2.3|" \
+    -e "s|$SRCDIR/pkgs/itcl4.2.3/generic|/usr/include|"    \
+    -e "s|$SRCDIR/pkgs/itcl4.2.3|/usr/include|"            \
+    -i pkgs/itcl4.2.3/itclConfig.sh
+
+unset SRCDIR</kbd></pre>
+        <p>
+          The various <span class="quote">“<span class=
+          "quote">sed</span>”</span> instructions after the <span class=
+          "quote">“<span class="quote">make</span>”</span> command remove
+          references to the build directory from the configuration files and
+          replace them with the install directory. This is not mandatory for
+          the remainder of LFS, but may be needed if a package built later
+          uses Tcl.
+        </p>
+        <p>
+          To test the results, issue:
+        </p>
+        <pre class="userinput"><kbd class="command">make test</kbd></pre>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+        <p>
+          Make the installed library writable so debugging symbols can be
+          removed later:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">chmod -v u+w /usr/lib/libtcl8.6.so</kbd></pre>
+        <p>
+          Install Tcl's headers. The next package, Expect, requires them.
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make install-private-headers</kbd></pre>
+        <p>
+          Now make a necessary symbolic link:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">ln -sfv tclsh8.6 /usr/bin/tclsh</kbd></pre>
+        <p>
+          Rename a man page that conflicts with a Perl man page:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mv /usr/share/man/man3/{Thread,Tcl_Thread}.3</kbd></pre>
+        <p>
+          Optionally, install the documentation by issuing the following
+          commands:
+        </p>
+        <pre class="userinput"><kbd class="command">cd ..
+tar -xf ../tcl8.6.13-html.tar.gz --strip-components=1
+mkdir -v -p /usr/share/doc/tcl-8.6.13
+cp -v -r  ./html/* /usr/share/doc/tcl-8.6.13</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-tcl" name="contents-tcl"></a>8.15.2. Contents of
+          Tcl
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed programs:</strong>
+              <span class="segbody">tclsh (link to tclsh8.6) and
+              tclsh8.6</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed library:</strong>
+              <span class="segbody">libtcl8.6.so and libtclstub8.6.a</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tclsh8.6" name="tclsh8.6"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tclsh8.6</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The Tcl command shell
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tclsh" name="tclsh"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tclsh</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    A link to tclsh8.6
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libtcl8.6.so" name="libtcl8.6.so"></a><span class=
+                    "term"><code class="filename">libtcl8.6.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The Tcl library
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libtclstub8.6.a" name=
+                    "libtclstub8.6.a"></a><span class="term"><code class=
+                    "filename">libtclstub8.6.a</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The Tcl Stub library
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="flex.html" title="Flex-2.6.4">Prev</a>
+          <p>
+            Flex-2.6.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="expect.html" title="Expect-5.45.4">Next</a>
+          <p>
+            Expect-5.45.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

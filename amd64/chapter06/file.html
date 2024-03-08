@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.7.&nbsp;File-5.45
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="diffutils.html" title=
+          "Diffutils-3.10">Prev</a>
+          <p>
+            Diffutils-3.10
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="findutils.html" title=
+          "Findutils-4.9.0">Next</a>
+          <p>
+            Findutils-4.9.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-tools-file" name="ch-tools-file"></a>6.7. File-5.45
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The File package contains a utility for determining the type of a
+          given file or files.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">37 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          6.7.1. Installation of File
+        </h2>
+        <p>
+          The <span class="command"><strong>file</strong></span> command on
+          the build host needs to be the same version as the one we are
+          building in order to create the signature file. Run the following
+          commands to make a temporary copy of the <span class=
+          "command"><strong>file</strong></span> command:
+        </p>
+        <pre class="userinput"><kbd class="command">mkdir build
+pushd build
+  ../configure --disable-bzlib      \
+               --disable-libseccomp \
+               --disable-xzlib      \
+               --disable-zlib
+  make
+popd</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the new configure option:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-*</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                The configuration script attempts to use some packages from
+                the host distribution if the corresponding library files
+                exist. It may cause compilation failure if a library file
+                exists, but the corresponding header files do not. These
+                options prevent using these unneeded capabilities from the
+                host.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Prepare File for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr --host=$LFS_TGT --build=$(./config.guess)</kbd></pre>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make FILE_COMPILE=$(pwd)/build/src/file</kbd></pre>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make DESTDIR=$LFS install</kbd></pre>
+        <p>
+          Remove the libtool archive file because it is harmful for cross
+          compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">rm -v $LFS/usr/lib/libmagic.la</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <p>
+          Details on this package are located in <a class="xref" href=
+          "../chapter08/file.html#contents-file" title=
+          "8.10.2.&nbsp;Contents of File">Section&nbsp;8.10.2, “Contents of
+          File.”</a>
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="diffutils.html" title=
+          "Diffutils-3.10">Prev</a>
+          <p>
+            Diffutils-3.10
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="findutils.html" title=
+          "Findutils-4.9.0">Next</a>
+          <p>
+            Findutils-4.9.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

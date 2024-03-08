@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.26.&nbsp;Libxcrypt-4.4.36
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="libcap.html" title="Libcap-2.69">Prev</a>
+          <p>
+            Libcap-2.69
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="shadow.html" title="Shadow-4.14.5">Next</a>
+          <p>
+            Shadow-4.14.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-libxcrypt" name="ch-system-libxcrypt"></a>8.26.
+      Libxcrypt-4.4.36
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The Libxcrypt package contains a modern library for one-way hashing
+          of passwords.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">15 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          8.26.1. Installation of Libxcrypt
+        </h2>
+        <p>
+          Prepare Libxcrypt for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr                \
+            --enable-hashes=strong,glibc \
+            --enable-obsolete-api=no     \
+            --disable-static             \
+            --disable-failure-tokens</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the new configure options:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-hashes=strong,glibc</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Build strong hash algorithms recommended for security use
+                cases, and the hash algorithms provided by traditional Glibc
+                <code class="systemitem">libcrypt</code> for compatibility.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-obsolete-api=no</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Disable obsolete API functions. They are not needed for a
+                modern Linux system built from source.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-failure-tokens</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Disable failure token feature. It's needed for compatibility
+                with the traditional hash libraries of some platforms, but a
+                Linux system based on Glibc does not need it.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          To test the results, issue:
+        </p>
+        <pre class="userinput"><kbd class="command">make check</kbd></pre>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            The instructions above disabled obsolete API functions since no
+            package installed by compiling from sources would link against
+            them at runtime. However, the only known binary-only applications
+            that link against these functions require ABI version 1. If you
+            must have such functions because of some binary-only application
+            or to be compliant with LSB, build the package again with the
+            following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">make distclean
+./configure --prefix=/usr                \
+            --enable-hashes=strong,glibc \
+            --enable-obsolete-api=glibc  \
+            --disable-static             \
+            --disable-failure-tokens
+make
+cp -av --remove-destination .libs/libcrypt.so.1* /usr/lib</kbd></pre>
+        </div>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-libxcrypt" name="contents-libxcrypt"></a>8.26.2.
+          Contents of Libxcrypt
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed libraries:</strong>
+              <span class="segbody">libcrypt.so</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libcrypt" name="libcrypt"></a><span class=
+                    "term"><code class="filename">libcrypt</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Contains functions to hash passwords
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="libcap.html" title="Libcap-2.69">Prev</a>
+          <p>
+            Libcap-2.69
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="shadow.html" title="Shadow-4.14.5">Next</a>
+          <p>
+            Shadow-4.14.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      11.3.&nbsp;Rebooting the System
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;11.&nbsp;The End
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="getcounted.html" title=
+          "Get Counted">Prev</a>
+          <p>
+            Get Counted
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="whatnow.html" title=
+          "Additional Resources">Next</a>
+          <p>
+            Additional Resources
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter11.html" title=
+          "Chapter&nbsp;11.&nbsp;The End">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-finish-reboot" name="ch-finish-reboot"></a>11.3. Rebooting
+      the System
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <p>
+        Now that all of the software has been installed, it is time to reboot
+        your computer. However, there are still a few things to check. Here
+        are some suggestions:
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              Install any <a class="ulink" href=
+              "https://www.linuxfromscratch.org/blfs/view/stable-systemd/postlfs/firmware.html">
+              firmware</a> needed if the kernel driver for your hardware
+              requires some firmware files to function properly.
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              Ensure a password is set for the <code class=
+              "systemitem">root</code> user.
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              A review of the following configuration files is also
+              appropriate at this point.
+            </p>
+            <div class="itemizedlist">
+              <ul>
+                <li class="listitem">
+                  <p>
+                    /etc/bashrc
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/dircolors
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/fstab
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/hosts
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/inputrc
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/profile
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/resolv.conf
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/vimrc
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /root/.bash_profile
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /root/.bashrc
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <p>
+        Now that we have said that, let's move on to booting our shiny new
+        LFS installation for the first time! <span class="emphasis"><em>First
+        exit from the chroot environment</em></span>:
+      </p>
+      <pre class="userinput"><kbd class="command">logout</kbd></pre>
+      <p>
+        Then unmount the virtual file systems:
+      </p>
+      <pre class="userinput"><kbd class="command">umount -v $LFS/dev/pts
+mountpoint -q $LFS/dev/shm &amp;&amp; umount -v $LFS/dev/shm
+umount -v $LFS/dev
+umount -v $LFS/run
+umount -v $LFS/proc
+umount -v $LFS/sys</kbd></pre>
+      <p>
+        If multiple partitions were created, unmount the other partitions
+        before unmounting the main one, like this:
+      </p>
+      <pre class="userinput"><kbd class="command">umount -v $LFS/home
+umount -v $LFS</kbd></pre>
+      <p>
+        Unmount the LFS file system itself:
+      </p>
+      <pre class="userinput"><kbd class="command">umount -v $LFS</kbd></pre>
+      <p>
+        Now, reboot the system.
+      </p>
+      <p>
+        Assuming the GRUB boot loader was set up as outlined earlier, the
+        menu is set to boot <span class="emphasis"><em>LFS
+        12.1-systemd</em></span> automatically.
+      </p>
+      <p>
+        When the reboot is complete, the LFS system is ready for use. What
+        you will see is a simple <span class="quote">“<span class=
+        "quote">login:</span> ”</span> prompt. At this point, you can proceed
+        to <a class="ulink" href=
+        "https://www.linuxfromscratch.org/blfs/view/stable-systemd/">the BLFS
+        Book</a> where you can add more software to suit your needs.
+      </p>
+      <p>
+        If your reboot is <span class="bold"><strong>not</strong></span>
+        successful, it is time to troubleshoot. For hints on solving initial
+        booting problems, see <a class="ulink" href=
+        "https://www.linuxfromscratch.org/lfs/troubleshooting.html">https://www.linuxfromscratch.org/lfs/troubleshooting.html</a>.
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="getcounted.html" title=
+          "Get Counted">Prev</a>
+          <p>
+            Get Counted
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="whatnow.html" title=
+          "Additional Resources">Next</a>
+          <p>
+            Additional Resources
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter11.html" title=
+          "Chapter&nbsp;11.&nbsp;The End">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

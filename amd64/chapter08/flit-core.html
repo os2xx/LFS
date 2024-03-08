@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.52.&nbsp;Flit-Core-3.9.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="Python.html" title="Python-3.12.2">Prev</a>
+          <p>
+            Python-3.12.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="wheel.html" title="Wheel-0.42.0">Next</a>
+          <p>
+            Wheel-0.42.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-flit-core" name="ch-system-flit-core"></a>8.52.
+      Flit-Core-3.9.0
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          Flit-core is the distribution-building parts of Flit (a packaging
+          tool for simple Python modules).
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">less than 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">1.6 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          8.52.1. Installation of Flit-Core
+        </h2>
+        <p>
+          Build the package:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD</kbd></pre>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">pip3 install --no-index --no-user --find-links dist flit_core</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the pip3 configuration options and
+            commands:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><span class=
+              "command"><strong>wheel</strong></span></span>
+            </dt>
+            <dd>
+              <p>
+                This command builds the wheel archive for this package.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class="parameter"><code>-w
+              dist</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Instructs pip to put the created wheel into the <code class=
+                "filename">dist</code> directory.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--no-cache-dir</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Prevents pip from copying the created wheel into the
+                <code class="filename">/root/.cache/pip</code> directory.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><span class=
+              "command"><strong>install</strong></span></span>
+            </dt>
+            <dd>
+              <p>
+                This command installs the package.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--no-build-isolation</code></em>, <em class=
+              "parameter"><code>--no-deps</code></em>, and <em class=
+              "parameter"><code>--no-index</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                These options prevent fetching files from the online package
+                repository (PyPI). If packages are installed in the correct
+                order, pip won't need to fetch any files in the first place;
+                these options add some safety in case of user error.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class="parameter"><code>--find-links
+              dist</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Instructs pip to search for wheel archives in the
+                <code class="filename">dist</code> directory.
+              </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-flit-core" name="contents-flit-core"></a>8.52.2.
+          Contents of Flit-Core
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed directory:</strong>
+              <span class=
+              "segbody">/usr/lib/python3.12/site-packages/flit_core and
+              /usr/lib/python3.12/site-packages/flit_core-3.9.0.dist-info</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="Python.html" title="Python-3.12.2">Prev</a>
+          <p>
+            Python-3.12.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="wheel.html" title="Wheel-0.42.0">Next</a>
+          <p>
+            Wheel-0.42.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

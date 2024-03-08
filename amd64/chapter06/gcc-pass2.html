@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.18.&nbsp;GCC-13.2.0 - Pass 2
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="binutils-pass2.html" title=
+          "Binutils-2.42 - Pass 2">Prev</a>
+          <p>
+            Binutils-2.42 - Pass 2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter07/chapter07.html" title=
+          "Entering Chroot and Building Additional Temporary Tools">Next</a>
+          <p>
+            Entering Chroot and Building Additional Temporary Tools
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-tools-gcc-pass2" name="ch-tools-gcc-pass2"></a>6.18.
+      GCC-13.2.0 - Pass 2
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The GCC package contains the GNU compiler collection, which
+          includes the C and C++ compilers.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">4.4 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">4.8 GB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          6.18.1. Installation of GCC
+        </h2>
+        <p>
+          As in the first build of GCC, the GMP, MPFR, and MPC packages are
+          required. Unpack the tarballs and move them into the required
+          directories:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">tar -xf ../mpfr-4.2.1.tar.xz
+mv -v mpfr-4.2.1 mpfr
+tar -xf ../gmp-6.3.0.tar.xz
+mv -v gmp-6.3.0 gmp
+tar -xf ../mpc-1.3.1.tar.gz
+mv -v mpc-1.3.1 mpc</kbd></pre>
+        <p>
+          If building on x86_64, change the default directory name for 64-bit
+          libraries to <span class="quote">“<span class=
+          "quote">lib</span>”</span>:
+        </p>
+        <pre class="userinput"><kbd class="command">case $(uname -m) in
+  x86_64)
+    sed -e '/m64=/s/lib64/lib/' \
+        -i.orig gcc/config/i386/t-linux64
+  ;;
+esac</kbd></pre>
+        <p>
+          Override the building rule of libgcc and libstdc++ headers, to
+          allow building these libraries with POSIX threads support:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">sed '/thread_header =/s/@.*@/gthr-posix.h/' \
+    -i libgcc/Makefile.in libstdc++-v3/include/Makefile.in</kbd></pre>
+        <p>
+          Create a separate build directory again:
+        </p>
+        <pre class="userinput"><kbd class="command">mkdir -v build
+cd       build</kbd></pre>
+        <p>
+          Before starting to build GCC, remember to unset any environment
+          variables that override the default optimization flags.
+        </p>
+        <p>
+          Now prepare GCC for compilation:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">../configure                                       \
+    --build=$(../config.guess)                     \
+    --host=$LFS_TGT                                \
+    --target=$LFS_TGT                              \
+    LDFLAGS_FOR_TARGET=-L$PWD/$LFS_TGT/libgcc      \
+    --prefix=/usr                                  \
+    --with-build-sysroot=$LFS                      \
+    --enable-default-pie                           \
+    --enable-default-ssp                           \
+    --disable-nls                                  \
+    --disable-multilib                             \
+    --disable-libatomic                            \
+    --disable-libgomp                              \
+    --disable-libquadmath                          \
+    --disable-libsanitizer                         \
+    --disable-libssp                               \
+    --disable-libvtv                               \
+    --enable-languages=c,c++</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the new configure options:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-build-sysroot=$LFS</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Normally, using <em class=
+                "parameter"><code>--host</code></em> ensures that a
+                cross-compiler is used for building GCC, and that compiler
+                knows that it has to look for headers and libraries in
+                <code class="filename">$LFS</code>. But the build system for
+                GCC uses other tools, which are not aware of this location.
+                This switch is needed so those tools will find the needed
+                files in <code class="filename">$LFS</code>, and not on the
+                host.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--target=$LFS_TGT</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                We are cross-compiling GCC, so it's impossible to build
+                target libraries (<code class="filename">libgcc</code> and
+                <code class="filename">libstdc++</code>) with the previously
+                compiled GCC binaries—those binaries won't run on the host.
+                The GCC build system will attempt to use the host's C and C++
+                compilers as a workaround by default. Building the GCC target
+                libraries with a different version of GCC is not supported,
+                so using the host's compilers may cause the build to fail.
+                This parameter ensures the libraries are built by GCC pass 1.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>LDFLAGS_FOR_TARGET=...</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Allow <code class="filename">libstdc++</code> to use the
+                shared <code class="filename">libgcc</code> being built in
+                this pass, instead of the static version that was built in
+                GCC pass 1. This is necessary to support C++ exception
+                handling.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-libsanitizer</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Disable GCC sanitizer runtime libraries. They are not needed
+                for the temporary installation. This switch is necessary to
+                build GCC without <code class="systemitem">libcrypt</code>
+                installed for the target. In <a class="xref" href=
+                "../chapter05/gcc-pass1.html" title=
+                "5.3.&nbsp;GCC-13.2.0 - Pass 1">gcc-pass1</a> it was implied
+                by <em class=
+                "parameter"><code>--disable-libstdcxx</code></em>, but now we
+                have to explicitly pass it.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make DESTDIR=$LFS install</kbd></pre>
+        <p>
+          As a finishing touch, create a utility symlink. Many programs and
+          scripts run <span class="command"><strong>cc</strong></span>
+          instead of <span class="command"><strong>gcc</strong></span>, which
+          is used to keep programs generic and therefore usable on all kinds
+          of UNIX systems where the GNU C compiler is not always installed.
+          Running <span class="command"><strong>cc</strong></span> leaves the
+          system administrator free to decide which C compiler to install:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">ln -sv gcc $LFS/usr/bin/cc</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <p>
+          Details on this package are located in <a class="xref" href=
+          "../chapter08/gcc.html#contents-gcc" title=
+          "8.28.2.&nbsp;Contents of GCC">Section&nbsp;8.28.2, “Contents of
+          GCC.”</a>
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="binutils-pass2.html" title=
+          "Binutils-2.42 - Pass 2">Prev</a>
+          <p>
+            Binutils-2.42 - Pass 2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter07/chapter07.html" title=
+          "Entering Chroot and Building Additional Temporary Tools">Next</a>
+          <p>
+            Entering Chroot and Building Additional Temporary Tools
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

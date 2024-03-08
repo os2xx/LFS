@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      4.3.&nbsp;Adding the LFS User
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;4.&nbsp;Final Preparations
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingminlayout.html" title=
+          "Creating a Limited Directory Layout in the LFS Filesystem">Prev</a>
+          <p>
+            Creating a Limited Directory Layout in the LFS Filesystem
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="settingenvironment.html" title=
+          "Setting Up the Environment">Next</a>
+          <p>
+            Setting Up the Environment
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "Chapter&nbsp;4.&nbsp;Final Preparations">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-preps-addinguser" name="ch-preps-addinguser"></a>4.3. Adding
+      the LFS User
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <p>
+        When logged in as user <code class="systemitem">root</code>, making a
+        single mistake can damage or destroy a system. Therefore, the
+        packages in the next two chapters are built as an unprivileged user.
+        You could use your own user name, but to make it easier to set up a
+        clean working environment, we will create a new user called
+        <code class="systemitem">lfs</code> as a member of a new group (also
+        named <code class="systemitem">lfs</code>) and run commands as
+        <code class="systemitem">lfs</code> during the installation process.
+        As <code class="systemitem">root</code>, issue the following commands
+        to add the new user:
+      </p>
+      <pre class="userinput"><kbd class="command">groupadd lfs
+useradd -s /bin/bash -g lfs -m -k /dev/null lfs</kbd></pre>
+      <div class="variablelist">
+        <p class="title">
+          <strong>This is what the command line options mean:</strong>
+        </p>
+        <dl class="variablelist">
+          <dt>
+            <span class="term"><em class="parameter"><code>-s
+            /bin/bash</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              This makes <span class="command"><strong>bash</strong></span>
+              the default shell for user <code class="systemitem">lfs</code>.
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code>-g
+            lfs</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              This option adds user <code class="systemitem">lfs</code> to
+              group <code class="systemitem">lfs</code>.
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class=
+            "parameter"><code>-m</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              This creates a home directory for <code class=
+              "systemitem">lfs</code>.
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code>-k
+            /dev/null</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              This parameter prevents possible copying of files from a
+              skeleton directory (the default is <code class=
+              "filename">/etc/skel</code>) by changing the input location to
+              the special null device.
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class=
+            "parameter"><code>lfs</code></em></span>
+          </dt>
+          <dd>
+            <p>
+              This is the name of the new user.
+            </p>
+          </dd>
+        </dl>
+      </div>
+      <p>
+        If you want to log in as <code class="systemitem">lfs</code> or
+        switch to <code class="systemitem">lfs</code> from a non-<code class=
+        "systemitem">root</code> user (as opposed to switching to user
+        <code class="systemitem">lfs</code> when logged in as <code class=
+        "systemitem">root</code>, which does not require the <code class=
+        "systemitem">lfs</code> user to have a password), you need to set a
+        password for <code class="systemitem">lfs</code>. Issue the following
+        command as the <code class="systemitem">root</code> user to set the
+        password:
+      </p>
+      <pre class="userinput"><kbd class="command">passwd lfs</kbd></pre>
+      <p>
+        Grant <code class="systemitem">lfs</code> full access to all the
+        directories under <code class="filename">$LFS</code> by making
+        <code class="systemitem">lfs</code> the owner:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">chown -v lfs $LFS/{usr{,/*},lib,var,etc,bin,sbin,tools}
+case $(uname -m) in
+  x86_64) chown -v lfs $LFS/lib64 ;;
+esac</kbd></pre>
+      <div class="admon note">
+        <img alt="[Note]" src="../images/note.png" />
+        <h3>
+          Note
+        </h3>
+        <p>
+          In some host systems, the following <span class=
+          "command"><strong>su</strong></span> command does not complete
+          properly and suspends the login for the <code class=
+          "systemitem">lfs</code> user to the background. If the prompt
+          "lfs:~$" does not appear immediately, entering the <span class=
+          "command"><strong>fg</strong></span> command will fix the issue.
+        </p>
+      </div>
+      <p>
+        Next, start a shell running as user <code class=
+        "systemitem">lfs</code>. This can be done by logging in as
+        <code class="systemitem">lfs</code> on a virtual console, or with the
+        following substitute/switch user command:
+      </p>
+      <pre class="userinput"><kbd class="command">su - lfs</kbd></pre>
+      <p>
+        The <span class="quote">“<span class="quote"><em class=
+        "parameter"><code>-</code></em></span>”</span> instructs <span class=
+        "command"><strong>su</strong></span> to start a login shell as
+        opposed to a non-login shell. The difference between these two types
+        of shells is described in detail in <a class="ulink" href=
+        "https://man.archlinux.org/man/bash.1">bash(1)</a> and <span class=
+        "command"><strong>info bash</strong></span>.
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingminlayout.html" title=
+          "Creating a Limited Directory Layout in the LFS Filesystem">Prev</a>
+          <p>
+            Creating a Limited Directory Layout in the LFS Filesystem
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="settingenvironment.html" title=
+          "Setting Up the Environment">Next</a>
+          <p>
+            Setting Up the Environment
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "Chapter&nbsp;4.&nbsp;Final Preparations">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

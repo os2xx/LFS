@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.4.&nbsp;Entering the Chroot Environment
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional
+        Temporary Tools
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="kernfs.html" title=
+          "Preparing Virtual Kernel File Systems">Prev</a>
+          <p>
+            Preparing Virtual Kernel File Systems
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingdirs.html" title=
+          "Creating Directories">Next</a>
+          <p>
+            Creating Directories
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional Temporary Tools">
+          Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-tools-chroot" name="ch-tools-chroot"></a>7.4. Entering the
+      Chroot Environment
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <p>
+        Now that all the packages which are required to build the rest of the
+        needed tools are on the system, it is time to enter the chroot
+        environment and finish installing the temporary tools. This
+        environment will also be used to install the final system. As user
+        <code class="systemitem">root</code>, run the following command to
+        enter the environment that is, at the moment, populated with nothing
+        but temporary tools:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">chroot "$LFS" /usr/bin/env -i   \
+    HOME=/root                  \
+    TERM="$TERM"                \
+    PS1='(lfs chroot) \u:\w\$ ' \
+    PATH=/usr/bin:/usr/sbin     \
+    MAKEFLAGS="-j<em class="replaceable"><code>$(nproc)</code></em>"      \
+    TESTSUITEFLAGS="-j<em class="replaceable"><code>$(nproc)</code></em>" \
+    /bin/bash --login</kbd></pre>
+      <p>
+        If you don't want to use all available logical cores, replace
+        <em class="replaceable"><code>$(nproc)</code></em> with the number of
+        logical cores you want to use for building packages in this chapter
+        and the following chapters. The test suites of some packages (notably
+        Autoconf, Libtool, and Tar) in <a class="xref" href=
+        "../chapter08/chapter08.html" title=
+        "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Chapter&nbsp;8</a>
+        are not affected by <code class="envar">MAKEFLAGS</code>, they use a
+        <code class="envar">TESTSUITEFLAGS</code> environment variable
+        instead. We set that here as well for running these test suites with
+        multiple cores.
+      </p>
+      <p>
+        The <em class="parameter"><code>-i</code></em> option given to the
+        <span class="command"><strong>env</strong></span> command will clear
+        all the variables in the chroot environment. After that, only the
+        <code class="envar">HOME</code>, <code class="envar">TERM</code>,
+        <code class="envar">PS1</code>, and <code class="envar">PATH</code>
+        variables are set again. The <em class=
+        "parameter"><code>TERM=$TERM</code></em> construct sets the
+        <code class="envar">TERM</code> variable inside chroot to the same
+        value as outside chroot. This variable is needed so programs like
+        <span class="command"><strong>vim</strong></span> and <span class=
+        "command"><strong>less</strong></span> can operate properly. If other
+        variables are desired, such as <code class="envar">CFLAGS</code> or
+        <code class="envar">CXXFLAGS</code>, this is a good place to set
+        them.
+      </p>
+      <p>
+        From this point on, there is no need to use the <code class=
+        "envar">LFS</code> variable any more because all work will be
+        restricted to the LFS file system; the <span class=
+        "command"><strong>chroot</strong></span> command runs the Bash shell
+        with the root (<code class="filename">/</code>) directory set to
+        <code class="filename">$LFS</code>.
+      </p>
+      <p>
+        Notice that <code class="filename">/tools/bin</code> is not in the
+        <code class="envar">PATH</code>. This means that the cross toolchain
+        will no longer be used.
+      </p>
+      <p>
+        Also note that the <span class="command"><strong>bash</strong></span>
+        prompt will say <code class="computeroutput">I have no name!</code>
+        This is normal because the <code class="filename">/etc/passwd</code>
+        file has not been created yet.
+      </p>
+      <div class="admon note">
+        <img alt="[Note]" src="../images/note.png" />
+        <h3>
+          Note
+        </h3>
+        <p>
+          It is important that all the commands throughout the remainder of
+          this chapter and the following chapters are run from within the
+          chroot environment. If you leave this environment for any reason
+          (rebooting for example), ensure that the virtual kernel filesystems
+          are mounted as explained in <a class="xref" href=
+          "kernfs.html#ch-tools-bindmount" title=
+          "7.3.1.&nbsp;Mounting and Populating /dev">Section&nbsp;7.3.1,
+          “Mounting and Populating /dev”</a> and <a class="xref" href=
+          "kernfs.html#ch-tools-kernfsmount" title=
+          "7.3.2.&nbsp;Mounting Virtual Kernel File Systems">Section&nbsp;7.3.2,
+          “Mounting Virtual Kernel File Systems”</a> and enter chroot again
+          before continuing with the installation.
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="kernfs.html" title=
+          "Preparing Virtual Kernel File Systems">Prev</a>
+          <p>
+            Preparing Virtual Kernel File Systems
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingdirs.html" title=
+          "Creating Directories">Next</a>
+          <p>
+            Creating Directories
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional Temporary Tools">
+          Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

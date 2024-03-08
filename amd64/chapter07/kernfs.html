@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.3.&nbsp;Preparing Virtual Kernel File Systems
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional
+        Temporary Tools
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="changingowner.html" title=
+          "Changing Ownership">Prev</a>
+          <p>
+            Changing Ownership
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="chroot.html" title=
+          "Entering the Chroot Environment">Next</a>
+          <p>
+            Entering the Chroot Environment
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional Temporary Tools">
+          Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-tools-kernfs" name="ch-tools-kernfs"></a>7.3. Preparing
+      Virtual Kernel File Systems
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <p>
+        Applications running in userspace utilize various file systems
+        created by the kernel to communicate with the kernel itself. These
+        file systems are virtual: no disk space is used for them. The content
+        of these file systems resides in memory. These file systems must be
+        mounted in the $LFS directory tree so the applications can find them
+        in the chroot environment.
+      </p>
+      <p>
+        Begin by creating the directories on which these virtual file systems
+        will be mounted:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">mkdir -pv $LFS/{dev,proc,sys,run}</kbd></pre>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="ch-tools-bindmount" name="ch-tools-bindmount"></a>7.3.1.
+          Mounting and Populating /dev
+        </h2>
+        <p>
+          During a normal boot of an LFS system, the kernel automatically
+          mounts the <code class="systemitem">devtmpfs</code> file system on
+          the <code class="filename">/dev</code> directory; the kernel
+          creates device nodes on that virtual file system during the boot
+          process, or when a device is first detected or accessed. The udev
+          daemon may change the ownership or permissions of the device nodes
+          created by the kernel, and create new device nodes or symlinks, to
+          ease the work of distro maintainers and system administrators. (See
+          <a class="xref" href=
+          "../chapter09/udev.html#ch-config-udev-device-node-creation" title=
+          "9.3.2.2.&nbsp;Device Node Creation">Section&nbsp;9.3.2.2, “Device
+          Node Creation”</a> for details.) If the host kernel supports
+          <code class="systemitem">devtmpfs</code>, we can simply mount a
+          <code class="systemitem">devtmpfs</code> at <code class=
+          "filename">$LFS/dev</code> and rely on the kernel to populate it.
+        </p>
+        <p>
+          But some host kernels lack <code class="systemitem">devtmpfs</code>
+          support; these host distros use different methods to create the
+          content of <code class="filename">/dev</code>. So the only
+          host-agnostic way to populate the <code class=
+          "filename">$LFS/dev</code> directory is by bind mounting the host
+          system's <code class="filename">/dev</code> directory. A bind mount
+          is a special type of mount that makes a directory subtree or a file
+          visible at some other location. Use the following command to do
+          this.
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mount -v --bind /dev $LFS/dev</kbd></pre>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="ch-tools-kernfsmount" name="ch-tools-kernfsmount"></a>7.3.2.
+          Mounting Virtual Kernel File Systems
+        </h2>
+        <p>
+          Now mount the remaining virtual kernel file systems:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mount -vt devpts devpts -o gid=5,mode=0620 $LFS/dev/pts
+mount -vt proc proc $LFS/proc
+mount -vt sysfs sysfs $LFS/sys
+mount -vt tmpfs tmpfs $LFS/run</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of the mount options for devpts:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>gid=5</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This ensures that all devpts-created device nodes are owned
+                by group ID 5. This is the ID we will use later on for the
+                <code class="systemitem">tty</code> group. We use the group
+                ID instead of a name, since the host system might use a
+                different ID for its <code class="systemitem">tty</code>
+                group.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>mode=0620</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This ensures that all devpts-created device nodes have mode
+                0620 (user readable and writable, group writable). Together
+                with the option above, this ensures that devpts will create
+                device nodes that meet the requirements of grantpt(), meaning
+                the Glibc <span class=
+                "command"><strong>pt_chown</strong></span> helper binary
+                (which is not installed by default) is not necessary.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          In some host systems, <code class="filename">/dev/shm</code> is a
+          symbolic link to a directory, typically <code class=
+          "filename">/run/shm</code>. The /run tmpfs was mounted above so in
+          this case only a directory needs to be created with the correct
+          permissions.
+        </p>
+        <p>
+          In other host systems <code class="filename">/dev/shm</code> is a
+          mount point for a tmpfs. In that case the mount of /dev above will
+          only create /dev/shm as a directory in the chroot environment. In
+          this situation we must explicitly mount a tmpfs:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">if [ -h $LFS/dev/shm ]; then
+  install -v -d -m 1777 $LFS$(realpath /dev/shm)
+else
+  mount -vt tmpfs -o nosuid,nodev tmpfs $LFS/dev/shm
+fi</kbd></pre>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="changingowner.html" title=
+          "Changing Ownership">Prev</a>
+          <p>
+            Changing Ownership
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="chroot.html" title=
+          "Entering the Chroot Environment">Next</a>
+          <p>
+            Entering the Chroot Environment
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional Temporary Tools">
+          Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

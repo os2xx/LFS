@@ -1,0 +1,731 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      Toolchain Technical Notes
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Important Preliminary Material
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title=
+          "Introduction">Prev</a>
+          <p>
+            Introduction
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="generalinstructions.html" title=
+          "General Compilation Instructions">Next</a>
+          <p>
+            General Compilation Instructions
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="partintro.html" title=
+          "Important Preliminary Material">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-tools-toolchaintechnotes" name=
+      "ch-tools-toolchaintechnotes"></a>ii. Toolchain Technical Notes
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <p>
+        This section explains some of the rationale and technical details
+        behind the overall build method. Don't try to immediately understand
+        everything in this section. Most of this information will be clearer
+        after performing an actual build. Come back and re-read this chapter
+        at any time during the build process.
+      </p>
+      <p>
+        The overall goal of <a class="xref" href=
+        "../chapter05/chapter05.html" title=
+        "Chapter&nbsp;5.&nbsp;Compiling a Cross-Toolchain">Chapter&nbsp;5</a>
+        and <a class="xref" href="../chapter06/chapter06.html" title=
+        "Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools">Chapter&nbsp;6</a>
+        is to produce a temporary area containing a set of tools that are
+        known to be good, and that are isolated from the host system. By
+        using the <span class="command"><strong>chroot</strong></span>
+        command, the compilations in the remaining chapters will be isolated
+        within that environment, ensuring a clean, trouble-free build of the
+        target LFS system. The build process has been designed to minimize
+        the risks for new readers, and to provide the most educational value
+        at the same time.
+      </p>
+      <p>
+        This build process is based on <span class=
+        "emphasis"><em>cross-compilation</em></span>. Cross-compilation is
+        normally used to build a compiler and its associated toolchain for a
+        machine different from the one that is used for the build. This is
+        not strictly necessary for LFS, since the machine where the new
+        system will run is the same as the one used for the build. But
+        cross-compilation has one great advantage: anything that is
+        cross-compiled cannot depend on the host environment.
+      </p>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="cross-compile" name="cross-compile"></a>About
+          Cross-Compilation
+        </h2>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            The LFS book is not (and does not contain) a general tutorial to
+            build a cross- (or native) toolchain. Don't use the commands in
+            the book for a cross-toolchain for some purpose other than
+            building LFS, unless you really understand what you are doing.
+          </p>
+        </div>
+        <p>
+          Cross-compilation involves some concepts that deserve a section of
+          their own. Although this section may be omitted on a first reading,
+          coming back to it later will help you gain a fuller understanding
+          of the process.
+        </p>
+        <p>
+          Let us first define some terms used in this context.
+        </p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">The build</span>
+            </dt>
+            <dd>
+              <p>
+                is the machine where we build programs. Note that this
+                machine is also referred to as the <span class=
+                "quote">“<span class="quote">host.</span>”</span>
+              </p>
+            </dd>
+            <dt>
+              <span class="term">The host</span>
+            </dt>
+            <dd>
+              <p>
+                is the machine/system where the built programs will run. Note
+                that this use of <span class="quote">“<span class=
+                "quote">host</span>”</span> is not the same as in other
+                sections.
+              </p>
+            </dd>
+            <dt>
+              <span class="term">The target</span>
+            </dt>
+            <dd>
+              <p>
+                is only used for compilers. It is the machine the compiler
+                produces code for. It may be different from both the build
+                and the host.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          As an example, let us imagine the following scenario (sometimes
+          referred to as <span class="quote">“<span class="quote">Canadian
+          Cross</span>”</span>). We have a compiler on a slow machine only,
+          let's call it machine A, and the compiler ccA. We also have a fast
+          machine (B), but no compiler for (B), and we want to produce code
+          for a third, slow machine (C). We will build a compiler for machine
+          C in three stages.
+        </p>
+        <div class="informaltable">
+          <table class="informaltable" border="1">
+            <colgroup>
+              <col align="center" />
+              <col align="center" />
+              <col align="center" />
+              <col align="center" />
+              <col align="left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="center">
+                  Stage
+                </th>
+                <th align="center">
+                  Build
+                </th>
+                <th align="center">
+                  Host
+                </th>
+                <th align="center">
+                  Target
+                </th>
+                <th align="left">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="center">
+                  1
+                </td>
+                <td align="center">
+                  A
+                </td>
+                <td align="center">
+                  A
+                </td>
+                <td align="center">
+                  B
+                </td>
+                <td align="left">
+                  Build cross-compiler cc1 using ccA on machine A.
+                </td>
+              </tr>
+              <tr>
+                <td align="center">
+                  2
+                </td>
+                <td align="center">
+                  A
+                </td>
+                <td align="center">
+                  B
+                </td>
+                <td align="center">
+                  C
+                </td>
+                <td align="left">
+                  Build cross-compiler cc2 using cc1 on machine A.
+                </td>
+              </tr>
+              <tr>
+                <td align="center">
+                  3
+                </td>
+                <td align="center">
+                  B
+                </td>
+                <td align="center">
+                  C
+                </td>
+                <td align="center">
+                  C
+                </td>
+                <td align="left">
+                  Build compiler ccC using cc2 on machine B.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Then, all the programs needed by machine C can be compiled using
+          cc2 on the fast machine B. Note that unless B can run programs
+          produced for C, there is no way to test the newly built programs
+          until machine C itself is running. For example, to run a test suite
+          on ccC, we may want to add a fourth stage:
+        </p>
+        <div class="informaltable">
+          <table class="informaltable" border="1">
+            <colgroup>
+              <col align="center" />
+              <col align="center" />
+              <col align="center" />
+              <col align="center" />
+              <col align="left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="center">
+                  Stage
+                </th>
+                <th align="center">
+                  Build
+                </th>
+                <th align="center">
+                  Host
+                </th>
+                <th align="center">
+                  Target
+                </th>
+                <th align="left">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="center">
+                  4
+                </td>
+                <td align="center">
+                  C
+                </td>
+                <td align="center">
+                  C
+                </td>
+                <td align="center">
+                  C
+                </td>
+                <td align="left">
+                  Rebuild and test ccC using ccC on machine C.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          In the example above, only cc1 and cc2 are cross-compilers, that
+          is, they produce code for a machine different from the one they are
+          run on. The other compilers ccA and ccC produce code for the
+          machine they are run on. Such compilers are called <span class=
+          "emphasis"><em>native</em></span> compilers.
+        </p>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="lfs-cross" name="lfs-cross"></a>Implementation of
+          Cross-Compilation for LFS
+        </h2>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            All the cross-compiled packages in this book use an
+            autoconf-based building system. The autoconf-based building
+            system accepts system types in the form cpu-vendor-kernel-os,
+            referred to as the system triplet. Since the vendor field is
+            often irrelevant, autoconf lets you omit it.
+          </p>
+          <p>
+            An astute reader may wonder why a <span class=
+            "quote">“<span class="quote">triplet</span>”</span> refers to a
+            four component name. The kernel field and the os field began as a
+            single <span class="quote">“<span class=
+            "quote">system</span>”</span> field. Such a three-field form is
+            still valid today for some systems, for example, <code class=
+            "literal">x86_64-unknown-freebsd</code>. But two systems can
+            share the same kernel and still be too different to use the same
+            triplet to describe them. For example, Android running on a
+            mobile phone is completely different from Ubuntu running on an
+            ARM64 server, even though they are both running on the same type
+            of CPU (ARM64) and using the same kernel (Linux).
+          </p>
+          <p>
+            Without an emulation layer, you cannot run an executable for a
+            server on a mobile phone or vice versa. So the <span class=
+            "quote">“<span class="quote">system</span>”</span> field has been
+            divided into kernel and os fields, to designate these systems
+            unambiguously. In our example, the Android system is designated
+            <code class="literal">aarch64-unknown-linux-android</code>, and
+            the Ubuntu system is designated <code class=
+            "literal">aarch64-unknown-linux-gnu</code>.
+          </p>
+          <p>
+            The word <span class="quote">“<span class=
+            "quote">triplet</span>”</span> remains embedded in the lexicon. A
+            simple way to determine your system triplet is to run the
+            <span class="command"><strong>config.guess</strong></span> script
+            that comes with the source for many packages. Unpack the binutils
+            sources, run the script <strong class=
+            "userinput"><code>./config.guess</code></strong>, and note the
+            output. For example, for a 32-bit Intel processor the output will
+            be <span class="emphasis"><em>i686-pc-linux-gnu</em></span>. On a
+            64-bit system it will be <span class=
+            "emphasis"><em>x86_64-pc-linux-gnu</em></span>. On most Linux
+            systems the even simpler <span class="command"><strong>gcc
+            -dumpmachine</strong></span> command will give you similar
+            information.
+          </p>
+          <p>
+            You should also be aware of the name of the platform's dynamic
+            linker, often referred to as the dynamic loader (not to be
+            confused with the standard linker <span class=
+            "command"><strong>ld</strong></span> that is part of binutils).
+            The dynamic linker provided by package glibc finds and loads the
+            shared libraries needed by a program, prepares the program to
+            run, and then runs it. The name of the dynamic linker for a
+            32-bit Intel machine is <code class=
+            "filename">ld-linux.so.2</code>; it's <code class=
+            "filename">ld-linux-x86-64.so.2</code> on 64-bit systems. A
+            sure-fire way to determine the name of the dynamic linker is to
+            inspect a random binary from the host system by running:
+            <strong class="userinput"><code>readelf -l &lt;name of binary&gt;
+            | grep interpreter</code></strong> and noting the output. The
+            authoritative reference covering all platforms is in the
+            <code class="filename">shlib-versions</code> file in the root of
+            the glibc source tree.
+          </p>
+        </div>
+        <p>
+          In order to fake a cross-compilation in LFS, the name of the host
+          triplet is slightly adjusted by changing the "vendor" field in the
+          <code class="envar">LFS_TGT</code> variable so it says "lfs". We
+          also use the <em class="parameter"><code>--with-sysroot</code></em>
+          option when building the cross-linker and cross-compiler, to tell
+          them where to find the needed host files. This ensures that none of
+          the other programs built in <a class="xref" href=
+          "../chapter06/chapter06.html" title=
+          "Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools">Chapter&nbsp;6</a>
+          can link to libraries on the build machine. Only two stages are
+          mandatory, plus one more for tests.
+        </p>
+        <div class="informaltable">
+          <table class="informaltable" border="1">
+            <colgroup>
+              <col align="center" />
+              <col align="center" />
+              <col align="center" />
+              <col align="center" />
+              <col align="left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th align="center">
+                  Stage
+                </th>
+                <th align="center">
+                  Build
+                </th>
+                <th align="center">
+                  Host
+                </th>
+                <th align="center">
+                  Target
+                </th>
+                <th align="left">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="center">
+                  1
+                </td>
+                <td align="center">
+                  pc
+                </td>
+                <td align="center">
+                  pc
+                </td>
+                <td align="center">
+                  lfs
+                </td>
+                <td align="left">
+                  Build cross-compiler cc1 using cc-pc on pc.
+                </td>
+              </tr>
+              <tr>
+                <td align="center">
+                  2
+                </td>
+                <td align="center">
+                  pc
+                </td>
+                <td align="center">
+                  lfs
+                </td>
+                <td align="center">
+                  lfs
+                </td>
+                <td align="left">
+                  Build compiler cc-lfs using cc1 on pc.
+                </td>
+              </tr>
+              <tr>
+                <td align="center">
+                  3
+                </td>
+                <td align="center">
+                  lfs
+                </td>
+                <td align="center">
+                  lfs
+                </td>
+                <td align="center">
+                  lfs
+                </td>
+                <td align="left">
+                  Rebuild and test cc-lfs using cc-lfs on lfs.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          In the preceding table, <span class="quote">“<span class="quote">on
+          pc</span>”</span> means the commands are run on a machine using the
+          already installed distribution. <span class="quote">“<span class=
+          "quote">On lfs</span>”</span> means the commands are run in a
+          chrooted environment.
+        </p>
+        <p>
+          This is not yet the end of the story. The C language is not merely
+          a compiler; it also defines a standard library. In this book, the
+          GNU C library, named glibc, is used (there is an alternative,
+          "musl"). This library must be compiled for the LFS machine; that
+          is, using the cross-compiler cc1. But the compiler itself uses an
+          internal library providing complex subroutines for functions not
+          available in the assembler instruction set. This internal library
+          is named libgcc, and it must be linked to the glibc library to be
+          fully functional. Furthermore, the standard library for C++
+          (libstdc++) must also be linked with glibc. The solution to this
+          chicken and egg problem is first to build a degraded cc1-based
+          libgcc, lacking some functionalities such as threads and exception
+          handling, and then to build glibc using this degraded compiler
+          (glibc itself is not degraded), and also to build libstdc++. This
+          last library will lack some of the functionality of libgcc.
+        </p>
+        <p>
+          The upshot of the preceding paragraph is that cc1 is unable to
+          build a fully functional libstdc++ with the degraded libgcc, but
+          cc1 is the only compiler available for building the C/C++ libraries
+          during stage 2. There are two reasons we don't immediately use the
+          compiler built in stage 2, cc-lfs, to build those libraries.
+        </p>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                Generally speaking, cc-lfs cannot run on pc (the host
+                system). Even though the triplets for pc and lfs are
+                compatible with each other, an executable for lfs must depend
+                on glibc-2.39; the host distro may utilize either a different
+                implementation of libc (for example, musl), or a previous
+                release of glibc (for example, glibc-2.13).
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                Even if cc-lfs can run on pc, using it on pc would create a
+                risk of linking to the pc libraries, since cc-lfs is a native
+                compiler.
+              </p>
+            </li>
+          </ul>
+        </div>
+        <p>
+          So when we build gcc stage 2, we instruct the building system to
+          rebuild libgcc and libstdc++ with cc1, but we link libstdc++ to the
+          newly rebuilt libgcc instead of the old, degraded build. This makes
+          the rebuilt libstdc++ fully functional.
+        </p>
+        <p>
+          In <a class="xref" href="../chapter08/chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Chapter&nbsp;8</a>
+          (or <span class="quote">“<span class="quote">stage
+          3</span>”</span>), all the packages needed for the LFS system are
+          built. Even if a package has already been installed into the LFS
+          system in a previous chapter, we still rebuild the package. The
+          main reason for rebuilding these packages is to make them stable:
+          if we reinstall an LFS package on a completed LFS system, the
+          reinstalled content of the package should be the same as the
+          content of the same package when first installed in <a class="xref"
+          href="../chapter08/chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Chapter&nbsp;8</a>.
+          The temporary packages installed in <a class="xref" href=
+          "../chapter06/chapter06.html" title=
+          "Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools">Chapter&nbsp;6</a>
+          or <a class="xref" href="../chapter07/chapter07.html" title=
+          "Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional Temporary Tools">
+          Chapter&nbsp;7</a> cannot satisfy this requirement, because some of
+          them are built without optional dependencies, and autoconf cannot
+          perform some feature checks in <a class="xref" href=
+          "../chapter06/chapter06.html" title=
+          "Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools">Chapter&nbsp;6</a>
+          because of cross-compilation, causing the temporary packages to
+          lack optional features, or use suboptimal code routines.
+          Additionally, a minor reason for rebuilding the packages is to run
+          the test suites.
+        </p>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="other-details" name="other-details"></a>Other Procedural
+          Details
+        </h2>
+        <p>
+          The cross-compiler will be installed in a separate <code class=
+          "filename">$LFS/tools</code> directory, since it will not be part
+          of the final system.
+        </p>
+        <p>
+          Binutils is installed first because the <span class=
+          "command"><strong>configure</strong></span> runs of both gcc and
+          glibc perform various feature tests on the assembler and linker to
+          determine which software features to enable or disable. This is
+          more important than one might realize at first. An incorrectly
+          configured gcc or glibc can result in a subtly broken toolchain,
+          where the impact of such breakage might not show up until near the
+          end of the build of an entire distribution. A test suite failure
+          will usually highlight this error before too much additional work
+          is performed.
+        </p>
+        <p>
+          Binutils installs its assembler and linker in two locations,
+          <code class="filename">$LFS/tools/bin</code> and <code class=
+          "filename">$LFS/tools/$LFS_TGT/bin</code>. The tools in one
+          location are hard linked to the other. An important facet of the
+          linker is its library search order. Detailed information can be
+          obtained from <span class="command"><strong>ld</strong></span> by
+          passing it the <em class="parameter"><code>--verbose</code></em>
+          flag. For example, <span class="command"><strong>$LFS_TGT-ld
+          --verbose | grep SEARCH</strong></span> will illustrate the current
+          search paths and their order. (Note that this example can be run as
+          shown only while logged in as user <code class=
+          "systemitem">lfs</code>. If you come back to this page later,
+          replace <span class="command"><strong>$LFS_TGT-ld</strong></span>
+          with <span class="command"><strong>ld</strong></span>).
+        </p>
+        <p>
+          The next package installed is gcc. An example of what can be seen
+          during its run of <span class=
+          "command"><strong>configure</strong></span> is:
+        </p>
+        <pre class="screen"><code class=
+        "computeroutput">checking what assembler to use... /mnt/lfs/tools/i686-lfs-linux-gnu/bin/as
+checking what linker to use... /mnt/lfs/tools/i686-lfs-linux-gnu/bin/ld</code></pre>
+        <p>
+          This is important for the reasons mentioned above. It also
+          demonstrates that gcc's configure script does not search the PATH
+          directories to find which tools to use. However, during the actual
+          operation of <span class="command"><strong>gcc</strong></span>
+          itself, the same search paths are not necessarily used. To find out
+          which standard linker <span class=
+          "command"><strong>gcc</strong></span> will use, run: <span class=
+          "command"><strong>$LFS_TGT-gcc -print-prog-name=ld</strong></span>.
+          (Again, remove the <span class=
+          "command"><strong>$LFS_TGT-</strong></span> prefix if coming back
+          to this later.)
+        </p>
+        <p>
+          Detailed information can be obtained from <span class=
+          "command"><strong>gcc</strong></span> by passing it the <em class=
+          "parameter"><code>-v</code></em> command line option while
+          compiling a program. For example, <span class=
+          "command"><strong>$LFS_TGT-gcc -v <em class=
+          "replaceable"><code>example.c</code></em></strong></span> (or
+          without <span class="command"><strong>$LFS_TGT-</strong></span> if
+          coming back later) will show detailed information about the
+          preprocessor, compilation, and assembly stages, including
+          <span class="command"><strong>gcc</strong></span>'s search paths
+          for included headers and their order.
+        </p>
+        <p>
+          Next up: sanitized Linux API headers. These allow the standard C
+          library (glibc) to interface with features that the Linux kernel
+          will provide.
+        </p>
+        <p>
+          Next comes glibc. The most important considerations for building
+          glibc are the compiler, binary tools, and kernel headers. The
+          compiler is generally not an issue since glibc will always use the
+          compiler relating to the <em class=
+          "parameter"><code>--host</code></em> parameter passed to its
+          configure script; e.g., in our case, the compiler will be
+          <span class="command"><strong>$LFS_TGT-gcc</strong></span>. The
+          binary tools and kernel headers can be a bit more complicated.
+          Therefore, we take no risks and use the available configure
+          switches to enforce the correct selections. After the run of
+          <span class="command"><strong>configure</strong></span>, check the
+          contents of the <code class="filename">config.make</code> file in
+          the <code class="filename">build</code> directory for all important
+          details. Note the use of <em class=
+          "parameter"><code>CC="$LFS_TGT-gcc"</code></em> (with <code class=
+          "envar">$LFS_TGT</code> expanded) to control which binary tools are
+          used and the use of the <em class=
+          "parameter"><code>-nostdinc</code></em> and <em class=
+          "parameter"><code>-isystem</code></em> flags to control the
+          compiler's include search path. These items highlight an important
+          aspect of the glibc package—it is very self-sufficient in terms of
+          its build machinery, and generally does not rely on toolchain
+          defaults.
+        </p>
+        <p>
+          As mentioned above, the standard C++ library is compiled next,
+          followed in <a class="xref" href="../chapter06/chapter06.html"
+          title=
+          "Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools">Chapter&nbsp;6</a>
+          by other programs that must be cross-compiled to break circular
+          dependencies at build time. The install step of all those packages
+          uses the <code class="envar">DESTDIR</code> variable to force
+          installation in the LFS filesystem.
+        </p>
+        <p>
+          At the end of <a class="xref" href="../chapter06/chapter06.html"
+          title=
+          "Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools">Chapter&nbsp;6</a>
+          the native LFS compiler is installed. First binutils-pass2 is
+          built, in the same <code class="envar">DESTDIR</code> directory as
+          the other programs, then the second pass of gcc is constructed,
+          omitting some non-critical libraries. Due to some weird logic in
+          gcc's configure script, <code class="envar">CC_FOR_TARGET</code>
+          ends up as <span class="command"><strong>cc</strong></span> when
+          the host is the same as the target, but different from the build
+          system. This is why <em class=
+          "parameter"><code>CC_FOR_TARGET=$LFS_TGT-gcc</code></em> is
+          declared explicitly as one of the configuration options.
+        </p>
+        <p>
+          Upon entering the chroot environment in <a class="xref" href=
+          "../chapter07/chapter07.html" title=
+          "Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional Temporary Tools">
+          Chapter&nbsp;7</a>, the temporary installations of programs needed
+          for the proper operation of the toolchain are performed. From this
+          point onwards, the core toolchain is self-contained and
+          self-hosted. In <a class="xref" href="../chapter08/chapter08.html"
+          title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Chapter&nbsp;8</a>,
+          final versions of all the packages needed for a fully functional
+          system are built, tested, and installed.
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title=
+          "Introduction">Prev</a>
+          <p>
+            Introduction
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="generalinstructions.html" title=
+          "General Compilation Instructions">Next</a>
+          <p>
+            General Compilation Instructions
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="partintro.html" title=
+          "Important Preliminary Material">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

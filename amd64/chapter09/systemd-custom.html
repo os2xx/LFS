@@ -1,0 +1,469 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      9.10.&nbsp;Systemd Usage and Configuration
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;9.&nbsp;System Configuration
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="etcshells.html" title=
+          "Creating the /etc/shells File">Prev</a>
+          <p>
+            Creating the /etc/shells File
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter10/chapter10.html" title=
+          "Making the LFS System Bootable">Next</a>
+          <p>
+            Making the LFS System Bootable
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "Chapter&nbsp;9.&nbsp;System Configuration">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-config-systemd-custom" name=
+      "ch-config-systemd-custom"></a>9.10. Systemd Usage and Configuration
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          9.10.1. Basic Configuration
+        </h2>
+        <p>
+          The <code class="filename">/etc/systemd/system.conf</code> file
+          contains a set of options to control basic systemd operations. The
+          default file has all entries commented out with the default
+          settings indicated. This file is where the log level may be changed
+          as well as some basic logging settings. See the <a class="ulink"
+          href=
+          "https://man.archlinux.org/man/systemd-system.conf.5">systemd-system.conf(5)</a>
+          manual page for details on each configuration option.
+        </p>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          9.10.2. Disabling Screen Clearing at Boot Time
+        </h2>
+        <p>
+          The normal behavior for systemd is to clear the screen at the end
+          of the boot sequence. If desired, this behavior may be changed by
+          running the following command:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mkdir -pv /etc/systemd/system/getty@tty1.service.d
+
+cat &gt; /etc/systemd/system/getty@tty1.service.d/noclear.conf &lt;&lt; EOF
+<code class="literal">[Service]
+TTYVTDisallocate=no</code>
+EOF</kbd></pre>
+        <p>
+          The boot messages can always be reviewed by using the
+          <strong class="userinput"><code>journalctl -b</code></strong>
+          command as the <code class="systemitem">root</code> user.
+        </p>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="systemd-no-tmpfs" name="systemd-no-tmpfs"></a>9.10.3.
+          Disabling tmpfs for /tmp
+        </h2>
+        <p>
+          By default, <code class="filename">/tmp</code> is created as a
+          tmpfs. If this is not desired, it can be overridden by executing
+          the following command:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">ln -sfv /dev/null /etc/systemd/system/tmp.mount</kbd></pre>
+        <p>
+          Alternatively, if a separate partition for <code class=
+          "filename">/tmp</code> is desired, specify that partition in a
+          <code class="filename">/etc/fstab</code> entry.
+        </p>
+        <div class="admon warning">
+          <img alt="[Warning]" src="../images/warning.png" />
+          <h3>
+            Warning
+          </h3>
+          <p>
+            Do not create the symbolic link above if a separate partition is
+            used for <code class="filename">/tmp</code>. This will prevent
+            the root file system (/) from being remounted r/w and make the
+            system unusable when booted.
+          </p>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          9.10.4. Configuring Automatic File Creation and Deletion
+        </h2>
+        <p>
+          There are several services that create or delete files or
+          directories:
+        </p>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                systemd-tmpfiles-clean.service
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                systemd-tmpfiles-setup-dev.service
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                systemd-tmpfiles-setup.service
+              </p>
+            </li>
+          </ul>
+        </div>
+        <p>
+          The system location for the configuration files is <code class=
+          "filename">/usr/lib/tmpfiles.d/*.conf</code>. The local
+          configuration files are in <code class=
+          "filename">/etc/tmpfiles.d</code>. Files in <code class=
+          "filename">/etc/tmpfiles.d</code> override files with the same name
+          in <code class="filename">/usr/lib/tmpfiles.d</code>. See <a class=
+          "ulink" href=
+          "https://man.archlinux.org/man/tmpfiles.d.5">tmpfiles.d(5)</a>
+          manual page for file format details.
+        </p>
+        <p>
+          Note that the syntax for the <code class=
+          "filename">/usr/lib/tmpfiles.d/*.conf</code> files can be
+          confusing. For example, the default deletion of files in the /tmp
+          directory is located in <code class=
+          "filename">/usr/lib/tmpfiles.d/tmp.conf</code> with the line:
+        </p>
+        <pre class="screen">q /tmp 1777 root root 10d</pre>
+        <p>
+          The type field, q, discusses creating a subvolume with quotas which
+          is really only applicable to btrfs filesystems. It references type
+          v which in turn references type d (directory). This then creates
+          the specified directory if it is not present and adjusts the
+          permissions and ownership as specified. Contents of the directory
+          will be subject to time based cleanup if the age argument is
+          specified.
+        </p>
+        <p>
+          If the default parameters are not desired, then the file should be
+          copied to <code class="filename">/etc/tmpfiles.d</code> and edited
+          as desired. For example:
+        </p>
+        <pre class="userinput"><kbd class="command">mkdir -p /etc/tmpfiles.d
+cp /usr/lib/tmpfiles.d/tmp.conf /etc/tmpfiles.d</kbd></pre>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          9.10.5. Overriding Default Services Behavior
+        </h2>
+        <p>
+          The parameters of a unit can be overridden by creating a directory
+          and a configuration file in <code class=
+          "filename">/etc/systemd/system</code>. For example:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mkdir -pv /etc/systemd/system/foobar.service.d
+
+cat &gt; /etc/systemd/system/foobar.service.d/foobar.conf &lt;&lt; EOF
+<code class="literal">[Service]
+Restart=always
+RestartSec=30</code>
+EOF</kbd></pre>
+        <p>
+          See <a class="ulink" href=
+          "https://man.archlinux.org/man/systemd.unit.5">systemd.unit(5)</a>
+          manual page for more information. After creating the configuration
+          file, run <strong class="userinput"><code>systemctl
+          daemon-reload</code></strong> and <strong class=
+          "userinput"><code>systemctl restart foobar</code></strong> to
+          activate the changes to a service.
+        </p>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          9.10.6. Debugging the Boot Sequence
+        </h2>
+        <p>
+          Rather than plain shell scripts used in SysVinit or BSD style init
+          systems, systemd uses a unified format for different types of
+          startup files (or units). The command <span class=
+          "command"><strong>systemctl</strong></span> is used to enable,
+          disable, control state, and obtain status of unit files. Here are
+          some examples of frequently used commands:
+        </p>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                <span class="command"><strong>systemctl list-units -t
+                <em class="replaceable"><code>&lt;service&gt;</code></em>
+                [--all]</strong></span>: lists loaded unit files of type
+                service.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class="command"><strong>systemctl list-units -t
+                <em class="replaceable"><code>&lt;target&gt;</code></em>
+                [--all]</strong></span>: lists loaded unit files of type
+                target.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class="command"><strong>systemctl show -p Wants
+                <em class=
+                "replaceable"><code>&lt;multi-user.target&gt;</code></em></strong></span>:
+                shows all units that depend on the multi-user target. Targets
+                are special unit files that are analogous to runlevels under
+                SysVinit.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class="command"><strong>systemctl status <em class=
+                "replaceable"><code>&lt;servicename.service&gt;</code></em></strong></span>:
+                shows the status of the servicename service. The .service
+                extension can be omitted if there are no other unit files
+                with the same name, such as .socket files (which create a
+                listening socket that provides similar functionality to
+                inetd/xinetd).
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          9.10.7. Working with the Systemd Journal
+        </h2>
+        <p>
+          Logging on a system booted with systemd is handled with
+          systemd-journald (by default), rather than a typical unix syslog
+          daemon. You can also add a normal syslog daemon and have both
+          operate side by side if desired. The systemd-journald program
+          stores journal entries in a binary format rather than a plain text
+          log file. To assist with parsing the file, the command <span class=
+          "command"><strong>journalctl</strong></span> is provided. Here are
+          some examples of frequently used commands:
+        </p>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                <span class="command"><strong>journalctl -r</strong></span>:
+                shows all contents of the journal in reverse chronological
+                order.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class="command"><strong>journalctl -u <em class=
+                "replaceable"><code>UNIT</code></em></strong></span>: shows
+                the journal entries associated with the specified UNIT file.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class="command"><strong>journalctl -b[=ID]
+                -r</strong></span>: shows the journal entries since last
+                successful boot (or for boot ID) in reverse chronological
+                order.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class="command"><strong>journalctl -f</strong></span>:
+                provides functionality similar to tail -f (follow).
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          9.10.8. Working with Core Dumps
+        </h2>
+        <p>
+          Core dumps are useful to debug crashed programs, especially when a
+          daemon process crashes. On systemd booted systems the core dumping
+          is handled by <span class=
+          "command"><strong>systemd-coredump</strong></span>. It will log the
+          core dump in the journal and store the core dump itself in
+          <code class="filename">/var/lib/systemd/coredump</code>. To
+          retrieve and process core dumps, the <span class=
+          "command"><strong>coredumpctl</strong></span> tool is provided.
+          Here are some examples of frequently used commands:
+        </p>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                <span class="command"><strong>coredumpctl -r</strong></span>:
+                lists all core dumps in reverse chronological order.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class="command"><strong>coredumpctl -1
+                info</strong></span>: shows the information from the last
+                core dump.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class="command"><strong>coredumpctl -1
+                debug</strong></span>: loads the last core dump into
+                <a class="ulink" href=
+                "https://www.linuxfromscratch.org/blfs/view/stable-systemd/general/gdb.html">
+                GDB</a>.
+              </p>
+            </li>
+          </ul>
+        </div>
+        <p>
+          Core dumps may use a lot of disk space. The maximum disk space used
+          by core dumps can be limited by creating a configuration file in
+          <code class="filename">/etc/systemd/coredump.conf.d</code>. For
+          example:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mkdir -pv /etc/systemd/coredump.conf.d
+
+cat &gt; /etc/systemd/coredump.conf.d/maxuse.conf &lt;&lt; EOF
+<code class="literal">[Coredump]
+MaxUse=5G</code>
+EOF</kbd></pre>
+        <p>
+          See the <a class="ulink" href=
+          "https://man.archlinux.org/man/systemd-coredump.8">systemd-coredump(8)</a>,
+          <a class="ulink" href=
+          "https://man.archlinux.org/man/coredumpctl.1">coredumpctl(1)</a>,
+          and <a class="ulink" href=
+          "https://man.archlinux.org/man/coredump.conf.d.5">coredump.conf.d(5)</a>
+          manual pages for more information.
+        </p>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          9.10.9. Long Running Processes
+        </h2>
+        <p>
+          Beginning with systemd-230, all user processes are killed when a
+          user session is ended, even if nohup is used, or the process uses
+          the <code class="function">daemon()</code> or <code class=
+          "function">setsid()</code> functions. This is a deliberate change
+          from a historically permissive environment to a more restrictive
+          one. The new behavior may cause issues if you depend on long
+          running programs (e.g., <span class=
+          "command"><strong>screen</strong></span> or <span class=
+          "command"><strong>tmux</strong></span>) to remain active after
+          ending your user session. There are three ways to enable lingering
+          processes to remain after a user session is ended.
+        </p>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                <span class="emphasis"><em>Enable process lingering for only
+                selected users</em></span>: Normal users have permission to
+                enable process lingering with the command <span class=
+                "command"><strong>loginctl enable-linger</strong></span> for
+                their own user. System administrators can use the same
+                command with a <em class="parameter"><code>user</code></em>
+                argument to enable for a user. That user can then use the
+                <span class="command"><strong>systemd-run</strong></span>
+                command to start long running processes. For example:
+                <span class="command"><strong>systemd-run --scope --user
+                /usr/bin/screen</strong></span>. If you enable lingering for
+                your user, the user@.service will remain even after all login
+                sessions are closed, and will automatically start at system
+                boot. This has the advantage of explicitly allowing and
+                disallowing processes to run after the user session has
+                ended, but breaks backwards compatibility with tools like
+                <span class="command"><strong>nohup</strong></span> and
+                utilities that use <code class="function">daemon()</code>.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class="emphasis"><em>Enable system-wide process
+                lingering</em></span>: You can set <em class=
+                "parameter"><code>KillUserProcesses=no</code></em> in
+                <code class="filename">/etc/systemd/logind.conf</code> to
+                enable process lingering globally for all users. This has the
+                benefit of leaving the old method available to all users at
+                the expense of explicit control.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class="emphasis"><em>Disable at build-time</em></span>:
+                You can disable lingering by default while building systemd
+                by adding the switch <em class=
+                "parameter"><code>-Ddefault-kill-user-processes=false</code></em>
+                to the <span class="command"><strong>meson</strong></span>
+                command for systemd. This completely disables the ability of
+                systemd to kill user processes at session end.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="etcshells.html" title=
+          "Creating the /etc/shells File">Prev</a>
+          <p>
+            Creating the /etc/shells File
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter10/chapter10.html" title=
+          "Making the LFS System Bootable">Next</a>
+          <p>
+            Making the LFS System Bootable
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "Chapter&nbsp;9.&nbsp;System Configuration">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

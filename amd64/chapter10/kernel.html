@@ -1,0 +1,785 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      10.3.&nbsp;Linux-6.7.4
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;10.&nbsp;Making the LFS System Bootable
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="fstab.html" title=
+          "Creating the /etc/fstab File">Prev</a>
+          <p>
+            Creating the /etc/fstab File
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="grub.html" title=
+          "Using GRUB to Set Up the Boot Process">Next</a>
+          <p>
+            Using GRUB to Set Up the Boot Process
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter10.html" title=
+          "Chapter&nbsp;10.&nbsp;Making the LFS System Bootable">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-bootable-kernel" name="ch-bootable-kernel"></a>10.3.
+      Linux-6.7.4
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The Linux package contains the Linux kernel.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">0.6 - 20.4 SBU (typically about 1.4
+              SBU)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">1.8 - 10.6 GB (typically about 2
+              GB)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          10.3.1. Installation of the kernel
+        </h2>
+        <p>
+          Building the kernel involves a few steps—configuration,
+          compilation, and installation. Read the <code class=
+          "filename">README</code> file in the kernel source tree for
+          alternative methods to the way this book configures the kernel.
+        </p>
+        <div class="admon important">
+          <img alt="[Important]" src="../images/important.png" />
+          <h3>
+            Important
+          </h3>
+          <p>
+            Building the linux kernel for the first time is one of the most
+            challenging tasks in LFS. Getting it right depends on the
+            specific hardware for the target system and your specific needs.
+            There are almost 12,000 configuration items that are available
+            for the kernel although only about a third of them are needed for
+            most computers. The LFS editors recommend that users not familiar
+            with this process follow the procedures below fairly closely. The
+            objective is to get an initial system to a point where you can
+            log in at the command line when you reboot later in <a class=
+            "xref" href="../chapter11/reboot.html" title=
+            "11.3.&nbsp;Rebooting the System">Section&nbsp;11.3, “Rebooting
+            the System”</a>. At this point optimization and customization is
+            not a goal.
+          </p>
+          <p>
+            For general information on kernel configuration see <a class=
+            "ulink" href=
+            "https://www.linuxfromscratch.org/hints/downloads/files/kernel-configuration.txt">
+            https://www.linuxfromscratch.org/hints/downloads/files/kernel-configuration.txt</a>.
+            Additional information about configuring and building the kernel
+            can be found at <a class="ulink" href=
+            "https://anduin.linuxfromscratch.org/LFS/kernel-nutshell/">https://anduin.linuxfromscratch.org/LFS/kernel-nutshell/</a>.
+            These references are a bit dated, but still give a reasonable
+            overview of the process.
+          </p>
+          <p>
+            If all else fails, you can ask for help on the <a class="ulink"
+            href="https://www.linuxfromscratch.org/mail.html">lfs-support</a>
+            mailing list. Note that subscribing is required in order for the
+            list to avoid spam.
+          </p>
+        </div>
+        <p>
+          Prepare for compilation by running the following command:
+        </p>
+        <pre class="userinput"><kbd class="command">make mrproper</kbd></pre>
+        <p>
+          This ensures that the kernel tree is absolutely clean. The kernel
+          team recommends that this command be issued prior to each kernel
+          compilation. Do not rely on the source tree being clean after
+          un-tarring.
+        </p>
+        <p>
+          There are several ways to configure the kernel options. Usually,
+          this is done through a menu-driven interface, for example:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make menuconfig</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The meaning of optional make environment
+            variables:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>LANG=&lt;host_LANG_value&gt;
+              LC_ALL=</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This establishes the locale setting to the one used on the
+                host. This may be needed for a proper menuconfig ncurses
+                interface line drawing on a UTF-8 linux text console.
+              </p>
+              <p>
+                If used, be sure to replace <em class=
+                "replaceable"><code>&lt;host_LANG_value&gt;</code></em> by
+                the value of the <code class="envar">$LANG</code> variable
+                from your host. You can alternatively use instead the host's
+                value of <code class="envar">$LC_ALL</code> or <code class=
+                "envar">$LC_CTYPE</code>.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><span class="command"><strong>make
+              menuconfig</strong></span></span>
+            </dt>
+            <dd>
+              <p>
+                This launches an ncurses menu-driven interface. For other
+                (graphical) interfaces, type <span class=
+                "command"><strong>make help</strong></span>.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            A good starting place for setting up the kernel configuration is
+            to run <span class="command"><strong>make
+            defconfig</strong></span>. This will set the base configuration
+            to a good state that takes your current system architecture into
+            account.
+          </p>
+          <p>
+            Be sure to enable/disable/set the following features or the
+            system might not work correctly or boot at all:
+          </p>
+          <pre class="screen"><span class="blue">G</span>eneral setup ---&gt;
+  [ ] <span class=
+"blue">C</span>ompile the kernel with warnings as errors                        [WERROR]
+  [ ] <span class=
+"blue">A</span>uditing support                                                   [AUDIT]
+  <span class="blue">C</span>PU/Task time and stats accounting ---&gt;
+    [*] <span class=
+"blue">P</span>ressure stall information tracking                                [PSI]
+    [ ]   <span class=
+"blue">R</span>equire boot parameter to enable pressure stall information tracking
+                                                     ...  [PSI_DEFAULT_DISABLED]
+  &lt; &gt; <span class=
+"blue">E</span>nable kernel headers through /sys/kernel/kheaders.tar.xz      [IKHEADERS]
+  [*] <span class=
+"blue">C</span>ontrol Group support ---&gt;                                       [CGROUPS]
+    [*] M<span class=
+"blue">e</span>mory controller                                                [MEMCG]
+  [ ] <span class=
+"blue">C</span>onfigure standard kernel features (expert users) ---&gt;            [EXPERT]
+
+<span class="blue">P</span>rocessor type and features ---&gt;
+  [*] <span class=
+"blue">B</span>uild a relocatable kernel                                   [RELOCATABLE]
+  [*]   <span class=
+"blue">R</span>andomize the address of the kernel image (KASLR)       [RANDOMIZE_BASE]
+
+<span class="blue">G</span>eneral architecture-dependent options ---&gt;
+  [*] <span class=
+"blue">S</span>tack Protector buffer overflow detection                 [STACKPROTECTOR]
+  [*]   <span class=
+"blue">S</span>trong Stack Protector                           [STACKPROTECTOR_STRONG]
+
+[*] N<span class=
+"blue">e</span>tworking support ---&gt;                                                [NET]
+  N<span class="blue">e</span>tworking options ---&gt;
+    [*] <span class=
+"blue">T</span>CP/IP networking                                                 [INET]
+    &lt;*&gt;   <span class=
+"blue">T</span>he IPv6 protocol ---&gt;                                          [IPV6]
+
+<span class="blue">D</span>evice Drivers ---&gt;
+  <span class="blue">G</span>eneric Driver Options ---&gt;
+    [ ] <span class=
+"blue">S</span>upport for uevent helper                                [UEVENT_HELPER]
+    [*] M<span class=
+"blue">a</span>intain a devtmpfs filesystem to mount at /dev               [DEVTMPFS]
+    [*]   <span class=
+"blue">A</span>utomount devtmpfs at /dev, after the kernel mounted the rootfs
+                                                           ...  [DEVTMPFS_MOUNT]
+    <span class="blue">F</span>irmware loader ---&gt;
+      &lt; /*&gt; <span class=
+"blue">F</span>irmware loading facility                                [FW_LOADER]
+      [ ]     <span class=
+"blue">E</span>nable the firmware sysfs fallback mechanism
+                                                    ...  [FW_LOADER_USER_HELPER]
+  <span class="blue">F</span>irmware Drivers ---&gt;
+    [*] <span class=
+"blue">E</span>xport DMI identification via sysfs to userspace                 [DMIID]
+  <span class="blue">G</span>raphics support ---&gt;
+    &lt; /*/M&gt; <span class=
+"blue">D</span>irect Rendering Manager (XFree86 4.1.0 and higher DRI support) ---&gt;
+                                                                      ...  [DRM]
+    # If [DRM] is selected as * or M, this must be selected:
+    [ /*]   <span class=
+"blue">E</span>nable legacy fbdev support for your modesetting driver
+                                                      ...  [DRM_FBDEV_EMULATION]
+    <span class="blue">C</span>onsole display driver support ---&gt;
+      # If [DRM] is selected as * or M, this must be selected:
+      [ /*] <span class=
+"blue">F</span>ramebuffer Console support                    [FRAMEBUFFER_CONSOLE]
+
+<span class="blue">F</span>ile systems ---&gt;
+  [*] <span class=
+"blue">I</span>notify support for userspace                               [INOTIFY_USER]
+  <span class="blue">P</span>seudo filesystems ---&gt;
+    [*] <span class=
+"blue">T</span>mpfs virtual memory file system support (former shm fs)         [TMPFS]
+    [*]   <span class=
+"blue">T</span>mpfs POSIX Access Control Lists                     [TMPFS_POSIX_ACL]</pre>
+          <p>
+            Enable some additional features if you are building a 64-bit
+            system. If you are using menuconfig, enable them in the order of
+            <em class="parameter"><code>CONFIG_PCI_MSI</code></em> first,
+            then <em class="parameter"><code>CONFIG_IRQ_REMAP</code></em>, at
+            last <em class="parameter"><code>CONFIG_X86_X2APIC</code></em>
+            because an option only shows up after its dependencies are
+            selected.
+          </p>
+          <pre class="screen"><span class=
+          "blue">P</span>rocessor type and features ---&gt;
+  [*] <span class=
+"blue">S</span>upport x2apic                                                [X86_X2APIC]
+
+<span class="blue">D</span>evice Drivers ---&gt;
+  [*] <span class=
+"blue">P</span>CI support ---&gt;                                                     [PCI]
+    [*] M<span class=
+"blue">e</span>ssage Signaled Interrupts (MSI and MSI-X)                    [PCI_MSI]
+  [*] <span class=
+"blue">I</span>OMMU Hardware Support ---&gt;                                [IOMMU_SUPPORT]
+    [*] <span class=
+"blue">S</span>upport for Interrupt Remapping                              [IRQ_REMAP]</pre>
+          <p>
+            If you are building a 32-bit system running on a hardware with
+            RAM more than 4GB, adjust the configuration so the kernel will be
+            able to use up to 64GB physical RAM:
+          </p>
+          <pre class="screen"><span class=
+          "blue">P</span>rocessor type and features ---&gt;
+  H<span class="blue">i</span>gh Memory Support ---&gt;
+    (X) <span class=
+"blue">6</span>4GB                                                        [HIGHMEM64G]</pre>
+          <p>
+            If the partition for the LFS system is in a NVME SSD (i. e. the
+            device node for the partition is <code class=
+            "filename">/dev/nvme*</code> instead of <code class=
+            "filename">/dev/sd*</code>), enable NVME support or the LFS
+            system won't boot:
+          </p>
+          <pre class="screen"><span class=
+          "blue">D</span>evice Drivers ---&gt;
+  N<span class="blue">V</span>ME Support ---&gt;
+    &lt;*&gt; N<span class=
+"blue">V</span>M Express block device                                  [BLK_DEV_NVME]</pre>
+        </div>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            While "The IPv6 Protocol" is not strictly required, it is highly
+            recommended by the systemd developers.
+          </p>
+        </div>
+        <p>
+          There are several other options that may be desired depending on
+          the requirements for the system. For a list of options needed for
+          BLFS packages, see the <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/stable-systemd/longindex.html#kernel-config-index">
+          BLFS Index of Kernel Settings</a>.
+        </p>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            If your host hardware is using UEFI and you wish to boot the LFS
+            system with it, you should adjust some kernel configuration
+            following <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/stable-systemd/postlfs/grub-setup.html#uefi-kernel">
+            the BLFS page</a> <span class="bold"><strong>even if you'll use
+            the UEFI bootloader from the host distro</strong></span>.
+          </p>
+        </div>
+        <div class="variablelist">
+          <p class="title">
+            <strong>The rationale for the above configuration items:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class="parameter"><code>Randomize the
+              address of the kernel image (KASLR)</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Enable ASLR for kernel image, to mitigate some attacks based
+                on fixed addresses of sensitive data or code in the kernel.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class="parameter"><code>Compile the
+              kernel with warnings as errors</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This may cause building failure if the compiler and/or
+                configuration are different from those of the kernel
+                developers.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class="parameter"><code>Enable kernel
+              headers through /sys/kernel/kheaders.tar.xz</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This will require <span class=
+                "command"><strong>cpio</strong></span> building the kernel.
+                <span class="command"><strong>cpio</strong></span> is not
+                installed by LFS.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class="parameter"><code>Configure
+              standard kernel features (expert users)</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This will make some options show up in the configuration
+                interface but changing those options may be dangerous. Do not
+                use this unless you know what you are doing.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class="parameter"><code>Strong Stack
+              Protector</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Enable SSP for the kernel. We've enabled it for the entire
+                userspace with <em class=
+                "parameter"><code>--enable-default-ssp</code></em>
+                configuring GCC, but the kernel does not use GCC default
+                setting for SSP. We enable it explicitly here.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class="parameter"><code>Support for
+              uevent helper</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Having this option set may interfere with device management
+                when using Udev.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class="parameter"><code>Maintain a
+              devtmpfs</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This will create automated device nodes which are populated
+                by the kernel, even without Udev running. Udev then runs on
+                top of this, managing permissions and adding symlinks. This
+                configuration item is required for all users of Udev.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class="parameter"><code>Automount
+              devtmpfs at /dev</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This will mount the kernel view of the devices on /dev upon
+                switching to root filesystem just before starting init.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class="parameter"><code>Enable legacy
+              fbdev support for your modesetting driver</code></em> and
+              <em class="parameter"><code>Framebuffer Console
+              support</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                These are needed to display the Linux console on a GPU driven
+                by a DRI (Direct Rendering Infrastructure) driver. If
+                <code class="option">CONFIG_DRM</code> (Direct Rendering
+                Manager) is enabled, you should enable these two options as
+                well or you'll see a blank screen once the DRI driver is
+                loaded.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class="parameter"><code>Support
+              x2apic</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Support running the interrupt controller of 64-bit x86
+                processors in x2APIC mode. x2APIC may be enabled by firmware
+                on 64-bit x86 systems, and a kernel without this option
+                enabled will panic on boot if x2APIC is enabled by firmware.
+                This option has no effect, but also does no harm if x2APIC is
+                disabled by the firmware.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Alternatively, <span class="command"><strong>make
+          oldconfig</strong></span> may be more appropriate in some
+          situations. See the <code class="filename">README</code> file for
+          more information.
+        </p>
+        <p>
+          If desired, skip kernel configuration by copying the kernel config
+          file, <code class="filename">.config</code>, from the host system
+          (assuming it is available) to the unpacked <code class=
+          "filename">linux-6.7.4</code> directory. However, we do not
+          recommend this option. It is often better to explore all the
+          configuration menus and create the kernel configuration from
+          scratch.
+        </p>
+        <p>
+          Compile the kernel image and modules:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          If using kernel modules, module configuration in <code class=
+          "filename">/etc/modprobe.d</code> may be required. Information
+          pertaining to modules and kernel configuration is located in
+          <a class="xref" href="../chapter09/udev.html" title=
+          "9.3.&nbsp;Overview of Device and Module Handling">Section&nbsp;9.3,
+          “Overview of Device and Module Handling”</a> and in the kernel
+          documentation in the <code class=
+          "filename">linux-6.7.4/Documentation</code> directory. Also,
+          <a class="ulink" href=
+          "https://man.archlinux.org/man/modprobe.d.5">modprobe.d(5)</a> may
+          be of interest.
+        </p>
+        <p>
+          Unless module support has been disabled in the kernel
+          configuration, install the modules with:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make modules_install</kbd></pre>
+        <p>
+          After kernel compilation is complete, additional steps are required
+          to complete the installation. Some files need to be copied to the
+          <code class="filename">/boot</code> directory.
+        </p>
+        <div class="admon caution">
+          <img alt="[Caution]" src="../images/caution.png" />
+          <h3>
+            Caution
+          </h3>
+          <p>
+            If you've decided to use a separate <code class=
+            "filename">/boot</code> partition for the LFS system (maybe
+            sharing a <code class="filename">/boot</code> partition with the
+            host distro) , the files copied below should go there. The
+            easiest way to do that is to create the entry for <code class=
+            "filename">/boot</code> in <code class=
+            "filename">/etc/fstab</code> first (read the previous section for
+            details), then issue the following command as the <code class=
+            "systemitem">root</code> user in the <span class=
+            "emphasis"><em>chroot environment</em></span>:
+          </p>
+          <pre class="userinput"><kbd class="command">mount /boot</kbd></pre>
+          <p>
+            The path to the device node is omitted in the command because
+            <span class="command"><strong>mount</strong></span> can read it
+            from <code class="filename">/etc/fstab</code>.
+          </p>
+        </div>
+        <p>
+          The path to the kernel image may vary depending on the platform
+          being used. The filename below can be changed to suit your taste,
+          but the stem of the filename should be <span class=
+          "emphasis"><em>vmlinuz</em></span> to be compatible with the
+          automatic setup of the boot process described in the next section.
+          The following command assumes an x86 architecture:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">cp -iv arch/x86/boot/bzImage /boot/vmlinuz-6.7.4-lfs-12.1-systemd</kbd></pre>
+        <p>
+          <code class="filename">System.map</code> is a symbol file for the
+          kernel. It maps the function entry points of every function in the
+          kernel API, as well as the addresses of the kernel data structures
+          for the running kernel. It is used as a resource when investigating
+          kernel problems. Issue the following command to install the map
+          file:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">cp -iv System.map /boot/System.map-6.7.4</kbd></pre>
+        <p>
+          The kernel configuration file <code class="filename">.config</code>
+          produced by the <span class="command"><strong>make
+          menuconfig</strong></span> step above contains all the
+          configuration selections for the kernel that was just compiled. It
+          is a good idea to keep this file for future reference:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">cp -iv .config /boot/config-6.7.4</kbd></pre>
+        <p>
+          Install the documentation for the Linux kernel:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">cp -r Documentation -T /usr/share/doc/linux-6.7.4</kbd></pre>
+        <p>
+          It is important to note that the files in the kernel source
+          directory are not owned by <span class=
+          "emphasis"><em>root</em></span>. Whenever a package is unpacked as
+          user <span class="emphasis"><em>root</em></span> (like we did
+          inside chroot), the files have the user and group IDs of whatever
+          they were on the packager's computer. This is usually not a problem
+          for any other package to be installed because the source tree is
+          removed after the installation. However, the Linux source tree is
+          often retained for a long time. Because of this, there is a chance
+          that whatever user ID the packager used will be assigned to
+          somebody on the machine. That person would then have write access
+          to the kernel source.
+        </p>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            In many cases, the configuration of the kernel will need to be
+            updated for packages that will be installed later in BLFS. Unlike
+            other packages, it is not necessary to remove the kernel source
+            tree after the newly built kernel is installed.
+          </p>
+          <p>
+            If the kernel source tree is going to be retained, run
+            <span class="command"><strong>chown -R 0:0</strong></span> on the
+            <code class="filename">linux-6.7.4</code> directory to ensure all
+            files are owned by user <span class=
+            "emphasis"><em>root</em></span>.
+          </p>
+        </div>
+        <div class="admon warning">
+          <img alt="[Warning]" src="../images/warning.png" />
+          <h3>
+            Warning
+          </h3>
+          <p>
+            Some kernel documentation recommends creating a symlink from
+            <code class="filename">/usr/src/linux</code> pointing to the
+            kernel source directory. This is specific to kernels prior to the
+            2.6 series and <span class="emphasis"><em>must not</em></span> be
+            created on an LFS system as it can cause problems for packages
+            you may wish to build once your base LFS system is complete.
+          </p>
+        </div>
+        <div class="admon warning">
+          <img alt="[Warning]" src="../images/warning.png" />
+          <h3>
+            Warning
+          </h3>
+          <p>
+            The headers in the system's <code class="filename">include</code>
+            directory (<code class="filename">/usr/include</code>) should
+            <span class="emphasis"><em>always</em></span> be the ones against
+            which Glibc was compiled, that is, the sanitised headers
+            installed in <a class="xref" href=
+            "../chapter05/linux-headers.html" title=
+            "5.4.&nbsp;Linux-6.7.4 API Headers">Section&nbsp;5.4,
+            “Linux-6.7.4 API Headers”</a>. Therefore, they should
+            <span class="emphasis"><em>never</em></span> be replaced by
+            either the raw kernel headers or any other kernel sanitized
+            headers.
+          </p>
+        </div>
+      </div>
+      <div class="configuration" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="conf-modprobe" name="conf-modprobe"></a>10.3.2. Configuring
+          Linux Module Load Order
+        </h2>
+        <p>
+          Most of the time Linux modules are loaded automatically, but
+          sometimes it needs some specific direction. The program that loads
+          modules, <span class="command"><strong>modprobe</strong></span> or
+          <span class="command"><strong>insmod</strong></span>, uses
+          <code class="filename">/etc/modprobe.d/usb.conf</code> for this
+          purpose. This file needs to be created so that if the USB drivers
+          (ehci_hcd, ohci_hcd and uhci_hcd) have been built as modules, they
+          will be loaded in the correct order; ehci_hcd needs to be loaded
+          prior to ohci_hcd and uhci_hcd in order to avoid a warning being
+          output at boot time.
+        </p>
+        <p>
+          Create a new file <code class=
+          "filename">/etc/modprobe.d/usb.conf</code> by running the
+          following:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">install -v -m755 -d /etc/modprobe.d
+cat &gt; /etc/modprobe.d/usb.conf &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/modprobe.d/usb.conf
+
+install ohci_hcd /sbin/modprobe ehci_hcd ; /sbin/modprobe -i ohci_hcd ; true
+install uhci_hcd /sbin/modprobe ehci_hcd ; /sbin/modprobe -i uhci_hcd ; true
+
+# End /etc/modprobe.d/usb.conf</code>
+EOF</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-kernel" name="contents-kernel"></a>10.3.3. Contents
+          of Linux
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed files:</strong> <span class=
+              "segbody">config-6.7.4, vmlinuz-6.7.4-lfs-12.1-systemd, and
+              System.map-6.7.4</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed directories:</strong>
+              <span class="segbody">/lib/modules,
+              /usr/share/doc/linux-6.7.4</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="config" name="config"></a><span class=
+                    "term"><code class="filename">config-6.7.4</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Contains all the configuration selections for the kernel
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lfskernel" name="lfskernel"></a><span class=
+                    "term"><code class=
+                    "filename">vmlinuz-6.7.4-lfs-12.1-systemd</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The engine of the Linux system. When turning on the
+                    computer, the kernel is the first part of the operating
+                    system that gets loaded. It detects and initializes all
+                    components of the computer's hardware, then makes these
+                    components available as a tree of files to the software
+                    and turns a single CPU into a multitasking machine
+                    capable of running scores of programs seemingly at the
+                    same time
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="System.map" name="System.map"></a><span class=
+                    "term"><code class=
+                    "filename">System.map-6.7.4</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    A list of addresses and symbols; it maps the entry points
+                    and addresses of all the functions and data structures in
+                    the kernel
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="fstab.html" title=
+          "Creating the /etc/fstab File">Prev</a>
+          <p>
+            Creating the /etc/fstab File
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="grub.html" title=
+          "Using GRUB to Set Up the Boot Process">Next</a>
+          <p>
+            Using GRUB to Set Up the Boot Process
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter10.html" title=
+          "Chapter&nbsp;10.&nbsp;Making the LFS System Bootable">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

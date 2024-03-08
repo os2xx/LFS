@@ -1,0 +1,6 @@
+# START: Fri 08 Mar 2024 09:00
+
+wget -mkEpnp https://www.linuxfromscratch.org/lfs/view/12.1-systemd/
+
+wget -mkEpnp https://www.linuxfromscratch.org/~xry111/lfs/view/arm64-systemd/
+

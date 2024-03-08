@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.82.&nbsp;Stripping
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.1-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.1-systemd
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="aboutdebug.html" title=
+          "About Debugging Symbols">Prev</a>
+          <p>
+            About Debugging Symbols
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="cleanup.html" title="Cleaning Up">Next</a>
+          <p>
+            Cleaning Up
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-stripping" name="ch-system-stripping"></a>8.82.
+      Stripping
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <p>
+        This section is optional. If the intended user is not a programmer
+        and does not plan to do any debugging of the system software, the
+        system's size can be decreased by some 2 GB by removing the debugging
+        symbols, and some unnecessary symbol table entries, from binaries and
+        libraries. This causes no real inconvenience for a typical Linux
+        user.
+      </p>
+      <p>
+        Most people who use the commands mentioned below do not experience
+        any difficulties. However, it is easy to make a mistake and render
+        the new system unusable. So before running the <span class=
+        "command"><strong>strip</strong></span> commands, it is a good idea
+        to make a backup of the LFS system in its current state.
+      </p>
+      <p>
+        A <span class="command"><strong>strip</strong></span> command with
+        the <em class="parameter"><code>--strip-unneeded</code></em> option
+        removes all debug symbols from a binary or library. It also removes
+        all symbol table entries not needed by the linker (for static
+        libraries) or dynamic linker (for dynamically linked binaries and
+        shared libraries).
+      </p>
+      <p>
+        The debugging symbols from selected libraries are compressed with
+        <span class="application">Zlib</span> and preserved in separate
+        files. That debugging information is needed to run regression tests
+        with <a class="ulink" href=
+        "https://www.linuxfromscratch.org/blfs/view/stable-systemd//general/valgrind.html">
+        valgrind</a> or <a class="ulink" href=
+        "https://www.linuxfromscratch.org/blfs/view/stable-systemd//general/gdb.html">
+        gdb</a> later, in BLFS.
+      </p>
+      <p>
+        Note that <span class="command"><strong>strip</strong></span> will
+        overwrite the binary or library file it is processing. This can crash
+        the processes using code or data from the file. If the process
+        running <span class="command"><strong>strip</strong></span> is
+        affected, the binary or library being stripped can be destroyed; this
+        can make the system completely unusable. To avoid this problem we
+        copy some libraries and binaries into <code class=
+        "filename">/tmp</code>, strip them there, then reinstall them with
+        the <span class="command"><strong>install</strong></span> command.
+        (The related entry in <a class="xref" href=
+        "pkgmgt.html#pkgmgmt-upgrade-issues" title=
+        "8.2.1.&nbsp;Upgrade Issues">Section&nbsp;8.2.1, “Upgrade Issues”</a>
+        gives the rationale for using the <span class=
+        "command"><strong>install</strong></span> command here.)
+      </p>
+      <div class="admon note">
+        <img alt="[Note]" src="../images/note.png" />
+        <h3>
+          Note
+        </h3>
+        <p>
+          The ELF loader's name is ld-linux-x86-64.so.2 on 64-bit systems and
+          ld-linux.so.2 on 32-bit systems. The construct below selects the
+          correct name for the current architecture, excluding anything
+          ending with <code class="literal">g</code>, in case the commands
+          below have already been run.
+        </p>
+      </div>
+      <div class="admon important">
+        <img alt="[Important]" src="../images/important.png" />
+        <h3>
+          Important
+        </h3>
+        <p>
+          If there is any package whose version is different from the version
+          specified by the book (either following a security advisory or
+          satisfying personal preference), it may be necessary to update the
+          library file name in <code class="envar">save_usrlib</code> or
+          <code class="envar">online_usrlib</code>. <span class=
+          "bold"><strong>Failing to do so may render the system completely
+          unusable.</strong></span>
+        </p>
+      </div>
+      <pre class="userinput"><kbd class=
+      "command">save_usrlib="$(cd /usr/lib; ls ld-linux*[^g])
+             libc.so.6
+             libthread_db.so.1
+             libquadmath.so.0.0.0
+             libstdc++.so.6.0.32
+             libitm.so.1.0.0
+             libatomic.so.1.2.0"
+
+cd /usr/lib
+
+for LIB in $save_usrlib; do
+    objcopy --only-keep-debug --compress-debug-sections=zlib $LIB $LIB.dbg
+    cp $LIB /tmp/$LIB
+    strip --strip-unneeded /tmp/$LIB
+    objcopy --add-gnu-debuglink=$LIB.dbg /tmp/$LIB
+    install -vm755 /tmp/$LIB /usr/lib
+    rm /tmp/$LIB
+done
+
+online_usrbin="bash find strip"
+online_usrlib="libbfd-2.42.so
+               libsframe.so.1.0.0
+               libhistory.so.8.2
+               libncursesw.so.6.4-20230520
+               libm.so.6
+               libreadline.so.8.2
+               libz.so.1.3.1
+               libzstd.so.1.5.5
+               $(cd /usr/lib; find libnss*.so* -type f)"
+
+for BIN in $online_usrbin; do
+    cp /usr/bin/$BIN /tmp/$BIN
+    strip --strip-unneeded /tmp/$BIN
+    install -vm755 /tmp/$BIN /usr/bin
+    rm /tmp/$BIN
+done
+
+for LIB in $online_usrlib; do
+    cp /usr/lib/$LIB /tmp/$LIB
+    strip --strip-unneeded /tmp/$LIB
+    install -vm755 /tmp/$LIB /usr/lib
+    rm /tmp/$LIB
+done
+
+for i in $(find /usr/lib -type f -name \*.so* ! -name \*dbg) \
+         $(find /usr/lib -type f -name \*.a)                 \
+         $(find /usr/{bin,sbin,libexec} -type f); do
+    case "$online_usrbin $online_usrlib $save_usrlib" in
+        *$(basename $i)* )
+            ;;
+        * ) strip --strip-unneeded $i
+            ;;
+    esac
+done
+
+unset BIN LIB save_usrlib online_usrbin online_usrlib
+</kbd></pre>
+      <p>
+        A large number of files will be flagged as errors because their file
+        format is not recognized. These warnings can be safely ignored. They
+        indicate that those files are scripts, not binaries.
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="aboutdebug.html" title=
+          "About Debugging Symbols">Prev</a>
+          <p>
+            About Debugging Symbols
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="cleanup.html" title="Cleaning Up">Next</a>
+          <p>
+            Cleaning Up
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.1-systemd">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
