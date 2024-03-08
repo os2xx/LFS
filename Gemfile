@@ -6,4 +6,6 @@ gem "addressable"
 gem "nokogiri"
 gem "faraday-retry"
 gem 'webrick'
+gem "minitest"
+gem "ffi"
 

@@ -1,31 +1,27 @@
-title: Linux From Scratch (LFS) --- Step by Step with VirtualBox
-description: (REV056b--27-Oct-2022)
-      <br>Linux From Scratch (LFS) --- Step by Step with VirtualBox.
-      This site is managed by VauLSMorg (vlsm.org) since 2020.
-      <br>May the fork() be with you!
-google_analytics: UA-89852122-9
-disc: You are free to share, copy and redistribute the material of this 
-      Linux From Scratch site in any medium or format for any purpose, 
-      even commercially. 
+title: Operating Systems - Sistem Operasi
+version:     "057--08-Mar-2024"
+copyright:   "2020-2024"
+description: This is the Operating System course site,
+      a GitHub Page, hosted at GitHub.com (thank you!).
+      This site contains links to lecture materials, exam questions, and laboratory materials.
+      It is based on Google Here, There, and Everywhere (GSGS&trade;).
+disc: You are free to share, copy and redistribute the material of this site 
+      in any medium or format for any purpose, even commercially. 
       Please give appropriate credit, provide a link to the page, 
       and indicate if changes were made. You may do so in any reasonable manner. 
       You should not apply legal terms or technological measures, 
-      that legally restrict others from doing anything that is permited here.
-author: Mr. Y. Yoda
-show_downloads: false
-theme: jekyll-theme-hacker
+      that legally restrict others from doing anything that is permitted here.
+author: C. BinKadal
+google_analytics: G-0M9QENHGRN
+address: "Sendirian, Berhad."
 sitemap: true
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
-social:
-  name: URLs
-  links:
-    - https://https://github.com/os2xx/LFS/
-
-# github:
-#    zip_url: https://github.com/rms46/...
-#    tar_url: https://github.com/rms46/...
-
-github: [metadata]
+urlweb:           "https://lfs.vlsm.org/"
+urlcontact:       "TBA"
+urlgithub:        "https://github.com/os2xx/lfs/"
+urlghpage:        "https://lfs.vlsm.org/"
+keywords:         "jekyll, testing"
+github:           [metadata]
 
