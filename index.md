@@ -28,6 +28,7 @@ title:  "LFS: Linux From Scratch"
 [&#x213C;](#)<br id="idx004"><br>
 ## LinuxFromScratch.org Resources
 * [AMD64 LFS 12.1](https://www.linuxfromscratch.org/lfs/view/12.1/)
+* [AMD64 LFS 11.3](https://www.linuxfromscratch.org/lfs/view/11.3/)
 * [ARM64 LFS 12.0 319](https://www.linuxfromscratch.org/~xry111/lfs/view/arm64-systemd/)
 
 [&#x213C;](#)<br id="idxXXX"><br>
