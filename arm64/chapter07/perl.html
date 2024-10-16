@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      7.9.&nbsp;Perl-5.38.2
+      7.9.&nbsp;Perl-5.40.0
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional
@@ -29,9 +29,9 @@
           </p>
         </li>
         <li class="next">
-          <a accesskey="n" href="Python.html" title="Python-3.12.2">Next</a>
+          <a accesskey="n" href="Python.html" title="Python-3.12.6">Next</a>
           <p>
-            Python-3.12.2
+            Python-3.12.6
           </p>
         </li>
         <li class="up">
@@ -41,12 +41,12 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
-      <a id="ch-tools-perl" name="ch-tools-perl"></a>7.9. Perl-5.38.2
+      <a id="ch-tools-perl" name="ch-tools-perl"></a>7.9. Perl-5.40.0
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -62,7 +62,7 @@
             </div>
             <div class="seg">
               <strong class="segtitle">Required disk space:</strong>
-              <span class="segbody">280 MB</span>
+              <span class="segbody">285 MB</span>
             </div>
           </div>
         </div>
@@ -75,16 +75,16 @@
           Prepare Perl for compilation:
         </p>
         <pre class="userinput"><kbd class=
-        "command">sh Configure -des                                        \
-             -Dprefix=/usr                               \
-             -Dvendorprefix=/usr                         \
-             -Duseshrplib                                \
-             -Dprivlib=/usr/lib/perl5/5.38/core_perl     \
-             -Darchlib=/usr/lib/perl5/5.38/core_perl     \
-             -Dsitelib=/usr/lib/perl5/5.38/site_perl     \
-             -Dsitearch=/usr/lib/perl5/5.38/site_perl    \
-             -Dvendorlib=/usr/lib/perl5/5.38/vendor_perl \
-             -Dvendorarch=/usr/lib/perl5/5.38/vendor_perl</kbd></pre>
+        "command">sh Configure -des                                         \
+             -D prefix=/usr                               \
+             -D vendorprefix=/usr                         \
+             -D useshrplib                                \
+             -D privlib=/usr/lib/perl5/5.40/core_perl     \
+             -D archlib=/usr/lib/perl5/5.40/core_perl     \
+             -D sitelib=/usr/lib/perl5/5.40/site_perl     \
+             -D sitearch=/usr/lib/perl5/5.40/site_perl    \
+             -D vendorlib=/usr/lib/perl5/5.40/vendor_perl \
+             -D vendorarch=/usr/lib/perl5/5.40/vendor_perl</kbd></pre>
         <div class="variablelist">
           <p class="title">
             <strong>The meaning of the Configure options:</strong>
@@ -102,8 +102,8 @@
               </p>
             </dd>
             <dt>
-              <span class="term"><em class=
-              "parameter"><code>-Dvendorprefix=/usr</code></em></span>
+              <span class="term"><em class="parameter"><code>-D
+              vendorprefix=/usr</code></em></span>
             </dt>
             <dd>
               <p>
@@ -113,8 +113,8 @@
               </p>
             </dd>
             <dt>
-              <span class="term"><em class=
-              "parameter"><code>-Duseshrplib</code></em></span>
+              <span class="term"><em class="parameter"><code>-D
+              useshrplib</code></em></span>
             </dt>
             <dd>
               <p>
@@ -124,17 +124,17 @@
               </p>
             </dd>
             <dt>
-              <span class="term"><em class=
-              "parameter"><code>-Dprivlib,-Darchlib,-Dsitelib,...</code></em></span>
+              <span class="term"><em class="parameter"><code>-D privlib,-D
+              archlib,-D sitelib,...</code></em></span>
             </dt>
             <dd>
               <p>
                 These settings define where Perl looks for installed modules.
                 The LFS editors chose to put them in a directory structure
-                based on the MAJOR.MINOR version of Perl (5.38) which allows
+                based on the MAJOR.MINOR version of Perl (5.40) which allows
                 upgrading Perl to newer patch levels (the patch level is the
                 last dot separated part in the full version string like
-                5.38.2) without reinstalling all of the modules.
+                5.40.0) without reinstalling all of the modules.
               </p>
             </dd>
           </dl>
@@ -152,7 +152,7 @@
         <p>
           Details on this package are located in <a class="xref" href=
           "../chapter08/perl.html#contents-perl" title=
-          "8.42.2.&nbsp;Contents of Perl">Section&nbsp;8.42.2, “Contents of
+          "8.43.2.&nbsp;Contents of Perl">Section&nbsp;8.43.2, “Contents of
           Perl.”</a>
         </p>
       </div>
@@ -166,9 +166,9 @@
           </p>
         </li>
         <li class="next">
-          <a accesskey="n" href="Python.html" title="Python-3.12.2">Next</a>
+          <a accesskey="n" href="Python.html" title="Python-3.12.6">Next</a>
           <p>
-            Python-3.12.2
+            Python-3.12.6
           </p>
         </li>
         <li class="up">
@@ -178,7 +178,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

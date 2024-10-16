@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      8.11.&nbsp;Readline-8.2
+      8.12.&nbsp;Readline-8.2.13
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Chapter&nbsp;8.&nbsp;Installing Basic System Software
@@ -39,13 +39,13 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
-      <a id="ch-system-readline" name="ch-system-readline"></a>8.11.
-      Readline-8.2
+      <a id="ch-system-readline" name="ch-system-readline"></a>8.12.
+      Readline-8.2.13
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -68,7 +68,7 @@
       </div>
       <div class="installation" lang="en" xml:lang="en">
         <h2 class="sect2">
-          8.11.1. Installation of Readline
+          8.12.1. Installation of Readline
         </h2>
         <p>
           Reinstalling Readline will cause the old libraries to be moved to
@@ -81,10 +81,13 @@
         "command">sed -i '/MV.*old/d' Makefile.in
 sed -i '/{OLDSUFF}/c:' support/shlib-install</kbd></pre>
         <p>
-          Now fix a problem identified upstream:
+          Prevent hard coding library search paths (rpath) into the shared
+          libraries. This package does not need rpath for an installation
+          into the standard location, and rpath may sometimes cause unwanted
+          effects or even security issues:
         </p>
         <pre class="userinput"><kbd class=
-        "command">patch -Np1 -i ../readline-8.2-upstream_fixes-3.patch</kbd></pre>
+        "command">sed -i 's/-Wl,-rpath,[^ ]*//' support/shobj-conf</kbd></pre>
         <p>
           Prepare Readline for compilation:
         </p>
@@ -92,7 +95,7 @@ sed -i '/{OLDSUFF}/c:' support/shlib-install</kbd></pre>
         "command">./configure --prefix=/usr    \
             --disable-static \
             --with-curses    \
-            --docdir=/usr/share/doc/readline-8.2</kbd></pre>
+            --docdir=/usr/share/doc/readline-8.2.13</kbd></pre>
         <div class="variablelist">
           <p class="title">
             <strong>The meaning of the new configure option:</strong>
@@ -146,11 +149,11 @@ sed -i '/{OLDSUFF}/c:' support/shlib-install</kbd></pre>
           If desired, install the documentation:
         </p>
         <pre class="userinput"><kbd class=
-        "command">install -v -m644 doc/*.{ps,pdf,html,dvi} /usr/share/doc/readline-8.2</kbd></pre>
+        "command">install -v -m644 doc/*.{ps,pdf,html,dvi} /usr/share/doc/readline-8.2.13</kbd></pre>
       </div>
       <div class="content" lang="en" xml:lang="en">
         <h2 class="sect2">
-          <a id="contents-readline" name="contents-readline"></a>8.11.2.
+          <a id="contents-readline" name="contents-readline"></a>8.12.2.
           Contents of Readline
         </h2>
         <div class="segmentedlist">
@@ -162,7 +165,7 @@ sed -i '/{OLDSUFF}/c:' support/shlib-install</kbd></pre>
             <div class="seg">
               <strong class="segtitle">Installed directories:</strong>
               <span class="segbody">/usr/include/readline and
-              /usr/share/doc/readline-8.2</span>
+              /usr/share/doc/readline-8.2.13</span>
             </div>
           </div>
         </div>
@@ -229,7 +232,7 @@ sed -i '/{OLDSUFF}/c:' support/shlib-install</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

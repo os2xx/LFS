@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.9.&nbsp;Lz4-1.10.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-12.2">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 12.2
+      </h4>
+      <h3>
+        Chapter&nbsp;8.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="xz.html" title="Xz-5.6.2">Prev</a>
+          <p>
+            Xz-5.6.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="zstd.html" title="Zstd-1.5.6">Next</a>
+          <p>
+            Zstd-1.5.6
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.2">Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="ch-system-lz4" name="ch-system-lz4"></a>8.9. Lz4-1.10.0
+    </h1>
+    <div class="wrap" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          Lz4 is a lossless compression algorithm, providing compression
+          speed greater than 500 MB/s per core. It features an extremely fast
+          decoder, with speed in multiple GB/s per core. Lz4 can work with
+          Zstandard to allow both algorithms to compress data faster.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">4.2 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          8.9.1. Installation of Lz4
+        </h2>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make BUILD_STATIC=no PREFIX=/usr</kbd></pre>
+        <p>
+          To test the results, issue:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make -j1 check</kbd></pre>
+        <p>
+          Install the package:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make BUILD_STATIC=no PREFIX=/usr install</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-lz4" name="contents-lz4"></a>8.9.2. Contents of Lz4
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed programs:</strong>
+              <span class="segbody">lz4, lz4c (link to lz4), lz4cat (link to
+              lz4), and unlz4 (link to lz4)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed library:</strong>
+              <span class="segbody">liblz4.so</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lz4" name="lz4"></a><span class=
+                    "term"><span class="command"><strong>lz4</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Compresses or decompresses files using the LZ4 format
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lz4c" name="lz4c"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lz4c</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Compresses files using the LZ4 format
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lz4cat" name="lz4cat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lz4cat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Lists the contents of a file compressed using the LZ4
+                    format
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="unlz4" name="unlz4"></a><span class=
+                    "term"><span class=
+                    "command"><strong>unlz4</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Decompresses files using the LZ4 format
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="liblz4" name="liblz4"></a><span class=
+                    "term"><code class="filename">liblz4</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    The library implementing lossless data compression, using
+                    the LZ4 algorithm
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="xz.html" title="Xz-5.6.2">Prev</a>
+          <p>
+            Xz-5.6.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="zstd.html" title="Zstd-1.5.6">Next</a>
+          <p>
+            Zstd-1.5.6
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 12.2">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

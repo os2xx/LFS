@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional
@@ -43,7 +43,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
@@ -82,9 +82,9 @@
         "systemitem">root</code> by running the following command:
       </p>
       <pre class="userinput"><kbd class=
-      "command">chown -R root:root $LFS/{usr,lib,var,etc,bin,sbin,tools}
+      "command">chown --from lfs -R root:root $LFS/{usr,lib,var,etc,bin,sbin,tools}
 case $(uname -m) in
-  x86_64) chown -R root:root $LFS/lib64 ;;
+  x86_64) chown --from lfs -R root:root $LFS/lib64 ;;
 esac</kbd></pre>
     </div>
     <div class="navfooter">
@@ -110,7 +110,7 @@ esac</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

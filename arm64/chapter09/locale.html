@@ -12,20 +12,20 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;9.&nbsp;System Configuration
       </h3>
       <ul>
         <li class="prev">
-          <a accesskey="p" href="console.html" title=
-          "Configuring the Linux Console">Prev</a>
+          <a accesskey="p" href="usage.html" title=
+          "System V Bootscript Usage and Configuration">Prev</a>
           <p>
-            Configuring the Linux Console
+            System V Bootscript Usage and Configuration
           </p>
         </li>
         <li class="next">
@@ -41,7 +41,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
@@ -162,15 +162,6 @@ LC_ALL=&lt;locale name&gt; locale int_prefix</kbd></pre>
         information.
       </p>
       <p>
-        Once the proper locale settings have been determined, create the
-        <code class="filename">/etc/locale.conf</code> file:
-      </p>
-      <pre class="userinput"><kbd class=
-      "command">cat &gt; /etc/locale.conf &lt;&lt; "EOF"
-<code class="literal">LANG=<em class=
-"replaceable"><code>&lt;ll&gt;_&lt;CC&gt;.&lt;charmap&gt;&lt;@modifiers&gt;</code></em></code>
-EOF</kbd></pre>
-      <p>
         The shell program <span class=
         "command"><strong>/bin/bash</strong></span> (here after referred as
         <span class="quote">“<span class="quote">the shell</span>”</span>)
@@ -193,14 +184,12 @@ EOF</kbd></pre>
         user input between commands.
       </p>
       <p>
-        <span class="phrase">The login shells are often unaffected by the
-        settings in <code class="filename">/etc/locale.conf</code>.</span>
         Create the <code class="filename">/etc/profile</code> <span class=
-        "phrase">to read the locale settings from <code class=
-        "filename">/etc/locale.conf</code> and export them</span>, but set
-        the <code class="literal">C.UTF-8</code> locale instead if running in
-        the Linux console (to prevent programs from outputting characters
-        that the Linux console is unable to render):
+        "phrase">once the proper locale settings have been determined to set
+        the desired locale</span>, but set the <code class=
+        "literal">C.UTF-8</code> locale instead if running in the Linux
+        console (to prevent programs from outputting characters that the
+        Linux console is unable to render):
       </p>
       <pre class="userinput"><kbd class=
       "command">cat &gt; /etc/profile &lt;&lt; "EOF"
@@ -213,52 +202,12 @@ done
 if [[ "$TERM" = linux ]]; then
   export LANG=C.UTF-8
 else
-  source /etc/locale.conf
-
-  for i in $(locale); do
-    key=${i%=*}
-    if [[ -v $key ]]; then
-      export $key
-    fi
-  done
+  export LANG=<em class=
+"replaceable"><code>&lt;ll&gt;_&lt;CC&gt;.&lt;charmap&gt;&lt;@modifiers&gt;</code></em>
 fi
 
 # End /etc/profile</code>
 EOF</kbd></pre>
-      <p>
-        Note that you can modify <code class=
-        "filename">/etc/locale.conf</code> with the systemd <span class=
-        "command"><strong>localectl</strong></span> utility. To use
-        <span class="command"><strong>localectl</strong></span> for the
-        example above, run:
-      </p>
-      <pre class="userinput"><kbd class=
-      "command">localectl set-locale LANG="<em class=
-      "replaceable"><code>&lt;ll&gt;_&lt;CC&gt;.&lt;charmap&gt;&lt;@modifiers&gt;</code></em>"</kbd></pre>
-      <p>
-        You can also specify other language specific environment variables
-        such as <code class="envar">LANG</code>, <code class=
-        "envar">LC_CTYPE</code>, <code class="envar">LC_NUMERIC</code> or any
-        other environment variable from <span class=
-        "command"><strong>locale</strong></span> output. Just separate them
-        with a space. An example where <code class="envar">LANG</code> is set
-        as en_US.UTF-8 but <code class="envar">LC_CTYPE</code> is set as just
-        en_US is:
-      </p>
-      <pre class="userinput"><kbd class=
-      "command">localectl set-locale LANG="en_US.UTF-8" LC_CTYPE="en_US"</kbd></pre>
-      <div class="admon note">
-        <img alt="[Note]" src="../images/note.png" />
-        <h3>
-          Note
-        </h3>
-        <p>
-          Please note that the <span class=
-          "command"><strong>localectl</strong></span> command doesn't work in
-          the chroot environment. It can only be used after the LFS system is
-          booted with systemd.
-        </p>
-      </div>
       <p>
         The <code class="literal">C</code> (default) and <code class=
         "literal">en_US</code> (the recommended one for United States English
@@ -277,10 +226,10 @@ EOF</kbd></pre>
     <div class="navfooter">
       <ul>
         <li class="prev">
-          <a accesskey="p" href="console.html" title=
-          "Configuring the Linux Console">Prev</a>
+          <a accesskey="p" href="usage.html" title=
+          "System V Bootscript Usage and Configuration">Prev</a>
           <p>
-            Configuring the Linux Console
+            System V Bootscript Usage and Configuration
           </p>
         </li>
         <li class="next">
@@ -296,7 +245,7 @@ EOF</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

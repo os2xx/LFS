@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      6.18.&nbsp;GCC-13.2.0 - Pass 2
+      6.18.&nbsp;GCC-14.2.0 - Pass 2
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools
@@ -23,9 +23,9 @@
       <ul>
         <li class="prev">
           <a accesskey="p" href="binutils-pass2.html" title=
-          "Binutils-2.42 - Pass 2">Prev</a>
+          "Binutils-2.43.1 - Pass 2">Prev</a>
           <p>
-            Binutils-2.42 - Pass 2
+            Binutils-2.43.1 - Pass 2
           </p>
         </li>
         <li class="next">
@@ -41,13 +41,13 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
       <a id="ch-tools-gcc-pass2" name="ch-tools-gcc-pass2"></a>6.18.
-      GCC-13.2.0 - Pass 2
+      GCC-14.2.0 - Pass 2
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -59,11 +59,11 @@
           <div class="seglistitem">
             <div class="seg">
               <strong class="segtitle">Approximate build time:</strong>
-              <span class="segbody">4.4 SBU</span>
+              <span class="segbody">4.2 SBU</span>
             </div>
             <div class="seg">
               <strong class="segtitle">Required disk space:</strong>
-              <span class="segbody">4.8 GB</span>
+              <span class="segbody">5.5 GB</span>
             </div>
           </div>
         </div>
@@ -159,13 +159,14 @@ cd       build</kbd></pre>
               <p>
                 We are cross-compiling GCC, so it's impossible to build
                 target libraries (<code class="filename">libgcc</code> and
-                <code class="filename">libstdc++</code>) with the previously
-                compiled GCC binaries—those binaries won't run on the host.
-                The GCC build system will attempt to use the host's C and C++
-                compilers as a workaround by default. Building the GCC target
-                libraries with a different version of GCC is not supported,
-                so using the host's compilers may cause the build to fail.
-                This parameter ensures the libraries are built by GCC pass 1.
+                <code class="filename">libstdc++</code>) with the GCC
+                binaries compiled in this pass—those binaries won't run on
+                the host. The GCC build system will attempt to use the host's
+                C and C++ compilers as a workaround by default. Building the
+                GCC target libraries with a different version of GCC is not
+                supported, so using the host's compilers may cause the build
+                to fail. This parameter ensures the libraries are built by
+                GCC pass 1.
               </p>
             </dd>
             <dt>
@@ -175,10 +176,12 @@ cd       build</kbd></pre>
             <dd>
               <p>
                 Allow <code class="filename">libstdc++</code> to use the
-                shared <code class="filename">libgcc</code> being built in
-                this pass, instead of the static version that was built in
-                GCC pass 1. This is necessary to support C++ exception
-                handling.
+                <code class="filename">libgcc</code> being built in this
+                pass, instead of the previous version built in <a class=
+                "xref" href="../chapter05/gcc-pass1.html" title=
+                "5.3.&nbsp;GCC-14.2.0 - Pass 1">gcc-pass1</a>. The previous
+                version cannot properly support C++ exception handling
+                because it was built without libc support.
               </p>
             </dd>
             <dt>
@@ -188,14 +191,12 @@ cd       build</kbd></pre>
             <dd>
               <p>
                 Disable GCC sanitizer runtime libraries. They are not needed
-                for the temporary installation. This switch is necessary to
-                build GCC without <code class="systemitem">libcrypt</code>
-                installed for the target. In <a class="xref" href=
+                for the temporary installation. In <a class="xref" href=
                 "../chapter05/gcc-pass1.html" title=
-                "5.3.&nbsp;GCC-13.2.0 - Pass 1">gcc-pass1</a> it was implied
+                "5.3.&nbsp;GCC-14.2.0 - Pass 1">gcc-pass1</a> it was implied
                 by <em class=
-                "parameter"><code>--disable-libstdcxx</code></em>, but now we
-                have to explicitly pass it.
+                "parameter"><code>--disable-libstdcxx</code></em>, and now we
+                can explicitly pass it.
               </p>
             </dd>
           </dl>
@@ -225,7 +226,7 @@ cd       build</kbd></pre>
         <p>
           Details on this package are located in <a class="xref" href=
           "../chapter08/gcc.html#contents-gcc" title=
-          "8.28.2.&nbsp;Contents of GCC">Section&nbsp;8.28.2, “Contents of
+          "8.29.2.&nbsp;Contents of GCC">Section&nbsp;8.29.2, “Contents of
           GCC.”</a>
         </p>
       </div>
@@ -234,9 +235,9 @@ cd       build</kbd></pre>
       <ul>
         <li class="prev">
           <a accesskey="p" href="binutils-pass2.html" title=
-          "Binutils-2.42 - Pass 2">Prev</a>
+          "Binutils-2.43.1 - Pass 2">Prev</a>
           <p>
-            Binutils-2.42 - Pass 2
+            Binutils-2.43.1 - Pass 2
           </p>
         </li>
         <li class="next">
@@ -252,7 +253,7 @@ cd       build</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

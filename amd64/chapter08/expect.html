@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      8.16.&nbsp;Expect-5.45.4
+      8.17.&nbsp;Expect-5.45.4
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,19 +12,19 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Chapter&nbsp;8.&nbsp;Installing Basic System Software
       </h3>
       <ul>
         <li class="prev">
-          <a accesskey="p" href="tcl.html" title="Tcl-8.6.13">Prev</a>
+          <a accesskey="p" href="tcl.html" title="Tcl-8.6.14">Prev</a>
           <p>
-            Tcl-8.6.13
+            Tcl-8.6.14
           </p>
         </li>
         <li class="next">
@@ -39,12 +39,12 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
-      <a id="ch-system-expect" name="ch-system-expect"></a>8.16.
+      <a id="ch-system-expect" name="ch-system-expect"></a>8.17.
       Expect-5.45.4
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
@@ -79,7 +79,7 @@
       </div>
       <div class="installation" lang="en" xml:lang="en">
         <h2 class="sect2">
-          8.16.1. Installation of Expect
+          8.17.1. Installation of Expect
         </h2>
         <p>
           Expect needs PTYs to work. Verify that the PTYs are working
@@ -108,12 +108,18 @@
           breakages may also happen.
         </p>
         <p>
+          Now, make some changes to allow the package with gcc-14.1 or later:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">patch -Np1 -i ../expect-5.45.4-gcc14-1.patch</kbd></pre>
+        <p>
           Prepare Expect for compilation:
         </p>
         <pre class="userinput"><kbd class=
         "command">./configure --prefix=/usr           \
             --with-tcl=/usr/lib     \
             --enable-shared         \
+            --disable-rpath         \
             --mandir=/usr/share/man \
             --with-tclinclude=/usr/include</kbd></pre>
         <div class="variablelist">
@@ -161,7 +167,7 @@ ln -svf expect5.45.4/libexpect5.45.4.so /usr/lib</kbd></pre>
       </div>
       <div class="content" lang="en" xml:lang="en">
         <h2 class="sect2">
-          <a id="contents-expect" name="contents-expect"></a>8.16.2. Contents
+          <a id="contents-expect" name="contents-expect"></a>8.17.2. Contents
           of Expect
         </h2>
         <div class="segmentedlist">
@@ -225,9 +231,9 @@ ln -svf expect5.45.4/libexpect5.45.4.so /usr/lib</kbd></pre>
     <div class="navfooter">
       <ul>
         <li class="prev">
-          <a accesskey="p" href="tcl.html" title="Tcl-8.6.13">Prev</a>
+          <a accesskey="p" href="tcl.html" title="Tcl-8.6.14">Prev</a>
           <p>
-            Tcl-8.6.13
+            Tcl-8.6.14
           </p>
         </li>
         <li class="next">
@@ -242,7 +248,7 @@ ln -svf expect5.45.4/libexpect5.45.4.so /usr/lib</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

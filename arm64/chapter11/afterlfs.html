@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;11.&nbsp;The End
@@ -40,7 +40,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
@@ -63,32 +63,32 @@
         <p>
           A server is the simpler category. Generally this consists of a web
           server such as the <a class="ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/server/apache.html">
+          "https://www.linuxfromscratch.org/blfs/view/svn/server/apache.html">
           Apache HTTP Server</a> and a database server such as <a class=
           "ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/server/mariadb.html">
+          "https://www.linuxfromscratch.org/blfs/view/svn/server/mariadb.html">
           MariaDB</a>. However other services are possible. The operating
           system embedded in a single use device falls into this category.
         </p>
         <p>
           On the other hand, a workstation is much more complex. It generally
           requires a graphical user environment such as <a class="ulink"
-          href="https://www.linuxfromscratch.org/blfs/view/systemd/lxde/lxde.html">
+          href="https://www.linuxfromscratch.org/blfs/view/svn/lxde/lxde.html">
           LXDE</a>, <a class="ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/xfce/xfce.html">
-          XFCE</a>, <a class="ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/kde/kde.html">KDE</a>,
+          "https://www.linuxfromscratch.org/blfs/view/svn/xfce/xfce.html">XFCE</a>,
+          <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/svn/kde/kde.html">KDE</a>,
           or <a class="ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/gnome/gnome.html">
-          Gnome</a> based on a basic <a class="ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/x/installing.html">
-          graphical environment</a> and several graphical based applications
-          such as the <a class="ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/xsoft/firefox.html">
+          "https://www.linuxfromscratch.org/blfs/view/svn/gnome/gnome.html">Gnome</a>
+          based on a basic <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/svn/x/installing.html">graphical
+          environment</a> and several graphical based applications such as
+          the <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/svn/xsoft/firefox.html">
           Firefox web browser</a>, <a class="ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/xsoft/thunderbird.html">
+          "https://www.linuxfromscratch.org/blfs/view/svn/xsoft/thunderbird.html">
           Thunderbird email client</a>, or <a class="ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/xsoft/libreoffice.html">
+          "https://www.linuxfromscratch.org/blfs/view/svn/xsoft/libreoffice.html">
           LibreOffice office suite</a>. These applications require many
           (several hundred depending on desired capabilities) more packages
           of support applications and libraries.
@@ -98,10 +98,10 @@
           management for all kinds of systems. These applications are all in
           the BLFS book. Not all packages are needed in every environments.
           For example <a class="ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/basicnet/dhcpcd.html">
+          "https://www.linuxfromscratch.org/blfs/view/svn/basicnet/dhcpcd.html">
           dhcpcd</a>, is not normally appropriate for a server and <a class=
           "ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/basicnet/wireless_tools.html">
+          "https://www.linuxfromscratch.org/blfs/view/svn/basicnet/wireless_tools.html">
           wireless_tools</a>, are normally only useful for a laptop system.
         </p>
       </div>
@@ -223,7 +223,7 @@ PATH=/bin:/usr/bin:/sbin:/usr/sbin /bin/bash --login'</strong></span></pre>
           <p>
             This method also provides a full graphical environment, but first
             requires installing <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/openssh.html">
+            "https://www.linuxfromscratch.org/blfs/view/svn/postlfs/openssh.html">
             sshd</a> on the LFS system, usually in chroot. It also requires a
             second computer. This method has the advantage of being simple by
             not requiring the complexity of the chroot environment. It also
@@ -235,13 +235,13 @@ PATH=/bin:/usr/bin:/sbin:/usr/sbin /bin/bash --login'</strong></span></pre>
             command to upload the package sources to be built onto the LFS
             system. If you want to download the sources onto the LFS system
             directly instead, install <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/general/libtasn1.html">
+            "https://www.linuxfromscratch.org/blfs/view/svn/general/libtasn1.html">
             libtasn1</a>, <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/p11-kit.html">
+            "https://www.linuxfromscratch.org/blfs/view/svn/postlfs/p11-kit.html">
             p11-kit</a>, <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/make-ca.html">
+            "https://www.linuxfromscratch.org/blfs/view/svn/postlfs/make-ca.html">
             make-ca</a>, and <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/basicnet/wget.html">
+            "https://www.linuxfromscratch.org/blfs/view/svn/basicnet/wget.html">
             wget</a> in chroot (or upload their sources using <span class=
             "command"><strong>scp</strong></span> after booting the LFS
             system).
@@ -253,19 +253,19 @@ PATH=/bin:/usr/bin:/sbin:/usr/sbin /bin/bash --login'</strong></span></pre>
           </h3>
           <p>
             This method requires installing <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/general/libtasn1.html">
+            "https://www.linuxfromscratch.org/blfs/view/svn/general/libtasn1.html">
             libtasn1</a>, <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/p11-kit.html">
+            "https://www.linuxfromscratch.org/blfs/view/svn/postlfs/p11-kit.html">
             p11-kit</a>, <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/make-ca.html">
+            "https://www.linuxfromscratch.org/blfs/view/svn/postlfs/make-ca.html">
             make-ca</a>, <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/basicnet/wget.html">
+            "https://www.linuxfromscratch.org/blfs/view/svn/basicnet/wget.html">
             wget</a>, <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/general/gpm.html">
+            "https://www.linuxfromscratch.org/blfs/view/svn/general/gpm.html">
             gpm</a>, and <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/basicnet/links.html">
+            "https://www.linuxfromscratch.org/blfs/view/svn/basicnet/links.html">
             links</a> (or <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/basicnet/lynx.html">
+            "https://www.linuxfromscratch.org/blfs/view/svn/basicnet/lynx.html">
             lynx</a>) in chroot and then rebooting into the new LFS system.
             At this point the default system has six virtual consoles.
             Switching consoles is as easy as using the <span class=
@@ -333,7 +333,7 @@ PATH=/bin:/usr/bin:/sbin:/usr/sbin /bin/bash --login'</strong></span></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

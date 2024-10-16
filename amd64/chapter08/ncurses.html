@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      8.29.&nbsp;Ncurses-6.4-20230520
+      8.30.&nbsp;Ncurses-6.5
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,19 +12,19 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Chapter&nbsp;8.&nbsp;Installing Basic System Software
       </h3>
       <ul>
         <li class="prev">
-          <a accesskey="p" href="gcc.html" title="GCC-13.2.0">Prev</a>
+          <a accesskey="p" href="gcc.html" title="GCC-14.2.0">Prev</a>
           <p>
-            GCC-13.2.0
+            GCC-14.2.0
           </p>
         </li>
         <li class="next">
@@ -39,13 +39,13 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
-      <a id="ch-system-ncurses" name="ch-system-ncurses"></a>8.29.
-      Ncurses-6.4-20230520
+      <a id="ch-system-ncurses" name="ch-system-ncurses"></a>8.30.
+      Ncurses-6.5
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -61,14 +61,14 @@
             </div>
             <div class="seg">
               <strong class="segtitle">Required disk space:</strong>
-              <span class="segbody">45 MB</span>
+              <span class="segbody">46 MB</span>
             </div>
           </div>
         </div>
       </div>
       <div class="installation" lang="en" xml:lang="en">
         <h2 class="sect2">
-          8.29.1. Installation of Ncurses
+          8.30.1. Installation of Ncurses
         </h2>
         <p>
           Prepare Ncurses for compilation:
@@ -81,7 +81,6 @@
             --without-normal        \
             --with-cxx-shared       \
             --enable-pc-files       \
-            --enable-widec          \
             --with-pkg-config-libdir=/usr/lib/pkgconfig</kbd></pre>
         <div class="variablelist">
           <p class="title">
@@ -136,22 +135,6 @@
                 This switch generates and installs .pc files for pkg-config.
               </p>
             </dd>
-            <dt>
-              <span class="term"><em class=
-              "parameter"><code>--enable-widec</code></em></span>
-            </dt>
-            <dd>
-              <p>
-                This switch causes wide-character libraries (e.g.,
-                <code class="filename">libncursesw.so.6.4</code>) to be built
-                instead of normal ones (e.g., <code class=
-                "filename">libncurses.so.6.4</code>). These wide-character
-                libraries are usable in both multibyte and traditional 8-bit
-                locales, while normal libraries work properly only in 8-bit
-                locales. Wide-character and normal libraries are
-                source-compatible, but not binary-compatible.
-              </p>
-            </dd>
           </dl>
         </div>
         <p>
@@ -167,7 +150,7 @@
         </p>
         <p>
           The installation of this package will overwrite <code class=
-          "filename">libncursesw.so.6.4</code> in-place. It may crash the
+          "filename">libncursesw.so.6.5</code> in-place. It may crash the
           shell process which is using code and data from the library file.
           Install the package with <code class="literal">DESTDIR</code>, and
           replace the library file correctly using <span class=
@@ -175,13 +158,12 @@
           <code class="filename">curses.h</code> is also edited to ensure the
           wide-character ABI to be used as what we've done in <a class="xref"
           href="../chapter06/ncurses.html" title=
-          "6.3.&nbsp;Ncurses-6.4-20230520">Section&nbsp;6.3,
-          “Ncurses-6.4-20230520”</a>):
+          "6.3.&nbsp;Ncurses-6.5">Section&nbsp;6.3, “Ncurses-6.5”</a>):
         </p>
         <pre class="userinput"><kbd class=
         "command">make DESTDIR=$PWD/dest install
-install -vm755 dest/usr/lib/libncursesw.so.6.4 /usr/lib
-rm -v  dest/usr/lib/libncursesw.so.6.4
+install -vm755 dest/usr/lib/libncursesw.so.6.5 /usr/lib
+rm -v  dest/usr/lib/libncursesw.so.6.5
 sed -e 's/^#if.*XOPEN.*$/#if 1/' \
     -i dest/usr/include/curses.h
 cp -av dest/* /</kbd></pre>
@@ -208,7 +190,7 @@ done</kbd></pre>
           If desired, install the Ncurses documentation:
         </p>
         <pre class="userinput"><kbd class=
-        "command">cp -v -R doc -T /usr/share/doc/ncurses-6.4-20230520</kbd></pre>
+        "command">cp -v -R doc -T /usr/share/doc/ncurses-6.5</kbd></pre>
         <div class="admon note">
           <img alt="[Note]" src="../images/note.png" />
           <h3>
@@ -237,7 +219,7 @@ cp -av lib/lib*.so.5* /usr/lib</kbd></pre>
       </div>
       <div class="content" lang="en" xml:lang="en">
         <h2 class="sect2">
-          <a id="contents-ncurses" name="contents-ncurses"></a>8.29.2.
+          <a id="contents-ncurses" name="contents-ncurses"></a>8.30.2.
           Contents of Ncurses
         </h2>
         <div class="segmentedlist">
@@ -258,7 +240,7 @@ cp -av lib/lib*.so.5* /usr/lib</kbd></pre>
             <div class="seg">
               <strong class="segtitle">Installed directories:</strong>
               <span class="segbody">/usr/share/tabset, /usr/share/terminfo,
-              and /usr/share/doc/ncurses-6.4-20230520</span>
+              and /usr/share/doc/ncurses-6.5</span>
             </div>
           </div>
         </div>
@@ -511,9 +493,9 @@ cp -av lib/lib*.so.5* /usr/lib</kbd></pre>
     <div class="navfooter">
       <ul>
         <li class="prev">
-          <a accesskey="p" href="gcc.html" title="GCC-13.2.0">Prev</a>
+          <a accesskey="p" href="gcc.html" title="GCC-14.2.0">Prev</a>
           <p>
-            GCC-13.2.0
+            GCC-14.2.0
           </p>
         </li>
         <li class="next">
@@ -528,7 +510,7 @@ cp -av lib/lib*.so.5* /usr/lib</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

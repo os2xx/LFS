@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Chapter&nbsp;4.&nbsp;Final Preparations
@@ -41,7 +41,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
@@ -69,9 +69,9 @@
       </p>
       <p>
         For example, consider a package whose compilation time is 4.5 SBUs.
-        This means that if your system took 10 minutes to compile and install
+        This means that if your system took 4 minutes to compile and install
         the first pass of binutils, it will take <span class=
-        "emphasis"><em>approximately</em></span> 45 minutes to build the
+        "emphasis"><em>approximately</em></span> 18 minutes to build the
         example package. Fortunately, most build times are shorter than one
         SBU.
       </p>
@@ -80,6 +80,41 @@
         including the host system's version of GCC. They are provided here to
         give an estimate of how long it might take to install a package, but
         the numbers can vary by as much as dozens of minutes in some cases.
+      </p>
+      <p>
+        On some newer systems, the motherboard is capable of controlling the
+        system clock speed. This can be controlled with a command such as
+        <span class="command"><strong>powerprofilesctl</strong></span>. This
+        is not available in LFS, but may be available on the host distro.
+        After LFS is complete, it can be added to a system with the
+        procedures at the <a class="ulink" href=
+        "https://www.linuxfromscratch.org/blfs/view/12.2/sysutils/power-profiles-daemon.html">
+        BLFS power-profiles-daemon</a> page. Before measuring the build time
+        of any package it is advisable to use a system power profile set for
+        maximum performance (and maximum power consumption). Otherwise the
+        measured SBU value may be inaccurate because the system may react
+        differently when building <a class="xref" href=
+        "../chapter05/binutils-pass1.html" title=
+        "5.2.&nbsp;Binutils-2.43.1 - Pass 1">binutils-pass1</a> or other
+        packages. Be aware that a significant inaccuracy can still show up
+        even if the same profile is used for both packages because the system
+        may respond slower if the system is idle when starting the build
+        procedure. Setting the power profile to <span class=
+        "quote">“<span class="quote">performance</span>”</span> will minimize
+        this problem. And obviously doing so will also make the system build
+        LFS faster.
+      </p>
+      <p>
+        If <span class="command"><strong>powerprofilesctl</strong></span> is
+        available, issue the <span class="command"><strong>powerprofilesctl
+        set performance</strong></span> command to select the <code class=
+        "literal">performance</code> profile. Some distros provides the
+        <span class="command"><strong>tuned-adm</strong></span> command for
+        managing the profiles instead of <span class=
+        "command"><strong>powerprofilesctl</strong></span>, on these distros
+        issue the <span class="command"><strong>tuned-adm profile
+        throughput-performance</strong></span> command to select the
+        <code class="literal">throughput-performance</code> profile.
       </p>
       <div class="admon note">
         <img alt="[Note]" src="../images/note.png" />
@@ -96,9 +131,12 @@
           analyze the error messages.
         </p>
         <p>
-          The times presented here are based upon using four cores (-j4). The
-          times in Chapter 8 also include the time to run the regression
-          tests for the package unless specified otherwise.
+          The times presented here for all packages (except <a class="xref"
+          href="../chapter05/binutils-pass1.html" title=
+          "5.2.&nbsp;Binutils-2.43.1 - Pass 1">binutils-pass1</a> which is
+          based on one core) are based upon using four cores (-j4). The times
+          in Chapter 8 also include the time to run the regression tests for
+          the package unless specified otherwise.
         </p>
       </div>
     </div>
@@ -124,7 +162,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

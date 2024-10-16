@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;8.&nbsp;Installing Basic System Software
@@ -30,9 +30,9 @@
         </li>
         <li class="next">
           <a accesskey="n" href="man-pages.html" title=
-          "Man-pages-6.06">Next</a>
+          "Man-pages-6.9.1">Next</a>
           <p>
-            Man-pages-6.06
+            Man-pages-6.9.1
           </p>
         </li>
         <li class="up">
@@ -41,7 +41,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
@@ -118,10 +118,10 @@
             <li class="listitem">
               <p>
                 If Glibc needs to be upgraded to a newer version, (e.g., from
-                Glibc-2.36 to Glibc-2.39), some extra steps are needed to
+                Glibc-2.36 to Glibc-2.40), some extra steps are needed to
                 avoid breaking the system. Read <a class="xref" href=
-                "glibc.html" title="8.5.&nbsp;Glibc-2.39">Section&nbsp;8.5,
-                “Glibc-2.39”</a> for details.
+                "glibc.html" title="8.5.&nbsp;Glibc-2.40">Section&nbsp;8.5,
+                “Glibc-2.40”</a> for details.
               </p>
             </li>
             <li class="listitem">
@@ -209,13 +209,6 @@
                 "command"><strong>sshd</strong></span> service, then logout,
                 login again, and run the preceding command again to confirm
                 that nothing is still using the deleted libraries.
-              </p>
-              <p>
-                If the <span class="command"><strong>systemd</strong></span>
-                daemon (running as PID 1) is linked to the updated library,
-                you can restart it without rebooting by running <span class=
-                "command"><strong>systemctl daemon-reexec</strong></span> as
-                the <code class="systemitem">root</code> user.
               </p>
             </li>
             <li class="listitem">
@@ -474,8 +467,11 @@ make DESTDIR=/usr/pkg/libfoo/1.1 install</kbd></pre>
           "filename">/etc/fstab</code>, <code class=
           "filename">/etc/passwd</code>, <code class=
           "filename">/etc/group</code>, <span class="phrase"><code class=
-          "filename">/etc/shadow</code>, and <code class=
-          "filename">/etc/ld.so.conf</code>.</span>
+          "filename">/etc/shadow</code>, <code class=
+          "filename">/etc/ld.so.conf</code>, <code class=
+          "filename">/etc/sysconfig/rc.site</code>, <code class=
+          "filename">/etc/sysconfig/network</code>, and <code class=
+          "filename">/etc/sysconfig/ifconfig.eth0</code>.</span>
         </p>
         <p>
           A custom kernel may be needed for the new system, depending on
@@ -515,9 +511,9 @@ make DESTDIR=/usr/pkg/libfoo/1.1 install</kbd></pre>
         </li>
         <li class="next">
           <a accesskey="n" href="man-pages.html" title=
-          "Man-pages-6.06">Next</a>
+          "Man-pages-6.9.1">Next</a>
           <p>
-            Man-pages-6.06
+            Man-pages-6.9.1
           </p>
         </li>
         <li class="up">
@@ -526,7 +522,7 @@ make DESTDIR=/usr/pkg/libfoo/1.1 install</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

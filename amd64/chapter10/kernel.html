@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      10.3.&nbsp;Linux-6.7.4
+      10.3.&nbsp;Linux-6.10.5
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Chapter&nbsp;10.&nbsp;Making the LFS System Bootable
@@ -41,13 +41,13 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
       <a id="ch-bootable-kernel" name="ch-bootable-kernel"></a>10.3.
-      Linux-6.7.4
+      Linux-6.10.5
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -58,12 +58,12 @@
           <div class="seglistitem">
             <div class="seg">
               <strong class="segtitle">Approximate build time:</strong>
-              <span class="segbody">0.6 - 20.4 SBU (typically about 1.4
+              <span class="segbody">0.4 - 32 SBU (typically about 2.5
               SBU)</span>
             </div>
             <div class="seg">
               <strong class="segtitle">Required disk space:</strong>
-              <span class="segbody">1.8 - 10.6 GB (typically about 2
+              <span class="segbody">1.7 - 14 GB (typically about 2.3
               GB)</span>
             </div>
           </div>
@@ -96,7 +96,7 @@
             log in at the command line when you reboot later in <a class=
             "xref" href="../chapter11/reboot.html" title=
             "11.3.&nbsp;Rebooting the System">Section&nbsp;11.3, “Rebooting
-            the System”</a>. At this point optimization and customization is
+            the System.”</a> At this point optimization and customization is
             not a goal.
           </p>
           <p>
@@ -191,8 +191,6 @@
           <pre class="screen"><span class="blue">G</span>eneral setup ---&gt;
   [ ] <span class=
 "blue">C</span>ompile the kernel with warnings as errors                        [WERROR]
-  [ ] <span class=
-"blue">A</span>uditing support                                                   [AUDIT]
   <span class="blue">C</span>PU/Task time and stats accounting ---&gt;
     [*] <span class=
 "blue">P</span>ressure stall information tracking                                [PSI]
@@ -220,14 +218,6 @@
   [*]   <span class=
 "blue">S</span>trong Stack Protector                           [STACKPROTECTOR_STRONG]
 
-[*] N<span class=
-"blue">e</span>tworking support ---&gt;                                                [NET]
-  N<span class="blue">e</span>tworking options ---&gt;
-    [*] <span class=
-"blue">T</span>CP/IP networking                                                 [INET]
-    &lt;*&gt;   <span class=
-"blue">T</span>he IPv6 protocol ---&gt;                                          [IPV6]
-
 <span class="blue">D</span>evice Drivers ---&gt;
   <span class="blue">G</span>eneric Driver Options ---&gt;
     [ ] <span class=
@@ -237,36 +227,18 @@
     [*]   <span class=
 "blue">A</span>utomount devtmpfs at /dev, after the kernel mounted the rootfs
                                                            ...  [DEVTMPFS_MOUNT]
-    <span class="blue">F</span>irmware loader ---&gt;
-      &lt; /*&gt; <span class=
-"blue">F</span>irmware loading facility                                [FW_LOADER]
-      [ ]     <span class=
-"blue">E</span>nable the firmware sysfs fallback mechanism
-                                                    ...  [FW_LOADER_USER_HELPER]
-  <span class="blue">F</span>irmware Drivers ---&gt;
-    [*] <span class=
-"blue">E</span>xport DMI identification via sysfs to userspace                 [DMIID]
   <span class="blue">G</span>raphics support ---&gt;
     &lt; /*/M&gt; <span class=
 "blue">D</span>irect Rendering Manager (XFree86 4.1.0 and higher DRI support) ---&gt;
                                                                       ...  [DRM]
-    # If [DRM] is selected as * or M, this must be selected:
-    [ /*]   <span class=
+      # If [DRM] is selected as * or M, this must be selected:
+      [ /*] <span class=
 "blue">E</span>nable legacy fbdev support for your modesetting driver
                                                       ...  [DRM_FBDEV_EMULATION]
     <span class="blue">C</span>onsole display driver support ---&gt;
       # If [DRM] is selected as * or M, this must be selected:
       [ /*] <span class=
-"blue">F</span>ramebuffer Console support                    [FRAMEBUFFER_CONSOLE]
-
-<span class="blue">F</span>ile systems ---&gt;
-  [*] <span class=
-"blue">I</span>notify support for userspace                               [INOTIFY_USER]
-  <span class="blue">P</span>seudo filesystems ---&gt;
-    [*] <span class=
-"blue">T</span>mpfs virtual memory file system support (former shm fs)         [TMPFS]
-    [*]   <span class=
-"blue">T</span>mpfs POSIX Access Control Lists                     [TMPFS_POSIX_ACL]</pre>
+"blue">F</span>ramebuffer Console support                    [FRAMEBUFFER_CONSOLE]</pre>
           <p>
             Enable some additional features if you are building a 64-bit
             system. If you are using menuconfig, enable them in the order of
@@ -313,21 +285,11 @@
     &lt;*&gt; N<span class=
 "blue">V</span>M Express block device                                  [BLK_DEV_NVME]</pre>
         </div>
-        <div class="admon note">
-          <img alt="[Note]" src="../images/note.png" />
-          <h3>
-            Note
-          </h3>
-          <p>
-            While "The IPv6 Protocol" is not strictly required, it is highly
-            recommended by the systemd developers.
-          </p>
-        </div>
         <p>
           There are several other options that may be desired depending on
           the requirements for the system. For a list of options needed for
           BLFS packages, see the <a class="ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/stable-systemd/longindex.html#kernel-config-index">
+          "https://www.linuxfromscratch.org/blfs/view/12.2/longindex.html#kernel-config-index">
           BLFS Index of Kernel Settings</a>.
         </p>
         <div class="admon note">
@@ -339,7 +301,7 @@
             If your host hardware is using UEFI and you wish to boot the LFS
             system with it, you should adjust some kernel configuration
             following <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/stable-systemd/postlfs/grub-setup.html#uefi-kernel">
+            "https://www.linuxfromscratch.org/blfs/view/12.2/postlfs/grub-setup.html#uefi-kernel">
             the BLFS page</a> <span class="bold"><strong>even if you'll use
             the UEFI bootloader from the host distro</strong></span>.
           </p>
@@ -480,7 +442,7 @@
           If desired, skip kernel configuration by copying the kernel config
           file, <code class="filename">.config</code>, from the host system
           (assuming it is available) to the unpacked <code class=
-          "filename">linux-6.7.4</code> directory. However, we do not
+          "filename">linux-6.10.5</code> directory. However, we do not
           recommend this option. It is often better to explore all the
           configuration menus and create the kernel configuration from
           scratch.
@@ -497,7 +459,7 @@
           "9.3.&nbsp;Overview of Device and Module Handling">Section&nbsp;9.3,
           “Overview of Device and Module Handling”</a> and in the kernel
           documentation in the <code class=
-          "filename">linux-6.7.4/Documentation</code> directory. Also,
+          "filename">linux-6.10.5/Documentation</code> directory. Also,
           <a class="ulink" href=
           "https://man.archlinux.org/man/modprobe.d.5">modprobe.d(5)</a> may
           be of interest.
@@ -546,7 +508,7 @@
           The following command assumes an x86 architecture:
         </p>
         <pre class="userinput"><kbd class=
-        "command">cp -iv arch/x86/boot/bzImage /boot/vmlinuz-6.7.4-lfs-12.1-systemd</kbd></pre>
+        "command">cp -iv arch/x86/boot/bzImage /boot/vmlinuz-6.10.5-lfs-12.2</kbd></pre>
         <p>
           <code class="filename">System.map</code> is a symbol file for the
           kernel. It maps the function entry points of every function in the
@@ -556,7 +518,7 @@
           file:
         </p>
         <pre class="userinput"><kbd class=
-        "command">cp -iv System.map /boot/System.map-6.7.4</kbd></pre>
+        "command">cp -iv System.map /boot/System.map-6.10.5</kbd></pre>
         <p>
           The kernel configuration file <code class="filename">.config</code>
           produced by the <span class="command"><strong>make
@@ -565,12 +527,12 @@
           is a good idea to keep this file for future reference:
         </p>
         <pre class="userinput"><kbd class=
-        "command">cp -iv .config /boot/config-6.7.4</kbd></pre>
+        "command">cp -iv .config /boot/config-6.10.5</kbd></pre>
         <p>
           Install the documentation for the Linux kernel:
         </p>
         <pre class="userinput"><kbd class=
-        "command">cp -r Documentation -T /usr/share/doc/linux-6.7.4</kbd></pre>
+        "command">cp -r Documentation -T /usr/share/doc/linux-6.10.5</kbd></pre>
         <p>
           It is important to note that the files in the kernel source
           directory are not owned by <span class=
@@ -599,8 +561,8 @@
           <p>
             If the kernel source tree is going to be retained, run
             <span class="command"><strong>chown -R 0:0</strong></span> on the
-            <code class="filename">linux-6.7.4</code> directory to ensure all
-            files are owned by user <span class=
+            <code class="filename">linux-6.10.5</code> directory to ensure
+            all files are owned by user <span class=
             "emphasis"><em>root</em></span>.
           </p>
         </div>
@@ -630,8 +592,8 @@
             which Glibc was compiled, that is, the sanitised headers
             installed in <a class="xref" href=
             "../chapter05/linux-headers.html" title=
-            "5.4.&nbsp;Linux-6.7.4 API Headers">Section&nbsp;5.4,
-            “Linux-6.7.4 API Headers”</a>. Therefore, they should
+            "5.4.&nbsp;Linux-6.10.5 API Headers">Section&nbsp;5.4,
+            “Linux-6.10.5 API Headers”</a>. Therefore, they should
             <span class="emphasis"><em>never</em></span> be replaced by
             either the raw kernel headers or any other kernel sanitized
             headers.
@@ -680,13 +642,13 @@ EOF</kbd></pre>
           <div class="seglistitem">
             <div class="seg">
               <strong class="segtitle">Installed files:</strong> <span class=
-              "segbody">config-6.7.4, vmlinuz-6.7.4-lfs-12.1-systemd, and
-              System.map-6.7.4</span>
+              "segbody">config-6.10.5, vmlinuz-6.10.5-lfs-12.2, and
+              System.map-6.10.5</span>
             </div>
             <div class="seg">
               <strong class="segtitle">Installed directories:</strong>
               <span class="segbody">/lib/modules,
-              /usr/share/doc/linux-6.7.4</span>
+              /usr/share/doc/linux-6.10.5</span>
             </div>
           </div>
         </div>
@@ -704,7 +666,7 @@ EOF</kbd></pre>
                 <td>
                   <p>
                     <a id="config" name="config"></a><span class=
-                    "term"><code class="filename">config-6.7.4</code></span>
+                    "term"><code class="filename">config-6.10.5</code></span>
                   </p>
                 </td>
                 <td>
@@ -718,7 +680,7 @@ EOF</kbd></pre>
                   <p>
                     <a id="lfskernel" name="lfskernel"></a><span class=
                     "term"><code class=
-                    "filename">vmlinuz-6.7.4-lfs-12.1-systemd</code></span>
+                    "filename">vmlinuz-6.10.5-lfs-12.2</code></span>
                   </p>
                 </td>
                 <td>
@@ -739,7 +701,7 @@ EOF</kbd></pre>
                   <p>
                     <a id="System.map" name="System.map"></a><span class=
                     "term"><code class=
-                    "filename">System.map-6.7.4</code></span>
+                    "filename">System.map-6.10.5</code></span>
                   </p>
                 </td>
                 <td>
@@ -777,7 +739,7 @@ EOF</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

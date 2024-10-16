@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;9.&nbsp;System Configuration
@@ -29,10 +29,10 @@
           </p>
         </li>
         <li class="next">
-          <a accesskey="n" href="network.html" title=
-          "General Network Configuration">Next</a>
+          <a accesskey="n" href="bootscripts.html" title=
+          "LFS-Bootscripts-20240825">Next</a>
           <p>
-            General Network Configuration
+            LFS-Bootscripts-20240825
           </p>
         </li>
         <li class="up">
@@ -41,7 +41,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
@@ -51,112 +51,101 @@
     </h1>
     <div class="sect1" lang="en" xml:lang="en">
       <p>
-        This chapter discusses configuration files and systemd services.
-        First, the general configuration files needed to set up networking
-        are presented.
+        Booting a Linux system involves several tasks. The process must mount
+        both virtual and real file systems, initialize devices, check file
+        systems for integrity, mount and activate any swap partitions or
+        files, set the system clock, bring up networking, start any daemons
+        required by the system, and accomplish any other custom tasks
+        specified by the user. This process must be organized to ensure the
+        tasks are performed in the correct order and executed as quickly as
+        possible.
       </p>
-      <div class="itemizedlist">
-        <ul>
-          <li class="listitem">
-            <p>
-              <a class="xref" href="network.html" title=
-              "9.2.&nbsp;General Network Configuration">Section&nbsp;9.2,
-              “General Network Configuration.”</a>
-            </p>
-          </li>
-          <li class="listitem">
-            <p>
-              <a class="xref" href="network.html#ch-config-hostname" title=
-              "9.2.3.&nbsp;Configuring the system hostname">Section&nbsp;9.2.3,
-              “Configuring the system hostname.”</a>
-            </p>
-          </li>
-          <li class="listitem">
-            <p>
-              <a class="xref" href="network.html#ch-config-hosts" title=
-              "9.2.4.&nbsp;Customizing the /etc/hosts File">Section&nbsp;9.2.4,
-              “Customizing the /etc/hosts File.”</a>
-            </p>
-          </li>
-        </ul>
-      </div>
-      <p>
-        Second, issues that affect the proper setup of devices are discussed.
-      </p>
-      <div class="itemizedlist">
-        <ul>
-          <li class="listitem">
-            <p>
-              <a class="xref" href="udev.html" title=
-              "9.3.&nbsp;Overview of Device and Module Handling">Section&nbsp;9.3,
-              “Overview of Device and Module Handling.”</a>
-            </p>
-          </li>
-          <li class="listitem">
-            <p>
-              <a class="xref" href="symlinks.html" title=
-              "9.4.&nbsp;Managing Devices">Section&nbsp;9.4, “Managing
-              Devices.”</a>
-            </p>
-          </li>
-        </ul>
-      </div>
-      <p>
-        Third, configuring the system clock and keyboard layout is shown.
-      </p>
-      <div class="itemizedlist">
-        <ul>
-          <li class="listitem">
-            <p>
-              <a class="xref" href="clock.html" title=
-              "9.5.&nbsp;Configuring the system clock">Section&nbsp;9.5,
-              “Configuring the system clock.”</a>
-            </p>
-          </li>
-          <li class="listitem">
-            <p>
-              <a class="xref" href="console.html" title=
-              "9.6.&nbsp;Configuring the Linux Console">Section&nbsp;9.6,
-              “Configuring the Linux Console.”</a>
-            </p>
-          </li>
-        </ul>
-      </div>
-      <p>
-        Fourth, a brief introduction to the scripts and configuration files
-        used when the user logs into the system is presented.
-      </p>
-      <div class="itemizedlist">
-        <ul>
-          <li class="listitem">
-            <p>
-              <a class="xref" href="locale.html" title=
-              "9.7.&nbsp;Configuring the System Locale">Section&nbsp;9.7,
-              “Configuring the System Locale.”</a>
-            </p>
-          </li>
-          <li class="listitem">
-            <p>
-              <a class="xref" href="inputrc.html" title=
-              "9.8.&nbsp;Creating the /etc/inputrc File">Section&nbsp;9.8,
-              “Creating the /etc/inputrc File.”</a>
-            </p>
-          </li>
-        </ul>
-      </div>
-      <p>
-        And finally, configuring the behavior of systemd is discussed.
-      </p>
-      <div class="itemizedlist">
-        <ul>
-          <li class="listitem">
-            <p>
-              <a class="xref" href="systemd-custom.html" title=
-              "9.10.&nbsp;Systemd Usage and Configuration">Section&nbsp;9.10,
-              “Systemd Usage and Configuration.”</a>
-            </p>
-          </li>
-        </ul>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="sysv-desc" name="sysv-desc"></a>9.1.1. System V
+        </h2>
+        <p>
+          System V is the classic boot process that has been used in Unix and
+          Unix-like systems such as Linux since about 1983. It consists of a
+          small program, <span class="command"><strong>init</strong></span>,
+          that sets up basic processes such as <span class=
+          "command"><strong>login</strong></span> (via getty) and runs a
+          script. This script, usually named <span class=
+          "command"><strong>rc</strong></span>, controls the execution of a
+          set of additional scripts that perform the tasks required to
+          initialize the system.
+        </p>
+        <p>
+          The <span class="command"><strong>init</strong></span> program is
+          controlled by the <code class="filename">/etc/inittab</code> file
+          and is organized into run levels that can be chosen by the user. In
+          LFS, they are used as follows:
+        </p>
+        <div class="literallayout">
+          <p>
+            0&nbsp;—&nbsp;halt<br />
+            1&nbsp;—&nbsp;Single&nbsp;user&nbsp;mode<br />
+            2&nbsp;—&nbsp;User&nbsp;definable<br />
+            3&nbsp;—&nbsp;Full&nbsp;multiuser&nbsp;mode<br />
+            4&nbsp;—&nbsp;User&nbsp;definable<br />
+            5&nbsp;—&nbsp;Full&nbsp;multiuser&nbsp;mode&nbsp;with&nbsp;display&nbsp;manager<br />
+
+            6&nbsp;—&nbsp;reboot
+          </p>
+        </div>
+        <p>
+          The usual default run level is 3 or 5.
+        </p>
+        <h3>
+          Advantages
+        </h3>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                Established, well understood system.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                Easy to customize.
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h3>
+          Disadvantages
+        </h3>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                May be slower to boot. A medium speed base LFS system takes
+                8-12 seconds where the boot time is measured from the first
+                kernel message to the login prompt. Network connectivity is
+                typically established about 2 seconds after the login prompt.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                Serial processing of boot tasks. This is related to the
+                previous point. A delay in any process, such as a file system
+                check, will delay the entire boot process.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                Does not directly support advanced features like control
+                groups (cgroups) and per-user fair share scheduling.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                Adding scripts requires manual, static sequencing decisions.
+              </p>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="navfooter">
@@ -169,10 +158,10 @@
           </p>
         </li>
         <li class="next">
-          <a accesskey="n" href="network.html" title=
-          "General Network Configuration">Next</a>
+          <a accesskey="n" href="bootscripts.html" title=
+          "LFS-Bootscripts-20240825">Next</a>
           <p>
-            General Network Configuration
+            LFS-Bootscripts-20240825
           </p>
         </li>
         <li class="up">
@@ -181,7 +170,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

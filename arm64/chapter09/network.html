@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      9.2.&nbsp;General Network Configuration
+      9.5.&nbsp;General Network Configuration
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,27 +12,27 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;9.&nbsp;System Configuration
       </h3>
       <ul>
         <li class="prev">
-          <a accesskey="p" href="introduction.html" title=
-          "Introduction">Prev</a>
+          <a accesskey="p" href="symlinks.html" title=
+          "Managing Devices">Prev</a>
           <p>
-            Introduction
+            Managing Devices
           </p>
         </li>
         <li class="next">
-          <a accesskey="n" href="udev.html" title=
-          "Overview of Device and Module Handling">Next</a>
+          <a accesskey="n" href="usage.html" title=
+          "System V Bootscript Usage and Configuration">Next</a>
           <p>
-            Overview of Device and Module Handling
+            System V Bootscript Usage and Configuration
           </p>
         </li>
         <li class="up">
@@ -41,31 +41,30 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
-      <a id="ch-config-network" name="ch-config-network"></a>9.2. General
+      <a id="ch-config-network" name="ch-config-network"></a>9.5. General
       Network Configuration
     </h1>
     <div class="sect1" lang="en" xml:lang="en">
-      <p>
-        This section only applies if a network card is to be configured.
-      </p>
       <div class="sect2" lang="en" xml:lang="en">
         <h2 class="sect2">
-          9.2.1. Network Interface Configuration Files
+          9.5.1. Creating Network Interface Configuration Files
         </h2>
         <p>
-          Starting with version 209, systemd ships a network configuration
-          daemon called <span class=
-          "command"><strong>systemd-networkd</strong></span> which can be
-          used for basic network configuration. Additionally, since version
-          213, DNS name resolution can be handled by <span class=
-          "command"><strong>systemd-resolved</strong></span> in place of a
-          static <code class="filename">/etc/resolv.conf</code> file. Both
-          services are enabled by default.
+          The files in <code class="filename">/etc/sysconfig/</code> usually
+          determine which interfaces are brought up and down by the network
+          script. This directory should contain a file for each interface to
+          be configured, such as <code class="filename">ifconfig.xyz</code>,
+          where <span class="quote">“<span class="quote">xyz</span>”</span>
+          describes the network card. The interface name (e.g. eth0) is
+          usually appropriate. Each file contains the attributes of one
+          interface, such as its IP address(es), subnet masks, and so forth.
+          The stem of the filename must be <span class=
+          "emphasis"><em>ifconfig</em></span>.
         </p>
         <div class="admon note">
           <img alt="[Note]" src="../images/note.png" />
@@ -73,238 +72,107 @@
             Note
           </h3>
           <p>
-            If you will not use <span class=
-            "command"><strong>systemd-networkd</strong></span> for network
-            configuration (for example, when the system is not connected to
-            network, or you want to use another utility like NetworkManager
-            for network configuration), disable a service to prevent an error
-            message during boot:
+            If the procedure in the previous section was not used, udev will
+            assign network card interface names based on system physical
+            characteristics such as enp2s1. If you are not sure what your
+            interface name is, you can always run <span class=
+            "command"><strong>ip link</strong></span> or <span class=
+            "command"><strong>ls /sys/class/net</strong></span> after you
+            have booted your system.
           </p>
-          <pre class="userinput"><kbd class=
-          "command">systemctl disable systemd-networkd-wait-online</kbd></pre>
+          <p>
+            The interface names depend on the implementation and
+            configuration of the udev daemon running on the system. The udev
+            daemon for LFS (installed in <a class="xref" href=
+            "../chapter08/udev.html" title=
+            "8.76.&nbsp;Udev from Systemd-256.5">Section&nbsp;8.76, “Udev
+            from Systemd-256.5”</a>) will not run until the LFS system is
+            booted. So the interface names in the LFS system cannot always be
+            determined by running those commands on the host distro,
+            <span class="emphasis"><em>even in the chroot
+            environment</em></span>.
+          </p>
         </div>
         <p>
-          Configuration files for <span class=
-          "command"><strong>systemd-networkd</strong></span> (and
-          <span class="command"><strong>systemd-resolved</strong></span>) can
-          be placed in <code class="filename">/usr/lib/systemd/network</code>
-          or <code class="filename">/etc/systemd/network</code>. Files in
-          <code class="filename">/etc/systemd/network</code> have a higher
-          priority than the ones in <code class=
-          "filename">/usr/lib/systemd/network</code>. There are three types
-          of configuration files: <code class="filename">.link</code>,
-          <code class="filename">.netdev</code> and <code class=
-          "filename">.network</code> files. For detailed descriptions and
-          example contents of these configuration files, consult the
-          <a class="ulink" href=
-          "https://man.archlinux.org/man/systemd-link.5">systemd-link(5)</a>,
-          <a class="ulink" href=
-          "https://man.archlinux.org/man/systemd-netdev.5">systemd-netdev(5)</a>,
-          and <a class="ulink" href=
-          "https://man.archlinux.org/man/systemd-network.5">systemd-network(5)</a>
-          manual pages.
+          The following command creates a sample file for the <span class=
+          "emphasis"><em>eth0</em></span> device with a static IP address:
         </p>
-        <div class="sect3">
-          <h3 class="sect3">
-            <a id="systemd-network-devices" name=
-            "systemd-network-devices"></a>9.2.1.1. Network Device Naming
-          </h3>
-          <p>
-            Udev normally assigns network card interface names based on
-            physical system characteristics such as enp2s1. If you are not
-            sure what your interface name is, you can always run <span class=
-            "command"><strong>ip link</strong></span> after you have booted
-            your system.
-          </p>
-          <div class="admon note">
-            <img alt="[Note]" src="../images/note.png" />
-            <h3>
-              Note
-            </h3>
-            <p>
-              The interface names depend on the implementation and
-              configuration of the udev daemon running on the system. The
-              udev daemon for LFS (<span class=
-              "command"><strong>systemd-udevd</strong></span>, installed in
-              <a class="xref" href="../chapter08/systemd.html" title=
-              "8.75.&nbsp;Systemd-255">Section&nbsp;8.75, “Systemd-255”</a>)
-              will not run unless the LFS system is booted. So it's
-              unreliable to determine the interface names being used in LFS
-              system by running those commands on the host distro,
-              <span class="emphasis"><em>even though you are in the chroot
-              environment</em></span>.
-            </p>
-          </div>
-          <p>
-            For most systems, there is only one network interface for each
-            type of connection. For example, the classic interface name for a
-            wired connection is eth0. A wireless connection will usually have
-            the name wifi0 or wlan0.
-          </p>
-          <p>
-            If you prefer to use the classic or customized network interface
-            names, there are three alternative ways to do that:
-          </p>
-          <div class="itemizedlist">
-            <ul>
-              <li class="listitem">
-                <p>
-                  Mask udev's <code class="filename">.link</code> file for
-                  the default policy:
-                </p>
-                <pre class="userinput"><kbd class=
-                "command">ln -s /dev/null /etc/systemd/network/99-default.link</kbd></pre>
-              </li>
-              <li class="listitem">
-                <p>
-                  Create a manual naming scheme, for example by naming the
-                  interfaces something like <code class=
-                  "literal">internet0</code>, <code class=
-                  "literal">dmz0</code>, or <code class=
-                  "literal">lan0</code>. To do that, create <code class=
-                  "filename">.link</code> files in /etc/systemd/network/ that
-                  select an explicit name or a better naming scheme for your
-                  network interfaces. For example:
-                </p>
-                <pre class="userinput"><kbd class=
-                "command">cat &gt; /etc/systemd/network/10-ether0.link &lt;&lt; "EOF"
-<code class="literal">[Match]
-# Change the MAC address as appropriate for your network device
-MACAddress=12:34:45:78:90:AB
-
-[Link]
-Name=ether0</code>
+        <pre class="userinput"><kbd class="command">cd /etc/sysconfig/
+cat &gt; ifconfig.<em class=
+"replaceable"><code>eth0</code></em> &lt;&lt; "EOF"
+<code class="literal">ONBOOT=<em class="replaceable"><code>yes</code></em>
+IFACE=<em class="replaceable"><code>eth0</code></em>
+SERVICE=<em class="replaceable"><code>ipv4-static</code></em>
+IP=<em class="replaceable"><code>192.168.1.2</code></em>
+GATEWAY=<em class="replaceable"><code>192.168.1.1</code></em>
+PREFIX=<em class="replaceable"><code>24</code></em>
+BROADCAST=<em class="replaceable"><code>192.168.1.255</code></em></code>
 EOF</kbd></pre>
-                <p>
-                  See <a class="ulink" href=
-                  "https://man.archlinux.org/man/systemd.link.5">systemd.link(5)</a>
-                  for more information.
-                </p>
-              </li>
-              <li class="listitem">
-                <p>
-                  In /boot/grub/grub.cfg, pass the option <code class=
-                  "option">net.ifnames=0</code> on the kernel command line.
-                </p>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="sect3">
-          <h3 class="sect3">
-            <a id="systemd-networkd-static" name=
-            "systemd-networkd-static"></a>9.2.1.2. Static IP Configuration
-          </h3>
-          <p>
-            The command below creates a basic configuration file for a Static
-            IP setup (using both systemd-networkd and systemd-resolved):
-          </p>
-          <pre class="userinput"><kbd class=
-          "command">cat &gt; /etc/systemd/network/10-eth-static.network &lt;&lt; "EOF"
-<code class="literal">[Match]
-Name=<em class="replaceable"><code>&lt;network-device-name&gt;</code></em>
-
-[Network]
-Address=192.168.0.2/24
-Gateway=192.168.0.1
-DNS=192.168.0.1
-Domains=<em class=
-"replaceable"><code>&lt;Your Domain Name&gt;</code></em></code>
-EOF</kbd></pre>
-          <p>
-            Multiple DNS entries can be added if you have more than one DNS
-            server. Do not include DNS or Domains entries if you intend to
-            use a static <code class="filename">/etc/resolv.conf</code> file.
-          </p>
-        </div>
-        <div class="sect3">
-          <h3 class="sect3">
-            <a id="systemd-networkd-dhcp" name=
-            "systemd-networkd-dhcp"></a>9.2.1.3. DHCP Configuration
-          </h3>
-          <p>
-            The command below creates a basic configuration file for an IPv4
-            DHCP setup:
-          </p>
-          <pre class="userinput"><kbd class=
-          "command">cat &gt; /etc/systemd/network/10-eth-dhcp.network &lt;&lt; "EOF"
-<code class="literal">[Match]
-Name=&lt;network-device-name&gt;
-
-[Network]
-DHCP=ipv4
-
-[DHCPv4]
-UseDomains=true</code>
-EOF</kbd></pre>
-        </div>
+        <p>
+          The values in italics must be changed in each file, to set the
+          interfaces up correctly.
+        </p>
+        <p>
+          If the <code class="envar">ONBOOT</code> variable is set to
+          <code class="literal">yes</code> the System V network script will
+          bring up the Network Interface Card (NIC) during the system boot
+          process. If set to anything besides <code class=
+          "literal">yes</code>, the NIC will be ignored by the network script
+          and will not be started automatically. Interfaces can be manually
+          started or stopped with the <span class=
+          "command"><strong>ifup</strong></span> and <span class=
+          "command"><strong>ifdown</strong></span> commands.
+        </p>
+        <p>
+          The <code class="envar">IFACE</code> variable defines the interface
+          name, for example, eth0. It is required for all network device
+          configuration files. The filename extension must match this value.
+        </p>
+        <p>
+          The <code class="envar">SERVICE</code> variable defines the method
+          used for obtaining the IP address. The LFS-Bootscripts package has
+          a modular IP assignment format, and creating additional files in
+          the <code class="filename">/lib/services/</code> directory allows
+          other IP assignment methods. This is commonly used for Dynamic Host
+          Configuration Protocol (DHCP), which is addressed in the BLFS book.
+        </p>
+        <p>
+          The <code class="envar">GATEWAY</code> variable should contain the
+          default gateway IP address, if one is present. If not, then comment
+          out the variable entirely.
+        </p>
+        <p>
+          The <code class="envar">PREFIX</code> variable specifies the number
+          of bits used in the subnet. Each segment of an IP address is 8
+          bits. If the subnet's netmask is 255.255.255.0, then it is using
+          the first three segments (24 bits) to specify the network number.
+          If the netmask is 255.255.255.240, the subnet is using the first 28
+          bits. Prefixes longer than 24 bits are commonly used by DSL and
+          cable-based Internet Service Providers (ISPs). In this example
+          (PREFIX=24), the netmask is 255.255.255.0. Adjust the <code class=
+          "envar">PREFIX</code> variable according to your specific subnet.
+          If omitted, the PREFIX defaults to 24.
+        </p>
+        <p>
+          For more information see the <span class=
+          "command"><strong>ifup</strong></span> man page.
+        </p>
       </div>
       <div class="sect2" lang="en" xml:lang="en">
         <h2 class="sect2">
-          <a id="resolv.conf" name="resolv.conf"></a>9.2.2. Creating the
+          <a id="resolv.conf" name="resolv.conf"></a>9.5.2. Creating the
           /etc/resolv.conf File
         </h2>
         <p>
-          If the system is going to be connected to the Internet, it will
-          need some means of Domain Name Service (DNS) name resolution to
-          resolve Internet domain names to IP addresses, and vice versa. This
-          is best achieved by placing the IP address of the DNS server,
-          available from the ISP or network administrator, into <code class=
-          "filename">/etc/resolv.conf</code>.
+          The system will need some means of obtaining Domain Name Service
+          (DNS) name resolution to resolve Internet domain names to IP
+          addresses, and vice versa. This is best achieved by placing the IP
+          address of the DNS server, available from the ISP or network
+          administrator, into <code class="filename">/etc/resolv.conf</code>.
+          Create the file by running the following:
         </p>
-        <div class="sect3">
-          <h3 class="sect3">
-            <a id="resolv-conf-systemd-resolved" name=
-            "resolv-conf-systemd-resolved"></a>9.2.2.1. systemd-resolved
-            Configuration
-          </h3>
-          <div class="admon note">
-            <img alt="[Note]" src="../images/note.png" />
-            <h3>
-              Note
-            </h3>
-            <p>
-              If using methods incompatible with systemd-resolved to
-              configure your network interfaces (ex: ppp, etc.), or if using
-              any type of local resolver (ex: bind, dnsmasq, unbound, etc.),
-              or any other software that generates an <code class=
-              "filename">/etc/resolv.conf</code> (ex: a <span class=
-              "command"><strong>resolvconf</strong></span> program other than
-              the one provided by systemd), the <span class=
-              "command"><strong>systemd-resolved</strong></span> service
-              should not be used.
-            </p>
-            <p>
-              To disable systemd-resolved, issue the following command:
-            </p>
-            <pre class="userinput"><kbd class=
-            "command">systemctl disable systemd-resolved</kbd></pre>
-          </div>
-          <p>
-            When using <span class=
-            "command"><strong>systemd-resolved</strong></span> for DNS
-            configuration, it creates the file <code class=
-            "filename">/run/systemd/resolve/stub-resolv.conf</code>. And, if
-            <code class="filename">/etc/resolv.conf</code> does not exist, it
-            will be created by <span class=
-            "command"><strong>systemd-resolved</strong></span> as a symlink
-            to <code class=
-            "filename">/run/systemd/resolve/stub-resolv.conf</code>. So it's
-            unnecessary to create a <code class=
-            "filename">/etc/resolv.conf</code> manually.
-          </p>
-        </div>
-        <div class="sect3">
-          <h3 class="sect3">
-            <a id="resolv-conf-static" name="resolv-conf-static"></a>9.2.2.2.
-            Static resolv.conf Configuration
-          </h3>
-          <p>
-            If a static <code class="filename">/etc/resolv.conf</code> is
-            desired, create it by running the following command:
-          </p>
-          <pre class="userinput"><kbd class=
-          "command">cat &gt; /etc/resolv.conf &lt;&lt; "EOF"
+        <pre class="userinput"><kbd class=
+        "command">cat &gt; /etc/resolv.conf &lt;&lt; "EOF"
 <code class="literal"># Begin /etc/resolv.conf
 
 domain <em class="replaceable"><code>&lt;Your Domain Name&gt;</code></em>
@@ -315,42 +183,34 @@ nameserver <em class=
 
 # End /etc/resolv.conf</code>
 EOF</kbd></pre>
+        <p>
+          The <code class="varname">domain</code> statement can be omitted or
+          replaced with a <code class="varname">search</code> statement. See
+          the man page for resolv.conf for more details.
+        </p>
+        <p>
+          Replace <em class="replaceable"><code>&lt;IP address of the
+          nameserver&gt;</code></em> with the IP address of the DNS most
+          appropriate for the setup. There will often be more than one entry
+          (requirements demand secondary servers for fallback capability). If
+          you only need or want one DNS server, remove the second
+          <span class="emphasis"><em>nameserver</em></span> line from the
+          file. The IP address may also be a router on the local network.
+        </p>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
           <p>
-            The <code class="varname">domain</code> statement can be omitted
-            or replaced with a <code class="varname">search</code> statement.
-            See the man page for resolv.conf for more details.
+            The Google Public IPv4 DNS addresses are 8.8.8.8 and 8.8.4.4.
           </p>
-          <p>
-            Replace <em class="replaceable"><code>&lt;IP address of the
-            nameserver&gt;</code></em> with the IP address of the DNS server
-            most appropriate for your setup. There will often be more than
-            one entry (requirements demand secondary servers for fallback
-            capability). If you only need or want one DNS server, remove the
-            second <span class="emphasis"><em>nameserver</em></span> line
-            from the file. The IP address may also be a router on the local
-            network. Another option is to use the Google Public DNS service
-            using the IP addresses below as nameservers.
-          </p>
-          <div class="admon note">
-            <img alt="[Note]" src="../images/note.png" />
-            <h3>
-              Note
-            </h3>
-            <p>
-              The Google Public IPv4 DNS addresses are <em class=
-              "parameter"><code>8.8.8.8</code></em> and <em class=
-              "parameter"><code>8.8.4.4</code></em> for IPv4, and <em class=
-              "parameter"><code>2001:4860:4860::8888</code></em> and
-              <em class="parameter"><code>2001:4860:4860::8844</code></em>
-              for IPv6.
-            </p>
-          </div>
         </div>
       </div>
       <div class="sect2" lang="en" xml:lang="en">
         <h2 class="sect2">
-          <a id="ch-config-hostname" name="ch-config-hostname"></a>9.2.3.
-          Configuring the system hostname
+          <a id="ch-config-hostname" name="ch-config-hostname"></a>9.5.3.
+          Configuring the System Hostname
         </h2>
         <p>
           During the boot process, the file <code class=
@@ -366,13 +226,13 @@ EOF</kbd></pre>
         <p>
           <em class="replaceable"><code>&lt;lfs&gt;</code></em> needs to be
           replaced with the name given to the computer. Do not enter the
-          Fully Qualified Domain Name (FQDN) here. That information is put in
+          Fully Qualified Domain Name (FQDN) here. That information goes in
           the <code class="filename">/etc/hosts</code> file.
         </p>
       </div>
       <div class="sect2" lang="en" xml:lang="en">
         <h2 class="sect2">
-          <a id="ch-config-hosts" name="ch-config-hosts"></a>9.2.4.
+          <a id="ch-config-hosts" name="ch-config-hosts"></a>9.5.4.
           Customizing the /etc/hosts File
         </h2>
         <p>
@@ -400,7 +260,7 @@ EOF</kbd></pre>
           range 0-255.
         </p>
         <p>
-          A valid private IP address could be 192.168.1.1.
+          A valid private IP address could be 192.168.1.2.
         </p>
         <p>
           If the computer is to be visible to the Internet, a valid FQDN can
@@ -418,64 +278,51 @@ EOF</kbd></pre>
           purpose.
         </p>
         <p>
-          Create the <code class="filename">/etc/hosts</code> file using the
-          following command:
+          Create the <code class="filename">/etc/hosts</code> file by
+          running:
         </p>
         <pre class="userinput"><kbd class=
         "command">cat &gt; /etc/hosts &lt;&lt; "EOF"
 <code class="literal"># Begin /etc/hosts
 
-<em class="replaceable"><code>&lt;192.168.0.2&gt;</code></em> <em class=
+127.0.0.1 localhost.localdomain localhost
+127.0.1.1 <em class="replaceable"><code>&lt;FQDN&gt;</code></em> <em class=
+"replaceable"><code>&lt;HOSTNAME&gt;</code></em>
+<em class="replaceable"><code>&lt;192.168.1.2&gt;</code></em> <em class=
 "replaceable"><code>&lt;FQDN&gt;</code></em> <em class=
-"replaceable"><code>[alias1] [alias2] ...</code></em>
-::1       ip6-localhost ip6-loopback
+"replaceable"><code>&lt;HOSTNAME&gt;</code></em> <em class=
+"replaceable"><code>[alias1] [alias2 ...]</code></em>
+::1       localhost ip6-localhost ip6-loopback
 ff02::1   ip6-allnodes
 ff02::2   ip6-allrouters
 
 # End /etc/hosts</code>
 EOF</kbd></pre>
         <p>
-          The <em class="replaceable"><code>&lt;192.168.0.2&gt;</code></em>
-          and <em class="replaceable"><code>&lt;FQDN&gt;</code></em> values
+          The <em class="replaceable"><code>&lt;192.168.1.2&gt;</code></em>,
+          <em class="replaceable"><code>&lt;FQDN&gt;</code></em>, and
+          <em class="replaceable"><code>&lt;HOSTNAME&gt;</code></em> values
           need to be changed for specific uses or requirements (if assigned
           an IP address by a network/system administrator and the machine
           will be connected to an existing network). The optional alias
-          name(s) can be omitted, and the <em class=
-          "replaceable"><code>&lt;192.168.0.2&gt;</code></em> line can be
-          omitted if you are using a connection configured with DHCP or IPv6
-          Autoconfiguration, or using <code class=
-          "literal">localhost.localdomain</code> as the FQDN.
-        </p>
-        <p>
-          The <code class="filename">/etc/hostname</code> does not contain
-          entries for <code class="literal">localhost</code>, <code class=
-          "literal">localhost.localdomain</code>, or the hostname (without a
-          domain) because they are handled by the <code class=
-          "systemitem">myhostname</code> NSS module, read the man page
-          <a class="ulink" href=
-          "https://man.archlinux.org/man/nss-myhostname.8">nss-myhostname(8)</a>
-          for details.
-        </p>
-        <p>
-          The ::1 entry is the IPv6 counterpart of 127.0.0.1 and represents
-          the IPv6 loopback interface.
+          name(s) can be omitted.
         </p>
       </div>
     </div>
     <div class="navfooter">
       <ul>
         <li class="prev">
-          <a accesskey="p" href="introduction.html" title=
-          "Introduction">Prev</a>
+          <a accesskey="p" href="symlinks.html" title=
+          "Managing Devices">Prev</a>
           <p>
-            Introduction
+            Managing Devices
           </p>
         </li>
         <li class="next">
-          <a accesskey="n" href="udev.html" title=
-          "Overview of Device and Module Handling">Next</a>
+          <a accesskey="n" href="usage.html" title=
+          "System V Bootscript Usage and Configuration">Next</a>
           <p>
-            Overview of Device and Module Handling
+            System V Bootscript Usage and Configuration
           </p>
         </li>
         <li class="up">
@@ -484,7 +331,7 @@ EOF</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

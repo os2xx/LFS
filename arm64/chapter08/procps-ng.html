@@ -12,26 +12,26 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;8.&nbsp;Installing Basic System Software
       </h3>
       <ul>
         <li class="prev">
-          <a accesskey="p" href="man-db.html" title="Man-DB-2.12.0">Prev</a>
+          <a accesskey="p" href="man-db.html" title="Man-DB-2.13.0">Prev</a>
           <p>
-            Man-DB-2.12.0
+            Man-DB-2.13.0
           </p>
         </li>
         <li class="next">
           <a accesskey="n" href="util-linux.html" title=
-          "Util-linux-2.39.3">Next</a>
+          "Util-linux-2.40.2">Next</a>
           <p>
-            Util-linux-2.39.3
+            Util-linux-2.40.2
           </p>
         </li>
         <li class="up">
@@ -40,7 +40,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
@@ -61,7 +61,7 @@
             </div>
             <div class="seg">
               <strong class="segtitle">Required disk space:</strong>
-              <span class="segbody">27 MB</span>
+              <span class="segbody">26 MB</span>
             </div>
           </div>
         </div>
@@ -77,8 +77,7 @@
         "command">./configure --prefix=/usr                           \
             --docdir=/usr/share/doc/procps-ng-4.0.4 \
             --disable-static                        \
-            --disable-kill                          \
-            --with-systemd</kbd></pre>
+            --disable-kill</kbd></pre>
         <div class="variablelist">
           <p class="title">
             <strong>The meaning of the configure option:</strong>
@@ -100,20 +99,17 @@
         <p>
           Compile the package:
         </p>
-        <pre class="userinput"><kbd class=
-        "command">make src_w_LDADD='$(LDADD) -lsystemd'</kbd></pre>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
         <p>
           To run the test suite, run:
         </p>
-        <pre class="userinput"><kbd class="command">make -k check</kbd></pre>
+        <pre class="userinput"><kbd class="command">chown -R tester .
+su tester -c "PATH=$PATH make check"</kbd></pre>
         <p>
           One test named <code class="literal">ps with output flag
           bsdtime,cputime,etime,etimes</code> is known to fail if the host
           kernel is not built with <code class=
-          "literal">CONFIG_BSD_PROCESS_ACCT</code> enabled. Two tests named
-          <code class="literal">pmap X with unreachable process</code> and
-          <code class="literal">pmap XX with unreachable process</code> are
-          known to fail occasionally.
+          "literal">CONFIG_BSD_PROCESS_ACCT</code> enabled.
         </p>
         <p>
           Install the package:
@@ -395,16 +391,16 @@
     <div class="navfooter">
       <ul>
         <li class="prev">
-          <a accesskey="p" href="man-db.html" title="Man-DB-2.12.0">Prev</a>
+          <a accesskey="p" href="man-db.html" title="Man-DB-2.13.0">Prev</a>
           <p>
-            Man-DB-2.12.0
+            Man-DB-2.13.0
           </p>
         </li>
         <li class="next">
           <a accesskey="n" href="util-linux.html" title=
-          "Util-linux-2.39.3">Next</a>
+          "Util-linux-2.40.2">Next</a>
           <p>
-            Util-linux-2.39.3
+            Util-linux-2.40.2
           </p>
         </li>
         <li class="up">
@@ -413,7 +409,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

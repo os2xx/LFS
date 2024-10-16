@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Important Preliminary Material
@@ -41,7 +41,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
@@ -371,9 +371,9 @@
             inspect a random binary from the host system by running:
             <strong class="userinput"><code>readelf -l &lt;name of binary&gt;
             | grep interpreter</code></strong> and noting the output. The
-            authoritative reference covering all platforms is in the
-            <code class="filename">shlib-versions</code> file in the root of
-            the glibc source tree.
+            authoritative reference covering all platforms is in <a class=
+            "ulink" href="https://sourceware.org/glibc/wiki/ABIList">a Glibc
+            wiki page</a>.
           </p>
         </div>
         <p>
@@ -510,7 +510,7 @@
                 Generally speaking, cc-lfs cannot run on pc (the host
                 system). Even though the triplets for pc and lfs are
                 compatible with each other, an executable for lfs must depend
-                on glibc-2.39; the host distro may utilize either a different
+                on glibc-2.40; the host distro may utilize either a different
                 implementation of libc (for example, musl), or a previous
                 release of glibc (for example, glibc-2.13).
               </p>
@@ -639,27 +639,22 @@ checking what linker to use... /mnt/lfs/tools/i686-lfs-linux-gnu/bin/ld</code></
         <p>
           Next comes glibc. The most important considerations for building
           glibc are the compiler, binary tools, and kernel headers. The
-          compiler is generally not an issue since glibc will always use the
-          compiler relating to the <em class=
+          compiler and binary tools are generally not an issue since glibc
+          will always those relating to the <em class=
           "parameter"><code>--host</code></em> parameter passed to its
           configure script; e.g., in our case, the compiler will be
-          <span class="command"><strong>$LFS_TGT-gcc</strong></span>. The
-          binary tools and kernel headers can be a bit more complicated.
-          Therefore, we take no risks and use the available configure
-          switches to enforce the correct selections. After the run of
-          <span class="command"><strong>configure</strong></span>, check the
-          contents of the <code class="filename">config.make</code> file in
-          the <code class="filename">build</code> directory for all important
-          details. Note the use of <em class=
-          "parameter"><code>CC="$LFS_TGT-gcc"</code></em> (with <code class=
-          "envar">$LFS_TGT</code> expanded) to control which binary tools are
-          used and the use of the <em class=
-          "parameter"><code>-nostdinc</code></em> and <em class=
-          "parameter"><code>-isystem</code></em> flags to control the
-          compiler's include search path. These items highlight an important
-          aspect of the glibc package—it is very self-sufficient in terms of
-          its build machinery, and generally does not rely on toolchain
-          defaults.
+          <span class="command"><strong>$LFS_TGT-gcc</strong></span> and the
+          <span class="command"><strong>readelf</strong></span> tool will be
+          <span class="command"><strong>$LFS_TGT-readelf</strong></span>. The
+          kernel headers can be a bit more complicated. Therefore, we take no
+          risks and use the available configure switch to enforce the correct
+          selection. After the run of <span class=
+          "command"><strong>configure</strong></span>, check the contents of
+          the <code class="filename">config.make</code> file in the
+          <code class="filename">build</code> directory for all important
+          details. These items highlight an important aspect of the glibc
+          package—it is very self-sufficient in terms of its build machinery,
+          and generally does not rely on toolchain defaults.
         </p>
         <p>
           As mentioned above, the standard C++ library is compiled next,
@@ -723,7 +718,7 @@ checking what linker to use... /mnt/lfs/tools/i686-lfs-linux-gnu/bin/ld</code></
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

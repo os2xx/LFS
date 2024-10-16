@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      8.5.&nbsp;Glibc-2.39
+      8.5.&nbsp;Glibc-2.40
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;8.&nbsp;Installing Basic System Software
@@ -23,9 +23,9 @@
       <ul>
         <li class="prev">
           <a accesskey="p" href="iana-etc.html" title=
-          "Iana-Etc-20240125">Prev</a>
+          "Iana-Etc-20240912">Prev</a>
           <p>
-            Iana-Etc-20240125
+            Iana-Etc-20240912
           </p>
         </li>
         <li class="next">
@@ -40,12 +40,12 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
-      <a id="ch-system-glibc" name="ch-system-glibc"></a>8.5. Glibc-2.39
+      <a id="ch-system-glibc" name="ch-system-glibc"></a>8.5. Glibc-2.40
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -79,7 +79,7 @@
           data in the FHS-compliant locations:
         </p>
         <pre class="userinput"><kbd class=
-        "command">patch -Np1 -i ../glibc-2.39-fhs-1.patch</kbd></pre>
+        "command">patch -Np1 -i ../glibc-2.40-fhs-1.patch</kbd></pre>
         <p>
           The Glibc documentation recommends building Glibc in a dedicated
           build directory:
@@ -211,7 +211,7 @@ cd       build</kbd></pre>
                 parallel make jobs). These tests can be identified with:
               </p>
               <pre class="userinput"><kbd class=
-              "command">grep "Timed out" -l $(find -name \*.out)</kbd></pre>
+              "command">grep "Timed out" $(find -name \*.out)</kbd></pre>
               <p>
                 It's possible to re-run a single test with enlarged timeout
                 with <span class="command"><strong>TIMEOUTFACTOR=<em class=
@@ -256,7 +256,7 @@ cd       build</kbd></pre>
           </h3>
           <p>
             If upgrading Glibc to a new minor version (for example, from
-            Glibc-2.36 to Glibc-2.39) on a running LFS system, you need to
+            Glibc-2.36 to Glibc-2.40) on a running LFS system, you need to
             take some extra precautions to avoid breaking the system:
           </p>
           <div class="itemizedlist">
@@ -273,7 +273,7 @@ cd       build</kbd></pre>
                   If upgrading on a LFS system prior to 12.0 (exclusive),
                   install <span class="application">Libxcrypt</span>
                   following <a class="xref" href="libxcrypt.html" title=
-                  "8.26.&nbsp;Libxcrypt-4.4.36">Section&nbsp;8.26,
+                  "8.27.&nbsp;Libxcrypt-4.4.36">Section&nbsp;8.27,
                   “Libxcrypt-4.4.36.”</a> In addition to a normal
                   <span class="application">Libxcrypt</span> installation,
                   <span class="bold"><strong>you MUST follow the note in
@@ -291,14 +291,6 @@ cd       build</kbd></pre>
                 </p>
                 <pre class="userinput"><kbd class=
                 "command">rm -f /usr/sbin/nscd</kbd></pre>
-                <p>
-                  If this system (prior to LFS 12.1, exclusive) is based on
-                  Systemd, it's also needed to disable and stop the
-                  <span class="command"><strong>nscd</strong></span> service
-                  now:
-                </p>
-                <pre class="userinput"><kbd class=
-                "command">systemctl disable --now nscd</kbd></pre>
               </li>
               <li class="listitem">
                 <p>
@@ -307,8 +299,8 @@ cd       build</kbd></pre>
                   "command"><strong>uname -r</strong></span>) or if you want
                   to upgrade it anyway, following <a class="xref" href=
                   "../chapter10/kernel.html" title=
-                  "10.3.&nbsp;Linux-6.7.4">Section&nbsp;10.3,
-                  “Linux-6.7.4.”</a>
+                  "10.3.&nbsp;Linux-6.10.8">Section&nbsp;10.3,
+                  “Linux-6.10.8.”</a>
                 </p>
               </li>
               <li class="listitem">
@@ -319,8 +311,8 @@ cd       build</kbd></pre>
                   /usr/include/linux/version.h</strong></span>) or if you
                   want to upgrade it anyway, following <a class="xref" href=
                   "../chapter05/linux-headers.html" title=
-                  "5.4.&nbsp;Linux-6.7.4 API Headers">Section&nbsp;5.4,
-                  “Linux-6.7.4 API Headers”</a> (but removing <code class=
+                  "5.4.&nbsp;Linux-6.10.8 API Headers">Section&nbsp;5.4,
+                  “Linux-6.10.8 API Headers”</a> (but removing <code class=
                   "envar">$LFS</code> from the <span class=
                   "command"><strong>cp</strong></span> command).
                 </p>
@@ -382,8 +374,8 @@ install -vm755 dest/usr/lib/*.so.* /usr/lib</kbd></pre>
           following instructions will install the minimum set of locales
           necessary for the optimal coverage of tests:
         </p>
-        <pre class="userinput"><kbd class="command">mkdir -pv /usr/lib/locale
-localedef -i C -f UTF-8 C.UTF-8
+        <pre class="userinput"><kbd class=
+        "command">localedef -i C -f UTF-8 C.UTF-8
 localedef -i cs_CZ -f UTF-8 cs_CZ.UTF-8
 localedef -i de_DE -f ISO-8859-1 de_DE
 localedef -i de_DE@euro -f ISO-8859-15 de_DE@euro
@@ -424,7 +416,7 @@ localedef -i zh_TW -f UTF-8 zh_TW.UTF-8</kbd></pre>
         </p>
         <p>
           Alternatively, install all the locales listed in the <code class=
-          "filename">glibc-2.39/localedata/SUPPORTED</code> file (it includes
+          "filename">glibc-2.40/localedata/SUPPORTED</code> file (it includes
           every locale listed above and many more) at once with the following
           time-consuming command:
         </p>
@@ -434,7 +426,7 @@ localedef -i zh_TW -f UTF-8 zh_TW.UTF-8</kbd></pre>
           Then use the <span class=
           "command"><strong>localedef</strong></span> command to create and
           install locales not listed in the <code class=
-          "filename">glibc-2.39/localedata/SUPPORTED</code> file when you
+          "filename">glibc-2.40/localedata/SUPPORTED</code> file when you
           need them. For instance, the following two locales are needed for
           some tests later in this chapter:
         </p>
@@ -451,7 +443,7 @@ localedef -i ja_JP -f SHIFT_JIS ja_JP.SJIS 2&gt; /dev/null || true</kbd></pre>
             names. This is a run time dependency. If this capability is
             needed, the instructions for installing libidn2 are in the
             <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/general/libidn2.html">
+            "https://www.linuxfromscratch.org/blfs/view/svn/general/libidn2.html">
             BLFS libidn2 page</a>.
           </p>
         </div>
@@ -477,11 +469,11 @@ localedef -i ja_JP -f SHIFT_JIS ja_JP.SJIS 2&gt; /dev/null || true</kbd></pre>
           "command">cat &gt; /etc/nsswitch.conf &lt;&lt; "EOF"
 <code class="literal"># Begin /etc/nsswitch.conf
 
-passwd: files systemd
-group: files systemd
-shadow: files systemd
+passwd: files
+group: files
+shadow: files
 
-hosts: mymachines resolve [!UNAVAIL=return] files myhostname dns
+hosts: files dns
 networks: files
 
 protocols: files
@@ -500,7 +492,7 @@ EOF</kbd></pre>
             Install and set up the time zone data with the following:
           </p>
           <pre class="userinput"><kbd class=
-          "command">tar -xf ../../tzdata2024a.tar.gz
+          "command">tar -xf ../../tzdata2024b.tar.gz
 
 ZONEINFO=/usr/share/zoneinfo
 mkdir -pv $ZONEINFO/{posix,right}
@@ -1017,7 +1009,7 @@ mkdir -pv /etc/ld.so.conf.d</kbd></pre>
                     Used internally by Glibc as a gross hack to get broken
                     programs (e.g., some Motif applications) running. See
                     comments in <code class=
-                    "filename">glibc-2.39/locale/broken_cur_max.c</code> for
+                    "filename">glibc-2.40/locale/broken_cur_max.c</code> for
                     more information
                   </p>
                 </td>
@@ -1278,9 +1270,9 @@ mkdir -pv /etc/ld.so.conf.d</kbd></pre>
       <ul>
         <li class="prev">
           <a accesskey="p" href="iana-etc.html" title=
-          "Iana-Etc-20240125">Prev</a>
+          "Iana-Etc-20240912">Prev</a>
           <p>
-            Iana-Etc-20240125
+            Iana-Etc-20240912
           </p>
         </li>
         <li class="next">
@@ -1295,7 +1287,7 @@ mkdir -pv /etc/ld.so.conf.d</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

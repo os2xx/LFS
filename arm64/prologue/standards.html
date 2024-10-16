@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Preface
@@ -40,7 +40,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
@@ -75,11 +75,14 @@
             </p>
             <p>
               The LSB has four separate specifications: Core, Desktop,
-              Runtime Languages, and Imaging. Some parts of Core and Desktop
+              Languages, and Imaging. Some parts of Core and Desktop
               specifications are architecture specific. There are also two
-              trial specifications: Gtk3 and Graphics. LFS attempts to
-              conform to the LSB generic specifications. The architecture
-              specific part of LSB does not exist for ARM64.
+              trial specifications: Gtk3 and Graphics. There's no
+              architecture specific parts for ARM64, and on ARM64 Glibc has
+              intentionally left out some symbol versions required by the
+              architecture independant part of LSB Core. So we cannot satisfy
+              the LSB architecture independant parts, but we still use them
+              as a reference.
             </p>
             <div class="admon note">
               <img alt="[Note]" src="../images/note.png" />
@@ -103,7 +106,8 @@
         LSB certification tests <span class="quote">“<span class="quote">from
         scratch,</span>”</span> this can't be done without many additional
         packages that are beyond the scope of the LFS book. Installation
-        instructions for these additional packages can be found in BLFS.
+        instructions for some of these additional packages can be found in
+        BLFS.
       </p>
       <div class="variablelist">
         <h3>
@@ -125,8 +129,9 @@
               <td>
                 <p>
                   Bash, Bc, Binutils, Coreutils, Diffutils, File, Findutils,
-                  Gawk, Grep, Gzip, M4, Man-DB, Ncurses, Procps, Psmisc, Sed,
-                  Shadow, Tar, Util-linux, Zlib
+                  Gawk, GCC, Gettext, Glibc, Grep, Gzip, M4, Man-DB, Procps,
+                  Psmisc, Sed, Shadow, <span class="phrase">SysVinit</span>,
+                  Tar, Util-linux, Zlib
                 </p>
               </td>
             </tr>
@@ -146,13 +151,13 @@
             <tr>
               <td>
                 <p>
-                  <span class="term"><span class="emphasis"><em>LSB Runtime
+                  <span class="term"><span class="emphasis"><em>LSB
                   Languages:</em></span></span>
                 </p>
               </td>
               <td>
                 <p>
-                  Perl, Python
+                  Perl
                 </p>
               </td>
             </tr>
@@ -204,8 +209,9 @@
               </td>
               <td>
                 <p>
-                  At, Batch (a part of At), Cpio, Ed, Fcrontab, LSB-Tools,
-                  NSPR, NSS, PAM, Pax, Sendmail (or Postfix or Exim), time
+                  At, Batch (a part of At), BLFS Bash Startup Files, Cpio,
+                  Ed, Fcrontab, LSB-Tools, NSPR, NSS, Linux-PAM, Pax,
+                  Sendmail (or Postfix or Exim), Time
                 </p>
               </td>
             </tr>
@@ -219,15 +225,15 @@
               <td>
                 <p>
                   Alsa, ATK, Cairo, Desktop-file-utils, Freetype, Fontconfig,
-                  Gdk-pixbuf, Glib2, GTK+2, Icon-naming-utils, Libjpeg-turbo,
-                  Libpng, Libtiff, Libxml2, MesaLib, Pango, Xdg-utils, Xorg
+                  Gdk-pixbuf, Glib2, GLU, Icon-naming-utils, Libjpeg-turbo,
+                  Libxml2, Mesa, Pango, Xdg-utils, Xorg
                 </p>
               </td>
             </tr>
             <tr>
               <td>
                 <p>
-                  <span class="term"><span class="emphasis"><em>LSB Runtime
+                  <span class="term"><span class="emphasis"><em>LSB
                   Languages:</em></span></span>
                 </p>
               </td>
@@ -268,8 +274,8 @@
       </div>
       <div class="variablelist">
         <h3>
-          Packages not supplied by LFS or BLFS needed to satisfy the LSB
-          Requirements
+          Components not supplied or optionally supplied by LFS or BLFS
+          needed to satisfy the LSB Requirements
         </h3>
         <table border="0" class="variablelist">
           <colgroup>
@@ -286,7 +292,24 @@
               </td>
               <td>
                 <p>
-                  None
+                  <span class=
+                  "command"><strong>install_initd</strong></span>,
+                  <code class="filename">libc.so.6</code> (the file is
+                  provided by the LFS Glibc package but it lacks some symbol
+                  versions required by LSB), <code class=
+                  "filename">libcrypt.so.1</code> (can be provided with
+                  optional instructions for the LFS Libxcrypt package),
+                  <code class="filename">libpthread.so.2</code> (the file is
+                  provided by the LFS Glibc package but it lacks some symbol
+                  versions required by LSB), <code class=
+                  "filename">libncurses.so.5</code> (can be provided with
+                  optional instructions for the LFS Ncurses package),
+                  <code class="filename">libncursesw.so.5</code> (but
+                  <code class="filename">libncursesw.so.6</code> is provided
+                  by the LFS Ncurses package), <code class=
+                  "filename">librt.so.1</code> (the file is provided by the
+                  LFS Glibc package but it lacks some symbol versions
+                  required by LSB)
                 </p>
               </td>
             </tr>
@@ -299,20 +322,36 @@
               </td>
               <td>
                 <p>
-                  Qt4 (but Qt5 is provided)
+                  <code class="filename">libgdk-x11-2.0</code> (but
+                  <code class="filename">libgdk-3.so</code> is provided by
+                  the BLFS GTK+-3 package), <code class=
+                  "filename">libgtk-x11-2.0</code> (but <code class=
+                  "filename">libgtk-3.so</code> and <code class=
+                  "filename">libgtk-4.so</code> are provided by the BLFS
+                  GTK+-3 and GTK-4 packages), <code class=
+                  "filename">libpng12.so</code> (but <code class=
+                  "filename">libpng16.so</code> is provided by the BLFS
+                  Libpng package), <code class="filename">libQt*.so.4</code>
+                  (but <code class="filename">libQt6*.so.6</code> are
+                  provided by the BLFS Qt6 package), <code class=
+                  "filename">libtiff.so.4</code> (but <code class=
+                  "filename">libtiff.so.6</code> is provided by the BLFS
+                  Libtiff package)
                 </p>
               </td>
             </tr>
             <tr>
               <td>
                 <p>
-                  <span class="term"><span class="emphasis"><em>LSB Runtime
+                  <span class="term"><span class="emphasis"><em>LSB
                   Languages:</em></span></span>
                 </p>
               </td>
               <td>
                 <p>
-                  None
+                  <span class=
+                  "command"><strong>/usr/bin/python</strong></span> (LSB
+                  requires Python2 but LFS and BLFS only provide Python3)
                 </p>
               </td>
             </tr>
@@ -338,7 +377,9 @@
               </td>
               <td>
                 <p>
-                  None
+                  <code class="filename">libpng15.so</code> (but <code class=
+                  "filename">libpng16.so</code> is provided by the BLFS
+                  Libpng package)
                 </p>
               </td>
             </tr>
@@ -367,7 +408,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

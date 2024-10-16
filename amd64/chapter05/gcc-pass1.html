@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      5.3.&nbsp;GCC-13.2.0 - Pass 1
+      5.3.&nbsp;GCC-14.2.0 - Pass 1
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Chapter&nbsp;5.&nbsp;Compiling a Cross-Toolchain
@@ -23,16 +23,16 @@
       <ul>
         <li class="prev">
           <a accesskey="p" href="binutils-pass1.html" title=
-          "Binutils-2.42 - Pass 1">Prev</a>
+          "Binutils-2.43.1 - Pass 1">Prev</a>
           <p>
-            Binutils-2.42 - Pass 1
+            Binutils-2.43.1 - Pass 1
           </p>
         </li>
         <li class="next">
           <a accesskey="n" href="linux-headers.html" title=
-          "Linux-6.7.4 API Headers">Next</a>
+          "Linux-6.10.5 API Headers">Next</a>
           <p>
-            Linux-6.7.4 API Headers
+            Linux-6.10.5 API Headers
           </p>
         </li>
         <li class="up">
@@ -41,13 +41,13 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
       <a id="ch-tools-gcc-pass1" name="ch-tools-gcc-pass1"></a>5.3.
-      GCC-13.2.0 - Pass 1
+      GCC-14.2.0 - Pass 1
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -59,11 +59,11 @@
           <div class="seglistitem">
             <div class="seg">
               <strong class="segtitle">Approximate build time:</strong>
-              <span class="segbody">3.8 SBU</span>
+              <span class="segbody">3.2 SBU</span>
             </div>
             <div class="seg">
               <strong class="segtitle">Required disk space:</strong>
-              <span class="segbody">4.1 GB</span>
+              <span class="segbody">4.9 GB</span>
             </div>
           </div>
         </div>
@@ -89,7 +89,7 @@
             procedures are the same as every other chapter, as explained
             earlier (<a class="xref" href=
             "../partintro/generalinstructions.html#buildinstr">Package build
-            instructions</a>). First, extract the gcc-13.2.0 tarball from the
+            instructions</a>). First, extract the gcc-14.2.0 tarball from the
             sources directory, and then change to the directory created. Only
             then should you proceed with the instructions below.
           </p>
@@ -125,7 +125,7 @@ cd       build</kbd></pre>
         "command">../configure                  \
     --target=$LFS_TGT         \
     --prefix=$LFS/tools       \
-    --with-glibc-version=2.39 \
+    --with-glibc-version=2.40 \
     --with-sysroot=$LFS       \
     --with-newlib             \
     --without-headers         \
@@ -149,7 +149,7 @@ cd       build</kbd></pre>
           <dl class="variablelist">
             <dt>
               <span class="term"><em class=
-              "parameter"><code>--with-glibc-version=2.39</code></em></span>
+              "parameter"><code>--with-glibc-version=2.40</code></em></span>
             </dt>
             <dd>
               <p>
@@ -195,8 +195,8 @@ cd       build</kbd></pre>
                 hardening security features (more information on those in the
                 <a class="xref" href=
                 "../chapter08/gcc.html#pie-ssp-info">note on PIE and SSP</a>
-                in chapter 8) by default. The are not strictly needed at this
-                stage, since the compiler will only produce temporary
+                in chapter 8) by default. They are not strictly needed at
+                this stage, since the compiler will only produce temporary
                 executables. But it is cleaner to have the temporary packages
                 be as close as possible to the final ones.
               </p>
@@ -294,7 +294,7 @@ cat gcc/limitx.h gcc/glimits.h gcc/limity.h &gt; \
         <p>
           Details on this package are located in <a class="xref" href=
           "../chapter08/gcc.html#contents-gcc" title=
-          "8.28.2.&nbsp;Contents of GCC">Section&nbsp;8.28.2, “Contents of
+          "8.29.2.&nbsp;Contents of GCC">Section&nbsp;8.29.2, “Contents of
           GCC.”</a>
         </p>
       </div>
@@ -303,16 +303,16 @@ cat gcc/limitx.h gcc/glimits.h gcc/limity.h &gt; \
       <ul>
         <li class="prev">
           <a accesskey="p" href="binutils-pass1.html" title=
-          "Binutils-2.42 - Pass 1">Prev</a>
+          "Binutils-2.43.1 - Pass 1">Prev</a>
           <p>
-            Binutils-2.42 - Pass 1
+            Binutils-2.43.1 - Pass 1
           </p>
         </li>
         <li class="next">
           <a accesskey="n" href="linux-headers.html" title=
-          "Linux-6.7.4 API Headers">Next</a>
+          "Linux-6.10.5 API Headers">Next</a>
           <p>
-            Linux-6.7.4 API Headers
+            Linux-6.10.5 API Headers
           </p>
         </li>
         <li class="up">
@@ -321,7 +321,7 @@ cat gcc/limitx.h gcc/glimits.h gcc/limity.h &gt; \
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

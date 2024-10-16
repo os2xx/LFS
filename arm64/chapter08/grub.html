@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      8.63.&nbsp;GRUB-2.12
+      8.64.&nbsp;GRUB-2.12
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;8.&nbsp;Installing Basic System Software
@@ -39,12 +39,12 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
-      <a id="ch-system-grub" name="ch-system-grub"></a>8.63. GRUB-2.12
+      <a id="ch-system-grub" name="ch-system-grub"></a>8.64. GRUB-2.12
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -66,7 +66,7 @@
       </div>
       <div class="installation" lang="en" xml:lang="en">
         <h2 class="sect2">
-          8.63.1. Installation of GRUB
+          8.64.1. Installation of GRUB
         </h2>
         <div class="admon note">
           <img alt="[Note]" src="../images/note.png" />
@@ -75,23 +75,24 @@
           </h3>
           <p>
             On ARM64 systems, the following instruction builds GRUB for UEFI.
-            But the built GRUB lacks some features because a few optional
-            dependencies of GRUB for UEFI is beyond the scope of LFS and not
-            installed yet.
+            But because LFS lacks the FreeType package and the Unifont data
+            file, GRUB won't install any font for the boot loader and the
+            GRUB boot menu will be displayed using a coarse font or in a
+            smaller region on the screen. If wanted, after the LFS system is
+            finished, install <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/svn/general/freetype.html">
+            FreeType</a> and then install the GRUB compoents not installed
+            from LFS following <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/svn/postlfs/grub-efi.html">
+            the BLFS instruction</a>, but remove the <code class=
+            "option">--target=x86_64</code> option and skip the command to
+            install the <code class=
+            "filename">/usr/lib/grub/x86_64-efi</code> directory.
           </p>
           <p>
             If your system firmware does not support UEFI, you need to skip
             the content of this page and try to figure out how to boot your
             system.
-          </p>
-          <p>
-            If your system has UEFI support and you wish to boot LFS with
-            UEFI, you can skip this package in LFS, and install GRUB with
-            UEFI support (and its dependencies) by following the instructions
-            on <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/grub-efi.html">
-            the BLFS page</a> (with <em class=
-            "parameter"><code>--target=x86_64</code></em> removed).
           </p>
         </div>
         <div class="admon warning">
@@ -163,7 +164,8 @@
           "command"><strong>make check</strong></span>.
         </p>
         <p>
-          Install the package:
+          Install the package, and move the Bash completion support file to
+          the location recommended by the Bash completion maintainers:
         </p>
         <pre class="userinput"><kbd class="command">make install
 mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions</kbd></pre>
@@ -171,12 +173,12 @@ mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions</kbd></
           Making your LFS system bootable with GRUB will be discussed in
           <a class="xref" href="../chapter10/grub.html" title=
           "10.4.&nbsp;Using GRUB to Set Up the Boot Process">Section&nbsp;10.4,
-          “Using GRUB to Set Up the Boot Process”</a>.
+          “Using GRUB to Set Up the Boot Process.”</a>
         </p>
       </div>
       <div class="content" lang="en" xml:lang="en">
         <h2 class="sect2">
-          <a id="contents-gRUB" name="contents-gRUB"></a>8.63.2. Contents of
+          <a id="contents-gRUB" name="contents-gRUB"></a>8.64.2. Contents of
           GRUB
         </h2>
         <div class="segmentedlist">
@@ -595,7 +597,7 @@ mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions</kbd></
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

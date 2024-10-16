@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;1.&nbsp;Introduction
@@ -40,7 +40,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
@@ -58,7 +58,7 @@
           instruction, we strongly discourage posting the issue directly onto
           the upstream support channel before discussing via a LFS support
           channel listed in <a class="xref" href="resources.html" title=
-          "1.4.&nbsp;Resources">Section&nbsp;1.4, “Resources”</a>. Doing so
+          "1.4.&nbsp;Resources">Section&nbsp;1.4, “Resources.”</a> Doing so
           is often quite inefficient because the upstream maintainers are
           rarely familiar with LFS building procedure. Even if you've really
           hit an upstream issue, the LFS community can still help to isolate
@@ -115,7 +115,7 @@
             <li class="listitem">
               <p>
                 The version of the book being used (in this case
-                arm64-r12.0-319-systemd)
+                arm64-r12.2-119)
               </p>
             </li>
             <li class="listitem">
@@ -192,10 +192,10 @@
           "command"><strong>make</strong></span> screen output.
         </p>
         <pre class="screen"><code class=
-        "computeroutput">gcc -DALIASPATH=\"/mnt/lfs/usr/share/locale:.\"
--DLOCALEDIR=\"/mnt/lfs/usr/share/locale\"
--DLIBDIR=\"/mnt/lfs/usr/lib\"
--DINCLUDEDIR=\"/mnt/lfs/usr/include\" -DHAVE_CONFIG_H -I. -I.
+        "computeroutput">gcc -D ALIASPATH=\"/mnt/lfs/usr/share/locale:.\"
+-D LOCALEDIR=\"/mnt/lfs/usr/share/locale\"
+-D LIBDIR=\"/mnt/lfs/usr/lib\"
+-D INCLUDEDIR=\"/mnt/lfs/usr/include\" -D HAVE_CONFIG_H -I. -I.
 -g -O2 -c getopt1.c
 gcc -g -O2 -static -o make ar.o arscan.o commands.o dir.o
 expand.o file.o function.o getopt.o implicit.o job.o main.o
@@ -253,7 +253,7 @@ make: *** [all-recursive-am] Error 2</code></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

@@ -12,20 +12,20 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;9.&nbsp;System Configuration
       </h3>
       <ul>
         <li class="prev">
-          <a accesskey="p" href="network.html" title=
-          "General Network Configuration">Prev</a>
+          <a accesskey="p" href="bootscripts.html" title=
+          "LFS-Bootscripts-20240825">Prev</a>
           <p>
-            General Network Configuration
+            LFS-Bootscripts-20240825
           </p>
         </li>
         <li class="next">
@@ -41,7 +41,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
@@ -53,7 +53,7 @@
       <p>
         In <a class="xref" href="../chapter08/chapter08.html" title=
         "Chapter&nbsp;8.&nbsp;Installing Basic System Software">Chapter&nbsp;8</a>,
-        we installed the udev daemon when <span class="phrase">systemd</span>
+        we installed the udev daemon when <span class="phrase">udev</span>
         was built. Before we go into the details regarding how udev works, a
         brief history of previous methods of handling devices is in order.
       </p>
@@ -247,7 +247,7 @@
             Udev will only load a module if it has a bus-specific alias and
             the bus driver properly exports the necessary aliases to
             <code class="systemitem">sysfs</code>. In other cases, one should
-            arrange module loading by other means. With Linux-6.7.4, udev is
+            arrange module loading by other means. With Linux-6.10.8, udev is
             known to load properly-written drivers for INPUT, IDE, PCI, USB,
             SCSI, SERIO, and FireWire devices.
           </p>
@@ -270,8 +270,8 @@
             If there is no <code class="filename">modalias</code> file in the
             relevant directory under <code class="filename">/sys/bus</code>,
             this means that the kernel developers have not yet added modalias
-            support to this bus type. With Linux-6.7.4, this is the case with
-            ISA busses. Expect this issue to be fixed in later kernel
+            support to this bus type. With Linux-6.10.8, this is the case
+            with ISA busses. Expect this issue to be fixed in later kernel
             versions.
           </p>
           <p>
@@ -314,6 +314,15 @@
             manual page for more information on <span class=
             "quote">“<span class="quote">softdep</span>”</span> syntax and
             capabilities.
+          </p>
+          <p>
+            If the module in question is not a wrapper and is useful by
+            itself, configure the <span class=
+            "command"><strong>modules</strong></span> bootscript to load this
+            module on system boot. To do this, add the module name to the
+            <code class="filename">/etc/sysconfig/modules</code> file on a
+            separate line. This works for wrapper modules too, but is
+            suboptimal in that case.
           </p>
         </div>
         <div class="sect3">
@@ -404,7 +413,7 @@
             "symlinks.html" title=
             "9.4.&nbsp;Managing Devices">Section&nbsp;9.4, “Managing
             Devices”</a> and <a class="xref" href="network.html" title=
-            "9.2.&nbsp;General Network Configuration">Section&nbsp;9.2,
+            "9.5.&nbsp;General Network Configuration">Section&nbsp;9.5,
             “General Network Configuration”</a> for examples.
           </p>
         </div>
@@ -442,10 +451,10 @@
     <div class="navfooter">
       <ul>
         <li class="prev">
-          <a accesskey="p" href="network.html" title=
-          "General Network Configuration">Prev</a>
+          <a accesskey="p" href="bootscripts.html" title=
+          "LFS-Bootscripts-20240825">Prev</a>
           <p>
-            General Network Configuration
+            LFS-Bootscripts-20240825
           </p>
         </li>
         <li class="next">
@@ -461,7 +470,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

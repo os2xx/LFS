@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      6.4.&nbsp;Bash-5.2.21
+      6.4.&nbsp;Bash-5.2.32
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,27 +12,26 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools
       </h3>
       <ul>
         <li class="prev">
-          <a accesskey="p" href="ncurses.html" title=
-          "Ncurses-6.4-20230520">Prev</a>
+          <a accesskey="p" href="ncurses.html" title="Ncurses-6.5">Prev</a>
           <p>
-            Ncurses-6.4-20230520
+            Ncurses-6.5
           </p>
         </li>
         <li class="next">
           <a accesskey="n" href="coreutils.html" title=
-          "Coreutils-9.4">Next</a>
+          "Coreutils-9.5">Next</a>
           <p>
-            Coreutils-9.4
+            Coreutils-9.5
           </p>
         </li>
         <li class="up">
@@ -41,12 +40,12 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
-      <a id="ch-tools-bash" name="ch-tools-bash"></a>6.4. Bash-5.2.21
+      <a id="ch-tools-bash" name="ch-tools-bash"></a>6.4. Bash-5.2.32
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -77,7 +76,8 @@
         "command">./configure --prefix=/usr                      \
             --build=$(sh support/config.guess) \
             --host=$LFS_TGT                    \
-            --without-bash-malloc</kbd></pre>
+            --without-bash-malloc              \
+            bash_cv_strtold_broken=no</kbd></pre>
         <div class="variablelist">
           <p class="title">
             <strong>The meaning of the configure options:</strong>
@@ -118,7 +118,7 @@
         <p>
           Details on this package are located in <a class="xref" href=
           "../chapter08/bash.html#contents-bash" title=
-          "8.35.2.&nbsp;Contents of Bash">Section&nbsp;8.35.2, “Contents of
+          "8.36.2.&nbsp;Contents of Bash">Section&nbsp;8.36.2, “Contents of
           Bash.”</a>
         </p>
       </div>
@@ -126,17 +126,16 @@
     <div class="navfooter">
       <ul>
         <li class="prev">
-          <a accesskey="p" href="ncurses.html" title=
-          "Ncurses-6.4-20230520">Prev</a>
+          <a accesskey="p" href="ncurses.html" title="Ncurses-6.5">Prev</a>
           <p>
-            Ncurses-6.4-20230520
+            Ncurses-6.5
           </p>
         </li>
         <li class="next">
           <a accesskey="n" href="coreutils.html" title=
-          "Coreutils-9.4">Next</a>
+          "Coreutils-9.5">Next</a>
           <p>
-            Coreutils-9.4
+            Coreutils-9.5
           </p>
         </li>
         <li class="up">
@@ -145,7 +144,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

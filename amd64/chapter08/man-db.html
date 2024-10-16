@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      8.77.&nbsp;Man-DB-2.12.0
+      8.77.&nbsp;Man-DB-2.12.1
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,19 +12,20 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Chapter&nbsp;8.&nbsp;Installing Basic System Software
       </h3>
       <ul>
         <li class="prev">
-          <a accesskey="p" href="dbus.html" title="D-Bus-1.14.10">Prev</a>
+          <a accesskey="p" href="udev.html" title=
+          "Udev from Systemd-256.4">Prev</a>
           <p>
-            D-Bus-1.14.10
+            Udev from Systemd-256.4
           </p>
         </li>
         <li class="next">
@@ -40,13 +41,13 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
       <a id="ch-system-man-db" name="ch-system-man-db"></a>8.77.
-      Man-DB-2.12.0
+      Man-DB-2.12.1
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -58,11 +59,11 @@
           <div class="seglistitem">
             <div class="seg">
               <strong class="segtitle">Approximate build time:</strong>
-              <span class="segbody">0.2 SBU</span>
+              <span class="segbody">0.3 SBU</span>
             </div>
             <div class="seg">
               <strong class="segtitle">Required disk space:</strong>
-              <span class="segbody">41 MB</span>
+              <span class="segbody">43 MB</span>
             </div>
           </div>
         </div>
@@ -76,13 +77,15 @@
         </p>
         <pre class="userinput"><kbd class=
         "command">./configure --prefix=/usr                         \
-            --docdir=/usr/share/doc/man-db-2.12.0 \
+            --docdir=/usr/share/doc/man-db-2.12.1 \
             --sysconfdir=/etc                     \
             --disable-setuid                      \
             --enable-cache-owner=bin              \
             --with-browser=/usr/bin/lynx          \
             --with-vgrind=/usr/bin/vgrind         \
-            --with-grap=/usr/bin/grap</kbd></pre>
+            --with-grap=/usr/bin/grap             \
+            --with-systemdtmpfilesdir=            \
+            --with-systemdsystemunitdir=</kbd></pre>
         <div class="variablelist">
           <p class="title">
             <strong>The meaning of the configure options:</strong>
@@ -130,6 +133,16 @@
                 yourself after finishing LFS if you wish to do so.
               </p>
             </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-systemd...</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                These parameters prevent installing unneeded systemd
+                directories and files.
+              </p>
+            </dd>
           </dl>
         </div>
         <p>
@@ -157,7 +170,7 @@
           installed in that directory are UTF-8 encoded.
         </p>
         <div class="table">
-          <a id="idm140535340308720" name="idm140535340308720"></a>
+          <a id="idm140330724404928" name="idm140330724404928"></a>
           <p class="title">
             <strong>Table&nbsp;8.1.&nbsp;Expected character encoding of
             legacy 8-bit manual pages</strong>
@@ -518,7 +531,7 @@
             <div class="seg">
               <strong class="segtitle">Installed directories:</strong>
               <span class="segbody">/usr/lib/man-db, /usr/libexec/man-db, and
-              /usr/share/doc/man-db-2.12.0</span>
+              /usr/share/doc/man-db-2.12.1</span>
             </div>
           </div>
         </div>
@@ -705,9 +718,10 @@
     <div class="navfooter">
       <ul>
         <li class="prev">
-          <a accesskey="p" href="dbus.html" title="D-Bus-1.14.10">Prev</a>
+          <a accesskey="p" href="udev.html" title=
+          "Udev from Systemd-256.4">Prev</a>
           <p>
-            D-Bus-1.14.10
+            Udev from Systemd-256.4
           </p>
         </li>
         <li class="next">
@@ -723,7 +737,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

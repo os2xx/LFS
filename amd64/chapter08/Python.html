@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      8.51.&nbsp;Python-3.12.2
+      8.52.&nbsp;Python-3.12.5
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,19 +12,19 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Chapter&nbsp;8.&nbsp;Installing Basic System Software
       </h3>
       <ul>
         <li class="prev">
-          <a accesskey="p" href="libffi.html" title="Libffi-3.4.4">Prev</a>
+          <a accesskey="p" href="libffi.html" title="Libffi-3.4.6">Prev</a>
           <p>
-            Libffi-3.4.4
+            Libffi-3.4.6
           </p>
         </li>
         <li class="next">
@@ -40,13 +40,13 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
-      <a id="ch-system-Python" name="ch-system-Python"></a>8.51.
-      Python-3.12.2
+      <a id="ch-system-Python" name="ch-system-Python"></a>8.52.
+      Python-3.12.5
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -60,18 +60,18 @@
           <div class="seglistitem">
             <div class="seg">
               <strong class="segtitle">Approximate build time:</strong>
-              <span class="segbody">1.8 SBU</span>
+              <span class="segbody">2.2 SBU</span>
             </div>
             <div class="seg">
               <strong class="segtitle">Required disk space:</strong>
-              <span class="segbody">485 MB</span>
+              <span class="segbody">530 MB</span>
             </div>
           </div>
         </div>
       </div>
       <div class="installation" lang="en" xml:lang="en">
         <h2 class="sect2">
-          8.51.1. Installation of Python 3
+          8.52.1. Installation of Python 3
         </h2>
         <p>
           Prepare Python for compilation:
@@ -115,11 +115,18 @@
         </p>
         <pre class="userinput"><kbd class="command">make</kbd></pre>
         <p>
-          Running the tests at this point is not recommended. The tests are
-          known to hang indefinitely in the partial LFS environment. If
-          desired, the tests can be rerun at the end of this chapter, or when
-          Python 3 is reinstalled in BLFS. To run the tests anyway, issue
-          <span class="command"><strong>make test</strong></span>.
+          Some tests are known to occasionally hang indefinitely. So to test
+          the results, run the test suite but set a 2-minute time limit for
+          each test case:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make test TESTOPTS="--timeout 120"</kbd></pre>
+        <p>
+          For a relatively slow system you may need to increase the time
+          limit and 1 SBU (measured when building Binutils pass 1 with one
+          CPU core) should be enough. Some tests are flaky, so the test suite
+          will automatically re-run failed tests. If a test failed but then
+          passed when re-run, it should be considered as passed.
         </p>
         <p>
           Install the package:
@@ -203,12 +210,12 @@ EOF
           If desired, install the preformatted documentation:
         </p>
         <pre class="userinput"><kbd class=
-        "command">install -v -dm755 /usr/share/doc/python-3.12.2/html
+        "command">install -v -dm755 /usr/share/doc/python-3.12.5/html
 
 tar --no-same-owner \
-    -xvf ../python-3.12.2-docs-html.tar.bz2
-cp -R --no-preserve=mode python-3.12.2-docs-html/* \
-    /usr/share/doc/python-3.12.2/html</kbd></pre>
+    -xvf ../python-3.12.5-docs-html.tar.bz2
+cp -R --no-preserve=mode python-3.12.5-docs-html/* \
+    /usr/share/doc/python-3.12.5/html</kbd></pre>
         <div class="variablelist">
           <p class="title">
             <strong>The meaning of the documentation install
@@ -234,7 +241,7 @@ cp -R --no-preserve=mode python-3.12.2-docs-html/* \
       </div>
       <div class="content" lang="en" xml:lang="en">
         <h2 class="sect2">
-          <a id="contents-python" name="contents-python"></a>8.51.2. Contents
+          <a id="contents-python" name="contents-python"></a>8.52.2. Contents
           of Python 3
         </h2>
         <div class="segmentedlist">
@@ -251,7 +258,7 @@ cp -R --no-preserve=mode python-3.12.2-docs-html/* \
             <div class="seg">
               <strong class="segtitle">Installed directories:</strong>
               <span class="segbody">/usr/include/python3.12,
-              /usr/lib/python3, and /usr/share/doc/python-3.12.2</span>
+              /usr/lib/python3, and /usr/share/doc/python-3.12.5</span>
             </div>
           </div>
         </div>
@@ -354,9 +361,9 @@ cp -R --no-preserve=mode python-3.12.2-docs-html/* \
     <div class="navfooter">
       <ul>
         <li class="prev">
-          <a accesskey="p" href="libffi.html" title="Libffi-3.4.4">Prev</a>
+          <a accesskey="p" href="libffi.html" title="Libffi-3.4.6">Prev</a>
           <p>
-            Libffi-3.4.4
+            Libffi-3.4.6
           </p>
         </li>
         <li class="next">
@@ -372,7 +379,7 @@ cp -R --no-preserve=mode python-3.12.2-docs-html/* \
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

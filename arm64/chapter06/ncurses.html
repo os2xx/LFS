@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      6.3.&nbsp;Ncurses-6.4-20230520
+      6.3.&nbsp;Ncurses-6.5
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;6.&nbsp;Cross Compiling Temporary Tools
@@ -28,9 +28,9 @@
           </p>
         </li>
         <li class="next">
-          <a accesskey="n" href="bash.html" title="Bash-5.2.21">Next</a>
+          <a accesskey="n" href="bash.html" title="Bash-5.2.32">Next</a>
           <p>
-            Bash-5.2.21
+            Bash-5.2.32
           </p>
         </li>
         <li class="up">
@@ -39,13 +39,12 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
-      <a id="ch-tools-ncurses" name="ch-tools-ncurses"></a>6.3.
-      Ncurses-6.4-20230520
+      <a id="ch-tools-ncurses" name="ch-tools-ncurses"></a>6.3. Ncurses-6.5
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -57,11 +56,11 @@
           <div class="seglistitem">
             <div class="seg">
               <strong class="segtitle">Approximate build time:</strong>
-              <span class="segbody">0.3 SBU</span>
+              <span class="segbody">0.4 SBU</span>
             </div>
             <div class="seg">
               <strong class="segtitle">Required disk space:</strong>
-              <span class="segbody">51 MB</span>
+              <span class="segbody">53 MB</span>
             </div>
           </div>
         </div>
@@ -71,20 +70,13 @@
           6.3.1. Installation of Ncurses
         </h2>
         <p>
-          First, ensure that <span class=
-          "command"><strong>gawk</strong></span> is found first during
-          configuration:
-        </p>
-        <pre class="userinput"><kbd class=
-        "command">sed -i s/mawk// configure</kbd></pre>
-        <p>
-          Then, run the following commands to build the <span class=
+          First, run the following commands to build the <span class=
           "quote">“<span class="quote">tic</span>”</span> program on the
           build host:
         </p>
         <pre class="userinput"><kbd class="command">mkdir build
 pushd build
-  ../configure
+  ../configure AWK=gawk
   make -C include
   make -C progs tic
 popd</kbd></pre>
@@ -103,7 +95,7 @@ popd</kbd></pre>
             --without-debug              \
             --without-ada                \
             --disable-stripping          \
-            --enable-widec</kbd></pre>
+            AWK=gawk</kbd></pre>
         <div class="variablelist">
           <p class="title">
             <strong>The meaning of the new configure options:</strong>
@@ -185,18 +177,15 @@ popd</kbd></pre>
             </dd>
             <dt>
               <span class="term"><em class=
-              "parameter"><code>--enable-widec</code></em></span>
+              "parameter"><code>AWK=gawk</code></em></span>
             </dt>
             <dd>
               <p>
-                This switch causes wide-character libraries (e.g.,
-                <code class="filename">libncursesw.so.6.4-20230520</code>) to
-                be built instead of normal ones (e.g., <code class=
-                "filename">libncurses.so.6.4-20230520</code>). These
-                wide-character libraries are usable in both multibyte and
-                traditional 8-bit locales, while normal libraries work
-                properly only in 8-bit locales. Wide-character and normal
-                libraries are source-compatible, but not binary-compatible.
+                This switch prevents the building system from using the
+                <span class="command"><strong>mawk</strong></span> program
+                from the host. Some versions of <span class=
+                "command"><strong>mawk</strong></span> can cause this package
+                to fail to build.
               </p>
             </dd>
           </dl>
@@ -271,7 +260,7 @@ sed -e 's/^#if.*XOPEN.*$/#if 1/' \
         <p>
           Details on this package are located in <a class="xref" href=
           "../chapter08/ncurses.html#contents-ncurses" title=
-          "8.29.2.&nbsp;Contents of Ncurses">Section&nbsp;8.29.2, “Contents
+          "8.30.2.&nbsp;Contents of Ncurses">Section&nbsp;8.30.2, “Contents
           of Ncurses.”</a>
         </p>
       </div>
@@ -285,9 +274,9 @@ sed -e 's/^#if.*XOPEN.*$/#if 1/' \
           </p>
         </li>
         <li class="next">
-          <a accesskey="n" href="bash.html" title="Bash-5.2.21">Next</a>
+          <a accesskey="n" href="bash.html" title="Bash-5.2.32">Next</a>
           <p>
-            Bash-5.2.21
+            Bash-5.2.32
           </p>
         </li>
         <li class="up">
@@ -296,7 +285,7 @@ sed -e 's/^#if.*XOPEN.*$/#if 1/' \
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

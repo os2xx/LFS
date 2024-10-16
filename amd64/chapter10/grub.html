@@ -12,19 +12,19 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Chapter&nbsp;10.&nbsp;Making the LFS System Bootable
       </h3>
       <ul>
         <li class="prev">
-          <a accesskey="p" href="kernel.html" title="Linux-6.7.4">Prev</a>
+          <a accesskey="p" href="kernel.html" title="Linux-6.10.5">Prev</a>
           <p>
-            Linux-6.7.4
+            Linux-6.10.5
           </p>
         </li>
         <li class="next">
@@ -40,7 +40,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
@@ -61,7 +61,7 @@
           specify a partition in the file from this page, and configure GRUB
           with UEFI support using the instructions provided in <a class=
           "ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/stable-systemd/postlfs/grub-setup.html">
+          "https://www.linuxfromscratch.org/blfs/view/12.2/postlfs/grub-setup.html">
           the BLFS page</a>.
         </p>
       </div>
@@ -90,7 +90,7 @@
           below to work, you need to jump ahead to BLFS and install
           <strong class="userinput"><code>xorriso</code></strong> from the
           <a class="ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/stable-systemd/multimedia/libisoburn.html">
+          "https://www.linuxfromscratch.org/blfs/view/12.2/multimedia/libisoburn.html">
           libisoburn</a> package.
         </p>
         <pre class="userinput"><kbd class="command">cd /tmp
@@ -209,8 +209,8 @@ insmod part_gpt
 insmod ext2
 set root=(hd0,2)
 
-menuentry "GNU/Linux, Linux 6.7.4-lfs-12.1-systemd" {
-        linux   /boot/vmlinuz-6.7.4-lfs-12.1-systemd root=/dev/sda2 ro
+menuentry "GNU/Linux, Linux 6.10.5-lfs-12.2" {
+        linux   /boot/vmlinuz-6.10.5-lfs-12.2 root=/dev/sda2 ro
 }</code>
 EOF</kbd></pre>
         <p>
@@ -324,9 +324,9 @@ EOF</kbd></pre>
     <div class="navfooter">
       <ul>
         <li class="prev">
-          <a accesskey="p" href="kernel.html" title="Linux-6.7.4">Prev</a>
+          <a accesskey="p" href="kernel.html" title="Linux-6.10.5">Prev</a>
           <p>
-            Linux-6.7.4
+            Linux-6.10.5
           </p>
         </li>
         <li class="next">
@@ -342,7 +342,7 @@ EOF</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

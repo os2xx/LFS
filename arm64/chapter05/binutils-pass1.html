@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      5.2.&nbsp;Binutils-2.42 - Pass 1
+      5.2.&nbsp;Binutils-2.43.1 - Pass 1
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;5.&nbsp;Compiling a Cross-Toolchain
@@ -30,9 +30,9 @@
         </li>
         <li class="next">
           <a accesskey="n" href="gcc-pass1.html" title=
-          "GCC-13.2.0 - Pass 1">Next</a>
+          "GCC-14.2.0 - Pass 1">Next</a>
           <p>
-            GCC-13.2.0 - Pass 1
+            GCC-14.2.0 - Pass 1
           </p>
         </li>
         <li class="up">
@@ -41,13 +41,13 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
       <a id="ch-tools-binutils-pass1" name="ch-tools-binutils-pass1"></a>5.2.
-      Binutils-2.42 - Pass 1
+      Binutils-2.43.1 - Pass 1
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -63,7 +63,7 @@
             </div>
             <div class="seg">
               <strong class="segtitle">Required disk space:</strong>
-              <span class="segbody">663 MB</span>
+              <span class="segbody">677 MB</span>
             </div>
           </div>
         </div>
@@ -121,6 +121,7 @@ cd       build</kbd></pre>
              --disable-nls       \
              --enable-gprofng=no \
              --disable-werror    \
+             --enable-new-dtags  \
              --enable-default-hash-style=gnu</kbd></pre>
         <div class="variablelist">
           <p class="title">
@@ -195,6 +196,22 @@ cd       build</kbd></pre>
             </dd>
             <dt>
               <span class="term"><em class=
+              "parameter"><code>--enable-new-dtags</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This makes the linker use the <span class=
+                "quote">“<span class="quote">runpath</span>”</span> tag for
+                embedding library search paths into executables and shared
+                libraries, instead of the traditional <span class=
+                "quote">“<span class="quote">rpath</span>”</span> tag. It
+                makes debugging dynamically linked executables easier and
+                works around potential issues in the test suite of some
+                packages.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
               "parameter"><code>--enable-default-hash-style=gnu</code></em></span>
             </dt>
             <dd>
@@ -227,7 +244,7 @@ cd       build</kbd></pre>
         <p>
           Details on this package are located in <a class="xref" href=
           "../chapter08/binutils.html#contents-binutils" title=
-          "8.19.2.&nbsp;Contents of Binutils">Section&nbsp;8.19.2, “Contents
+          "8.20.2.&nbsp;Contents of Binutils">Section&nbsp;8.20.2, “Contents
           of Binutils.”</a>
         </p>
       </div>
@@ -243,9 +260,9 @@ cd       build</kbd></pre>
         </li>
         <li class="next">
           <a accesskey="n" href="gcc-pass1.html" title=
-          "GCC-13.2.0 - Pass 1">Next</a>
+          "GCC-14.2.0 - Pass 1">Next</a>
           <p>
-            GCC-13.2.0 - Pass 1
+            GCC-14.2.0 - Pass 1
           </p>
         </li>
         <li class="up">
@@ -254,7 +271,7 @@ cd       build</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

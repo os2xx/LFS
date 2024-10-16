@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      8.48.&nbsp;Kmod-31
+      8.49.&nbsp;Kmod-33
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,26 +12,26 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;8.&nbsp;Installing Basic System Software
       </h3>
       <ul>
         <li class="prev">
-          <a accesskey="p" href="openssl.html" title="OpenSSL-3.2.1">Prev</a>
+          <a accesskey="p" href="openssl.html" title="OpenSSL-3.3.2">Prev</a>
           <p>
-            OpenSSL-3.2.1
+            OpenSSL-3.3.2
           </p>
         </li>
         <li class="next">
           <a accesskey="n" href="libelf.html" title=
-          "Libelf from Elfutils-0.190">Next</a>
+          "Libelf from Elfutils-0.191">Next</a>
           <p>
-            Libelf from Elfutils-0.190
+            Libelf from Elfutils-0.191
           </p>
         </li>
         <li class="up">
@@ -40,12 +40,12 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
-      <a id="ch-system-kmod" name="ch-system-kmod"></a>8.48. Kmod-31
+      <a id="ch-system-kmod" name="ch-system-kmod"></a>8.49. Kmod-33
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -61,25 +61,26 @@
             </div>
             <div class="seg">
               <strong class="segtitle">Required disk space:</strong>
-              <span class="segbody">12 MB</span>
+              <span class="segbody">11 MB</span>
             </div>
           </div>
         </div>
       </div>
       <div class="installation" lang="en" xml:lang="en">
         <h2 class="sect2">
-          8.48.1. Installation of Kmod
+          8.49.1. Installation of Kmod
         </h2>
         <p>
           Prepare Kmod for compilation:
         </p>
         <pre class="userinput"><kbd class=
-        "command">./configure --prefix=/usr          \
-            --sysconfdir=/etc      \
-            --with-openssl         \
-            --with-xz              \
-            --with-zstd            \
-            --with-zlib</kbd></pre>
+        "command">./configure --prefix=/usr     \
+            --sysconfdir=/etc \
+            --with-openssl    \
+            --with-xz         \
+            --with-zstd       \
+            --with-zlib       \
+            --disable-manpages</kbd></pre>
         <div class="variablelist">
           <p class="title">
             <strong>The meaning of the configure options:</strong>
@@ -107,6 +108,16 @@
                 modules.
               </p>
             </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-manpages</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                This option disables generating the man pages which requires
+                an external program.
+              </p>
+            </dd>
           </dl>
         </div>
         <p>
@@ -120,21 +131,23 @@
           LFS.
         </p>
         <p>
-          Install the package and create symlinks for compatibility with
-          Module-Init-Tools (the package that previously handled Linux kernel
-          modules):
+          Install the package and recreate some symlinks for compatibility
+          with Module-Init-Tools (the package that previously handled Linux
+          kernel modules). The building system will create all these symlinks
+          in <code class="filename">/usr/bin</code>, but we only want
+          <span class="command"><strong>lsmod</strong></span> there and all
+          other symlinks in <code class="filename">/usr/sbin</code> instead:
         </p>
         <pre class="userinput"><kbd class="command">make install
 
 for target in depmod insmod modinfo modprobe rmmod; do
   ln -sfv ../bin/kmod /usr/sbin/$target
-done
-
-ln -sfv kmod /usr/bin/lsmod</kbd></pre>
+  rm -fv /usr/bin/$target
+done</kbd></pre>
       </div>
       <div class="content" lang="en" xml:lang="en">
         <h2 class="sect2">
-          <a id="contents-kmod" name="contents-kmod"></a>8.48.2. Contents of
+          <a id="contents-kmod" name="contents-kmod"></a>8.49.2. Contents of
           Kmod
         </h2>
         <div class="segmentedlist">
@@ -288,16 +301,16 @@ ln -sfv kmod /usr/bin/lsmod</kbd></pre>
     <div class="navfooter">
       <ul>
         <li class="prev">
-          <a accesskey="p" href="openssl.html" title="OpenSSL-3.2.1">Prev</a>
+          <a accesskey="p" href="openssl.html" title="OpenSSL-3.3.2">Prev</a>
           <p>
-            OpenSSL-3.2.1
+            OpenSSL-3.3.2
           </p>
         </li>
         <li class="next">
           <a accesskey="n" href="libelf.html" title=
-          "Libelf from Elfutils-0.190">Next</a>
+          "Libelf from Elfutils-0.191">Next</a>
           <p>
-            Libelf from Elfutils-0.190
+            Libelf from Elfutils-0.191
           </p>
         </li>
         <li class="up">
@@ -306,7 +319,7 @@ ln -sfv kmod /usr/bin/lsmod</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>

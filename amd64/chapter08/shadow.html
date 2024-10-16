@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      8.27.&nbsp;Shadow-4.14.5
+      8.28.&nbsp;Shadow-4.16.0
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Chapter&nbsp;8.&nbsp;Installing Basic System Software
@@ -29,9 +29,9 @@
           </p>
         </li>
         <li class="next">
-          <a accesskey="n" href="gcc.html" title="GCC-13.2.0">Next</a>
+          <a accesskey="n" href="gcc.html" title="GCC-14.2.0">Next</a>
           <p>
-            GCC-13.2.0
+            GCC-14.2.0
           </p>
         </li>
         <li class="up">
@@ -40,13 +40,13 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
-      <a id="ch-system-shadow" name="ch-system-shadow"></a>8.27.
-      Shadow-4.14.5
+      <a id="ch-system-shadow" name="ch-system-shadow"></a>8.28.
+      Shadow-4.16.0
     </h1>
     <div class="wrap" lang="en" xml:lang="en">
       <div class="package" lang="en" xml:lang="en">
@@ -62,15 +62,28 @@
             </div>
             <div class="seg">
               <strong class="segtitle">Required disk space:</strong>
-              <span class="segbody">49 MB</span>
+              <span class="segbody">112 MB</span>
             </div>
           </div>
         </div>
       </div>
       <div class="installation" lang="en" xml:lang="en">
         <h2 class="sect2">
-          8.27.1. Installation of Shadow
+          8.28.1. Installation of Shadow
         </h2>
+        <div class="admon important">
+          <img alt="[Important]" src="../images/important.png" />
+          <h3>
+            Important
+          </h3>
+          <p>
+            If you've installed Linux-PAM, you should follow <a class="ulink"
+            href=
+            "https://www.linuxfromscratch.org/blfs/view/12.2/postlfs/shadow.xml">
+            the BLFS shadow page</a> instead of this page to build (or,
+            rebuild or upgrade) shadow.
+          </p>
+        </div>
         <div class="admon note">
           <img alt="[Note]" src="../images/note.png" />
           <h3>
@@ -79,8 +92,8 @@
           <p>
             If you would like to enforce the use of strong passwords, refer
             to <a class="ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/stable-systemd/postlfs/cracklib.html">
-            https://www.linuxfromscratch.org/blfs/view/stable-systemd/postlfs/cracklib.html</a>
+            "https://www.linuxfromscratch.org/blfs/view/12.2/postlfs/cracklib.html">
+            https://www.linuxfromscratch.org/blfs/view/12.2/postlfs/cracklib.html</a>
             for installing CrackLib prior to building Shadow. Then add
             <em class="parameter"><code>--with-libcrack</code></em> to the
             <span class="command"><strong>configure</strong></span> command
@@ -93,7 +106,8 @@
           as Coreutils provides a better version. Also, prevent the
           installation of manual pages that were already installed in
           <a class="xref" href="man-pages.html" title=
-          "8.3.&nbsp;Man-pages-6.06">Section&nbsp;8.3, “Man-pages-6.06”</a>:
+          "8.3.&nbsp;Man-pages-6.9.1">Section&nbsp;8.3,
+          “Man-pages-6.9.1”</a>:
         </p>
         <pre class="userinput"><kbd class=
         "command">sed -i 's/groups$(EXEEXT) //' src/Makefile.in
@@ -225,7 +239,7 @@ make -C man install-man</kbd></pre>
       </div>
       <div class="configuration" lang="en" xml:lang="en">
         <h2 class="sect2">
-          <a id="conf-shadow" name="conf-shadow"></a>8.27.2. Configuring
+          <a id="conf-shadow" name="conf-shadow"></a>8.28.2. Configuring
           Shadow
         </h2>
         <p>
@@ -305,7 +319,7 @@ useradd -D --gid 999</kbd></pre>
                 this group ID in <a class="xref" href=
                 "../chapter07/createfiles.html" title=
                 "7.6.&nbsp;Creating Essential Files and Symlinks">Section&nbsp;7.6,
-                “Creating Essential Files and Symlinks”</a>.
+                “Creating Essential Files and Symlinks.”</a>
               </p>
             </dd>
             <dt>
@@ -331,7 +345,7 @@ useradd -D --gid 999</kbd></pre>
       </div>
       <div class="configuration" lang="en" xml:lang="en">
         <h2 class="sect2">
-          8.27.3. Setting the Root Password
+          8.28.3. Setting the Root Password
         </h2>
         <p>
           Choose a password for user <span class=
@@ -341,7 +355,7 @@ useradd -D --gid 999</kbd></pre>
       </div>
       <div class="content" lang="en" xml:lang="en">
         <h2 class="sect2">
-          <a id="contents-shadow" name="contents-shadow"></a>8.27.4. Contents
+          <a id="contents-shadow" name="contents-shadow"></a>8.28.4. Contents
           of Shadow
         </h2>
         <div class="segmentedlist">
@@ -906,9 +920,9 @@ useradd -D --gid 999</kbd></pre>
           </p>
         </li>
         <li class="next">
-          <a accesskey="n" href="gcc.html" title="GCC-13.2.0">Next</a>
+          <a accesskey="n" href="gcc.html" title="GCC-14.2.0">Next</a>
           <p>
-            GCC-13.2.0
+            GCC-14.2.0
           </p>
         </li>
         <li class="up">
@@ -917,7 +931,7 @@ useradd -D --gid 999</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

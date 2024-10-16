@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Chapter&nbsp;7.&nbsp;Entering Chroot and Building Additional
@@ -31,9 +31,9 @@
         </li>
         <li class="next">
           <a accesskey="n" href="gettext.html" title=
-          "Gettext-0.22.4">Next</a>
+          "Gettext-0.22.5">Next</a>
           <p>
-            Gettext-0.22.4
+            Gettext-0.22.5
           </p>
         </li>
         <li class="up">
@@ -43,7 +43,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
@@ -89,15 +89,7 @@ EOF</kbd></pre>
 bin:x:1:1:bin:/dev/null:/usr/bin/false
 daemon:x:6:6:Daemon User:/dev/null:/usr/bin/false
 messagebus:x:18:18:D-Bus Message Daemon User:/run/dbus:/usr/bin/false
-systemd-journal-gateway:x:73:73:systemd Journal Gateway:/:/usr/bin/false
-systemd-journal-remote:x:74:74:systemd Journal Remote:/:/usr/bin/false
-systemd-journal-upload:x:75:75:systemd Journal Upload:/:/usr/bin/false
-systemd-network:x:76:76:systemd Network Management:/:/usr/bin/false
-systemd-resolve:x:77:77:systemd Resolver:/:/usr/bin/false
-systemd-timesync:x:78:78:systemd Time Synchronization:/:/usr/bin/false
-systemd-coredump:x:79:79:systemd Core Dumper:/:/usr/bin/false
 uuidd:x:80:80:UUID Generation Daemon User:/dev/null:/usr/bin/false
-systemd-oom:x:81:81:systemd Out Of Memory Daemon:/:/usr/bin/false
 nobody:x:65534:65534:Unprivileged User:/dev/null:/usr/bin/false</code>
 EOF</kbd></pre>
       <p>
@@ -127,19 +119,10 @@ utmp:x:13:
 cdrom:x:15:
 adm:x:16:
 messagebus:x:18:
-systemd-journal:x:23:
 input:x:24:
 mail:x:34:
 kvm:x:61:
-systemd-journal-gateway:x:73:
-systemd-journal-remote:x:74:
-systemd-journal-upload:x:75:
-systemd-network:x:76:
-systemd-resolve:x:77:
-systemd-timesync:x:78:
-systemd-coredump:x:79:
 uuidd:x:80:
-systemd-oom:x:81:
 wheel:x:97:
 users:x:999:
 nogroup:x:65534:</code>
@@ -157,11 +140,11 @@ EOF</kbd></pre>
         <code class="systemitem">bin</code> with a GID of 1 be present. The
         GID of 5 is widely used for the <code class="systemitem">tty</code>
         group, and the number 5 is also used in <span class=
-        "phrase">systemd</span> for the <code class=
-        "systemitem">devpts</code> filesystem. All other group names and GIDs
-        can be chosen freely by the system administrator since well-written
-        programs do not depend on GID numbers, but rather use the group's
-        name.
+        "phrase"><code class="filename">/etc/fstab</code></span> for the
+        <code class="systemitem">devpts</code> filesystem. All other group
+        names and GIDs can be chosen freely by the system administrator since
+        well-written programs do not depend on GID numbers, but rather use
+        the group's name.
       </p>
       <p>
         The ID 65534 is used by the kernel for NFS and separate user
@@ -174,6 +157,11 @@ EOF</kbd></pre>
         may treat this ID differently, so any portable program should not
         depend on this assignment.
       </p>
+      <p>
+        Some packages need a locale.
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">localedef -i C -f UTF-8 C.UTF-8</kbd></pre>
       <p>
         Some tests in <a class="xref" href="../chapter08/chapter08.html"
         title=
@@ -222,7 +210,19 @@ chmod -v 600  /var/log/btmp</kbd></pre>
           Note
         </h3>
         <p>
-          The <code class="filename">wtmp</code>, <code class=
+          The <code class="filename">/run/utmp</code> file records the users
+          that are currently logged in. This file is created dynamically in
+          the boot scripts.
+        </p>
+      </div>
+      <div class="admon note">
+        <img alt="[Note]" src="../images/note.png" />
+        <h3>
+          Note
+        </h3>
+        <p>
+          The <span class="phrase"><code class="filename">utmp</code>,</span>
+          <code class="filename">wtmp</code>, <code class=
           "filename">btmp</code>, and <code class="filename">lastlog</code>
           files use 32-bit integers for timestamps and they'll be
           fundamentally broken after year 2038. Many packages have stopped
@@ -242,9 +242,9 @@ chmod -v 600  /var/log/btmp</kbd></pre>
         </li>
         <li class="next">
           <a accesskey="n" href="gettext.html" title=
-          "Gettext-0.22.4">Next</a>
+          "Gettext-0.22.5">Next</a>
           <p>
-            Gettext-0.22.4
+            Gettext-0.22.5
           </p>
         </li>
         <li class="up">
@@ -254,7 +254,7 @@ chmod -v 600  /var/log/btmp</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <title>
-      8.83.&nbsp;Cleaning Up
+      8.85.&nbsp;Cleaning Up
     </title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
     <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
@@ -12,10 +12,10 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-12.1-systemd">
+  <body class="lfs" id="lfs-12.2">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version 12.1-systemd
+        Linux From Scratch - Version 12.2
       </h4>
       <h3>
         Chapter&nbsp;8.&nbsp;Installing Basic System Software
@@ -40,19 +40,20 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>
     <h1 class="sect1">
-      <a id="ch-system-cleanup" name="ch-system-cleanup"></a>8.83. Cleaning
+      <a id="ch-system-cleanup" name="ch-system-cleanup"></a>8.85. Cleaning
       Up
     </h1>
     <div class="sect1" lang="en" xml:lang="en">
       <p>
         Finally, clean up some extra files left over from running tests:
       </p>
-      <pre class="userinput"><kbd class="command">rm -rf /tmp/*</kbd></pre>
+      <pre class="userinput"><kbd class=
+      "command">rm -rf /tmp/{*,.*}</kbd></pre>
       <p>
         There are also several files in the /usr/lib and /usr/libexec
         directories with a file name extension of .la. These are "libtool
@@ -66,7 +67,7 @@
       <p>
         For more information about libtool archive files, see the <a class=
         "ulink" href=
-        "https://www.linuxfromscratch.org/blfs/view/stable-systemd/introduction/la-files.html">
+        "https://www.linuxfromscratch.org/blfs/view/12.2/introduction/la-files.html">
         BLFS section "About Libtool Archive (.la) files"</a>.
       </p>
       <p>
@@ -108,7 +109,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version 12.1-systemd">Home</a>
+          "Linux From Scratch - Version 12.2">Home</a>
         </li>
       </ul>
     </div>

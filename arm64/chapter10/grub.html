@@ -12,19 +12,19 @@
     "text/css" media="print" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="lfs" id="lfs-arm64-r12.0-319-systemd">
+  <body class="lfs" id="lfs-arm64-r12.2-119">
     <div class="navheader">
       <h4>
-        Linux From Scratch - Version arm64-r12.0-319-systemd
+        Linux From Scratch - Version arm64-r12.2-119
       </h4>
       <h3>
         Chapter&nbsp;10.&nbsp;Making the LFS System Bootable
       </h3>
       <ul>
         <li class="prev">
-          <a accesskey="p" href="kernel.html" title="Linux-6.7.4">Prev</a>
+          <a accesskey="p" href="kernel.html" title="Linux-6.10.8">Prev</a>
           <p>
-            Linux-6.7.4
+            Linux-6.10.8
           </p>
         </li>
         <li class="next">
@@ -40,7 +40,7 @@
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
@@ -56,26 +56,9 @@
         </h3>
         <p>
           This section assume your system has UEFI support and you wish to
-          boot LFS with UEFI and GRUB built following the instructions in
-          Chapter 8.
-        </p>
-        <p>
-          If you've installed GRUB for UEFI with optional dependencies
-          following BLFS, you should skip the instructions in this page but
-          still learn the syntax of <code class="filename">grub.cfg</code>
-          and the method to specify a partition in the file from this page,
-          and configure GRUB with UEFI using the instructions provided in
-          <a class="ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/grub-setup.html">
-          the BLFS page</a>, but replace <em class=
-          "parameter"><code>--target=x86_64-efi</code></em> with <em class=
-          "parameter"><code>--target=arm64-efi</code></em> for the ARM64
-          system.
-        </p>
-        <p>
-          If your system does not support UEFI or you don't want to use it,
-          you'll need to figure out how to configure the booting process of
-          the system on your own.
+          boot LFS with UEFI. If your system does not support UEFI or you
+          don't want to use it, you'll need to figure out how to configure
+          the booting process of the system on your own.
         </p>
       </div>
       <div class="sect2" lang="en" xml:lang="en">
@@ -103,7 +86,7 @@
           device for UEFI, consult section <span class="quote">“<span class=
           "quote">Create an Emergency Boot Disk</span>”</span> in <a class=
           "ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/grub-setup.html">
+          "https://www.linuxfromscratch.org/blfs/view/svn/postlfs/grub-setup.html">
           the BLFS page</a>.
         </p>
       </div>
@@ -156,7 +139,7 @@
           If no ESP exists on your hard drive (for example, you are building
           LFS on a fresh new system with a Live CD as the host distro), read
           <a class="ulink" href=
-          "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/grub-setup.html">
+          "https://www.linuxfromscratch.org/blfs/view/svn/postlfs/grub-setup.html">
           the BLFS page</a> for the instruction to create an ESP on your hard
           drive.
         </p>
@@ -259,20 +242,13 @@ mount /boot/efi</kbd></pre>
             recorded in an EFI variable. Then you need to create an EFI
             variable for the newly installed boot loader. Install <a class=
             "ulink" href=
-            "https://www.linuxfromscratch.org/blfs/view/systemd/postlfs/efibootmgr.html">
-            efibootmgr</a>, then run the following commands:
-          </p>
-          <pre class="userinput"><kbd class=
-          "command">mount -v -t efivarfs efivarfs /sys/firmware/efi/efivars
-efibootmgr -B -L LFS || true
-efibootmgr -c -L LFS -l '\EFI\BOOT\BOOTAA64.EFI' -d /dev/sda
-umount /sys/firmware/efi/efivars</kbd></pre>
-          <p>
-            Replace <code class="filename">/dev/sda</code> with the device
-            node of the hard drive where you are installing GRUB into. For
-            some UEFI firmwares, <code class="option">-e 3</code> option may
-            be needed for the <span class="command"><strong>efibootmgr
-            -c</strong></span> command.
+            "https://www.linuxfromscratch.org/blfs/view/svn/postlfs/efibootmgr.html">
+            efibootmgr</a>, and follow <a class="ulink" href=
+            "https://www.linuxfromscratch.org/blfs/view/svn/postlfs/grub-setup.html">
+            the BLFS instruction</a> to run the <span class=
+            "command"><strong>grub-install</strong></span> command without
+            the <em class="parameter"><code>--removable</code></em> option
+            then.
           </p>
         </div>
       </div>
@@ -294,10 +270,10 @@ insmod part_gpt
 insmod ext2
 set root=(hd0,2)
 
-insmod all_video
+insmod efi_gop
 
-menuentry "GNU/Linux, Linux 6.7.4-lfs-arm64-r12.0-319-systemd" {
-        linux   /boot/vmlinuz-6.7.4-lfs-arm64-r12.0-319-systemd root=/dev/sda2 ro
+menuentry "GNU/Linux, Linux 6.10.8-lfs-arm64-r12.2-119" {
+        linux   /boot/vmlinuz-6.10.8-lfs-arm64-r12.2-119 root=/dev/sda2 ro
 }</code>
 EOF</kbd></pre>
         <p>
@@ -312,7 +288,7 @@ EOF</kbd></pre>
           some modules into the main <span class="application">GRUB</span>
           image (installed into the MBR or the GRUB BIOS partition) to access
           the other modules (in <code class=
-          "filename">/boot/grub/i386-pc</code>) without a chicken-or-egg
+          "filename">/boot/grub/arm64-efi</code>) without a chicken-or-egg
           issue, so with a typical configuration these two modules are
           already embedded and those two <span class=
           "command"><strong>insmod</strong></span> commands will do nothing.
@@ -411,9 +387,9 @@ EOF</kbd></pre>
     <div class="navfooter">
       <ul>
         <li class="prev">
-          <a accesskey="p" href="kernel.html" title="Linux-6.7.4">Prev</a>
+          <a accesskey="p" href="kernel.html" title="Linux-6.10.8">Prev</a>
           <p>
-            Linux-6.7.4
+            Linux-6.10.8
           </p>
         </li>
         <li class="next">
@@ -429,7 +405,7 @@ EOF</kbd></pre>
         </li>
         <li class="home">
           <a accesskey="h" href="../index.html" title=
-          "Linux From Scratch - Version arm64-r12.0-319-systemd">Home</a>
+          "Linux From Scratch - Version arm64-r12.2-119">Home</a>
         </li>
       </ul>
     </div>
