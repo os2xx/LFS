@@ -11,9 +11,9 @@ title:  "LFS: Linux From Scratch"
 [&#x213C;](#)<br id="idx001"><br>
 ## LFS ARM64 12.2 CBK
 * [Version 12.2 CBK](arm64/){:target="_blank"}
+  * Published October 16th, 2024
   * <span style="color:red; font-weight:bold; font-size:larger;">This version 12.2 CBK 
     was adjusted to be close to the AMD ORI 12.2 version.</span>
-  * Published October 16th, 2024
 
 [&#x213C;](#)<br id="idx002"><br>
 ## Kernotex -- LFS HowTo
