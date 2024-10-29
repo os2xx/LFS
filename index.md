@@ -7,11 +7,13 @@ title:  "LFS: Linux From Scratch"
 ## LFS AMD64 12.2 ORI
 * [Version 12.2 ORI](amd64/){:target="_blank"}
   * Published September 1st, 2024
+  * Adapted from [AMD64 LFS 12.2](https://www.linuxfromscratch.org/lfs/view/12.2/){:target="_blank"}
 
 [&#x213C;](#)<br id="idx001"><br>
 ## LFS ARM64 12.2 CBK
 * [Version 12.2 CBK](arm64/){:target="_blank"}
   * Published October 16th, 2024
+  * Adapted from [HERE](https://www.linuxfromscratch.org/~xry111/lfs/view/arm64/){:target="_blank"}
   * <span style="color:red; font-weight:bold; font-size:larger;">This version 12.2 CBK 
     was adjusted to be close to the AMD ORI 12.2 version.</span>
 
